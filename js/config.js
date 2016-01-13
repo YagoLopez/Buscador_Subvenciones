@@ -8,7 +8,6 @@ MyApp.angular = angular.module('MyApp', []);
 
 MyApp.fw7 = {
   app : new Framework7({
-    //animateNavBackIcon: false
     material: true,
     pushState: false,
     sortable: false,
