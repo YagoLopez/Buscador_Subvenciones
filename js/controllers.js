@@ -1,4 +1,4 @@
-MyApp.angular.controller('IndexPageController', ['$scope', '$http', 'InitService', function ($scope, $http, InitService) {
+MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope, ColeccionAyudas, ColeccionAyudas2) {
 
     InitService.addEventListener('ready', function () {
         // DOM ready
@@ -21,27 +21,46 @@ MyApp.angular.controller('IndexPageController', ['$scope', '$http', 'InitService
     $scope.doAlert = function(){
         MyApp.fw7.app.alert('Here goes alert text');
     }
-}]);
 
-MyApp.angular.controller('DetailPageController', ['$scope', function ($scope) {
+    $scope.obtenerAyudas = function(){
+        ColeccionAyudas2.getDatos().success(function(data){
+            ColeccionAyudas2.setDatos(data.results);
+            console.log('coleccionayudas2.datos desde IndexCtrl.obtenerAyudas', ColeccionAyudas2.datos);
+        }).error(function(msg){
+            console.error(msg);
+        });    };
+});
 
+MyApp.angular.controller('DetailPageController', function ($scope) {
   $scope.hello= 'hello from DetailPageController';
-  
-}]);
+});
 
-//MyApp.angular.controller('AboutPageController', ['$scope', function ($scope) {
-//    console.log('AboutPageController');
-//    $scope.hello2= 'hello from AboutPageController';
-//
-//}]);
+MyApp.angular.controller('AboutPageController', function ($scope) {
+    console.log('hello from AboutPageController');
+    $scope.hello2= 'hello from AboutPageController';
 
-MyApp.angular.controller('SerchCtrl', ['$scope', function ($scope) {
-}]);
+});
 
-MyApp.angular.controller('IncludePageCtrl', ['$scope', '$templateCache', function ($scope, $window) {
+MyApp.angular.controller('IncludePageCtrl', function ($scope, $rootScope, ColeccionAyudas, ColeccionAyudas2) {
     console.log('IncludePageCtrl');
     $scope.contador = 0;
+    $scope.nAyudas = 0;
     $scope.modificar = function(){
         $scope.contador = $scope.contador + 1;
-    }
-}]);
+    };
+    $scope.averiguarAyudas = function(){
+        if(ColeccionAyudas.todas){
+            console.log('coleccion ayudas', ColeccionAyudas);
+            console.log('coleccion ayudas.todas', ColeccionAyudas.todas);
+            console.log('total coleccion ayudas', ColeccionAyudas.todas.length)
+        }
+    };
+
+    $scope.averiguarAyudas2 = function(){
+        console.log('coleccionayudas2.datos desde IncludePageCtrl.averiguarayudas2', ColeccionAyudas2.datos);
+    };
+
+
+});
+
+
