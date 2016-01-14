@@ -1,4 +1,4 @@
-MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope, ColeccionAyudas, ColeccionAyudas2) {
+MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope, ColeccionAyudas) {
 
     InitService.addEventListener('ready', function () {
         // DOM ready
@@ -22,13 +22,6 @@ MyApp.angular.controller('IndexPageController', function ($scope, InitService, $
         MyApp.fw7.app.alert('Here goes alert text');
     }
 
-    $scope.obtenerAyudas = function(){
-        ColeccionAyudas2.getDatos().success(function(data){
-            ColeccionAyudas2.setDatos(data.results);
-            console.log('coleccionayudas2.datos desde IndexCtrl.obtenerAyudas', ColeccionAyudas2.datos);
-        }).error(function(msg){
-            console.error(msg);
-        });    };
 });
 
 MyApp.angular.controller('DetailPageController', function ($scope) {
@@ -41,10 +34,10 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 
 });
 
-MyApp.angular.controller('IncludePageCtrl', function ($scope, $rootScope, ColeccionAyudas, ColeccionAyudas2) {
+MyApp.angular.controller('IncludePageCtrl', function ($scope, $rootScope, ColeccionAyudas) {
     console.log('IncludePageCtrl');
     $scope.contador = 0;
-    $scope.nAyudas = 0;
+    //$scope.nAyudas = 0;
     $scope.modificar = function(){
         $scope.contador = $scope.contador + 1;
     };
@@ -56,11 +49,22 @@ MyApp.angular.controller('IncludePageCtrl', function ($scope, $rootScope, Colecc
         }
     };
 
-    $scope.averiguarAyudas2 = function(){
-        console.log('coleccionayudas2.datos desde IncludePageCtrl.averiguarayudas2', ColeccionAyudas2.datos);
+    $scope.averiguaAyudas = function(){
+        console.log('ColeccionAyudas.datos desde IncludePageCtrl.averiguaAyudas', ColeccionAyudas.getDatos());
+        $scope.nAyudas = ColeccionAyudas.getDatos().length;
     };
 
+    MyApp.fw7.app.onPageBeforeInit('includepge', function (page) {
+        ColeccionAyudas.getDatosRemotos().success(function(data){
+            ColeccionAyudas.setDatos(data.results);
+            $scope.nAyudas = data.results.length;
+            $scope.coleccionAyudas = data.results
+            console.log('ColeccionAyudas.datos desde IncludePageCtrl', ColeccionAyudas.getDatos() );
+        }).error(function(msg){
+            console.error(msg);
+        });
 
+    })
 });
 
 

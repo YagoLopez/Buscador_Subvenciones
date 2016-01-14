@@ -14,8 +14,9 @@
     <button ng-click="modificar()">modificar</button>
     <p>contador: {{contador}}</p>
     <a href="#index" class="back"> Go back</a>
-    <p><button ng-click="averiguarAyudas2()">averiguar ayudas</button></p>
+    <p><button ng-click="averiguaAyudas()">averiguar ayudas</button></p>
     <p>numero de ayudas: {{nAyudas}}</p>
+    <div ng-repeat="item in coleccionAyudas">{{item.descripcion_ayuda}}<hr></div>
 </div>
 
 

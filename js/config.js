@@ -22,10 +22,5 @@ MyApp.fw7 = {
 
 MyApp.fw7.app.onPageBeforeInit('about', function (page) {
   console.log('about page onpageinit');
-
 });
 
-MyApp.fw7.app.onPageBeforeInit('includepge', function (page) {
-  console.log('includepge page onpageinit');
-
-});

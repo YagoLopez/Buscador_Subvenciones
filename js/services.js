@@ -43,27 +43,7 @@ MyApp.angular.factory('InitService', ['$document', function ($document) {
   
 }]);
 
-MyApp.angular.factory('ColeccionAyudas', function($http){
-  var factoria = {};
-
-  factoria.todas = null;
-
-  factoria.constructor = function(arr){
-    factoria.todas = arr;
-    console.log('constructor collecion ayudas', factoria.arrDatos);
-  };
-  factoria.url = 'https://api.import.io/store/connector/cb3a963f-7792-4779-be4f-7ba379c46eed/_query' +
-      '?input=webpage/url:http%3A%2F%2Fwww.boe.es%2Fbuscar%2Fayudas.php' +
-      '&&_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
-
-  factoria.obtenerDatos = function (){
-    return $http.get(factoria.url, {cache:true});
-  };
-
-  return factoria;
-});
-
-MyApp.angular.service('ColeccionAyudas2', function($http){
+MyApp.angular.service('ColeccionAyudas', function($http){
 
   this.datos = [];
 
@@ -76,6 +56,10 @@ MyApp.angular.service('ColeccionAyudas2', function($http){
   };
 
   this.getDatos = function(){
+    return this.datos;
+  };
+
+  this.getDatosRemotos = function(){
     console.log('url', this.url);
     return $http.get(this.url, {cache: true});
   };
