@@ -1,4 +1,4 @@
-MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope, ColeccionAyudas) {
+MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope, Subvenciones) {
 
     InitService.addEventListener('ready', function () {
         // DOM ready
@@ -34,37 +34,58 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 
 });
 
-MyApp.angular.controller('IncludePageCtrl', function ($scope, $rootScope, ColeccionAyudas) {
-    console.log('IncludePageCtrl');
+//MyApp.angular.controller('IncludePageCtrl', function ($scope, $rootScope, Subvenciones) {
+//    console.log('IncludePageCtrl');
+//    $scope.contador = 0;
+//    //$scope.totalSubvenciones = 0;
+//    $scope.modificar = function(){
+//        $scope.contador = $scope.contador + 1;
+//    };
+//    $scope.averiguarSubvenciones = function(){
+//    };
+//
+//    $scope.averiguaSubvenciones = function(){
+//        console.log('Subvenciones.datos desde IncludePageCtrl.averiguaSubvenciones', Subvenciones.getDatos());
+//        $scope.totalSubvenciones = Subvenciones.getDatos().length;
+//    };
+//
+//    MyApp.fw7.app.onPageBeforeInit('includepge', function (page) {
+//        Subvenciones.getDatosRemotos().success(function(data){
+//            Subvenciones.setDatos(data.results);
+//            $scope.totalSubvenciones = data.results.length;
+//            $scope.Subvenciones = data.results
+//            console.log('Subvenciones.datos desde IncludePageCtrl', Subvenciones.getDatos() );
+//        }).error(function(msg){
+//            console.error(msg);
+//        });
+//
+//    })
+//});
+
+MyApp.angular.controller('BoeCtrl', function ($scope, Subvenciones) {
+    console.log('BoeCtrl');
     $scope.contador = 0;
-    //$scope.nAyudas = 0;
-    $scope.modificar = function(){
-        $scope.contador = $scope.contador + 1;
-    };
-    $scope.averiguarAyudas = function(){
-        if(ColeccionAyudas.todas){
-            console.log('coleccion ayudas', ColeccionAyudas);
-            console.log('coleccion ayudas.todas', ColeccionAyudas.todas);
-            console.log('total coleccion ayudas', ColeccionAyudas.todas.length)
-        }
-    };
+    $scope.totalSubvenciones = 0;
 
-    $scope.averiguaAyudas = function(){
-        console.log('ColeccionAyudas.datos desde IncludePageCtrl.averiguaAyudas', ColeccionAyudas.getDatos());
-        $scope.nAyudas = ColeccionAyudas.getDatos().length;
-    };
+    //MyApp.fw7.app.onPageBeforeInit('boe', function (page) {
+    //    Subvenciones.getDatosRemotos().success(function(data){
+    //        Subvenciones.setDatos(data.results);
+    //        $scope.totalSubvenciones = data.results.length;
+    //        $scope.subvenciones = data.results
+    //        console.log('Subvenciones.datos desde BoeCtrl', Subvenciones.getDatos() );
+    //    }).error(function(msg){
+    //        console.error(msg);
+    //    });
+    //});
 
-    MyApp.fw7.app.onPageBeforeInit('includepge', function (page) {
-        ColeccionAyudas.getDatosRemotos().success(function(data){
-            ColeccionAyudas.setDatos(data.results);
-            $scope.nAyudas = data.results.length;
-            $scope.coleccionAyudas = data.results
-            console.log('ColeccionAyudas.datos desde IncludePageCtrl', ColeccionAyudas.getDatos() );
+    $scope.buscarSubvenciones = function(){
+        Subvenciones.getDatosRemotos().success(function(data){
+            Subvenciones.setDatos(data.results);
+            $scope.totalSubvenciones = data.results.length;
+            $scope.subvenciones = data.results
+            console.log('Subvenciones.datos desde BoeCtrl', Subvenciones.getDatos() );
         }).error(function(msg){
             console.error(msg);
         });
-
-    })
+    };
 });
-
-

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="MyApp">
-  <head>
-    
+<head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
+
     <title>MyApp</title>
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="lib/f7/framework7.material.min.css">
     <link rel="stylesheet" href="lib/f7/framework7.material.colors.min.css">
@@ -20,176 +20,104 @@
     <script type="text/javascript" src="js/services.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
 
-  </head>
+</head>
 
-  <body>
-  <div class="views">
-      <div class="view view-main">
-          <div class="pages navbar-fixed toolbar-fixed">
-              <!-- Panels Overlay -->
-              <div class="panel-overlay"></div>
-              <!-- Left Panel with Reveal effect -->
-              <div class="panel panel-left panel-cover">
-                  <div class="content-block">
-                      <p>Left Panel content here</p>
-                      <!-- Click on link with "close-panel" class will close panel -->
-                      <p><a href="#" class="close-panel">Close me</a></p>
-                      <!-- Click on link with "open-panel" and data-panel="right" attribute will open Right panel -->
-                      <p><a href="#" data-panel="right" class="open-panel">Open Right Panel</a></p>
-                  </div>
-              </div>
-              <div class="panel panel-right panel-cover">
-                  <div class="content-block">
-                      <p>Right Panel content here</p>
-                      <p><a href="#" class="panel-close">Close me</a></p>
-                      <p><a href="#" class="open-left-panel">Open Left Panel</a></p>
-                  </div>
-              </div>
+<body>
+<div class="views">
+    <div class="view view-main">
+        <div class="pages navbar-fixed toolbar-fixed">
+            <!-- menu ---------------------------------------------------------------------------------------------- -->
+            <div class="panel-overlay"></div>
+            <div class="panel panel-left panel-cover">
+                <div class="content-block">
+                    <p>Left Panel content here</p>
+                    <p><a href="#" class="close-panel">Close me</a></p>
+                    <p><a href="#" data-panel="right" class="open-panel">Open Right Panel</a></p>
+                </div>
+            </div>
+            <div class="panel panel-right panel-cover">
+                <div class="content-block">
+                    <p>Right Panel content here</p>
+                    <p><a href="#" class="panel-close">Close me</a></p>
+                    <p><a href="#" class="open-left-panel">Open Left Panel</a></p>
+                </div>
+            </div>
+            <!-- index page -------------------------------------------------------------------------------------- -->
+            <div data-page="index" class="page" ng-controller="IndexPageController">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a href="#" class="link icon-only open-panel" data-panel="left">
+                                <i class="icon icon-bars"></i>
+                            </a>
+                        </div>
+                        index
+                    </div>
+                </div>
+                <div class="page-content">
+                    <a href="#detailsPage">details</a><br>
+                    <a href="html/about.html">about</a><br>
+                    {{ hello }}
+                    <p><a href="#" class="open-panel">Open Left Panel</a></p>
+                    <p><a href="#" data-panel="right" class="open-panel">Open Right Panel</a></p>
+                    <p><a href="#" class="alert-text" ng-click="doAlert()">Alert With Text</a></p>
+                    <p><a href="#" data-popup=".popup-about" class="open-popup">Open About Popup </a></p>
+                    <p><a href="#" data-picker=".picker-1" class="open-picker">Open Picker </a></p>
+                    <p><a href="html/tabs.html">tabs</a></p>
+                    <p><a href="html/accordion.html">accordion</a></p>
+                    <p><a href="html/fab.html">fab</a></p>
+                    <p><a href="#boe">Subvenciones Boe</a></p>
+                </div>
+            </div>
+            <!-- details page -------------------------------------------------------------------------------------- -->
+            <div data-page="detailsPage" class="page cached" ng-controller="DetailPageController">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a href="#index" class="link icon-only"><i class="icon icon-back"></i></a>
+                        </div>
+                        <div class="center">Center</div>
+                        <div class="right">
+                            <a href="#index" class="link icon-only"><i class="icon icon-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    This is details page (inline)<br/>
+                    {{ hello2 }}
+                    <a href="#index" class="back"> Go back</a>
+                </div>
+            </div>
+            <!-- About Popup --------------------------------------------------------------------------------------- -->
+            <div class="popup popup-about">
+                <div class="content-block">
+                    <p>About</p>
+                    <p><a href="#" class="close-popup">Close popup</a></p>
+                    <p>Lorem ipsum dolor ...</p>
+                </div>
+            </div>
+            <!-- pagina boe ---------------------------------------------------------------------------------------- -->
+            <ng-include src="'html/boe.html'" ng-controller="BoeCtrl"></ng-include>
+        </div>
 
-              <!-- index page -------------------------------------------------------------------------------------- -->
-              <div data-page="index" class="page" ng-controller="IndexPageController">
-                  <div class="navbar">
-                      <div class="navbar-inner">
-                          <div class="left">
-                              <a href="#" class="link icon-only open-panel" data-panel="left">
-                                  <i class="icon icon-bars"></i>
-                              </a>
-                          </div>
-                          index
-                      </div>
-                  </div>
-                  <div class="page-content">
-                      <a href="#detailsPage">details</a><br>
-                      <a href="html/about.html">about</a><br>
-                      {{ hello }}
-                      <!-- If no data-panel attribute, Left panel will be opened by default -->
-                      <p><a href="#" class="open-panel">Open Left Panel</a></p>
-                      <!-- Click on link with "open-panel" and data-panel="right" attribute will open Right panel -->
-                      <p><a href="#" data-panel="right" class="open-panel">Open Right Panel</a></p>
-                      <p><a href="#" class="alert-text" ng-click="doAlert()">Alert With Text</a></p>
-                      <p><a href="#" data-popup=".popup-about" class="open-popup">Open About Popup </a></p>
-                      <p><a href="#" data-popup=".popup-services" class="open-popup">Open Services Popup </a></p>
-                      <p><a href="#serch">serch</a></p>
-                      <p><a href="#" data-picker=".picker-1" class="open-picker">Open Picker </a></p>
-                      <p><a href="html/tabs.html">tabs</a></p>
-                      <p><a href="html/accordion.html">accordion</a></p>
-                      <p><a href="html/fab.html">fab</a></p>
-                      <p><a href="#includepge">include page</a></p>
+    </div>
 
-                  </div>
-              </div>
-              <!-- details page -------------------------------------------------------------------------------------- -->
-              <div data-page="detailsPage" class="page cached" ng-controller="DetailPageController">
-                  <div class="navbar">
-                      <div class="navbar-inner">
-                          <div class="left">
-                              <a href="#index" class="link icon-only">
-                                  <i class="icon icon-back"></i>
-                              </a>
-                          </div>
-                          <div class="center">Center</div>
-                          <div class="right">
-                              <a href="#index" class="link icon-only">
-                                  <i class="icon icon-bars"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="page-content">
-                      This is details page (inline)<br/>
-                      {{ hello2 }}
-                      <a href="#index" class="back"> Go back</a>
-                  </div>
-              </div>
-              <!-- details page -------------------------------------------------------------------------------------- -->
-
-              <!-- About Popup -->
-              <div class="popup popup-about">
-                  <div class="content-block">
-                      <p>About</p>
-                      <p><a href="#" class="close-popup">Close popup</a></p>
-                      <p>Lorem ipsum dolor ...</p>
-                  </div>
-              </div>
-              <!-- Services Popup -->
-              <div class="popup popup-services">
-                  <div class="content-block">
-                      <p>Services</p>
-                      <p><a href="#" class="close-popup">Close popup</a></p>
-                      <p>Lorem ipsum dolor ...</p>
-                  </div>
-              </div>
-
-              <!-- serch ------------------------------------------------------------------------------------------- -->
-              <div data-page="serch" class="page cached">
-                  <div class="navbar">
-                      <div class="navbar-inner">
-                          <div class="left">
-                              <a href="#index" class="link icon-only">
-                                  <i class="icon icon-back"></i>
-                              </a>
-                          </div>
-                          <div class="center">search</div>
-                      </div>
-                  </div>
-                  <!-- Search Bar -->
-                  <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
-                      <div class="searchbar-input">
-                          <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
-                      </div><a href="#" class="searchbar-cancel">Cancel</a>
-                  </form>
-                  <!-- Search Bar overlay -->
-                  <div class="searchbar-overlay"></div>
-                  <div class="page-content">
-                      <!-- This block will be displayed if nothing found -->
-                      <div class="content-block searchbar-not-found">
-                          <div class="content-block-inner">Nothing found</div>
-                      </div>
-                      <!-- This block will be displayed if anything found, and this list block is used a searbar target -->
-                      <div class="list-block list-block-search searchbar-found">
-                          <ul>
-                              <li class="item-content">
-                                  <div class="item-inner">
-                                      <div class="item-title">Acura </div>
-                                  </div>
-                              </li>
-                              <li class="item-content">
-                                  <div class="item-inner">
-                                      <div class="item-title">Audi</div>
-                                  </div>
-                              </li>
-                          </ul>
-                      </div>
-                      <a href="#index" class="back">go back</a>
-                  </div>
-              </div>
-              <!-- serch ------------------------------------------------------------------------------------------- -->
-
-              <!-- include pge -------------------------------------------------------------------------------------- -->
-              <div data-page="includepge" class="page cached" ng-controller="IncludePageCtrl">
-                  <ng-include src="'html/include-pge.html'"></ng-include>
-              </div>
-              <!-- include pge -------------------------------------------------------------------------------------- -->
-          </div>
-
-      </div>
-
-  </div>
-  <!-- Picker -->
-  <div class="picker-modal picker-1">
-      <div class="toolbar">
-          <div class="toolbar-inner">
-              <div class="left"></div>
-              <div class="right"><a href="#" class="close-picker">Done</a></div>
-          </div>
-      </div>
-      <div class="picker-modal-inner">
-          <div class="content-block">
-              <h4>Info 1</h4>
-              <p>Lorem ipsum dolor...</p>
-          </div>
-      </div>
-  </div>
-  </body>
+</div>
+<!-- Picker -->
+<div class="picker-modal picker-1">
+    <div class="toolbar">
+        <div class="toolbar-inner">
+            <div class="left"></div>
+            <div class="right"><a href="#" class="close-picker">Done</a></div>
+        </div>
+    </div>
+    <div class="picker-modal-inner">
+        <div class="content-block">
+            <h4>Info 1</h4>
+            <p>Lorem ipsum dolor...</p>
+        </div>
+    </div>
+</div>
+</body>
 
 </html>
