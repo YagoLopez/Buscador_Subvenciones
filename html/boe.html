@@ -1,3 +1,9 @@
+<style type="text/css">
+    #listaSubvenciones .item-inner {
+        font-size: small;
+    }
+
+</style>
 <div data-page="boe" class="page cached">
     <div class="navbar">
         <div class="navbar-inner">
@@ -8,7 +14,7 @@
         </div>
     </div>
     <!-- Search Bar -->
-    <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+    <form data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
         <div class="searchbar-input">
             <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
         </div><a href="#" class="searchbar-cancel">Cancel</a>
@@ -21,14 +27,12 @@
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
         <div class="list-block list-block-search searchbar-found">
-            <ul>
-                <li ng-repeat="item in subvenciones" class="item-content">
-                    <div class="item-inner">
-                        <div class="item-title">{{ item.descripcion_ayuda }}</div>
-                    </div>
+            <ul id="listaSubvenciones">
+                <li ng-repeat="subv in subvenciones" class="item-content">
+                    <a href="#" class="item-link"><div class="item-inner">{{ ::subv.descripcion_ayuda }}</div></a>
                 </li>
             </ul>
         </div>
-        <a href="#index" class="back">go back</a>
+        <a href="#index">go back</a>
     </div>
 </div>
