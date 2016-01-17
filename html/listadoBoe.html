@@ -4,7 +4,7 @@
     }
 
 </style>
-<div data-page="boe" class="page cached">
+<div data-page="listadoBoe" class="page cached">
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
@@ -21,18 +21,28 @@
     </form>
     <div class="searchbar-overlay"></div>
     <div class="page-content">
-        <button ng-click="buscarSubvenciones()">Buscar Subvenciones</button>
-        <div>Total: {{ totalSubvenciones }}</div>
+        <button ng-click="obtenerItems2()">Buscar Subvenciones</button>
+        <div>Total: {{ totalItems }}</div>
+
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
         <div class="list-block list-block-search searchbar-found">
             <ul id="listaSubvenciones">
-                <li ng-repeat="subv in subvenciones" class="item-content">
-                    <a href="#" class="item-link"><div class="item-inner">{{ ::subv.descripcion_ayuda }}</div></a>
+                <li ng-repeat="item in items" class="item-content">
+                    <a href="#detalleBoe" class="item-link">
+                        <div class="item-inner">
+                        <div>
+                            {{ ::item.title }}<br>
+                        <div class="external link" style="font-size: x-small;color:cornflowerblue">
+                            {{ ::item.description }}</div>
+                        </div>
+                        </div>
+                    </a>
                 </li>
             </ul>
         </div>
         <a href="#index">go back</a>
+
     </div>
 </div>

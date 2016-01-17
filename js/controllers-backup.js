@@ -33,7 +33,7 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
     $scope.hello2= 'hello from AboutPageController';
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
     var url = null;
     $scope.totalItems = 0;
 
@@ -61,11 +61,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
         });
     };
 
-    $scope.obtenerItems2 = function(){
-      Boe.getJson2(Boe.urlListadoSubvenciones).then(function(){
-          console.log(Boe.getDatos());
-      })
-    };
 });
 // =====================================================================================================================
 MyApp.angular.controller('detalleBoeCtrl', function ($scope, Boe) {

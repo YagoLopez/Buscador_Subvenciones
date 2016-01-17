@@ -11,7 +11,8 @@ MyApp.fw7 = {
     material: true,
     pushState: false,
     sortable: false,
-    cache: false
+    cache: false,
+    materialPageLoadDelay: 1
     //pushStateSeparator: '#!'
   }),
   options : {

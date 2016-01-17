@@ -43,7 +43,7 @@ MyApp.angular.factory('InitService', function ($document) {
   
 });
 // =====================================================================================================================
-MyApp.angular.service('Boe', function($http, Error){
+MyApp.angular.service('Boe', function($http){
 
   this.datos = [];
 
@@ -67,23 +67,5 @@ MyApp.angular.service('Boe', function($http, Error){
     return $http.get(url, {cache: true});
   };
 
-  this.getJson2 = function(url){
-    console.log('url', url);
-    var promesa = $http.get(url, {cache: true}).then(function(resp){
-      console.log(resp);
-      this.datos = resp.data.query.results;
-    }, function(resp){
-      Error.mostrar(resp);
-    });
-    return promesa;
-  };
 });
 // =====================================================================================================================
-MyApp.angular.service('Error', function(){
-
-  this.mostrar = function(resp){
-    msg = resp.data+'<br>Posibles causas del Error:<br>'+'1) No conexion datos <br>2) Fallo servidor remoto';
-    MyApp.fw7.app.alert(msg);
-    console.error(resp);
-  };
-});
