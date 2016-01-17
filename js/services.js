@@ -45,21 +45,15 @@ MyApp.angular.factory('InitService', function ($document) {
 // =====================================================================================================================
 MyApp.angular.service('Boe', function($http, Error){
 
-  //todo: hace falta?
-  this.items = [];
-
   this.urlListadoSubvenciones = 'https://query.yahooapis.com/v1/public/yql/yls/boe-ayudas?format=json';
-  this.urlDetalleSubvencion ='https://query.yahooapis.com/v1/public/yql?q=select texto from xml where url="http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387"';
+  this.urlDetalleSubvencion ='https://query.yahooapis.com/v1/public/yql?q=' +
+      'select texto from xml where url="http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387"';
   this.urlListadoBecas = '';
   this.urlDetalleBeca = '';
   this.urlListadoPremios = '';
   this.urlDetallePremio = '';
 
-  this.getItems = function(){
-    return this.items;
-  };
-
-  this.getJson = function(url){
+  this.getListado = function(url){
     console.log('url', url);
     var promesa = $http.get(url, {cache: true}).then(function(resp){
       console.log(resp);
@@ -69,7 +63,8 @@ MyApp.angular.service('Boe', function($http, Error){
     });
     return promesa;
   };
-  this.getDetalleSubvencion = function(url){
+
+  this.getDetalle = function(url){
     console.log('url', url);
     var promesa = $http.get(url, {cache: true}).then(function(resp){
       console.log(resp);

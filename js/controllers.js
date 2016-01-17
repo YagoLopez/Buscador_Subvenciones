@@ -46,19 +46,19 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
       });
 
     $scope.obtenerItems = function(){
-      Boe.getJson(url).then(function(resp){
+      Boe.getListado(url).then(function(resp){
           $scope.items = resp.data.query.results.item;
       });
     };
 
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
-        Boe.getDetalleSubvencion(Boe.urlDetalleSubvencion).then(function(htmlDetalle){
+        Boe.getDetalle(Boe.urlDetalleSubvencion).then(function(htmlDetalle){
             console.log('detalle subvencion', htmlDetalle);
-            $scope.htmlDetalle = htmlDetalle;
+            $scope.htmlDetalle = $sce.trustAsHtml(htmlDetalle);
         });
     });
 
