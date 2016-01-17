@@ -34,6 +34,7 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
+    console.log('listado boe ctrl');
     var url = null;
     $scope.totalItems = 0;
 
@@ -45,31 +46,21 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
       });
 
     $scope.obtenerItems = function(){
-        console.log('url', url);
-        Boe.getJson(url).then(
-            function(resp){
-                var resultado = resp.query.results.item;
-                Boe.setDatos(resultado);
-                $scope.totalItems = resp.query.count;
-                $scope.items = resultado;
-                console.log('datos desde ListadoBoeCtrl', Boe.getDatos() );
-        }, function(resp){
-                console.error(resp);
-                var msg = 'ERROR<br>Traza: ListadoBoeCtrl.getJson<br>Estado: '+resp.status+
-                    '<br>Posibles causas:<br>'+'1) No conexion datos <br>2) Fallo servidor remoto'+resp.data;
-                MyApp.fw7.app.alert(msg);
-        });
+      Boe.getJson(url).then(function(resp){
+          $scope.items = resp.data.query.results.item;
+      });
     };
 
-    $scope.obtenerItems2 = function(){
-      Boe.getJson2(Boe.urlListadoSubvenciones).then(function(){
-          console.log(Boe.getDatos());
-      })
-    };
 });
 // =====================================================================================================================
-MyApp.angular.controller('detalleBoeCtrl', function ($scope, Boe) {
-    MyApp.fw7.app.onPageBeforeInit('listadoBoe', function (page) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
+
+    MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
+        Boe.getDetalleSubvencion(Boe.urlDetalleSubvencion).then(function(htmlDetalle){
+            console.log('detalle subvencion', htmlDetalle);
+            $scope.htmlDetalle = htmlDetalle;
+        });
     });
+
 
 });

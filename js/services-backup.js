@@ -45,7 +45,7 @@ MyApp.angular.factory('InitService', function ($document) {
 // =====================================================================================================================
 MyApp.angular.service('Boe', function($http){
 
-  this.datos = [];
+  this.items = [];
 
   this.urlListadoSubvenciones = 'https://query.yahooapis.com/v1/public/yql/yls/boe-ayudas?format=json';
   this.urlDetalleSubvencion ='http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387';
@@ -54,12 +54,12 @@ MyApp.angular.service('Boe', function($http){
   this.urlListadoPremios = '';
   this.urlDetallePremio = '';
 
-  this.setDatos = function(arrDatos){
-    this.datos = arrDatos;
+  this.setItems = function(arrDatos){
+    this.items = arrDatos;
   };
 
-  this.getDatos = function(){
-    return this.datos;
+  this.getItems = function(){
+    return this.items;
   };
 
   this.getJson = function(url){

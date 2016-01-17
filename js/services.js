@@ -45,37 +45,44 @@ MyApp.angular.factory('InitService', function ($document) {
 // =====================================================================================================================
 MyApp.angular.service('Boe', function($http, Error){
 
-  this.datos = [];
+  //todo: hace falta?
+  this.items = [];
 
   this.urlListadoSubvenciones = 'https://query.yahooapis.com/v1/public/yql/yls/boe-ayudas?format=json';
-  this.urlDetalleSubvencion ='http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387';
+  this.urlDetalleSubvencion ='https://query.yahooapis.com/v1/public/yql?q=select texto from xml where url="http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387"';
   this.urlListadoBecas = '';
   this.urlDetalleBeca = '';
   this.urlListadoPremios = '';
   this.urlDetallePremio = '';
 
-  this.setDatos = function(arrDatos){
-    this.datos = arrDatos;
-  };
-
-  this.getDatos = function(){
-    return this.datos;
+  this.getItems = function(){
+    return this.items;
   };
 
   this.getJson = function(url){
     console.log('url', url);
-    return $http.get(url, {cache: true});
+    var promesa = $http.get(url, {cache: true}).then(function(resp){
+      console.log(resp);
+      return resp;},
+    function(datosError){
+      Error.mostrar(datosError);
+    });
+    return promesa;
   };
-
-  this.getJson2 = function(url){
+  this.getDetalleSubvencion = function(url){
     console.log('url', url);
     var promesa = $http.get(url, {cache: true}).then(function(resp){
       console.log(resp);
-      this.datos = resp.data.query.results;
-    }, function(resp){
-      Error.mostrar(resp);
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(resp.data,'text/xml');
+      var htmlDetalle = xmlDoc.getElementsByTagName('texto')[0].innerHTML;
+      console.log('htmlDetalle', htmlDetalle);
+      return htmlDetalle;},
+    function(datosError){
+      Error.mostrar(datosError);
     });
     return promesa;
+
   };
 });
 // =====================================================================================================================

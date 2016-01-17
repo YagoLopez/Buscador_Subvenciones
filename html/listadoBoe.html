@@ -21,8 +21,8 @@
     </form>
     <div class="searchbar-overlay"></div>
     <div class="page-content">
-        <button ng-click="obtenerItems2()">Buscar Subvenciones</button>
-        <div>Total: {{ totalItems }}</div>
+        <button ng-click="obtenerItems()">Buscar Subvenciones</button>
+        <div>Total: {{ items.length }}</div>
 
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
@@ -42,7 +42,10 @@
                 </li>
             </ul>
         </div>
-        <a href="#index">go back</a>
+        <a href="#index">go back</a><br>
+        <a href="#detalleBoe">detalle</a>
+        <!-- pagina detalle boe -------------------------------------------------------------------------------- -->
+        <ng-include src="'html/detalleBoe.html'" ng-controller="DetalleBoeCtrl"></ng-include>
 
     </div>
 </div>
