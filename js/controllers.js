@@ -53,12 +53,13 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
 
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
 
+    $scope.textoDetalle = 'Obteniendo datos...';
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
-        Boe.getDetalle(Boe.urlDetalleSubvencion).then(function(htmlDetalle){
-            console.log('detalle subvencion', htmlDetalle);
-            $scope.htmlDetalle = $sce.trustAsHtml(htmlDetalle);
+        Boe.getDetalle(Boe.urlDetalleSubvencion).then(function(resp){
+            console.log('detalle subvencion', resp.data.query.results);
+            $scope.textoDetalle = resp.data.query.results;
         });
     });
 
