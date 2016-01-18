@@ -47,11 +47,18 @@ MyApp.angular.service('Boe', function($http, Error){
 
   this.urlListadoSubvenciones = 'https://query.yahooapis.com/v1/public/yql/yls/boe-ayudas?format=json';
   //this.urlDetalleSubvencion ='https://query.yahooapis.com/v1/public/yql?q=select texto from xml where url="http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387"';
-  this.urlDetalleSubvencion ='https://query.yahooapis.com/v1/public/yql?q=select * from html where url="http://www.boe.es/diario_boe/txt.php?id=BOE-A-2016-387" and compat="html5" and xpath="//*[@id=\'textoxslt\']/p[1]//text()"&format=json';
+  this.urlDetalleSubvencion = function(idboe){
+    //idboe ='id=BOE-A-2016-387';
+    var url = 'https://query.yahooapis.com/v1/public/yql?q=select * from html where url="http://www.boe.es/diario_boe/txt.php?id='
+    + idboe + '" and compat="html5" and xpath="//*[@id=\'textoxslt\']/p[1]//text()"&format=json';
+    return url;
+  };
   this.urlListadoBecas = '';
   this.urlDetalleBeca = '';
   this.urlListadoPremios = '';
   this.urlDetallePremio = '';
+  this.urlListadoOposiciones = '';
+  this.urlListadoOposicion =''
 
   this.getListado = function(url){
     console.log('url', url);
@@ -96,7 +103,7 @@ MyApp.angular.service('Boe', function($http, Error){
 MyApp.angular.service('Error', function(){
 
   this.mostrar = function(resp){
-    msg = resp.data+'<br>Posibles causas del Error:<br>'+'1) No conexion datos <br>2) Fallo servidor remoto';
+    msg = 'ERROR. Codigo: resp.status<br>'+'Datos: '+resp.statusText+'<br>Posibles causas:<br>'+'1) No conexion datos <br>2) Fallo servidor remoto';
     MyApp.fw7.app.alert(msg);
     console.error(resp);
   };

@@ -34,14 +34,13 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
-    console.log('listado boe ctrl');
     var url = null;
-    $scope.totalItems = 0;
 
     MyApp.fw7.app.onPageBeforeInit('listadoBoe', function (page) {
         if(page.query.clase === 'subvenciones') url = Boe.urlListadoSubvenciones;
-        else if(page.query.clase === 'becas'){}
-        else if(page.query.clase === 'premios'){};
+        else if(page.query.clase === 'becas'){Boe.urlListadoBecas}
+        else if(page.query.clase === 'premios'){Boe.urlListadoPremios}
+        else if(page.query.clase === 'oposiciones'){Boe.urlListadoPremios};
         //$scope.obtenerItems();
       });
 
@@ -51,14 +50,18 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
       });
     };
 
+    $scope.hallaId = function(url){
+      return url.split('=')[1];
+    };
+
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
 
     $scope.textoDetalle = 'Obteniendo datos...';
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
-        Boe.getDetalle(Boe.urlDetalleSubvencion).then(function(resp){
-            console.log('detalle subvencion', resp.data.query.results);
+        console.log('pge', page.query.id);
+        Boe.getDetalle( Boe.urlDetalleSubvencion(page.query.id) ).then(function(resp){
             $scope.textoDetalle = resp.data.query.results;
         });
     });
