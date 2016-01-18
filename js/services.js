@@ -45,11 +45,11 @@ MyApp.angular.factory('InitService', function ($document) {
 // =====================================================================================================================
 MyApp.angular.service('Boe', function($http, Error){
 
-  this.urlListadoSubvenciones = 'https://query.yahooapis.com/v1/public/yql/yls/boe-ayudas?format=json';
+  this.urlYQL = 'https://query.yahooapis.com/v1/public/yql';
+  this.urlListadoSubvenciones = this.urlYQL+'/yls/boe-ayudas?format=json';
   //this.urlDetalleSubvencion ='https://query.yahooapis.com/v1/public/yql?q=select texto from xml where url="http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387"';
   this.urlDetalleSubvencion = function(idboe){
-    //idboe ='id=BOE-A-2016-387';
-    var url = 'https://query.yahooapis.com/v1/public/yql?q=select * from html where url="http://www.boe.es/diario_boe/txt.php?id='
+    var url = this.urlYQL+'?q=select * from html where url="http://www.boe.es/diario_boe/txt.php?id='
     + idboe + '" and compat="html5" and xpath="//*[@id=\'textoxslt\']/p[1]//text()"&format=json';
     return url;
   };

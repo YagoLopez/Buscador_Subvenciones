@@ -56,13 +56,17 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
 
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
 
-    $scope.textoDetalle = 'Obteniendo datos...';
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
         console.log('pge', page.query.id);
+        $scope.textoDetalle = 'Obteniendo datos...';
         Boe.getDetalle( Boe.urlDetalleSubvencion(page.query.id) ).then(function(resp){
-            $scope.textoDetalle = resp.data.query.results;
+            console.log(resp.data.query.results.lenght);
+            if (resp.data.query.results.length < 100)
+                $scope.textoDetalle =  "[Texto demasiado largo. Consultar p\u00E1gina web o PDF]";
+            else
+                $scope.textoDetalle = resp.data.query.results+'...';
         });
     });
 
