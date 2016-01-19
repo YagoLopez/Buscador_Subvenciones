@@ -12,7 +12,9 @@ MyApp.fw7 = {
     pushState: false,
     sortable: false,
     cache: false,
-    materialPageLoadDelay: 1
+    materialPageLoadDelay: 1,
+    modalTitle: 'Informaci\u00F3n',
+    modalButtonCancel: 'Cancelar'
     //pushStateSeparator: '#!'
   }),
   options : {

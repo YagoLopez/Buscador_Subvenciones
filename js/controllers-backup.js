@@ -38,9 +38,9 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
     $scope.totalItems = 0;
 
     MyApp.fw7.app.onPageBeforeInit('listadoBoe', function (page) {
-        if(page.query.clase === 'subvenciones') url = Boe.urlListadoSubvenciones;
-        else if(page.query.clase === 'becas'){}
-        else if(page.query.clase === 'premios'){};
+        if(page.query.tipo === 'subvenciones') url = Boe.urlListado;
+        else if(page.query.tipo === 'becas'){}
+        else if(page.query.tipo === 'premios'){};
         //$scope.obtenerItems();
       });
 

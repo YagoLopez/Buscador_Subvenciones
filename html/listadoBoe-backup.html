@@ -23,15 +23,15 @@
     <div class="page-content">
         <button ng-click="obtenerItems()">Buscar Subvenciones</button>
         <div>Total: {{ items.length }}</div>
+
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
         <div class="list-block list-block-search searchbar-found">
-            <ul id="lista">
+            <ul id="listaSubvenciones">
                 <li ng-repeat="item in items" class="item-content">
                     <a href="#detalleBoe?id={{ hallaId(item.link) }}" class="item-link">
-                    <!--<a href="{{ ::item.link }}" class="item-content" target="_blank">-->
-                    <div class="item-inner">
+                        <div class="item-inner">
                         <div>
                             {{ ::item.title }}<br>
                         <div class="external link" style="font-size: x-small;color:cornflowerblue">

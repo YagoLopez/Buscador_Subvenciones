@@ -45,21 +45,27 @@ MyApp.angular.factory('InitService', function ($document) {
 // =====================================================================================================================
 MyApp.angular.service('Boe', function($http, Error){
 
-  this.urlYQL = 'https://query.yahooapis.com/v1/public/yql';
-  this.urlListadoSubvenciones = this.urlYQL+'/yls/boe-ayudas?format=json';
-  //this.urlDetalleSubvencion ='https://query.yahooapis.com/v1/public/yql?q=select texto from xml where url="http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387"';
-  this.urlDetalleSubvencion = function(idboe){
-    var url = this.urlYQL+'?q=select * from html where url="http://www.boe.es/diario_boe/txt.php?id='
-    + idboe + '" and compat="html5" and xpath="//*[@id=\'textoxslt\']/p[1]//text()"&format=json';
-    return url;
-  };
-  this.urlListadoBecas = '';
-  this.urlDetalleBeca = '';
-  this.urlListadoPremios = '';
-  this.urlDetallePremio = '';
-  this.urlListadoOposiciones = '';
-  this.urlListadoOposicion =''
+  //todo: a lo mejor se pueden parametrizar y mejorar las url y reducir codigo. Parametrizar url boe listado
+  var queryListado = 'select * from rss where url=@url';
+  //var queryDetalle = 'select * from html where url=@url and xpath="//*[@id=\'barraSep\']/node()//text()"';
+  //https://query.yahooapis.com/v1/public/yql/yls/boe-detalle?url=http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387&format=json
+  var urlYQL = 'https://query.yahooapis.com/v1/public/yql';
+  var urlBaseDetalle = 'http://www.boe.es/diario_boe/txt.php';
 
+  this.urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
+  this.urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
+  this.urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
+  this.urlOposiciones = 'http://www.boe.es/rss/canal.php?c=oposiciones';
+
+
+  this.urlListado = function(urlListadoBoe){
+    return urlYQL + '?url='+urlListadoBoe + '&q='+queryListado + '&format=json';
+  };
+  this.urlDetalle = function(idboe){
+    //return urlYQL + '?url='+urlBaseDetalle+'?id='+idboe + '&q='+queryDetalle+ '&format=json';
+    return urlBaseDetalle+'?id='+idboe;
+
+  };
   this.getListado = function(url){
     console.log('url', url);
     var promesa = $http.get(url, {cache: true}).then(function(resp){
@@ -71,40 +77,41 @@ MyApp.angular.service('Boe', function($http, Error){
     return promesa;
   };
 
-  this.getDetalleXml = function(url){
-    console.log('url', url);
-    var promesa = $http.get(url, {cache: true}).then(function(resp){
-      console.log(resp);
-      parser = new DOMParser();
-      xmlDoc = parser.parseFromString(resp.data,'text/xml');
-      var htmlDetalle = xmlDoc.getElementsByTagName('texto')[0].innerHTML;
-      console.log('htmlDetalle', htmlDetalle);
-      return htmlDetalle;},
-    function(datosError){
-      Error.mostrar(datosError);
-    });
-    return promesa;
+  //this.getDetalleXml = function(url){
+  //  console.log('url', url);
+  //  var promesa = $http.get(url, {cache: true}).then(function(resp){
+  //    console.log(resp);
+  //    parser = new DOMParser();
+  //    xmlDoc = parser.parseFromString(resp.data,'text/xml');
+  //    var htmlDetalle = xmlDoc.getElementsByTagName('texto')[0].innerHTML;
+  //    console.log('htmlDetalle', htmlDetalle);
+  //    return htmlDetalle;},
+  //  function(datosError){
+  //    Error.mostrar(datosError);
+  //  });
+  //  return promesa;
+  //
+  //};
 
-  };
-
-  this.getDetalle = function(url){
-    console.log('url', url);
-    var promesa = $http.get(url, {cache: true}).then(function(resp){
-      console.log(resp);
-      return resp;
-    },
-    function(datosError){
-      Error.mostrar(datosError);
-    });
-    return promesa;
-  };
+  //this.getDetalle = function(url){
+  //  console.log('url', url);
+  //  var promesa = $http.get(url, {cache: true}).then(function(resp){
+  //    console.log(resp);
+  //    return resp;
+  //  },
+  //  function(datosError){
+  //    Error.mostrar(datosError);
+  //  });
+  //  return promesa;
+  //};
 });
 // =====================================================================================================================
 MyApp.angular.service('Error', function(){
 
   this.mostrar = function(resp){
-    msg = 'ERROR. Codigo: resp.status<br>'+'Datos: '+resp.statusText+'<br>Posibles causas:<br>'+'1) No conexion datos <br>2) Fallo servidor remoto';
-    MyApp.fw7.app.alert(msg);
+    MyApp.fw7.app.hideIndicator();
+    msg = 'Codigo: '+resp.status+'<br>Datos: '+resp.statusText;
+    MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };
 });

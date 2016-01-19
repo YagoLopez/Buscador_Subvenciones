@@ -1,3 +1,4 @@
+<!--todo: usar el tag base href o algo parecido para que funciones enlaces rotos. sobre todo importa PDF y XML-->
 <div data-page="detalleBoe" class="page cached">
     <div class="navbar">
         <div class="navbar-inner">
@@ -8,8 +9,9 @@
         </div>
     </div>
     <div class="page-content">
-        <strong>EXTRACTO:</strong>
-        <p>{{ textoDetalle }}</p>
+        <b>EXTRACTO:</b>
+        <!--<p>{{ //textoDetalle }}</p>-->
+        <p ng-bind-html="textoDetalle"></p>
         <p><a href="#" target="_blank">Texto Completo (P&aacute;gina web)</a></p>
         <p><a href="#">Texto Completo (PDF)</a></p>
         <a href="#listadoBoe">go back</a>

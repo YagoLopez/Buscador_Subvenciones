@@ -47,8 +47,8 @@ MyApp.angular.service('Boe', function($http){
 
   this.items = [];
 
-  this.urlListadoSubvenciones = 'https://query.yahooapis.com/v1/public/yql/yls/boe-ayudas?format=json';
-  this.urlDetalleSubvencion ='http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387';
+  this.urlListado = 'https://query.yahooapis.com/v1/public/yql/yls/boe-ayudas?format=json';
+  this.urlDetalle ='http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387';
   this.urlListadoBecas = '';
   this.urlDetalleBeca = '';
   this.urlListadoPremios = '';

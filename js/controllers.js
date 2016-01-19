@@ -14,6 +14,11 @@ MyApp.angular.controller('IndexPageController', function ($scope, InitService, $
     $scope.hello= 'hello from IndexPageController';
     var $$ = Dom7;
 
+    //$$(document).on('ajaxComplete', function (e) {
+    //    var xhr = e.detail.xhr;
+    //    console.log('e.detail.xhr');
+    //});
+
     //$$('.alert-text').on('click', function () {
     //    MyApp.fw7.app.alert('Here goes alert text');
     //});
@@ -34,19 +39,33 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
-    var url = null;
 
-    MyApp.fw7.app.onPageBeforeInit('listadoBoe', function (page) {
-        if(page.query.clase === 'subvenciones') url = Boe.urlListadoSubvenciones;
-        else if(page.query.clase === 'becas'){Boe.urlListadoBecas}
-        else if(page.query.clase === 'premios'){Boe.urlListadoPremios}
-        else if(page.query.clase === 'oposiciones'){Boe.urlListadoPremios};
-        //$scope.obtenerItems();
-      });
+    MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
+        MyApp.fw7.app.showIndicator();
+        //MyApp.fw7.app.showProgressbar();
+        $scope.obtenerItems( hallaUrl(page.query.tipo) );
+        //console.log(Dom7.find('li'));
+        //console.log(Dom7('#lista')[0]);
+        //console.log(Dom7('#lista')[0].childElementCount);
+    });
 
-    $scope.obtenerItems = function(){
+    var hallaUrl = function(tipoAyuda){
+        if (tipoAyuda === 'subvenciones') {
+            return Boe.urlListado(Boe.urlSubvenciones);
+        } else if (tipoAyuda === 'becas') {
+            return Boe.urlListado(Boe.urlBecas);
+        } else if (tipoAyuda === 'premios') {
+            return Boe.urlListado(Boe.urlPremios);
+        } else if (tipoAyuda === 'oposiciones') {
+            return Boe.urlListado(Boe.urlOposiciones);
+        };
+    }
+
+    $scope.obtenerItems = function(url){
       Boe.getListado(url).then(function(resp){
           $scope.items = resp.data.query.results.item;
+          //MyApp.fw7.app.hideProgressbar();
+          MyApp.fw7.app.hideIndicator();
       });
     };
 
@@ -54,20 +73,27 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
       return url.split('=')[1];
     };
 
+
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
-        console.log('pge', page.query.id);
         $scope.textoDetalle = 'Obteniendo datos...';
-        Boe.getDetalle( Boe.urlDetalleSubvencion(page.query.id) ).then(function(resp){
-            console.log(resp.data.query.results.lenght);
-            if (resp.data.query.results.length < 100)
-                $scope.textoDetalle =  "[Texto demasiado largo. Consultar p\u00E1gina web o PDF]";
-            else
-                $scope.textoDetalle = resp.data.query.results+'...';
+        MyApp.fw7.app.showIndicator();
+        Dom7.get( Boe.urlDetalle(page.query.id), function (data) {
+            $scope.textoDetalle = $sce.trustAsHtml(data);
+            //console.log(data);
+            $scope.$apply();
+            MyApp.fw7.app.hideIndicator();
         });
+        //console.log('pge', page.query.id);
+        //console.log('url final', Boe.urlDetalle(page.query.id));
+        //Boe.getDetalle( Boe.urlDetalle(page.query.id) ).then( function(resp){
+        //    console.log(resp.data.query.results);
+        //    $scope.textoDetalle = resp.data.query.results+'...';
+        //    MyApp.fw7.app.hideIndicator();
+        //});
     });
 
 
