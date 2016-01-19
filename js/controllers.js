@@ -41,12 +41,15 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-        MyApp.fw7.app.showIndicator();
+        //MyApp.fw7.app.showIndicator();
         //MyApp.fw7.app.showProgressbar();
-        $scope.obtenerItems( hallaUrl(page.query.tipo) );
+        //$scope.obtenerItems( hallaUrl(page.query.tipo) );
         //console.log(Dom7.find('li'));
         //console.log(Dom7('#lista')[0]);
         //console.log(Dom7('#lista')[0].childElementCount);
+        console.log('tipo', page.query.tipo);
+        console.log('urltest', hallaUrl(page.query.tipo));
+        $scope.urltest = hallaUrl(page.query.tipo);
     });
 
     var hallaUrl = function(tipoAyuda){
@@ -62,6 +65,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
     }
 
     $scope.obtenerItems = function(url){
+      $scope.items = 'Obteniendo datos...';
       Boe.getListado(url).then(function(resp){
           $scope.items = resp.data.query.results.item;
           //MyApp.fw7.app.hideProgressbar();
@@ -76,25 +80,79 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
 
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
-        $scope.textoDetalle = 'Obteniendo datos...';
-        MyApp.fw7.app.showIndicator();
-        Dom7.get( Boe.urlDetalle(page.query.id), function (data) {
-            $scope.textoDetalle = $sce.trustAsHtml(data);
-            //console.log(data);
-            $scope.$apply();
-            MyApp.fw7.app.hideIndicator();
-        });
-        //console.log('pge', page.query.id);
+        //$scope.textoDetalle = 'Obteniendo datos...';
+        //MyApp.fw7.app.showIndicator();
+        //Dom7.get( Boe.urlDetalle( page.query.id ), function (data) {
+        //    //$scope.textoDetalle = $sce.trustAsHtml(data);
+        //    console.log(data);
+        //    $scope.$apply();
+        //    MyApp.fw7.app.hideIndicator();
+        //});
+
+
+
+        //console.log('page', page.query.id);
         //console.log('url final', Boe.urlDetalle(page.query.id));
         //Boe.getDetalle( Boe.urlDetalle(page.query.id) ).then( function(resp){
         //    console.log(resp.data.query.results);
         //    $scope.textoDetalle = resp.data.query.results+'...';
         //    MyApp.fw7.app.hideIndicator();
         //});
+
+        $scope.urlFeeds = Boe.urlDetalle(page.query.id);
     });
+
+
+});
+// =====================================================================================================================
+MyApp.angular.controller('ListadoBoeCtrl2', function ($scope, Boe, Error) {
+
+    MyApp.fw7.app.onPageBeforeAnimation('listadoBoe2', function (page) {
+        //MyApp.fw7.app.showIndicator();
+        //MyApp.fw7.app.showProgressbar();
+        //$scope.obtenerItems( hallaUrl(page.query.tipo) );
+        //console.log(Dom7.find('li'));
+        //console.log(Dom7('#lista')[0]);
+        //console.log(Dom7('#lista')[0].childElementCount);
+        console.log('tipo', page.query.tipo);
+        console.log('urltest', hallaUrl(page.query.tipo));
+        var myFeed = MyApp.fw7.app.feeds('#feeds', {
+            url: hallaUrl(page.query.tipo),
+            openIn: 'popup'
+        });
+        //$scope.$apply();
+
+
+
+    });
+
+    var hallaUrl = function(tipoAyuda){
+        if (tipoAyuda === 'subvenciones') {
+            return Boe.urlListado(Boe.urlSubvenciones);
+        } else if (tipoAyuda === 'becas') {
+            return Boe.urlListado(Boe.urlBecas);
+        } else if (tipoAyuda === 'premios') {
+            return Boe.urlListado(Boe.urlPremios);
+        } else if (tipoAyuda === 'oposiciones') {
+            return Boe.urlListado(Boe.urlOposiciones);
+        };
+    }
+
+    //$scope.obtenerItems = function(url){
+    //    $scope.items = 'Obteniendo datos...';
+    //    Boe.getListado(url).then(function(resp){
+    //        $scope.items = resp.data.query.results.item;
+    //        //MyApp.fw7.app.hideProgressbar();
+    //        MyApp.fw7.app.hideIndicator();
+    //    });
+    //};
+
+    $scope.hallaId = function(url){
+        return url.split('=')[1];
+    };
 
 
 });

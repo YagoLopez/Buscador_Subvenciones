@@ -11,10 +11,20 @@
     <div class="page-content">
         <b>EXTRACTO:</b>
         <!--<p>{{ //textoDetalle }}</p>-->
-        <p ng-bind-html="textoDetalle"></p>
         <p><a href="#" target="_blank">Texto Completo (P&aacute;gina web)</a></p>
         <p><a href="#">Texto Completo (PDF)</a></p>
         <a href="#listadoBoe">go back</a>
+
+
+        feeds:<br>
+        urlfeeds: {{urlFeeds}}<br>
+        <div data-url="{{urlFeeds}}" class="list-block feeds-init">
+            <div style="text-align:center" class="content-block-inner">
+                <span class="preloader"></span>
+            </div>
+        </div>
+
+
 
     </div>
 </div>

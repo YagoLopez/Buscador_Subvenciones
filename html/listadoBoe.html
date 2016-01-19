@@ -29,7 +29,7 @@
         <div class="list-block list-block-search searchbar-found">
             <ul id="lista">
                 <li ng-repeat="item in items" class="item-content">
-                    <a href="#detalleBoe?id={{ hallaId(item.link) }}" class="item-link">
+                    <a href="#detalleBoe?id={{ ::hallaId(item.link) }}" class="item-link">
                     <!--<a href="{{ ::item.link }}" class="item-content" target="_blank">-->
                     <div class="item-inner">
                         <div>

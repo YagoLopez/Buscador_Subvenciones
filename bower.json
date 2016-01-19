@@ -1,0 +1,8 @@
+{
+  "name": "Buscador de Subvenciones",
+  "private": "true",
+  "devDependencies": {},
+  "dependencies": {
+    "Framework7 Feeds": "framework7-feeds#~1.0.1"
+  }
+}

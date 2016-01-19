@@ -46,11 +46,12 @@ MyApp.angular.factory('InitService', function ($document) {
 MyApp.angular.service('Boe', function($http, Error){
 
   //todo: a lo mejor se pueden parametrizar y mejorar las url y reducir codigo. Parametrizar url boe listado
-  var queryListado = 'select * from rss where url=@url';
-  //var queryDetalle = 'select * from html where url=@url and xpath="//*[@id=\'barraSep\']/node()//text()"';
+  var queryListado = 'select * from xml where url=@url';
+  var queryDetalle = 'select * from xml where url=@url';
+//var query = 'select * from html where url=@url and xpath="//*[@id=\'barraSep\']/node()//text()"';
   //https://query.yahooapis.com/v1/public/yql/yls/boe-detalle?url=http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387&format=json
   var urlYQL = 'https://query.yahooapis.com/v1/public/yql';
-  var urlBaseDetalle = 'http://www.boe.es/diario_boe/txt.php';
+  var urlBaseDetalle = 'http://www.boe.es/diario_boe/xml.php';
 
   this.urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
   this.urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
@@ -59,11 +60,10 @@ MyApp.angular.service('Boe', function($http, Error){
 
 
   this.urlListado = function(urlListadoBoe){
-    return urlYQL + '?url='+urlListadoBoe + '&q='+queryListado + '&format=json';
+    return urlYQL + '?url='+urlListadoBoe + '&q='+queryListado + '&format=xml';
   };
   this.urlDetalle = function(idboe){
-    //return urlYQL + '?url='+urlBaseDetalle+'?id='+idboe + '&q='+queryDetalle+ '&format=json';
-    return urlBaseDetalle+'?id='+idboe;
+    return urlYQL + '?url='+urlBaseDetalle+'?id='+idboe + '&q='+queryDetalle+ '&format=xml';
 
   };
   this.getListado = function(url){

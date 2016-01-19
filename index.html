@@ -12,10 +12,12 @@
     <!-- Styles -->
     <link rel="stylesheet" href="lib/f7/framework7.material.min.css">
     <link rel="stylesheet" href="lib/f7/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="lib/f7/feeds/framework7.feeds.css">
     <link rel="stylesheet" href="css/main.css">
     <!-- Scripts -->
     <script type="text/javascript" src="lib/angular/angular.js"></script>
     <script type="text/javascript" src="lib/f7/framework7.js"></script>
+    <script type="text/javascript" src="lib/f7/feeds/framework7.feeds.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
@@ -69,6 +71,7 @@
                     <p><a href="#listadoBoe?tipo=subvenciones">Subvenciones Boe</a></p>
                     <p><a href="#listadoBoe?tipo=becas">Becas Boe</a></p>
                     <p><a href="#listadoBoe?tipo=premios">Premios Boe</a></p>
+                    <p><a href="#listadoBoe2?tipo=subvenciones">Subvenciones Boe2</a></p>
 
                 </div>
             </div>
@@ -100,7 +103,8 @@
                 </div>
             </div>
             <!-- pagina listado boe -------------------------------------------------------------------------------- -->
-            <ng-include src="'html/listadoBoe.html'" ng-controller="ListadoBoeCtrl"></ng-include>
+            <!--<ng-include src="'html/listadoBoe.html'" ng-controller="ListadoBoeCtrl"></ng-include>-->
+            <ng-include src="'html/listadoBoe2.html'" ng-controller="ListadoBoeCtrl2"></ng-include>
 
         </div>
 
