@@ -46,12 +46,11 @@ MyApp.angular.factory('InitService', function ($document) {
 MyApp.angular.service('Boe', function($http, Error){
 
   //todo: a lo mejor se pueden parametrizar y mejorar las url y reducir codigo. Parametrizar url boe listado
-  var queryListado = 'select * from xml where url=@url';
-  var queryDetalle = 'select * from xml where url=@url';
-//var query = 'select * from html where url=@url and xpath="//*[@id=\'barraSep\']/node()//text()"';
+  var queryListado = 'select * from rss where url=@url';
+  var queryDetalle = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
   //https://query.yahooapis.com/v1/public/yql/yls/boe-detalle?url=http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387&format=json
-  var urlYQL = 'https://query.yahooapis.com/v1/public/yql';
-  var urlBaseDetalle = 'http://www.boe.es/diario_boe/xml.php';
+  var urlYql = 'https://query.yahooapis.com/v1/public/yql';
+  var urlBaseDetalle = 'http://www.boe.es/diario_boe/txt.php';
 
   this.urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
   this.urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
@@ -60,12 +59,12 @@ MyApp.angular.service('Boe', function($http, Error){
 
 
   this.urlListado = function(urlListadoBoe){
-    return urlYQL + '?url='+urlListadoBoe + '&q='+queryListado + '&format=xml';
+    return urlYql + '?url='+urlListadoBoe + '&q='+queryListado + '&format=json';
   };
   this.urlDetalle = function(idboe){
-    return urlYQL + '?url='+urlBaseDetalle+'?id='+idboe + '&q='+queryDetalle+ '&format=xml';
-
+    return urlYql + '?url='+urlBaseDetalle+'?id='+idboe + '&q='+ queryDetalle+ '&format=xml';
   };
+
   this.getListado = function(url){
     console.log('url', url);
     var promesa = $http.get(url, {cache: true}).then(function(resp){
@@ -77,21 +76,22 @@ MyApp.angular.service('Boe', function($http, Error){
     return promesa;
   };
 
-  //this.getDetalleXml = function(url){
-  //  console.log('url', url);
-  //  var promesa = $http.get(url, {cache: true}).then(function(resp){
-  //    console.log(resp);
-  //    parser = new DOMParser();
-  //    xmlDoc = parser.parseFromString(resp.data,'text/xml');
-  //    var htmlDetalle = xmlDoc.getElementsByTagName('texto')[0].innerHTML;
-  //    console.log('htmlDetalle', htmlDetalle);
-  //    return htmlDetalle;},
-  //  function(datosError){
-  //    Error.mostrar(datosError);
-  //  });
-  //  return promesa;
-  //
-  //};
+  this.getDetalleXml = function(url){
+    console.log('url', url);
+    var promesa = $http.get(url, {cache: true}).then(function(resp){
+      console.log(resp);
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(resp.data,'text/xml');
+      var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
+      console.log('htmlDetalle', htmlDetalle);
+      return htmlDetalle;
+    },
+    function(datosError){
+      Error.mostrar(datosError);
+    });
+    return promesa;
+
+  };
 
   //this.getDetalle = function(url){
   //  console.log('url', url);

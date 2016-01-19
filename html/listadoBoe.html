@@ -1,10 +1,14 @@
 <style type="text/css">
-    #listaSubvenciones .item-inner {
+    #lista .item-inner {
         font-size: small;
     }
-
+    .pieItem {
+        font-size: x-small;
+        color: cornflowerblue;
+    }
 </style>
 <div data-page="listadoBoe" class="page cached">
+    <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
@@ -13,30 +17,32 @@
             <div class="center">Subvenciones Boe</div>
         </div>
     </div>
-    <!-- Search Bar -->
+    <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
     <form data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
         <div class="searchbar-input">
-            <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
-        </div><a href="#" class="searchbar-cancel">Cancel</a>
+            <input type="search" placeholder="Search" ng-change="alert('change')" ng-model="searchtxt"/>
+            <a href="#" class="searchbar-clear"></a>
+        </div>
+        <a href="#" class="searchbar-cancel">Cancel</a>
     </form>
     <div class="searchbar-overlay"></div>
+    <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
     <div class="page-content">
-        <button ng-click="obtenerItems()">Buscar Subvenciones</button>
+        <button ng-click="hallarTotal()">Hallar total</button>
         <div>Total: {{ items.length }}</div>
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
+        <!-- Listado ----------------------------------------------------------------------------------------------- -->
         <div class="list-block list-block-search searchbar-found">
             <ul id="lista">
                 <li ng-repeat="item in items" class="item-content">
-                    <a href="#detalleBoe?id={{ ::hallaId(item.link) }}" class="item-link">
-                    <!--<a href="{{ ::item.link }}" class="item-content" target="_blank">-->
-                    <div class="item-inner">
-                        <div>
-                            {{ ::item.title }}<br>
-                        <div class="external link" style="font-size: x-small;color:cornflowerblue">
-                            {{ ::item.description }}</div>
-                        </div>
+                    <a href="#detalleBoe?id={{ item.link.split('=')[1] }}" class="item-link">
+                        <div class="item-inner">
+                            <div>
+                                {{ item.title }}<br>
+                                <div class="pieItem">{{ item.description }}</div>
+                            </div>
                         </div>
                     </a>
                 </li>
@@ -44,7 +50,7 @@
         </div>
         <a href="#index">go back</a><br>
         <a href="#detalleBoe">detalle</a>
-        <!-- pagina detalle boe -------------------------------------------------------------------------------- -->
+        <!-- pagina detalle ---------------------------------------------------------------------------------------- -->
         <ng-include src="'html/detalleBoe.html'" ng-controller="DetalleBoeCtrl"></ng-include>
 
     </div>

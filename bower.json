@@ -3,6 +3,7 @@
   "private": "true",
   "devDependencies": {},
   "dependencies": {
-    "Framework7 Feeds": "framework7-feeds#~1.0.1"
+    "Framework7 Feeds": "framework7-feeds#~1.0.1",
+    "Framework7 3D Panels": "Framework7-3D-Panels#~1.0.0"
   }
 }

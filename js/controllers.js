@@ -41,15 +41,11 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-        //MyApp.fw7.app.showIndicator();
-        //MyApp.fw7.app.showProgressbar();
-        //$scope.obtenerItems( hallaUrl(page.query.tipo) );
-        //console.log(Dom7.find('li'));
-        //console.log(Dom7('#lista')[0]);
-        //console.log(Dom7('#lista')[0].childElementCount);
-        console.log('tipo', page.query.tipo);
-        console.log('urltest', hallaUrl(page.query.tipo));
-        $scope.urltest = hallaUrl(page.query.tipo);
+        MyApp.fw7.app.showIndicator();
+        console.log('listado boe ctrl, on page before animation');
+        console.log('page.query.tipo', page.query.tipo);
+        $scope.obtenerItems( hallaUrl(page.query.tipo) );
+        //$scope.$apply();
     });
 
     var hallaUrl = function(tipoAyuda){
@@ -65,24 +61,24 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
     }
 
     $scope.obtenerItems = function(url){
-      $scope.items = 'Obteniendo datos...';
       Boe.getListado(url).then(function(resp){
           $scope.items = resp.data.query.results.item;
-          //MyApp.fw7.app.hideProgressbar();
           MyApp.fw7.app.hideIndicator();
       });
     };
 
     $scope.hallaId = function(url){
+        //console.log('halla id de url:', url);
       return url.split('=')[1];
     };
 
 
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
+        $scope.htmlDetalle = 'Obteniendo datos...';
         //$scope.textoDetalle = 'Obteniendo datos...';
         //MyApp.fw7.app.showIndicator();
         //Dom7.get( Boe.urlDetalle( page.query.id ), function (data) {
@@ -94,21 +90,60 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe) {
 
 
 
-        //console.log('page', page.query.id);
-        //console.log('url final', Boe.urlDetalle(page.query.id));
-        //Boe.getDetalle( Boe.urlDetalle(page.query.id) ).then( function(resp){
-        //    console.log(resp.data.query.results);
-        //    $scope.textoDetalle = resp.data.query.results+'...';
-        //    MyApp.fw7.app.hideIndicator();
-        //});
+        console.log('url final', Boe.urlDetalle(page.query.id));
+        Boe.getDetalleXml( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
+            //console.log(htmlDetalle);
+            $scope.htmlDetalle = $sce.trustAsHtml(htmlDetalle);
 
-        $scope.urlFeeds = Boe.urlDetalle(page.query.id);
+        });
+
     });
 
 
 });
 // =====================================================================================================================
+/*
 MyApp.angular.controller('ListadoBoeCtrl2', function ($scope, Boe, Error) {
+    var listTemplate =
+        '<ul>' +
+        '{{#each items}}' +
+        '<li>' +
+        '<a href="#" class="item-link item-content feeds-item-link" data-index="{{@index}}">' +
+        '<div class="item-inner">' +
+        '<div class="item-title">titulo: {{title}}</div>' +
+        '<div class="item-after">{{formattedDate}}</div>' +
+        '</div>' +
+        '</a>' +
+        '</li>' +
+        '{{/each}}' +
+        '</ul>';
+    var itemPopupTemplate =
+        '<div class="popup">' +
+        '<div class="view navbar-fixed">' +
+        '<div class="navbar">' +
+        '<div class="navbar-inner">' +
+        '<div class="left sliding">' +
+        '<a href="#" class="close-popup link">' +
+        '<i class="icon icon-back"></i>' +
+        '<span>Close</span>' +
+        '</a>' +
+        '</div>' +
+        '<div class="center sliding">{{title}}</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="pages">' +
+        '<div class="page feeds-page" data-page="feeds-page-{{index}}">' +
+        '<div class="page-content">' +
+        '<div class="content-block">' +
+        '<a href="{{link}}" class="external" target="_blank">{{title}}</a><br>' +
+        '<small>{{formattedDate}}</small>' +
+        '</div>' +
+        '<div class="content-block"><div class="content-block-inner">{{description}}</div></div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe2', function (page) {
         //MyApp.fw7.app.showIndicator();
@@ -121,12 +156,12 @@ MyApp.angular.controller('ListadoBoeCtrl2', function ($scope, Boe, Error) {
         console.log('urltest', hallaUrl(page.query.tipo));
         var myFeed = MyApp.fw7.app.feeds('#feeds', {
             url: hallaUrl(page.query.tipo),
-            openIn: 'popup'
+            openIn: 'popup',
+            listTemplate:listTemplate,
+            itemPopupTemplate:itemPopupTemplate,
+            customItemFields:['content:encoded', 'author']
         });
         //$scope.$apply();
-
-
-
     });
 
     var hallaUrl = function(tipoAyuda){
@@ -156,3 +191,4 @@ MyApp.angular.controller('ListadoBoeCtrl2', function ($scope, Boe, Error) {
 
 
 });
+*/
