@@ -103,7 +103,6 @@ MyApp.angular.service('Boe', function($http, Error){
 });
 // =====================================================================================================================
 MyApp.angular.service('Error', function(){
-
   this.mostrar = function(resp){
     MyApp.fw7.app.hideIndicator();
     msg = 'Codigo: '+resp.status+'<br>Datos: '+resp.statusText;
@@ -112,7 +111,6 @@ MyApp.angular.service('Error', function(){
   };
 });
 // =====================================================================================================================
-
 MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;
 }]);

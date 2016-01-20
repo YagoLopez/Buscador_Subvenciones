@@ -89,10 +89,8 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
         return $sce.trustAsHtml(html);
     };
     $scope.btnTop = function(){
-        Dom7('#btnTop').on('click', function(){
-            console.log('click');
-            Dom7('.page-content').scrollTop(0, 500); //500 velocidad
-        });
+        console.log('click');
+        Dom7('.page-content').scrollTop(0, 500); //500 velocidad
     }
 });
 // =====================================================================================================================
