@@ -7,16 +7,32 @@
             <div class="center">Detalle Boe</div>
         </div>
     </div>
-    <div class="page-content">
-        <b>EXTRACTO:</b>
-        <div style="text-align:center" class="content-block-inner">
-            <span class="preloader"></span>
+    <div class="speed-dial">
+        <a href="#" class="floating-button">
+            <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
+        <div class="speed-dial-buttons">
+            <a href="{{ ::web }}"><i class="icon ks-icon-email external"></i></a>
+            <a href="{{ ::pdf }}"><i class="icon ks-icon-calendar external"></i></a>
+        </div>
+    </div>
+    <div class="page-content hide-navbar-on-scroll">
+        <div class="content-block-title">
+            EXTRACTO
         </div>
         <p ng-bind-html="getHtmlSafe(htmlDetalle)"></p>
-        <p><a href="#" target="_blank">Texto Completo (P&aacute;gina web)</a></p>
-        <p><a href="#">Texto Completo (PDF)</a></p>
+        <p class="buttons-row">
+            <a href="{{ ::web }}" class="button external">Texto Completo (Web)</a>
+            <a href="{{ ::pdf }}" class="button external">Texto Completo (PDF)</a></p>
+
+        <p class="buttons-row"><a href="#" class="button button-raised">Button</a>
+            <a href="{{ ::web }}" class="button button-raised external">Texto Completo (Web)</a>
+            <a href="{{ ::pdf }}" class="button button-raised external">Texto Completo (PDF)</a></p>
+
+        <p class="buttons-row">
+            <a href="{{ ::web }}" class="button button-raised button-fill color-orange external">Texto Completo (Web)</a></p>
+        <p class="buttons-row">
+            <a href="{{ ::pdf }}" class="button button-raised button-fill color-orange external">Texto Completo (PDF)</a></p>
+
         <a href="#listadoBoe">go back</a>
-
-
     </div>
 </div>

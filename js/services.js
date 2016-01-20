@@ -111,3 +111,8 @@ MyApp.angular.service('Error', function(){
     console.error(resp);
   };
 });
+// =====================================================================================================================
+
+MyApp.angular.filter('urlEncode', [function() {
+  return window.encodeURIComponent;
+}]);

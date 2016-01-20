@@ -75,6 +75,9 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.htmlDetalle = 'Obteniendo datos...';
+        console.log('query string', page.query);
+        $scope.web = page.query.web;
+        $scope.pdf = page.query.pdf;
 
         Boe.getDetalle( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
             //console.log(htmlDetalle);
