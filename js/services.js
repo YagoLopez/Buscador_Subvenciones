@@ -45,10 +45,8 @@ MyApp.angular.factory('InitService', function ($document) {
 // =====================================================================================================================
 MyApp.angular.service('Boe', function($http, Error){
 
-  //todo: a lo mejor se pueden parametrizar y mejorar las url y reducir codigo. Parametrizar url boe listado
   var queryListado = 'select * from rss where url=@url';
   var queryDetalle = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
-  //https://query.yahooapis.com/v1/public/yql/yls/boe-detalle?url=http://www.boe.es/diario_boe/xml.php?id=BOE-A-2016-387&format=json
   var urlYql = 'https://query.yahooapis.com/v1/public/yql';
   var urlBaseDetalle = 'http://www.boe.es/diario_boe/txt.php';
 
@@ -56,7 +54,6 @@ MyApp.angular.service('Boe', function($http, Error){
   this.urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
   this.urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
   this.urlOposiciones = 'http://www.boe.es/rss/canal.php?c=oposiciones';
-
 
   this.urlListado = function(urlListadoBoe){
     return urlYql + '?url='+urlListadoBoe + '&q='+queryListado + '&format=json';
@@ -76,12 +73,11 @@ MyApp.angular.service('Boe', function($http, Error){
     return promesa;
   };
 
-  this.getDetalleXml = function(url){
-    console.log('url', url);
+  this.getDetalle = function(url){
     var promesa = $http.get(url, {cache: true}).then(function(resp){
-      console.log(resp);
+      //console.log(resp);
       parser = new DOMParser();
-      xmlDoc = parser.parseFromString(resp.data,'text/xml');
+      xmlDoc = parser.parseFromString(resp.data, 'text/xml');
       var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
       console.log('htmlDetalle', htmlDetalle);
       return htmlDetalle;

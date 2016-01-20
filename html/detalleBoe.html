@@ -12,7 +12,7 @@
         <div style="text-align:center" class="content-block-inner">
             <span class="preloader"></span>
         </div>
-        <p ng-bind-html="htmlDetalle"></p>
+        <p ng-bind-html="getHtmlSafe(htmlDetalle)"></p>
         <p><a href="#" target="_blank">Texto Completo (P&aacute;gina web)</a></p>
         <p><a href="#">Texto Completo (PDF)</a></p>
         <a href="#listadoBoe">go back</a>

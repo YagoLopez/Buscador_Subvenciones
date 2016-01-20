@@ -42,10 +42,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         MyApp.fw7.app.showIndicator();
-        console.log('listado boe ctrl, on page before animation');
-        console.log('page.query.tipo', page.query.tipo);
         $scope.obtenerItems( hallaUrl(page.query.tipo) );
-        //$scope.$apply();
     });
 
     var hallaUrl = function(tipoAyuda){
@@ -71,35 +68,23 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
         //console.log('halla id de url:', url);
       return url.split('=')[1];
     };
-
-
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
+        MyApp.fw7.app.showIndicator();
         $scope.htmlDetalle = 'Obteniendo datos...';
-        //$scope.textoDetalle = 'Obteniendo datos...';
-        //MyApp.fw7.app.showIndicator();
-        //Dom7.get( Boe.urlDetalle( page.query.id ), function (data) {
-        //    //$scope.textoDetalle = $sce.trustAsHtml(data);
-        //    console.log(data);
-        //    $scope.$apply();
-        //    MyApp.fw7.app.hideIndicator();
-        //});
 
-
-
-        console.log('url final', Boe.urlDetalle(page.query.id));
-        Boe.getDetalleXml( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
+        Boe.getDetalle( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
             //console.log(htmlDetalle);
-            $scope.htmlDetalle = $sce.trustAsHtml(htmlDetalle);
-
+            $scope.htmlDetalle = htmlDetalle;
+            MyApp.fw7.app.hideIndicator();
         });
-
+        $scope.getHtmlSafe = function(html){
+            return $sce.trustAsHtml(html);
+        };
     });
-
-
 });
 // =====================================================================================================================
 /*
