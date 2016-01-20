@@ -40,9 +40,49 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
 
+    //todo: quitar diacriticos en la busqueda
+
+    var itemsLength;
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.obtenerItems( hallaUrl(page.query.tipo) );
+        mySearchbar = $$('.searchbar')[0].f7Searchbar;
+        console.log('searchTxt', $scope.search);
+        if($scope.search != null && $scope.search != 'undefined'){
+            console.log('searchbar', mySearchbar);
+            console.log('buscando', $scope.search);
+            mySearchbar.search($scope.search);
+        };
+        $$('.list-block-search').on('search', function(e){
+            //$scope.$apply(function(){
+                    console.log('search query...', e.detail.query);
+                    console.log('found items...', e.detail.foundItems.length);
+                    itemsLength = e.detail.foundItems.length;
+                    console.log('items lenght dentro del evento f7', itemsLength);
+                    //$scope.search = e.detail.query;
+                    $scope.itemsLenght = itemsLength;
+                    console.log('scope', $scope);
+            //    }
+            //);
+            // $broadcast will send the event downwards the $scope hierarchy, while $emit will send it upwards
+            $scope.$broadcast('searchTxtChanged');
+        });
+        console.log('search txt', $scope.search);
+
+
+    });
+
+    $scope.$on('searchTxtChanged', function(e) {
+        // desired code in Angular's scope
+        console.log('searchTxtChanged');
+        console.log('items lenght fuera del evento f7', itemsLength);
+        console.log('target scope', e.targetScope);
+        console.log('asignacion de itemsLength fuera del evento f7');
+        $scope.$apply(function(){
+                $scope.itemsLenght = itemsLength;
+
+            }
+        )
     });
 
     var hallaUrl = function(tipoAyuda){
@@ -60,6 +100,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
     $scope.obtenerItems = function(url){
       Boe.getListado(url).then(function(resp){
           $scope.items = resp.data.query.results.item;
+          //$scope.itemsLenght = $scope.items.lenght;
           MyApp.fw7.app.hideIndicator();
       });
     };
@@ -67,6 +108,29 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
     $scope.hallaId = function(url){
         //console.log('halla id de url:', url);
       return url.split('=')[1];
+    };
+
+    //$scope.searchTxtChanged = function(searchTxt){
+    //  console.log('search txt changed', searchTxt);
+    //};
+
+    $scope.getSearchTxt = function(){
+        console.log('inputTxt DOM Element', $$('#inputTxt')[0]);
+        console.log('inputTxt value', $$('#inputTxt')[0].value);
+    };
+    $scope.setSearchTxt = function(txt){
+        //console.log('inputTxt DOM Elementt', $$('#inputTxt')[0]);
+        //console.log('inputTxt value', $$('#inputTxt')[0].value);
+        //$scope.searchTxt = 'searchtxt from angular';
+        //angular.element($$('#inputTxt')).triggerHandler('change');
+        //probar a disparar el evento change desde f7, no con angular
+        mySearchbar = $$('.searchbar')[0].f7Searchbar;
+        console.log('searchbar', mySearchbar);
+        mySearchbar.search('test');
+    };
+
+    $scope.getListLength = function(){
+
     };
 });
 // =====================================================================================================================

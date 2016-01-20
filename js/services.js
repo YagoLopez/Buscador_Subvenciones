@@ -79,7 +79,7 @@ MyApp.angular.service('Boe', function($http, Error){
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(resp.data, 'text/xml');
       var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
-      console.log('htmlDetalle', htmlDetalle);
+      //console.log('htmlDetalle', htmlDetalle);
       return htmlDetalle;
     },
     function(datosError){

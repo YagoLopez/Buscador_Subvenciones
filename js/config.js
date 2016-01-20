@@ -1,5 +1,6 @@
 
 var MyApp = {};
+var $$ = Dom7;
 
 MyApp.config = {};
 
@@ -26,4 +27,5 @@ MyApp.fw7 = {
 MyApp.fw7.app.onPageBeforeInit('about', function (page) {
   console.log('about page onpageinit');
 });
+
 
