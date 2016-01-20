@@ -75,19 +75,25 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.htmlDetalle = 'Obteniendo datos...';
-        console.log('query string', page.query);
-        $scope.web = page.query.web;
-        $scope.pdf = page.query.pdf;
+        console.log('query string', decodeURIComponent(page.query.web), decodeURIComponent(page.query.pdf));
+        $scope.web = decodeURIComponent(page.query.web);
+        $scope.pdf = decodeURIComponent(page.query.pdf);
 
         Boe.getDetalle( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
             //console.log(htmlDetalle);
             $scope.htmlDetalle = htmlDetalle;
             MyApp.fw7.app.hideIndicator();
         });
-        $scope.getHtmlSafe = function(html){
-            return $sce.trustAsHtml(html);
-        };
     });
+    $scope.getHtmlSafe = function(html){
+        return $sce.trustAsHtml(html);
+    };
+    $scope.btnTop = function(){
+        Dom7('#btnTop').on('click', function(){
+            console.log('click');
+            Dom7('.page-content').scrollTop(0, 500); //500 velocidad
+        });
+    }
 });
 // =====================================================================================================================
 /*

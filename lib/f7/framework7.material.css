@@ -1227,7 +1227,7 @@ html:not(.watch-active-state) .tabbar a.tab-link:active,
 .navbar-fixed .tabbar-fixed .page-content,
 .toolbar-fixed .navbar-fixed .page-content,
 .tabbar-fixed .navbar-fixed .page-content {
-  padding-top: 104px;
+  /* padding-top: 104px; */
 }
 .navbar-fixed.tabbar-labels-fixed .page-content,
 .navbar-fixed .tabbar-labels-fixed .page-content,
