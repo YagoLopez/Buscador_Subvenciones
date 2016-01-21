@@ -43,46 +43,40 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
     //todo: quitar diacriticos en la busqueda
 
     var itemsLength = 0;
-    var searchTxt = '';
+    //var searchTxt = '';
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.obtenerItems( hallaUrl(page.query.tipo) );
-
         $scope.mySearchbar = $$('.searchbar')[0].f7Searchbar;
-        //if($scope.searchTxt != null && $scope.searchTxt != 'undefined'){
-        //    console.log('query text', $scope.mySearchbar.query);
-        //    $scope.mySearchbar.search($scope.mySearchbar.query);
-        //};
-
 
         $$('.list-block-search').on('search', function(e){
-            //console.log('search query...', e.detail.query);
-            //console.log('found items...', e.detail.foundItems.length);
             itemsLength = e.detail.foundItems.length;
-            searchTxt = e.detail.query;
+            //searchTxt = e.detail.query;
             $scope.$broadcast('searchTxtChanged');
         });
     });
+
     MyApp.fw7.app.onPageReinit('listadoBoe', function(page){
-        if($scope.searchTxt != null && $scope.searchTxt != 'undefined'){
-            console.log('query text', $scope.mySearchbar.query);
+        var searchTxt = $scope.mySearchbar.query;
+        if(searchTxt != null && searchTxt != 'undefined'){
+            $scope.mySearchbar.clear();
             $timeout(function() {
-                $scope.mySearchbar.clear();
-                $scope.mySearchbar.search($scope.mySearchbar.query);
-                console.log('query text', $scope.mySearchbar.query);
-            }, 200); // hay que esperar que termine el timer de searchbar
+                console.log('searchtxt', searchTxt);
+                $scope.mySearchbar.search(searchTxt);
+            }, 10); // hay que esperar que termine el timer de searchbar
         };
     });
 
     $scope.$on('searchTxtChanged', function(e) {
         $scope.$apply(function(){
             $scope.itemsLenght = itemsLength;
-            $scope.searchTxt = searchTxt;
-            console.log('itemsLength', itemsLength);
-            console.log('searchTxt', searchTxt);
+            //$scope.searchTxt = searchTxt;
+            //console.log('itemsLength', itemsLength);
+            //console.log('searchTxt', searchTxt);
         });
     });
+
     var hallaUrl = function(tipoAyuda){
         if (tipoAyuda === 'subvenciones') {
             return Boe.urlListado(Boe.urlSubvenciones);
@@ -107,19 +101,9 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
       return url.split('=')[1];
     };
 
-    //$scope.searchTxtChanged = function(searchTxt){
-    //  console.log('search txt changed', searchTxt);
-    //};
-
     $scope.getSearchTxt = function(){
-        console.log('inputTxt DOM Element', $$('#inputTxt')[0]);
-        console.log('inputTxt value', $$('#inputTxt')[0].value);
     };
     $scope.manualSearch = function(txt){
-        mySearchbar = $$('.searchbar')[0].f7Searchbar;
-        console.log('search txt on page reinit', $scope.searchTxt);
-        console.log('search txt', $scope.searchTxt);
-        //mySearchbar.search($scope.searchTxt);
     };
 
 });
