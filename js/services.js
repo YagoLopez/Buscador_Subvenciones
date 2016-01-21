@@ -1,6 +1,6 @@
 
 MyApp.angular.factory('InitService', function ($document) {
-  'use strict';
+  //'use strict';
 
   var pub = {},
     eventListeners = {

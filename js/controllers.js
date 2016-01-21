@@ -44,7 +44,7 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
     $scope.hello2= 'hello from AboutPageController';
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeout) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
 
     //todo: quitar diacriticos en la busqueda
 
@@ -63,8 +63,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
 
     MyApp.fw7.app.onPageReinit('listadoBoe', function(page){
         var searchTxt = $scope.mySearchbar.query;
-        console.warn('searchTxt', searchTxt);
-        console.log('typeof searchTxt', typeof (searchTxt));
         if(searchTxt != '' && searchTxt != 'undefined' && searchTxt != null){
             console.log('hay texto que buscar');
             $scope.mySearchbar.clear();
@@ -72,8 +70,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
                 console.log('searchtxt', searchTxt);
                 $scope.mySearchbar.search(searchTxt);
             }, 10); // hay que esperar que termine el timer de searchbar
-        }else{
-                console.log('no hay texto que buscar, cancelando searchbar');
         };
     });
 
@@ -112,11 +108,8 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
     $scope.manualSearch = function(txt){
     };
     $scope.resetSearchbar = function() {
-            console.log('desactivando searchbar');
-            $scope.mySearchbar.clear();
-            $scope.mySearchbar.disable();
-            //$scope.mySearchbar.enable();
-
+        $scope.mySearchbar.clear();
+        $scope.mySearchbar.disable();
     }
 
 });

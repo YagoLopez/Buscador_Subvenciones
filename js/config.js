@@ -2,6 +2,7 @@
 var MyApp = {};
 var $$ = Dom7;
 
+// config angular
 MyApp.config = {};
 
 // Init angular
@@ -16,7 +17,6 @@ MyApp.fw7 = {
     materialPageLoadDelay: 1,
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
-    cacheIgnoreGetParameters: true
     //pushStateSeparator: '#!'
   }),
   options : {
@@ -25,8 +25,8 @@ MyApp.fw7 = {
   views : []
 };
 
-MyApp.fw7.app.onPageBeforeInit('about', function (page) {
-  console.log('about page onpageinit');
-});
+//MyApp.fw7.app.onPageBeforeInit('about', function (page) {
+//  console.log('about page onpageinit');
+//});
 
 
