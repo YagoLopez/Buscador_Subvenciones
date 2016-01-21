@@ -15,7 +15,8 @@ MyApp.fw7 = {
     cache: false,
     materialPageLoadDelay: 1,
     modalTitle: 'Informaci\u00F3n',
-    modalButtonCancel: 'Cancelar'
+    modalButtonCancel: 'Cancelar',
+    cacheIgnoreGetParameters: true
     //pushStateSeparator: '#!'
   }),
   options : {

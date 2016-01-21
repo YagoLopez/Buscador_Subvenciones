@@ -38,53 +38,51 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
     $scope.hello2= 'hello from AboutPageController';
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeout) {
 
     //todo: quitar diacriticos en la busqueda
 
-    var itemsLength;
+    var itemsLength = 0;
+    var searchTxt = '';
+
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.obtenerItems( hallaUrl(page.query.tipo) );
-        mySearchbar = $$('.searchbar')[0].f7Searchbar;
-        console.log('searchTxt', $scope.search);
-        if($scope.search != null && $scope.search != 'undefined'){
-            console.log('searchbar', mySearchbar);
-            console.log('buscando', $scope.search);
-            mySearchbar.search($scope.search);
-        };
+
+        $scope.mySearchbar = $$('.searchbar')[0].f7Searchbar;
+        //if($scope.searchTxt != null && $scope.searchTxt != 'undefined'){
+        //    console.log('query text', $scope.mySearchbar.query);
+        //    $scope.mySearchbar.search($scope.mySearchbar.query);
+        //};
+
+
         $$('.list-block-search').on('search', function(e){
-            //$scope.$apply(function(){
-                    console.log('search query...', e.detail.query);
-                    console.log('found items...', e.detail.foundItems.length);
-                    itemsLength = e.detail.foundItems.length;
-                    console.log('items lenght dentro del evento f7', itemsLength);
-                    //$scope.search = e.detail.query;
-                    $scope.itemsLenght = itemsLength;
-                    console.log('scope', $scope);
-            //    }
-            //);
-            // $broadcast will send the event downwards the $scope hierarchy, while $emit will send it upwards
+            //console.log('search query...', e.detail.query);
+            //console.log('found items...', e.detail.foundItems.length);
+            itemsLength = e.detail.foundItems.length;
+            searchTxt = e.detail.query;
             $scope.$broadcast('searchTxtChanged');
         });
-        console.log('search txt', $scope.search);
-
-
+    });
+    MyApp.fw7.app.onPageReinit('listadoBoe', function(page){
+        if($scope.searchTxt != null && $scope.searchTxt != 'undefined'){
+            console.log('query text', $scope.mySearchbar.query);
+            $timeout(function() {
+                $scope.mySearchbar.clear();
+                $scope.mySearchbar.search($scope.mySearchbar.query);
+                console.log('query text', $scope.mySearchbar.query);
+            }, 200); // hay que esperar que termine el timer de searchbar
+        };
     });
 
     $scope.$on('searchTxtChanged', function(e) {
-        // desired code in Angular's scope
-        console.log('searchTxtChanged');
-        console.log('items lenght fuera del evento f7', itemsLength);
-        console.log('target scope', e.targetScope);
-        console.log('asignacion de itemsLength fuera del evento f7');
         $scope.$apply(function(){
-                $scope.itemsLenght = itemsLength;
-
-            }
-        )
+            $scope.itemsLenght = itemsLength;
+            $scope.searchTxt = searchTxt;
+            console.log('itemsLength', itemsLength);
+            console.log('searchTxt', searchTxt);
+        });
     });
-
     var hallaUrl = function(tipoAyuda){
         if (tipoAyuda === 'subvenciones') {
             return Boe.urlListado(Boe.urlSubvenciones);
@@ -100,13 +98,12 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
     $scope.obtenerItems = function(url){
       Boe.getListado(url).then(function(resp){
           $scope.items = resp.data.query.results.item;
-          //$scope.itemsLenght = $scope.items.lenght;
+          $scope.itemsLenght = resp.data.query.results.item.length;
           MyApp.fw7.app.hideIndicator();
       });
     };
 
     $scope.hallaId = function(url){
-        //console.log('halla id de url:', url);
       return url.split('=')[1];
     };
 
@@ -118,20 +115,13 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error) {
         console.log('inputTxt DOM Element', $$('#inputTxt')[0]);
         console.log('inputTxt value', $$('#inputTxt')[0].value);
     };
-    $scope.setSearchTxt = function(txt){
-        //console.log('inputTxt DOM Elementt', $$('#inputTxt')[0]);
-        //console.log('inputTxt value', $$('#inputTxt')[0].value);
-        //$scope.searchTxt = 'searchtxt from angular';
-        //angular.element($$('#inputTxt')).triggerHandler('change');
-        //probar a disparar el evento change desde f7, no con angular
+    $scope.manualSearch = function(txt){
         mySearchbar = $$('.searchbar')[0].f7Searchbar;
-        console.log('searchbar', mySearchbar);
-        mySearchbar.search('test');
+        console.log('search txt on page reinit', $scope.searchTxt);
+        console.log('search txt', $scope.searchTxt);
+        //mySearchbar.search($scope.searchTxt);
     };
 
-    $scope.getListLength = function(){
-
-    };
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
@@ -158,93 +148,3 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
     }
 });
 // =====================================================================================================================
-/*
-MyApp.angular.controller('ListadoBoeCtrl2', function ($scope, Boe, Error) {
-    var listTemplate =
-        '<ul>' +
-        '{{#each items}}' +
-        '<li>' +
-        '<a href="#" class="item-link item-content feeds-item-link" data-index="{{@index}}">' +
-        '<div class="item-inner">' +
-        '<div class="item-title">titulo: {{title}}</div>' +
-        '<div class="item-after">{{formattedDate}}</div>' +
-        '</div>' +
-        '</a>' +
-        '</li>' +
-        '{{/each}}' +
-        '</ul>';
-    var itemPopupTemplate =
-        '<div class="popup">' +
-        '<div class="view navbar-fixed">' +
-        '<div class="navbar">' +
-        '<div class="navbar-inner">' +
-        '<div class="left sliding">' +
-        '<a href="#" class="close-popup link">' +
-        '<i class="icon icon-back"></i>' +
-        '<span>Close</span>' +
-        '</a>' +
-        '</div>' +
-        '<div class="center sliding">{{title}}</div>' +
-        '</div>' +
-        '</div>' +
-        '<div class="pages">' +
-        '<div class="page feeds-page" data-page="feeds-page-{{index}}">' +
-        '<div class="page-content">' +
-        '<div class="content-block">' +
-        '<a href="{{link}}" class="external" target="_blank">{{title}}</a><br>' +
-        '<small>{{formattedDate}}</small>' +
-        '</div>' +
-        '<div class="content-block"><div class="content-block-inner">{{description}}</div></div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
-
-    MyApp.fw7.app.onPageBeforeAnimation('listadoBoe2', function (page) {
-        //MyApp.fw7.app.showIndicator();
-        //MyApp.fw7.app.showProgressbar();
-        //$scope.obtenerItems( hallaUrl(page.query.tipo) );
-        //console.log(Dom7.find('li'));
-        //console.log(Dom7('#lista')[0]);
-        //console.log(Dom7('#lista')[0].childElementCount);
-        console.log('tipo', page.query.tipo);
-        console.log('urltest', hallaUrl(page.query.tipo));
-        var myFeed = MyApp.fw7.app.feeds('#feeds', {
-            url: hallaUrl(page.query.tipo),
-            openIn: 'popup',
-            listTemplate:listTemplate,
-            itemPopupTemplate:itemPopupTemplate,
-            customItemFields:['content:encoded', 'author']
-        });
-        //$scope.$apply();
-    });
-
-    var hallaUrl = function(tipoAyuda){
-        if (tipoAyuda === 'subvenciones') {
-            return Boe.urlListado(Boe.urlSubvenciones);
-        } else if (tipoAyuda === 'becas') {
-            return Boe.urlListado(Boe.urlBecas);
-        } else if (tipoAyuda === 'premios') {
-            return Boe.urlListado(Boe.urlPremios);
-        } else if (tipoAyuda === 'oposiciones') {
-            return Boe.urlListado(Boe.urlOposiciones);
-        };
-    }
-
-    //$scope.obtenerItems = function(url){
-    //    $scope.items = 'Obteniendo datos...';
-    //    Boe.getListado(url).then(function(resp){
-    //        $scope.items = resp.data.query.results.item;
-    //        //MyApp.fw7.app.hideProgressbar();
-    //        MyApp.fw7.app.hideIndicator();
-    //    });
-    //};
-
-    $scope.hallaId = function(url){
-        return url.split('=')[1];
-    };
-
-
-});
-*/
