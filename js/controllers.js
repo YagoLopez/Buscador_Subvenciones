@@ -1,5 +1,11 @@
 MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope) {
 
+    //MyApp.fw7.app.onPageBeforeAnimation('index', function (page) {
+    //    var mySearchbar = $$('.searchbar')[0].f7Searchbar;
+    //    console.log('page before animation index page');
+    //    console.log('mysearchbar', mySearchbar);
+    //});
+
     InitService.addEventListener('ready', function () {
         // DOM ready
         console.log('IndexPageController: ok, DOM ready');
@@ -43,7 +49,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
     //todo: quitar diacriticos en la busqueda
 
     var itemsLength = 0;
-    //var searchTxt = '';
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         MyApp.fw7.app.showIndicator();
@@ -52,28 +57,29 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
 
         $$('.list-block-search').on('search', function(e){
             itemsLength = e.detail.foundItems.length;
-            //searchTxt = e.detail.query;
             $scope.$broadcast('searchTxtChanged');
         });
     });
 
     MyApp.fw7.app.onPageReinit('listadoBoe', function(page){
         var searchTxt = $scope.mySearchbar.query;
-        if(searchTxt != null && searchTxt != 'undefined'){
+        console.warn('searchTxt', searchTxt);
+        console.log('typeof searchTxt', typeof (searchTxt));
+        if(searchTxt != '' && searchTxt != 'undefined' && searchTxt != null){
+            console.log('hay texto que buscar');
             $scope.mySearchbar.clear();
             $timeout(function() {
                 console.log('searchtxt', searchTxt);
                 $scope.mySearchbar.search(searchTxt);
             }, 10); // hay que esperar que termine el timer de searchbar
+        }else{
+                console.log('no hay texto que buscar, cancelando searchbar');
         };
     });
 
     $scope.$on('searchTxtChanged', function(e) {
         $scope.$apply(function(){
             $scope.itemsLenght = itemsLength;
-            //$scope.searchTxt = searchTxt;
-            //console.log('itemsLength', itemsLength);
-            //console.log('searchTxt', searchTxt);
         });
     });
 
@@ -105,6 +111,13 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, Error, $timeou
     };
     $scope.manualSearch = function(txt){
     };
+    $scope.resetSearchbar = function() {
+            console.log('desactivando searchbar');
+            $scope.mySearchbar.clear();
+            $scope.mySearchbar.disable();
+            //$scope.mySearchbar.enable();
+
+    }
 
 });
 // =====================================================================================================================
