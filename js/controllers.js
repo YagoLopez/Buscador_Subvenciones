@@ -46,14 +46,16 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
 
-    //todo: quitar diacriticos en la busqueda
+    //todo: comprobr lo de quitar diacriticos en la busqueda
 
     var itemsLength = 0;
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-        MyApp.fw7.app.showIndicator();
+        $scope.items = []; $scope.itemsLenght = 0; MyApp.fw7.app.showIndicator();
+        $scope.tipoAyuda = page.query.tipo;
         $scope.obtenerItems( hallaUrl(page.query.tipo) );
         $scope.mySearchbar = $$('.searchbar')[0].f7Searchbar;
+        $scope.mySearchbar.params.removeDiacritics = true;
 
         $$('.list-block-search').on('search', function(e){
             itemsLength = e.detail.foundItems.length;
@@ -64,7 +66,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
     MyApp.fw7.app.onPageReinit('listadoBoe', function(page){
         var searchTxt = $scope.mySearchbar.query;
         if(searchTxt != '' && searchTxt != 'undefined' && searchTxt != null){
-            console.log('hay texto que buscar');
+            //console.log('hay texto que buscar');
             $scope.mySearchbar.clear();
             $timeout(function() {
                 console.log('searchtxt', searchTxt);
@@ -103,15 +105,10 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
       return url.split('=')[1];
     };
 
-    $scope.getSearchTxt = function(){
-    };
-    $scope.manualSearch = function(txt){
-    };
     $scope.resetSearchbar = function() {
         $scope.mySearchbar.clear();
         $scope.mySearchbar.disable();
     }
-
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
@@ -122,19 +119,25 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
         console.log('query string', decodeURIComponent(page.query.web), decodeURIComponent(page.query.pdf));
         $scope.web = decodeURIComponent(page.query.web);
         $scope.pdf = decodeURIComponent(page.query.pdf);
+        $scope.idboe = page.query.id;
 
         Boe.getDetalle( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
             //console.log(htmlDetalle);
             $scope.htmlDetalle = htmlDetalle;
+            $scope.showButtons = true;
             MyApp.fw7.app.hideIndicator();
         });
     });
+
     $scope.getHtmlSafe = function(html){
         return $sce.trustAsHtml(html);
     };
     $scope.btnTop = function(){
         console.log('click');
         Dom7('.page-content').scrollTop(0, 500); //500 velocidad
+    }
+    $scope.onIconBack = function(){
+        $scope.showButtons = false;
     }
 });
 // =====================================================================================================================

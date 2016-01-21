@@ -932,7 +932,7 @@ html:not(.watch-active-state) .subnavbar a.link:active:before,
   white-space: nowrap;
   line-height: 56px;
   display: inline-block;
-  text-align: left;
+  text-align: center;
 }
 .navbar .left,
 .subnavbar .left,

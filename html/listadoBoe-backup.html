@@ -12,7 +12,8 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#index" class="link icon-only"><i class="icon icon-back"></i></a>
+                <a href="#index" class="link icon-only" ng-click="resetSearchbar()">
+                    <i class="icon icon-back"></i></a>
             </div>
             <div class="center">Subvenciones Boe</div>
         </div>
@@ -20,20 +21,21 @@
     <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
     <form data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
         <div class="searchbar-input">
-            <input type="search" placeholder="Search" ng-change="alert('change')" ng-model="searchtxt"/>
+            <input id= "inputTxt" type="search" placeholder="Buscar"/>
             <a href="#" class="searchbar-clear"></a>
         </div>
         <a href="#" class="searchbar-cancel">Cancel</a>
     </form>
     <div class="searchbar-overlay"></div>
-    <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
+    <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
     <div class="page-content">
-        <button ng-click="hallarTotal()">Hallar total</button>
-        <div>Total: {{ items.length }}</div>
+        <button ng-click="manualSearch('')">set search txt</button>
+        <button ng-click="getSearchTxt()">get search txt</button>
+        <div>Total: {{ itemsLenght }}</div>
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
-        <!-- Listado ----------------------------------------------------------------------------------------------- -->
+    <!-- Listado --------------------------------------------------------------------------------------------------- -->
         <div class="list-block list-block-search searchbar-found">
             <ul id="lista">
                 <li ng-repeat="item in items" class="item-content">
@@ -50,9 +52,8 @@
             </ul>
         </div>
         <a href="#index">go back</a><br>
-        <a href="#detalleBoe">detalle</a>
-        <!-- pagina detalle ---------------------------------------------------------------------------------------- -->
+    <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
         <ng-include src="'html/detalleBoe.html'" ng-controller="DetalleBoeCtrl"></ng-include>
-
+    <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
     </div>
 </div>

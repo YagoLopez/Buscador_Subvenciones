@@ -2,9 +2,12 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#listadoBoe" class="link icon-only"><i class="icon icon-back"></i></a>
+                <a href="#listadoBoe" class="link icon-only" ng-click="onIconBack()"><i class="icon icon-back"></i></a>
             </div>
-            <div class="center">Detalle Boe</div>
+            <div class="center">{{ idboe }}</div>
+            <div class="right">
+                <a href="#" class="link icon-only open-panel" data-panel="left"><i class="icon icon-bars"></i></a>
+            </div>
         </div>
     </div>
     <div class="speed-dial">
@@ -21,6 +24,7 @@
         <div class="content-block">
             <b>EXTRACTO:</b>
             <p ng-bind-html="getHtmlSafe(htmlDetalle)"></p>
+            <div ng-show="showButtons">
             <p class="buttons-row">
                 <a href="{{ web }}" class="button button-raised button-fill external"
                    target="_blank">Texto Completo (Web)</a></p>
@@ -28,6 +32,7 @@
                 <a href="{{ pdf }}" class="button button-raised button-fill external"
                    target="_blank">Texto Completo (PDF)</a></p>
             <div id="btnTop" class="button" style="text-align:center" ng-tap="btnTop()" ng-click="btnTop()">Inicio</div>
+        </div>
         </div>
     </div>
 </div>
