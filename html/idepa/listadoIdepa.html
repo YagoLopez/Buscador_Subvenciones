@@ -21,15 +21,15 @@
     </form>
     <div class="searchbar-overlay"></div>
     <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
-    <div id="pageContent" class="page-content">
+    <div class="page-content" style="padding-top: 73px;">
         <!-- Listado ----------------------------------------------------------------------------------------------- -->
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
-        <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found" style="margin-top:10px;">
+        <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found" style="/*margin-top:10px;*/">
             <ul id="listaIdepa">
                 <li ng-repeat="item in items">
-                    <a ng-href="{{ item.link_detalle.href }}" class="item-link external" style="width: 100%;">
+                    <a ng-href="{{ item.link_detalle.href }}" class="item-link external" style="/*width: 100%;*/">
                         <div class="item-inner paddingLeft" >
                             <div>
                                 <div>{{ item.descripcion }}</div>

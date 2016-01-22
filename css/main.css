@@ -22,8 +22,8 @@ i.demo-icon-upload {
 /* listado ********************************************************************************************************** */
 .list-block-search .item-inner {
     font-size: small;}
-.list-block-search.search-found´{
-    /*margin-top:100px;*/}
+li.a{
+    width: 100%;}
 .pieItem {
     font-size: x-small;
     color: cornflowerblue;}
@@ -35,9 +35,6 @@ div.center {
     margin-right: 10px;
     font-size: small;
     background:blueviolet;}
-#pageContent {
-    padding-top: 95px;
-}
 .item-inner.paddingLeft {
     padding-left: 8px;
 }
