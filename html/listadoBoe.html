@@ -1,3 +1,4 @@
+<!--
 <style type="text/css">
     #lista .item-inner {
         font-size: small;}
@@ -12,7 +13,10 @@
         margin-right: 10px;
         font-size: small;
         background:blueviolet;}
+    #pageContent {
+        padding-top: 94px;}
 </style>
+-->
 <div data-page="listadoBoe" class="page cached">
     <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
     <div class="navbar">
@@ -26,7 +30,7 @@
         </div>
     </div>
     <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
-    <form data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+    <form id="searchbarBoe" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
         <div class="searchbar-input">
             <input id= "inputTxt" type="search" placeholder="Buscar"/>
             <a href="#" class="searchbar-clear"></a>
@@ -35,15 +39,15 @@
     </form>
     <div class="searchbar-overlay"></div>
     <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
-    <div class="page-content" style="padding-top:94px">
+    <div id="pageContent" class="page-content">
         <!--<div class="content-block-title" style="padding:0;margin:0;top:6px;">Total: {{ itemsLenght }}</div>-->
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
     <!-- Listado --------------------------------------------------------------------------------------------------- -->
-        <div class="list-block list-block-search searchbar-found" style="margin-top:10px;">
+        <div id="listaBloque" class="list-block list-block-search searchbar-found" style="margin-top:10px;">
             <ul id="lista">
-                <li ng-repeat="item in items" class="item-content">
+                <li ng-repeat="item in items">
                     <a ng-href="#detalleBoe?id={{hallaId(item.link)}}&web={{item.link|urlEncode}}&pdf={{item.guid.content|urlEncode}}"
                        class="item-link">
                         <div class="item-inner">

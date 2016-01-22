@@ -1535,7 +1535,7 @@ html:not(.watch-active-state) .searchbar a:active:before,
 .navbar-through .page > .searchbar ~ .page-content,
 .navbar-fixed > .searchbar ~ .page-content,
 .navbar-through > .searchbar ~ .page-content {
-  padding-top: 104px;
+  padding-top: 287px;
 }
 /* === Message Bar === */
 .toolbar.messagebar {

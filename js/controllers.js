@@ -1,10 +1,5 @@
+//todo: posibles nombres: todo ayudas (buscador de ayudas y subvenciones), subventia, public money
 MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope) {
-
-    //MyApp.fw7.app.onPageBeforeAnimation('index', function (page) {
-    //    var mySearchbar = $$('.searchbar')[0].f7Searchbar;
-    //    console.log('page before animation index page');
-    //    console.log('mysearchbar', mySearchbar);
-    //});
 
     InitService.addEventListener('ready', function () {
         // DOM ready
@@ -52,23 +47,23 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
         $scope.items = []; $scope.itemsLenght = 0; MyApp.fw7.app.showIndicator();
         $scope.tipoAyuda = page.query.tipo;
         $scope.obtenerItems( hallaUrl(page.query.tipo) );
-        $scope.mySearchbar = $$('.searchbar')[0].f7Searchbar;
-        $scope.mySearchbar.params.removeDiacritics = true;
+        $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
+        $scope.searchbarBoe.params.removeDiacritics = true;
 
-        $$('.list-block-search').on('search', function(e){
+        $$('#listaBloque').on('search', function(e){
             itemsLength = e.detail.foundItems.length;
             $scope.$broadcast('searchTxtChanged');
         });
     });
 
     MyApp.fw7.app.onPageReinit('listadoBoe', function(page){
-        var searchTxt = $scope.mySearchbar.query;
+        var searchTxt = $scope.searchbarBoe.query;
         if(searchTxt != '' && searchTxt != 'undefined' && searchTxt != null){
             //console.log('hay texto que buscar');
-            $scope.mySearchbar.clear();
+            $scope.searchbarBoe.clear();
             $timeout(function() {
                 console.log('searchtxt', searchTxt);
-                $scope.mySearchbar.search(searchTxt);
+                $scope.searchbarBoe.search(searchTxt);
             }, 10); // hay que esperar que termine el timer de searchbar
         };
     });
@@ -104,8 +99,8 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
     };
 
     $scope.resetSearchbar = function() {
-        $scope.mySearchbar.clear();
-        $scope.mySearchbar.disable();
+        $scope.searchbarBoe.clear();
+        $scope.searchbarBoe.disable();
     }
 });
 // =====================================================================================================================
