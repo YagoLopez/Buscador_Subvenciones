@@ -46,8 +46,6 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
 
-    //todo: comprobr lo de quitar diacriticos en la busqueda
-
     var itemsLength = 0;
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
@@ -141,3 +139,43 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
     }
 });
 // =====================================================================================================================
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
+
+    MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
+        $scope.items = []; $scope.itemsLenght = 0; MyApp.fw7.app.showIndicator();
+        $scope.obtenerItems();
+    });
+
+    MyApp.fw7.app.onPageReinit('listadoIdepa', function(page){
+    });
+
+    $scope.obtenerItems = function(){
+        Idepa.getListado().then(function(resp){
+            console.log('resp desde listado idepa ctrl', resp);
+            var items = resp.data.results.collection1;
+            $scope.items = items;
+            $scope.itemsLenght = items.length;
+            MyApp.fw7.app.hideIndicator();
+        })
+    };
+
+    $scope.resetSearchbar = function() {
+    }
+});
+// =====================================================================================================================
+MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, $sce) {
+
+    MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
+    });
+
+    $scope.getHtmlSafe = function(html){
+        return $sce.trustAsHtml(html);
+    };
+    $scope.btnTop = function(){
+        console.log('click');
+        Dom7('.page-content').scrollTop(0, 500); //500 velocidad
+    }
+    $scope.onIconBack = function(){
+        $scope.showButtons = false;
+    }
+});

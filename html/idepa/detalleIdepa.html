@@ -1,0 +1,38 @@
+<div data-page="detalleIdepa" class="page cached">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#listadoIdepa" class="link icon-only" ng-click="onIconBack()"><i class="icon icon-back"></i></a>
+            </div>
+            <div class="center">Detalle IDEPA</div>
+            <div class="right">
+                <a href="#" class="link icon-only open-panel" data-panel="left"><i class="icon icon-bars"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="speed-dial">
+        <a href="#" class="floating-button color-indigo">
+            <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
+        <div class="speed-dial-buttons">
+            <a href="{{ pdf }}" class="external color-indigo" target="_blank">
+                <i class="icon ks-icon-calendar"></i></a>
+            <a href="{{ web }}" class="external color-indigo" target="_blank">
+                <i class="icon ks-icon-email"></i></a>
+        </div>
+    </div>
+    <div class="page-content hide-navbar-on-scroll" style="padding-top:50px">
+        <div class="content-block">
+            <b>EXTRACTO:</b>
+            <p ng-bind-html="getHtmlSafe(htmlDetalle)"></p>
+            <div ng-show="showButtons">
+            <p class="buttons-row">
+                <a href="{{ web }}" class="button button-raised button-fill external"
+                   target="_blank">Texto Completo (Web)</a></p>
+            <p class="buttons-row">
+                <a href="{{ pdf }}" class="button button-raised button-fill external"
+                   target="_blank">Texto Completo (PDF)</a></p>
+            <div id="btnTop" class="button" style="text-align:center" ng-tap="btnTop()" ng-click="btnTop()">Inicio</div>
+        </div>
+        </div>
+    </div>
+</div>

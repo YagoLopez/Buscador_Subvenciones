@@ -12,8 +12,11 @@
         margin-right: 10px;
         font-size: small;
         background:blueviolet;}
+    #pagIdepa {
+        padding-top: 94px;
+    }
 </style>
-<div data-page="listadoBoe" class="page cached">
+<div data-page="listadoIdepa" class="page cached">
     <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
     <div class="navbar">
         <div class="navbar-inner">
@@ -21,7 +24,7 @@
                 <a href="#index" class="link icon-only" ng-click="resetSearchbar()">
                     <i class="icon icon-back"></i></a>
             </div>
-            <div class="center">BOE: {{ tipoAyuda }}</div>
+            <div class="center">IDEPA</div>
             <div class="right"><span id="itemsLength" class="badge">{{ itemsLenght }}</span></div>
         </div>
     </div>
@@ -35,8 +38,7 @@
     </form>
     <div class="searchbar-overlay"></div>
     <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
-    <div class="page-content" style="padding-top:94px">
-        <!--<div class="content-block-title" style="padding:0;margin:0;top:6px;">Total: {{ itemsLenght }}</div>-->
+    <div id="pagIdepa" class="page-content" style="padding-top:94px">
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
@@ -44,12 +46,11 @@
         <div class="list-block list-block-search searchbar-found" style="margin-top:10px;">
             <ul id="lista">
                 <li ng-repeat="item in items" class="item-content">
-                    <a ng-href="#detalleBoe?id={{hallaId(item.link)}}&web={{item.link|urlEncode}}&pdf={{item.guid.content|urlEncode}}"
-                       class="item-link">
+                    <a ng-href="{{item.link_detalle.href}}" class="item-link external" style="width: 100%;">
                         <div class="item-inner">
                             <div>
-                                {{ item.title }}<br>
-                                <div class="pieItem">{{ item.description }}</div>
+                                {{ item.descripcion }}<br>
+                                <div class="pieItem">Ámbito: {{ item.ambito }}</div>
                             </div>
                         </div>
                     </a>
@@ -58,7 +59,7 @@
         </div>
         <a href="#index">go back</a><br>
     <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
-        <ng-include src="'html/detalleBoe.html'" ng-controller="DetalleBoeCtrl"></ng-include>
+        <!--<ng-include src="'html/idepa/detalleIdepa.html'" ng-controller="DetalleIdepaCtrl"></ng-include>-->
     <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
     </div>
 </div>

@@ -102,6 +102,46 @@ MyApp.angular.service('Boe', function($http, Error){
   //};
 });
 // =====================================================================================================================
+/*
+MyApp.angular.service('RemoteData', function($http, Error){
+
+  this.getData = function(url){
+    console.log('url', url);
+    var promesa = $http.jsonp(url, {cache: true}).then(function(resp){
+          console.log(resp);
+          return resp;},
+        function(datosError){
+          Error.mostrar(datosError);
+        });
+    return promesa;
+  };
+});
+*/
+// =====================================================================================================================
+MyApp.angular.service('Idepa', function($http, Error){
+
+  this.urlIdepa = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+
+/*  this.getListado = function(){
+    return RemoteData.getData(this.urlIdepa).then(function(resp){
+       console.log('datos idepa', resp);
+       return resp;
+    });
+  };
+*/
+
+  this.getListado = function(){
+    var promesa = $http.jsonp(this.urlIdepa, {cache: true}).then(function(resp){
+      console.log(resp);
+      return resp;},
+    function(datosError){
+      Error.mostrar(datosError);
+    });
+    return promesa;
+  };
+
+});
+// =====================================================================================================================
 MyApp.angular.service('Error', function(){
   this.mostrar = function(resp){
     MyApp.fw7.app.hideIndicator();

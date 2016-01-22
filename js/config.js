@@ -17,6 +17,7 @@ MyApp.fw7 = {
     materialPageLoadDelay: 1,
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
+    dynamicNavbar: false
     //pushStateSeparator: '#!'
   }),
   options : {
