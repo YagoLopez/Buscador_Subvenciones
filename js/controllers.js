@@ -50,7 +50,8 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
         $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
         $scope.searchbarBoe.params.removeDiacritics = true;
 
-        $$('#listaBloque').on('search', function(e){
+        $$('#bloqueListaBoe').on('search', function(e){
+            console.log('#listaBloque on search');
             itemsLength = e.detail.foundItems.length;
             $scope.$broadcast('searchTxtChanged');
         });
@@ -146,7 +147,6 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
 
     $scope.obtenerItems = function(){
         Idepa.getListado().then(function(resp){
-            console.log('resp desde listado idepa ctrl', resp);
             var items = resp.data.results.collection1;
             $scope.items = items;
             $scope.itemsLenght = items.length;

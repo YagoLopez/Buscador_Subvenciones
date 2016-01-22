@@ -20,8 +20,10 @@ i.demo-icon-upload {
     background-image: url("data:image/svg+xml;charset=utf-8,<svg fill='#FFFFFF' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><path d='M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z'/></svg>");
 }
 /* listado ********************************************************************************************************** */
-#lista .item-inner {
+.list-block-search .item-inner {
     font-size: small;}
+.list-block-search.search-found´{
+    /*margin-top:100px;*/}
 .pieItem {
     font-size: x-small;
     color: cornflowerblue;}
@@ -34,9 +36,9 @@ div.center {
     font-size: small;
     background:blueviolet;}
 #pageContent {
-    padding-top: 94px;
+    padding-top: 95px;
 }
-.padding-left {
+.item-inner.paddingLeft {
     padding-left: 8px;
 }
 /* fin listado ****************************************************************************************************** */
