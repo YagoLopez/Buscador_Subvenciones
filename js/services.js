@@ -124,9 +124,12 @@ MyApp.angular.service('Idepa', function($http, Error){
 
   this.getDetalle = function(url){
     return $http.get(url, {cache: true}).then(function(resp){
+          //console.log(resp);
           var parser = new DOMParser();
           var xmlDoc = parser.parseFromString(resp.data, 'text/xml');
           var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
+          if (htmlDetalle.length < 10)
+              htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n'
           //console.log('htmlDetalle', htmlDetalle);
           return htmlDetalle;
         },

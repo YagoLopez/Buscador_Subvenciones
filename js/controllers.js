@@ -122,40 +122,47 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
         });
     });
 
+    //todo: agrupar estas funciones en un servicio de utilidad
     $scope.getHtmlSafe = function(html){
         return $sce.trustAsHtml(html);
     };
     $scope.btnTop = function(){
-        console.log('click');
-        Dom7('.page-content').scrollTop(0, 500); //500 velocidad
+        $$('.page-content').scrollTop(0, 500); //500 velocidad
     }
     $scope.onIconBack = function(){
         $scope.showButtons = false;
     }
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa, $timeout) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-        $scope.items = []; $scope.itemsLenght = 0; MyApp.fw7.app.showIndicator();
+        $scope.items = []; $scope.itemsLength = 0; MyApp.fw7.app.showIndicator();
         $scope.obtenerItems();
-        console.log('li', $$('#listaIdepa'));
-    });
-
-    MyApp.fw7.app.onPageReinit('listadoIdepa', function(page){
+        $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
+        $scope.searchbarIdepa.params.removeDiacritics = true;
+        $$('#bloqueListaIdepa').on('search', function(e){
+            $scope.itemsLength = e.detail.foundItems.length;
+            $scope.$apply();
+        });
     });
 
     $scope.obtenerItems = function(){
         Idepa.getListado().then(function(resp){
             var items = resp.data.results.collection1;
             $scope.items = items;
-            $scope.itemsLenght = items.length;
+            $scope.itemsLength = items.length;
             MyApp.fw7.app.hideIndicator();
         })
     };
 
+    $scope.hallaId = function(url){
+    };
+
     $scope.resetSearchbar = function() {
-    }
+        $scope.searchbarIdepa.clear();
+        $scope.searchbarIdepa.disable();
+    };
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, $sce, Idepa) {
@@ -178,8 +185,7 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, $sce, Idepa) {
         return $sce.trustAsHtml(html);
     };
     $scope.btnTop = function(){
-        console.log('click');
-        Dom7('.page-content').scrollTop(0, 500); //500 velocidad
+        $$('.page-content').scrollTop(0, 500); //500 velocidad
     }
     $scope.onIconBack = function(){
         $scope.showButtons = false;
