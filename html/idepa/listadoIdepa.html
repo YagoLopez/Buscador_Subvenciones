@@ -26,10 +26,10 @@
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
-        <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found" style="/*margin-top:10px;*/">
+        <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found">
             <ul id="listaIdepa">
                 <li ng-repeat="item in items">
-                    <a ng-href="{{ item.link_detalle.href }}" class="item-link external" style="/*width: 100%;*/">
+                    <a ng-href="#detalleIdepa?web={{ item.link_detalle.href|urlEncode }}" class="item-link">
                         <div class="item-inner paddingLeft" >
                             <div>
                                 <div>{{ item.descripcion }}</div>

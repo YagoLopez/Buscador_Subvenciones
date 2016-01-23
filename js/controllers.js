@@ -51,7 +51,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
         $scope.searchbarBoe.params.removeDiacritics = true;
 
         $$('#bloqueListaBoe').on('search', function(e){
-            console.log('#listaBloque on search');
             itemsLength = e.detail.foundItems.length;
             $scope.$broadcast('searchTxtChanged');
         });
@@ -110,7 +109,7 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.htmlDetalle = 'Obteniendo datos...';
-        console.log('query string', decodeURIComponent(page.query.web), decodeURIComponent(page.query.pdf));
+        //console.log('query string', decodeURIComponent(page.query.web), decodeURIComponent(page.query.pdf));
         $scope.web = decodeURIComponent(page.query.web);
         $scope.pdf = decodeURIComponent(page.query.pdf);
         $scope.idboe = page.query.id;
@@ -140,6 +139,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
     MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
         $scope.items = []; $scope.itemsLenght = 0; MyApp.fw7.app.showIndicator();
         $scope.obtenerItems();
+        console.log('li', $$('#listaIdepa'));
     });
 
     MyApp.fw7.app.onPageReinit('listadoIdepa', function(page){
@@ -158,9 +158,20 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
     }
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, $sce) {
+MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, $sce, Idepa) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
+        MyApp.fw7.app.showIndicator();
+        $scope.htmlDetalle = 'Obteniendo datos...';
+        $scope.web = decodeURIComponent(page.query.web);
+        console.log($scope.web);
+
+        Idepa.getDetalle( Idepa.urlDetalle($scope.web) ).then(function(htmlDetalle){
+            //console.log(htmlDetalle);
+            $scope.htmlDetalle = htmlDetalle;
+            $scope.showButtons = true;
+            MyApp.fw7.app.hideIndicator();
+        });
     });
 
     $scope.getHtmlSafe = function(html){

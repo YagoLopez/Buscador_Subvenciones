@@ -76,8 +76,8 @@ MyApp.angular.service('Boe', function($http, Error){
   this.getDetalle = function(url){
     var promesa = $http.get(url, {cache: true}).then(function(resp){
       //console.log(resp);
-      parser = new DOMParser();
-      xmlDoc = parser.parseFromString(resp.data, 'text/xml');
+      var parser = new DOMParser();
+      var xmlDoc = parser.parseFromString(resp.data, 'text/xml');
       var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
       //console.log('htmlDetalle', htmlDetalle);
       return htmlDetalle;
@@ -86,7 +86,6 @@ MyApp.angular.service('Boe', function($http, Error){
       Error.mostrar(datosError);
     });
     return promesa;
-
   };
 
   //this.getDetalle = function(url){
@@ -104,24 +103,36 @@ MyApp.angular.service('Boe', function($http, Error){
 // =====================================================================================================================
 MyApp.angular.service('Idepa', function($http, Error){
 
-  this.urlIdepa = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
-
-/*  this.getListado = function(){
-    return RemoteData.getData(this.urlIdepa).then(function(resp){
-       console.log('datos idepa', resp);
-       return resp;
-    });
+  var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
+      'charset="utf-8" and compat="html5"';
+  var urlYql = 'https://query.yahooapis.com/v1/public/yql';
+  //var urlDetalleIdepa = 'http://www.idepa.es/sites/web/idepaweb/servicios/ayudas/buscador/ficha.jsp?' +
+  //    'resource=/system/idepa/contents/ayudas/ayuda1244455791639.html&ayuda_page=1&searchType=basic';
+  this.urlListado = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+  this.urlDetalle = function(urlDetalleIdepa){
+    return urlYql + '?url=' + urlDetalleIdepa + '&q=' + query;
   };
-*/
 
   this.getListado = function(){
-    var promesa = $http.jsonp(this.urlIdepa, {cache: true}).then(function(resp){
-      console.log(resp);
-      return resp;},
-    function(datosError){
-      Error.mostrar(datosError);
-    });
-    return promesa;
+    return $http.jsonp(this.urlListado, {cache: true}).then(function(resp){
+          console.log(resp);
+          return resp;},
+        function(datosError){
+          Error.mostrar(datosError);
+        });
+  };
+
+  this.getDetalle = function(url){
+    return $http.get(url, {cache: true}).then(function(resp){
+          var parser = new DOMParser();
+          var xmlDoc = parser.parseFromString(resp.data, 'text/xml');
+          var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
+          //console.log('htmlDetalle', htmlDetalle);
+          return htmlDetalle;
+        },
+        function(datosError){
+          Error.mostrar(datosError);
+        });
   };
 
 });
