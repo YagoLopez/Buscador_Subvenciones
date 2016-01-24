@@ -7,7 +7,7 @@
                     <i class="icon icon-back"></i></a>
             </div>
             <div class="center">BOE: {{ tipoAyuda }}</div>
-            <div class="right"><span id="itemsLength" class="badge">{{ itemsBoeLength }}</span></div>
+            <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
         </div>
     </div>
     <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
@@ -27,7 +27,7 @@
         </div>
         <div id="bloqueListaBoe" class="list-block list-block-search searchbar-found">
             <ul id="listaBoe">
-                <li ng-repeat="item in itemsBoe">
+                <li ng-repeat="item in items">
                     <a ng-href="#detalleBoe?id={{hallaId(item.link)}}&web={{item.link|urlEncode}}&pdf={{item.guid.content|urlEncode}}"
                        class="item-link">
                         <div class="item-inner paddingLeft">

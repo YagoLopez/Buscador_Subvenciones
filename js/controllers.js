@@ -45,24 +45,22 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
 
+    //todo: cambiar itemsBoe a items
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-        //$scope.itemsBoe = []; $scope.itemsBoeLength = 0;
         $scope.tipoAyuda = page.query.tipo;
         $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
         $scope.searchbarBoe.params.removeDiacritics = true;
-        console.log('page from', page.fromPage.name);
         if (page.fromPage.name === 'index'){
-            console.log('vengo desde index');
             MyApp.fw7.app.showIndicator();
             $scope.obtenerItems( hallaUrl(page.query.tipo) );
         }
         $$('#bloqueListaBoe').on('search', function(e){
-            $scope.itemsBoeLength = e.detail.foundItems.length;
+            $scope.numItems = e.detail.foundItems.length;
             $scope.$apply();
-            console.warn('buscndo... itemsboe length', $scope.itemsBoeLength);
         });
     });
 
+    //todo: pasar esto a un servicio
     var hallaUrl = function(tipoAyuda){
         if (tipoAyuda === 'subvenciones') {
             return Boe.urlListado(Boe.urlSubvenciones);
@@ -78,12 +76,9 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
     $scope.obtenerItems = function(url){
       Boe.getListado(url).then(function(resp){
           $timeout(function(){
-              $scope.searchbarBoe.clear();
               $scope.searchbarBoe.disable();
-              $scope.itemsBoe = resp.data.query.results.item;
-              $scope.itemsBoeLength = resp.data.query.results.item.length;
-              console.log('obteniendo nuevos items', $scope.itemsBoe);
-              console.warn('itemsboe length', $scope.itemsBoeLength);
+              $scope.items = resp.data.query.results.item;
+              $scope.numItems = resp.data.query.results.item.length;
           });
           MyApp.fw7.app.hideIndicator();
       });
@@ -94,16 +89,12 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe, $timeout) {
     };
     //todo: mover a la izquierda el recuadro del total de resultados un poco
     $scope.resetSearchbar = function() {
-        $scope.itemsBoe = null;
-        $timeout(function(){
+        $scope.items = null;
+        //$timeout(function(){
             //$scope.searchbarBoe.clear();
             //$scope.searchbarBoe.disable();
-            console.log('reseteando searchbar y lista de items boe', $scope.itemsBoe);
-        }, 100);
-    };
-
-    $scope.hallaNumItems = function(){
-      $$('#listaBoe > li');
+        //    console.log('reseteando searchbar y lista de items boe', $scope.items);
+        //}, 100);
     };
 });
 // =====================================================================================================================
@@ -140,30 +131,24 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, $sce) {
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa, $timeout) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-        //$scope.itemsLength = 0; $scope.items = []; MyApp.fw7.app.showIndicator();
         $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
         $scope.searchbarIdepa.params.removeDiacritics = true;
         if (page.fromPage.name === 'index'){
-            console.log('vengo desde index');
             MyApp.fw7.app.showIndicator();
             $scope.obtenerItems();
         }
         $$('#bloqueListaIdepa').on('search', function(e){
-            $scope.itemsLength = e.detail.foundItems.length;
+            $scope.numItems = e.detail.foundItems.length;
             $scope.$apply();
-            console.warn('buscndo... items idepa, length', $scope.itemsLength);
         });
     });
 
     $scope.obtenerItems = function(){
         Idepa.getListado().then(function(resp){
             $timeout(function(){
-                $scope.searchbarIdepa.clear();
                 $scope.searchbarIdepa.disable();
-                var items = resp.data.results.collection1;
-                $scope.items = items;
-                $scope.itemsLength = items.length;
-                console.warn('items idepa length', $scope.itemsLength);
+                $scope.items = resp.data.results.collection1;
+                $scope.numItems = resp.data.results.collection1.length;
             });
             MyApp.fw7.app.hideIndicator();
         })
@@ -174,11 +159,9 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa, $timeout) 
 
     $scope.resetSearchbar = function() {
         $scope.items = null;
-        $timeout(function(){
-            //$scope.searchbarIdepa.clear();
-            //$scope.searchbarIdepa.disable();
-            console.log('reseteando searchbar y lista de items idepa', $scope.itemsBoe);
-        }, 100);
+        //$timeout(function(){
+        //    console.log('reseteando searchbar y lista de items idepa', $scope.items);
+        //}, 100);
     };
 });
 // =====================================================================================================================

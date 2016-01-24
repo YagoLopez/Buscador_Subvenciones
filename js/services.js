@@ -106,8 +106,6 @@ MyApp.angular.service('Idepa', function($http, Error){
   var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
       'charset="utf-8" and compat="html5"';
   var urlYql = 'https://query.yahooapis.com/v1/public/yql';
-  //var urlDetalleIdepa = 'http://www.idepa.es/sites/web/idepaweb/servicios/ayudas/buscador/ficha.jsp?' +
-  //    'resource=/system/idepa/contents/ayudas/ayuda1244455791639.html&ayuda_page=1&searchType=basic';
   this.urlListado = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
   this.urlDetalle = function(urlDetalleIdepa){
     return urlYql + '?url=' + urlDetalleIdepa + '&q=' + query;
