@@ -7,7 +7,7 @@
                     <i class="icon icon-back"></i></a>
             </div>
             <div class="center">BOE: {{ tipoAyuda }}</div>
-            <div class="right"><span id="itemsLength" class="badge">{{ itemsLenght }}</span></div>
+            <div class="right"><span id="itemsLength" class="badge">{{ itemsBoeLength }}</span></div>
         </div>
     </div>
     <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
@@ -22,13 +22,12 @@
     <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
     <div class="page-content" style="padding-top:73px">
         <!-- Listado ----------------------------------------------------------------------------------------------- -->
-        <!--<div class="content-block-title" style="padding:0;margin:0;top:6px;">Total: {{ itemsLenght }}</div>-->
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
         <div id="bloqueListaBoe" class="list-block list-block-search searchbar-found">
             <ul id="listaBoe">
-                <li ng-repeat="item in items">
+                <li ng-repeat="item in itemsBoe">
                     <a ng-href="#detalleBoe?id={{hallaId(item.link)}}&web={{item.link|urlEncode}}&pdf={{item.guid.content|urlEncode}}"
                        class="item-link">
                         <div class="item-inner paddingLeft">

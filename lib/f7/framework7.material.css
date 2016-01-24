@@ -1219,7 +1219,7 @@ html:not(.watch-active-state) .tabbar a.tab-link:active,
   padding-bottom: 72px;
 }
 .navbar-fixed .page-content {
-  padding-top: 56px;
+  padding-top: 70px;
 }
 .navbar-fixed.toolbar-fixed .page-content,
 .navbar-fixed.tabbar-fixed .page-content,
