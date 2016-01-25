@@ -99,6 +99,22 @@ MyApp.angular.service('Boe', function($http, Error){
   //  });
   //  return promesa;
   //};
+  this.creaUrl = function(tipoAyuda){
+    if (tipoAyuda === 'subvenciones') {
+      return this.urlListado(this.urlSubvenciones);
+    } else if (tipoAyuda === 'becas') {
+      return this.urlListado(this.urlBecas);
+    } else if (tipoAyuda === 'premios') {
+      return this.urlListado(this.urlPremios);
+    } else if (tipoAyuda === 'oposiciones') {
+      return this.urlListado(this.urlOposiciones);
+    }
+  };
+
+  this.hallaId = function(url){
+    return url.split('=')[1];
+  };
+
 });
 // =====================================================================================================================
 MyApp.angular.service('Idepa', function($http, Error){
@@ -150,3 +166,19 @@ MyApp.angular.service('Error', function(){
 MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;
 }]);
+// =====================================================================================================================
+MyApp.angular.service('Utiles', function($sce){
+
+  this.getHtmlSafe = function(html){
+      return $sce.trustAsHtml(html);
+  };
+  this.btnTop = function(){
+    console.log('btnTop en detalle');
+    $$('.page-content').scrollTop(0, 500); //500 velocidad
+  };
+  //this.onIconBack = function(localScope){
+  //  localScope.showButtons = false;
+  //  console.log('ocultando botones de pag detalle. showbuttons:');
+  //}
+
+});

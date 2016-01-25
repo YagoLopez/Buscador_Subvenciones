@@ -33,9 +33,10 @@ div.center {
 .sombra{
     box-shadow: -1px 1px 5px #888888;}
 #itemsLength {
-    margin-right: 10px;
+    margin-right: 20px;
     font-size: small;
-    background:blueviolet;}
+    background:blueviolet;
+    }
 .item-inner.paddingLeft {
     padding-left: 8px;
 }
