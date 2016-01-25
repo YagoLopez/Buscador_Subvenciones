@@ -47,7 +47,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
         $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
         $scope.searchbarBoe.params.removeDiacritics = true;
         if (page.fromPage.name === 'index'){
-            MyApp.fw7.app.showIndicator();
+            $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
             $scope.obtenerItems( Boe.creaUrl(page.query.tipo) );
         }
         $$('#bloqueListaBoe').on('search', function(e){
@@ -62,11 +62,10 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
           MyApp.fw7.app.hideIndicator();
       });
     };
-    $scope.hallaId = Boe.hallaId;
-
     $scope.onIconBack = function() {
         $scope.items = null;
     };
+    $scope.hallaId = Boe.hallaId;
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, Utiles) {
@@ -97,7 +96,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
         $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
         $scope.searchbarIdepa.params.removeDiacritics = true;
         if (page.fromPage.name === 'index'){
-            MyApp.fw7.app.showIndicator();
+            $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
             $scope.obtenerItems();
         }
         $$('#bloqueListaIdepa').on('search', function(e){
