@@ -43,7 +43,7 @@ MyApp.angular.factory('InitService', function ($document) {
   
 });
 // =====================================================================================================================
-MyApp.angular.service('Boe', function($http, Error){
+MyApp.angular.service('Boe', function($http, Error, Utiles){
 
   var queryListado = 'select * from rss where url=@url';
   var queryDetalle = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
@@ -76,14 +76,13 @@ MyApp.angular.service('Boe', function($http, Error){
   this.getDetalle = function(url){
     var promesa = $http.get(url, {cache: true}).then(function(resp){
       //console.log(resp);
-      var parser = new DOMParser();
-      var xmlDoc = parser.parseFromString(resp.data, 'text/xml');
-      var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
+      var htmlDetalle, xmlDoc;
+      htmlDetalle = Utiles.xmlParser(resp.data);
       //console.log('htmlDetalle', htmlDetalle);
       return htmlDetalle;
-    },
-    function(datosError){
-      Error.mostrar(datosError);
+    }, function(datosError){
+      //Error.mostrar(datosError);
+      return datosError;
     });
     return promesa;
   };
@@ -117,7 +116,7 @@ MyApp.angular.service('Boe', function($http, Error){
 
 });
 // =====================================================================================================================
-MyApp.angular.service('Idepa', function($http, Error){
+MyApp.angular.service('Idepa', function($http, Error, Utiles){
 
   var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
       'charset="utf-8" and compat="html5"';
@@ -129,27 +128,24 @@ MyApp.angular.service('Idepa', function($http, Error){
 
   this.getListado = function(){
     return $http.jsonp(this.urlListado, {cache: true}).then(function(resp){
-          console.log(resp);
-          return resp;},
-        function(datosError){
-          Error.mostrar(datosError);
-        });
+        console.log(resp);
+        return resp;},
+      function(datosError){
+        Error.mostrar(datosError);
+      });
   };
 
   this.getDetalle = function(url){
     return $http.get(url, {cache: true}).then(function(resp){
-          //console.log(resp);
-          var parser = new DOMParser();
-          var xmlDoc = parser.parseFromString(resp.data, 'text/xml');
-          var htmlDetalle = xmlDoc.getElementsByTagName('results')[0].innerHTML;
-          if (htmlDetalle.length < 100)
-              htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n'
-          //console.warn('htmlDetalle', htmlDetalle);
-          return htmlDetalle;
-        },
-        function(datosError){
-          Error.mostrar(datosError);
-        });
+      //console.log(resp);
+      htmlDetalle = Utiles.xmlParser(resp.data);
+      if (htmlDetalle.length < 100)
+        htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n'
+      //console.warn('htmlDetalle', htmlDetalle);
+      return htmlDetalle;
+    }, function(datosError){
+      Error.mostrar(datosError);
+    });
   };
 
 });
@@ -176,9 +172,34 @@ MyApp.angular.service('Utiles', function($sce){
     console.log('btnTop en detalle');
     $$('.page-content').scrollTop(0, 500); //500 velocidad
   };
-  //this.onIconBack = function(localScope){
-  //  localScope.showButtons = false;
-  //  console.log('ocultando botones de pag detalle. showbuttons:');
-  //}
+
+  this.xmlParser = function(xmlStr){
+    var xmlDoc = null;
+    if( /Edge\/12./i.test(navigator.userAgent )){ // IE EDGE
+      console.log('xmlParser, navegador edge');
+      xmlDoc = document.implementation.createHTMLDocument(''); // es un hack
+      xmlDoc.open(); xmlDoc.write(xmlStr); xmlDoc.close();
+      return xmlDoc.getElementsByTagName('results')[0].innerHTML;
+    }
+    else if( ('ActiveXObject' in window) &&
+              typeof(new window.ActiveXObject('Microsoft.XMLDOM')) === 'object' ) { // IEXPLORER
+      console.log('xmlParser, IExplorer');
+      xmlDoc = new window.ActiveXObject('Microsoft.XMLDOM');
+      xmlDoc.async = 'false';
+      xmlDoc.loadXML(xmlStr);
+      return xmlDoc.getElementsByTagName('results')[0].xml;
+    }
+    else if (typeof window.DOMParser != 'undefined') { // CHROME, FIREFOX, ETC.
+      console.log('xmlParser, Chrome, Firefox, etc.');
+      var parser = new DOMParser();
+      xmlDoc = parser.parseFromString(xmlStr, 'application/xml');
+      return xmlDoc.getElementsByTagName('results')[0].innerHTML;
+    }
+     else {
+      //todo: mostrar popup error?
+      //throw new Error('No hay datos. Error al analizar fichero XML');
+      return 'No hay datos. Error al analizar fichero XML';
+    };
+  };
 
 });

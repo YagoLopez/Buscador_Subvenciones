@@ -41,7 +41,6 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
 
-    //todo: incializar numItems a cero cada vez que se carga la pagina
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         $scope.tipoAyuda = page.query.tipo;
         $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
