@@ -2,11 +2,26 @@
 var MyApp = {};
 var $$ = Dom7;
 
-// config angular
-MyApp.config = {};
+// config MyApp
+//MyApp.config = {
+//
+//};
 
 // Init angular
 MyApp.angular = angular.module('MyApp', []);
+
+// Config angular
+MyApp.angular.config(
+  function($provide) {
+    $provide.decorator('$exceptionHandler', function($log, $delegate, Error) {
+      return function(exception, cause) {
+        $log.debug('Manejador de excepciones de la aplicacion');
+        console.log('exception', exception, cause);
+        $delegate(exception, cause);
+        Error.mostrar2('<div style="overflow:auto">'+exception+'<br><br></div>');
+      };
+    });
+  });
 
 MyApp.fw7 = {
   app : new Framework7({
@@ -25,9 +40,4 @@ MyApp.fw7 = {
   },
   views : []
 };
-
-//MyApp.fw7.app.onPageBeforeInit('about', function (page) {
-//  console.log('about page onpageinit');
-//});
-
 

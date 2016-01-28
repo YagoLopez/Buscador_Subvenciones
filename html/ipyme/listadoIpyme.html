@@ -1,4 +1,5 @@
-<div data-page="listadoBoe" class="page cached">
+<!--todo: probar infinite scroll-->
+<div data-page="listadoIpyme" class="page cached">
     <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
     <div class="navbar">
         <div class="navbar-inner">
@@ -6,13 +7,12 @@
                 <a href="#index" class="link icon-only" ng-click="onIconBack()">
                     <i class="icon icon-back"></i></a>
             </div>
-            <div class="center">BOE: {{ tipoAyuda }}</div>
+            <div class="center">IPYME</div>
             <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
         </div>
     </div>
-    <!--todo: poner barra de navegación al final de la pantalla con el nombre completo de la institución y logo a ser posible-->
     <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
-    <form id="searchbarBoe" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+    <form id="searchbarIpyme" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
         <div class="searchbar-input">
             <input id= "inputTxt" type="search" placeholder="Buscar"/>
             <a href="#" class="searchbar-clear"></a>
@@ -21,20 +21,22 @@
     </form>
     <div class="searchbar-overlay"></div>
     <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
-    <div class="page-content" style="padding-top:73px">
+    <div class="page-content" style="padding-top: 73px;">
         <!-- Listado ----------------------------------------------------------------------------------------------- -->
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
-        <div id="bloqueListaBoe" class="list-block list-block-search searchbar-found">
-            <ul id="listaBoe">
+        <div id="bloqueListaIpyme" class="list-block list-block-search searchbar-found">
+            <ul id="listaIpyme">
                 <li ng-repeat="item in items">
-                    <a ng-href="#detalleBoe?id={{hallaId(item.link)}}&web={{item.link|urlEncode}}&pdf={{item.guid.content|urlEncode}}"
-                       class="item-link">
-                        <div class="item-inner paddingLeft">
+                    <a ng-href="#detalleIpyme?url={{ item.titulo.href | urlEncode }}" class="item-link">
+                        <div class="item-inner paddingLeft" >
                             <div>
-                                {{ item.title }}<br>
-                                <div class="pieItem">{{ item.description }}</div>
+                                <div>{{ item.titulo.text }}</div>
+                                <div class="pieItem">
+                                    <div>Ámbito: {{ item.ambito }}</div>
+                                    <div>Plazo solicitud: {{ item.plazo }}</div>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -43,7 +45,7 @@
         </div>
         <a href="#index">go back</a><br>
     <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
-        <ng-include src="'html/boe/detalleBoe.html'" ng-controller="DetalleBoeCtrl"></ng-include>
+        <ng-include src="'html/ipyme/detalleIpyme.html'" ng-controller="DetalleIpymeCtrl"></ng-include>
     <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
     </div>
 </div>

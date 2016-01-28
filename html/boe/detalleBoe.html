@@ -24,7 +24,7 @@
         <div class="content-block">
             <b>EXTRACTO:</b>
 
-            <p ng-bind-html="getHtmlSafe(htmlDetalle)"></p>
+            <p ng-bind-html="htmlDetalle | FiltroHtml"></p>
 
             <div ng-show="showButtons">
             <p class="buttons-row">
