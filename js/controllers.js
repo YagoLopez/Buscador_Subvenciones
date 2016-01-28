@@ -204,10 +204,6 @@ MyApp.angular.controller('DetalleIpymeCtrl', function ($scope, IpymeItem, Utiles
     console.log('$scope.url',$scope.url);
     IpymeItem.getRemoteData( $scope.url ).then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
-
-      //$scope.textoItem = textoItem.replace(/\r\n|\r|\n/g, '').trim();
-      //$scope.textoItem = $scope.textoItem.replace(/[:]/g, ':<br>');
-      console.log('htmlDetalle', htmlDetalle);
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();
     });

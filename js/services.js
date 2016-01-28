@@ -229,7 +229,7 @@ MyApp.angular.service('Minetur', function($http, Utiles, C, Error){
 });
 // =====================================================================================================================
 MyApp.angular.constant('C', {
-  YQL2: 'https://98.137.200.255/v1/public/yql', // usa ip en vez de domain name
+  YQL2: 'https://98.137.200.255/v1/public/yql', // usa ip en vez de domain name. Da error de seguridad en Edge
   YQL:'https://query.yahooapis.com/v1/public/yql'})
 // =====================================================================================================================
 MyApp.angular.filter('FiltroHtml', ['$sce', function($sce) {
@@ -260,8 +260,6 @@ MyApp.angular.service('IpymeCollection', function($http, Error){
 // =====================================================================================================================
 MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
 
-  //var query = 'select * from html where url=@url and xpath="//div[@class=\'zonalistado\']/p//text()" and' +
-  //  ' charset="utf-8" and compat="html5"';
   var query = 'select * from html where url=@url and xpath="//div[@class=\'zonalistado\']/p" and' +
     ' charset="utf-8" and compat="html5"';
 
