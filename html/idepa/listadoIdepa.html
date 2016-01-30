@@ -30,7 +30,8 @@
         <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found">
             <ul id="listaIdepa">
                 <li ng-repeat="item in items">
-                    <a ng-href="#detalleIdepa?url={{ item.link_detalle.href|urlEncode }}" class="item-link">
+                    <a id="{{ $index }}" ng-href="#detalleIdepa?index={{ $index }}"
+                       class="item-link">
                         <div class="item-inner paddingLeft" >
                             <div>
                                 <div>{{ item.descripcion }}</div>

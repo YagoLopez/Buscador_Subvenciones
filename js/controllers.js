@@ -112,14 +112,13 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems) {
     };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles) {
+MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles, IdepaItems) {
 
   MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.htmlDetalle = 'Obteniendo datos...';
-    $scope.url = decodeURIComponent(page.query.url);
-    console.log($scope.url);
-    IdepaItem.getItem( IdepaItem.url($scope.url) ).then(function(htmlDetalle){
+    var idepaItem = new IdepaItem(page.query.index);
+    idepaItem.getData().then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();

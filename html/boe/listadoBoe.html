@@ -31,7 +31,7 @@
                 <li ng-repeat="item in items">
                     <!--<a ng-href="#detalleBoe?id={{hallaId(item.link)}}&web={{item.link|urlEncode}}&pdf={{item.guid.content|urlEncode}}"-->
                        <!--class="item-link">-->
-                    <a ng-href="#detalleBoe?url={{ item.link | urlEncode }}&pdf={{ item.guid.content | urlEncode }}" class="item-link">
+                    <a id="{{$index}}" ng-href="#detalleBoe?url={{ item.link | urlEncode }}&pdf={{ item.guid.content | urlEncode }}" class="item-link">
                         <div class="item-inner paddingLeft">
                             <div>
                                 {{ item.title }}<br>

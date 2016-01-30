@@ -105,12 +105,13 @@ MyApp.angular.service('IdepaItems', function($http, Error){
 
   var self = this;
   this.items = null;
-  this.urlListado = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+  this.url = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+
   this.getItems = function(){
     return this.items;
   };
   this.getAll = function(){
-    return $http.jsonp(this.urlListado, {cache: true}).then(function(resp){
+    return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.items = resp.data.results.collection1;
         console.log(self.items);
       },
@@ -120,16 +121,23 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C){
+MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems){
 
   var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
     'charset="utf-8" and compat="html5"';
 
-  this.url = function(urlDetalle){
-    return C.YQL + ('?url='+ urlDetalle) + ('&q=' +query);
+  var IdepaItem = function (index){
+    var i = IdepaItems.getItems()[index];
+    this.titulo = i.descripcion;
+    this.ambito = i.ambito;
+    this.link = i.link_detalle.href;
+    this.index = index;
   };
-  this.getItem = function(url){
-    return $http.get(url, {cache: true}).then(function(resp){
+  IdepaItem.prototype.url = function(){
+    return C.YQL + ('?url='+ this.link) + ('q=' +query);
+  }
+  IdepaItem.prototype.getData = function(){
+    return $http.get(this.url(), {cache: true}).then(function(resp){
       htmlDetalle = Utiles.xmlParser(resp.data);
       if (htmlDetalle.length < 100)
         htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n';
@@ -137,7 +145,7 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C){
     }, function(datosError){
       Error.mostrar(datosError);
     });
-  };
+  };return IdepaItem;
 });
 // =====================================================================================================================
 MyApp.angular.service('Error', function(){
