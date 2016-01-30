@@ -39,7 +39,7 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
     $scope.hello2= 'hello from AboutPageController';
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, BoeItems) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         $scope.tipoAyuda = page.query.tipo;
@@ -47,36 +47,33 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
         $scope.searchbarBoe.params.removeDiacritics = true;
         if (page.fromPage.name === 'index'){
             $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-            $scope.obtenerItems( Boe.creaUrl(page.query.tipo) );
+            $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
         }
         $$('#bloqueListaBoe').on('search', function(e){
             $scope.numItems = e.detail.foundItems.length; $scope.$apply();
         });
     });
-    $scope.obtenerItems = function(url){
-      Boe.getListado(url).then(function(resp){
+    $scope.getItems = function(url){
+      BoeItems.getAll(url).then(function(){
           $scope.searchbarBoe.disable();
-          $scope.items = resp.data.query.results.item;
-          $scope.numItems = resp.data.query.results.item.length;
+          $scope.items = BoeItems.getCollection();
+          $scope.numItems = BoeItems.getCollection().length;
           MyApp.fw7.app.hideIndicator();
       });
     };
     $scope.onIconBack = function() {
         $scope.items = null;
     };
-    $scope.hallaId = Boe.hallaId;
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, Utiles) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.htmlDetalle = 'Obteniendo datos...';
-        $scope.web = decodeURIComponent(page.query.web);
         $scope.pdf = decodeURIComponent(page.query.pdf);
-        $scope.idboe = page.query.id;
-        Boe.getDetalle( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
-            //console.log(htmlDetalle);
+        $scope.url = decodeURIComponent(page.query.url);
+        BoeItem.getRemoteData( $scope.url ).then(function(htmlDetalle){
             $scope.htmlDetalle = htmlDetalle;
             $scope.showButtons = true;
             MyApp.fw7.app.hideIndicator();
@@ -85,45 +82,44 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, Utiles) {
     $scope.onIconBack = function(){
         $scope.showButtons = false;
     };
-    //$scope.getHtmlSafe = Utiles.getHtmlSafe;
     $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
         $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
         $scope.searchbarIdepa.params.removeDiacritics = true;
         if (page.fromPage.name === 'index'){
             $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-            $scope.obtenerItems();
+            $scope.getItems();
         }
         $$('#bloqueListaIdepa').on('search', function(e){
             $scope.numItems = e.detail.foundItems.length; $scope.$apply();
         });
     });
-    $scope.obtenerItems = function(){
-        Idepa.getListado().then(function(resp){
+    $scope.getItems = function(){
+        IdepaItems.getAll().then(function(){
             $scope.searchbarIdepa.disable();
-            $scope.items = resp.data.results.collection1;
-            $scope.numItems = resp.data.results.collection1.length;
+            $scope.items = IdepaItems.getItems();
+            $scope.numItems = IdepaItems.getItems().length;
             MyApp.fw7.app.hideIndicator();
         })
     };
     $scope.onIconBack = function() {
+        //todo: intentar arreglar esto: al volver atras desde el detalle se pierde la posicion de scroll
         $scope.items = null;
     };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, Idepa, Utiles) {
+MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.htmlDetalle = 'Obteniendo datos...';
-    $scope.web = decodeURIComponent(page.query.web);
-    console.log($scope.web);
-    Idepa.getDetalle( Idepa.urlDetalle($scope.web) ).then(function(htmlDetalle){
-      //console.log(htmlDetalle);
+    $scope.url = decodeURIComponent(page.query.url);
+    console.log($scope.url);
+    IdepaItem.getItem( IdepaItem.url($scope.url) ).then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();
@@ -135,58 +131,65 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, Idepa, Utiles) {
   $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, Minetur) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, $location, $anchorScroll, MineturItem, $timeout) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
+    $timeout(function(){
+      $scope.scrollToItem(MineturItem.index);
+    }, 250);
     $scope.searchbarMinetur = $$('#searchbarMinetur')[0].f7Searchbar;
     $scope.searchbarMinetur.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.obtenerItems();
+      $scope.getItems();
     }
     $$('#bloqueListaMinetur').on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.obtenerItems = function(){
-    Minetur.getListado().then(function(resp){
+  $scope.getItems = function(){
+    MineturItems.getData().then(function(){
       $scope.searchbarMinetur.disable();
-      $scope.items = resp.data.query.results.item;
-      $scope.numItems = resp.data.query.results.item.length;
+      $scope.items = MineturItems.getItems();
+      $scope.numItems = MineturItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
     })
   };
   $scope.onIconBack = function() {
     $scope.items = null;
   };
+  $scope.scrollToItem = function(itemIndex){
+    itemIndex = parseInt(itemIndex)-2;
+    $location.hash(itemIndex); $anchorScroll();
+  }
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleMineturCtrl', function ($scope, Minetur) {
+MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
 
   MyApp.fw7.app.onPageBeforeAnimation('detalleMinetur', function (page) {
-    $scope.item = Minetur.getItemById( page.query.index );
+    $scope.item = MineturItems.getItemById( page.query.index );
     $scope.$apply();
   });
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeCollection) {
+MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
     $scope.searchbarIpyme = $$('#searchbarIpyme')[0].f7Searchbar;
     $scope.searchbarIpyme.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.obtenerItems();
+      $scope.getItems();
     }
     $$('#bloqueListaIpyme').on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.obtenerItems = function(){
-    IpymeCollection.getListado().then(function(){
+  $scope.getItems = function(){
+    IpymeItems.getAll().then(function(){
       $scope.searchbarIpyme.disable();
-      $scope.items = IpymeCollection.getItems();
-      $scope.numItems = IpymeCollection.getItems().length;
+      $scope.items = IpymeItems.getItems();
+      $scope.numItems = IpymeItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
     })
   };

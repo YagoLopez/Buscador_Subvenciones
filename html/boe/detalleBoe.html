@@ -1,10 +1,11 @@
+<!--todo: compartir url y pdf. buscar algun plugin para compartir (mejor en javascript que con phonegap)-->
 <div data-page="detalleBoe" class="page cached">
     <div class="navbar sombra">
         <div class="navbar-inner">
             <div class="left">
                 <a href="#listadoBoe" class="link icon-only" ng-click="onIconBack()"><i class="icon icon-back"></i></a>
             </div>
-            <div class="center">{{ idboe }}</div>
+            <div class="center">BOE Detalle</div>
             <div class="right">
                 <a href="#" class="link icon-only open-panel" data-panel="left"><i class="icon icon-bars"></i></a>
             </div>
@@ -16,7 +17,7 @@
         <div class="speed-dial-buttons">
             <a href="{{ pdf }}" class="external color-indigo" target="_blank">
                 <i class="icon ks-icon-calendar"></i></a>
-            <a href="{{ web }}" class="external color-indigo" target="_blank">
+            <a href="{{ url }}" class="external color-indigo" target="_blank">
                 <i class="icon ks-icon-email"></i></a>
         </div>
     </div>
@@ -28,7 +29,7 @@
 
             <div ng-show="showButtons">
             <p class="buttons-row">
-                <a href="{{ web }}" class="button button-raised button-fill external"
+                <a href="{{ url }}" class="button button-raised button-fill external"
                    target="_blank">Texto Completo (Web)</a></p>
             <p class="buttons-row">
                 <a href="{{ pdf }}" class="button button-raised button-fill external"

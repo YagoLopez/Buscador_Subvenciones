@@ -43,103 +43,96 @@ MyApp.angular.factory('InitService', function ($document) {
   
 });
 // =====================================================================================================================
-MyApp.angular.service('Boe', function($http, Error, Utiles, C){
+MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
 
-  var queryListado = 'select * from rss where url=@url';
-  var queryDetalle = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
-  var urlBaseDetalle = 'http://www.boe.es/diario_boe/txt.php';
+  var self = this;
+  var query = 'select * from rss where url=@url';
+  var urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
+  var urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
+  var urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
+  var urlEmpleoPublico = 'http://www.boe.es/rss/canal_per.php?l=p&c=140';
 
-  this.urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
-  this.urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
-  this.urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
-  this.urlOposiciones = 'http://www.boe.es/rss/canal.php?c=oposiciones';
+  this.collection = null;
 
-  this.urlListado = function(urlListadoBoe){
-    return C.YQL + '?url='+urlListadoBoe + '&q='+queryListado + '&format=json';
+  this.getCollection = function(){
+    return this.collection;
   };
-  this.urlDetalle = function(idboe){
-    return C.YQL + '?url='+urlBaseDetalle+'?id='+idboe + '&q='+ queryDetalle+ '&format=xml';
+  this.urlListado = function(url){
+    return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
   };
-
-  this.getListado = function(url){
+  this.getAll = function(url){
     console.log('url', url);
-    var promesa = $http.get(url, {cache: true}).then(function(resp){
-      console.log(resp);
-      return resp;},
-    function(datosError){
-      Error.mostrar(datosError);
-    });
-    return promesa;
-  };
-
-  this.getDetalle = function(url){
-    var promesa = $http.get(url, {cache: true}).then(function(resp){
-      //console.log(resp);
-      var htmlDetalle = Utiles.xmlParser(resp.data);
-      //console.log('htmlDetalle', htmlDetalle);
-      return htmlDetalle;
-    }, function(datosError){
-      //Error.mostrar(datosError);
-      return datosError;
-    });
-    return promesa;
-  };
-
-  //this.getDetalle = function(url){
-  //  console.log('url', url);
-  //  var promesa = $http.get(url, {cache: true}).then(function(resp){
-  //    console.log(resp);
-  //    return resp;
-  //  },
-  //  function(datosError){
-  //    Error.mostrar(datosError);
-  //  });
-  //  return promesa;
-  //};
-  this.creaUrl = function(tipoAyuda){
-    if (tipoAyuda === 'subvenciones') {
-      return this.urlListado(this.urlSubvenciones);
-    } else if (tipoAyuda === 'becas') {
-      return this.urlListado(this.urlBecas);
-    } else if (tipoAyuda === 'premios') {
-      return this.urlListado(this.urlPremios);
-    } else if (tipoAyuda === 'oposiciones') {
-      return this.urlListado(this.urlOposiciones);
-    }
-  };
-
-  this.hallaId = function(url){
-    return url.split('=')[1];
-  };
-
-});
-// =====================================================================================================================
-MyApp.angular.service('Idepa', function($http, Error, Utiles, C){
-
-  var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
-      'charset="utf-8" and compat="html5"';
-
-  this.urlListado = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
-  this.urlDetalle = function(urlDetalleIdepa){
-    return C.YQL + '?url=' + urlDetalleIdepa + '&q=' + query;
-  };
-
-  this.getListado = function(){
-    return $http.jsonp(this.urlListado, {cache: true}).then(function(resp){
-        console.log(resp);
-        return resp;},
+    return $http.get(url, {cache: true}).then(function(resp){
+        self.collection = resp.data.query.results.item;
+      },
       function(datosError){
         Error.mostrar(datosError);
       });
   };
+  this.getUrlFor = function(tipoAyuda){
+    if (tipoAyuda === 'subvenciones') {
+      return this.urlListado(urlSubvenciones);
+    } else if (tipoAyuda === 'becas') {
+      return this.urlListado(urlBecas);
+    } else if (tipoAyuda === 'premios') {
+      return this.urlListado(urlPremios);
+    } else if (tipoAyuda === 'empleoPublico') {
+      return this.urlListado(urlEmpleoPublico);
+    }
+  };
+});
+// =====================================================================================================================
+MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
 
-  this.getDetalle = function(url){
+  var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
+
+  this.urlFrom = function(urlDetalle){
+    return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
+  };
+  this.getRemoteData = function(urlDetalle){
+    return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
+        //console.log( resp );
+        return Utiles.xmlParser(resp.data);;
+      },
+      function(datosError){
+        //Error.mostrar(datosError);
+        return datosError;
+      });
+  };
+});
+// =====================================================================================================================
+MyApp.angular.service('IdepaItems', function($http, Error){
+
+  var self = this;
+  this.items = null;
+  this.urlListado = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+  this.getItems = function(){
+    return this.items;
+  };
+  this.getAll = function(){
+    return $http.jsonp(this.urlListado, {cache: true}).then(function(resp){
+        self.items = resp.data.results.collection1;
+        console.log(self.items);
+      },
+      function(datosError){
+        Error.mostrar(datosError);
+      });
+  };
+});
+// =====================================================================================================================
+MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C){
+
+  var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
+    'charset="utf-8" and compat="html5"';
+
+  this.url = function(urlDetalle){
+    return C.YQL + ('?url='+ urlDetalle) + ('&q=' +query);
+  };
+  this.getItem = function(url){
     return $http.get(url, {cache: true}).then(function(resp){
-      //console.log(resp);
       htmlDetalle = Utiles.xmlParser(resp.data);
       if (htmlDetalle.length < 100)
-        htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n'
-      //console.warn('htmlDetalle', htmlDetalle);
+        htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n';
       return htmlDetalle;
     }, function(datosError){
       Error.mostrar(datosError);
@@ -150,7 +143,9 @@ MyApp.angular.service('Idepa', function($http, Error, Utiles, C){
 MyApp.angular.service('Error', function(){
   this.mostrar = function(resp){
     MyApp.fw7.app.hideIndicator();
-    msg = 'Codigo: '+resp.status+'<br>Datos: '+resp.statusText;
+    msg = 'Codigo: '+resp.status+'<br>'+resp.statusText;
+    if(resp.status == -1)
+      msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto';
     MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };
@@ -202,30 +197,45 @@ MyApp.angular.service('Utiles', function($sce){
 
 });
 // =====================================================================================================================
-MyApp.angular.service('Minetur', function($http, Utiles, C, Error){
+MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
 
   var self = this;
-  var queryListado = 'select * from rss where url=@url';
-  var queryDetalle = 'select * from html where url =@url and xpath="//div[@class=\'datos-ayuda\']/p"';
-  var urlListadoOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
+  var query = 'select * from rss where url=@url';
+  var urlOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
 
-  this.itemsCollection = null;
-  this.urlListado = C.YQL + '?url=' +encodeURIComponent(urlListadoOrigen) + '&q='+queryListado+ '&format=json';
-  this.urlDetalle = function(urlDetalleMinetur){
-    return C.YQL + '?url='+ encodeURIComponent(urlDetalleMinetur) + '&q='+queryDetalle + '&format=json';
+  this.items = null;
+  this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
+
+  this.getItems = function(){
+    return this.items;
   };
   this.getItemById = function(index){
-    return this.itemsCollection[index];
+    MineturItem.constructor(this.items[index], index);
+    return MineturItem;
   };
-  this.getListado = function(){
-    var promesa = $http.get(this.urlListado, {cache: true}).then(function(resp){
-        self.itemsCollection = resp.data.query.results.item;
-        return resp;},
+  this.getData = function(){
+    return $http.get(this.urlListado, {cache: true}).then(function(resp){
+        if (!resp.data.query.results)
+          Error.mostrar2('Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto');
+        self.items = resp.data.query.results.item;
+      },
       function(datosError){
         Error.mostrar(datosError);
       });
-    return promesa;
   };
+});
+// =====================================================================================================================
+MyApp.angular.service('MineturItem', function(){
+
+  this.constructor = function(obj, index){
+    if (obj && index){
+      this.title = obj.title;
+      this.content = obj.description;
+      this.creator = obj.creator;
+      this.link = obj.link;
+      this.index = index;
+    }
+  }
 });
 // =====================================================================================================================
 MyApp.angular.constant('C', {
@@ -238,7 +248,7 @@ MyApp.angular.filter('FiltroHtml', ['$sce', function($sce) {
   }
 }]);
 // =====================================================================================================================
-MyApp.angular.service('IpymeCollection', function($http, Error){
+MyApp.angular.service('IpymeItems', function($http, Error){
 
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
@@ -247,7 +257,7 @@ MyApp.angular.service('IpymeCollection', function($http, Error){
   this.getItems = function(){
     return this.collection;
   };
-  this.getListado = function(){
+  this.getAll = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.collection = resp.data.results.listado;
         console.log(self.collection);
@@ -270,8 +280,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
     console.log('url', this.urlFrom(urlDetalle));
     return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
-        var htmlDetalle = Utiles.xmlParser(resp.data);
-        return htmlDetalle;
+        return Utiles.xmlParser(resp.data);
       },
       function(datosError){
         //Error.mostrar(datosError);
@@ -279,3 +288,4 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
       });
   };
 });
+// =====================================================================================================================

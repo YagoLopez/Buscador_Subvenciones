@@ -28,7 +28,7 @@
         <div id="bloqueListaMinetur" class="list-block list-block-search searchbar-found">
             <ul id="listaMinetur">
                 <li ng-repeat="item in items">
-                    <a ng-href="#detalleMinetur?index={{ $index }}" class="item-link">
+                    <a id="{{ $index }}" ng-href="#detalleMinetur?index={{ $index }}" class="item-link">
                         <div class="item-inner paddingLeft" >
                             <div>
                                 <div>{{ item.title }}</div>

@@ -43,75 +43,62 @@ MyApp.angular.factory('InitService', function ($document) {
   
 });
 // =====================================================================================================================
-MyApp.angular.service('Boe', function($http, Error, Utiles, C){
+MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
 
-  var queryListado = 'select * from rss where url=@url';
-  var queryDetalle = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
-  var urlBaseDetalle = 'http://www.boe.es/diario_boe/txt.php';
+  var self = this;
+  var query = 'select * from rss where url=@url';
+  var urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
+  var urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
+  var urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
+  var urlEmpleoPublico = 'http://www.boe.es/rss/canal_per.php?l=p&c=140';
 
-  this.urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
-  this.urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
-  this.urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
-  this.urlOposiciones = 'http://www.boe.es/rss/canal.php?c=oposiciones';
+  this.collection = null;
 
-  this.urlListado = function(urlListadoBoe){
-    return C.YQL + '?url='+urlListadoBoe + '&q='+queryListado + '&format=json';
+  this.getCollection = function(){
+    return this.collection;
   };
-  this.urlDetalle = function(idboe){
-    return C.YQL + '?url='+urlBaseDetalle+'?id='+idboe + '&q='+ queryDetalle+ '&format=xml';
+  this.urlListado = function(url){
+    return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
   };
-
-  this.getListado = function(url){
+  this.getAll = function(url){
     console.log('url', url);
-    var promesa = $http.get(url, {cache: true}).then(function(resp){
-      console.log(resp);
-      return resp;},
-    function(datosError){
-      Error.mostrar(datosError);
-    });
-    return promesa;
+    return $http.get(url, {cache: true}).then(function(resp){
+        self.collection = resp.data.query.results.item;
+      },
+      function(datosError){
+        Error.mostrar(datosError);
+      });
   };
-
-  this.getDetalle = function(url){
-    var promesa = $http.get(url, {cache: true}).then(function(resp){
-      //console.log(resp);
-      var htmlDetalle = Utiles.xmlParser(resp.data);
-      //console.log('htmlDetalle', htmlDetalle);
-      return htmlDetalle;
-    }, function(datosError){
-      //Error.mostrar(datosError);
-      return datosError;
-    });
-    return promesa;
-  };
-
-  //this.getDetalle = function(url){
-  //  console.log('url', url);
-  //  var promesa = $http.get(url, {cache: true}).then(function(resp){
-  //    console.log(resp);
-  //    return resp;
-  //  },
-  //  function(datosError){
-  //    Error.mostrar(datosError);
-  //  });
-  //  return promesa;
-  //};
-  this.creaUrl = function(tipoAyuda){
+  this.getUrlFor = function(tipoAyuda){
     if (tipoAyuda === 'subvenciones') {
-      return this.urlListado(this.urlSubvenciones);
+      return this.urlListado(urlSubvenciones);
     } else if (tipoAyuda === 'becas') {
-      return this.urlListado(this.urlBecas);
+      return this.urlListado(urlBecas);
     } else if (tipoAyuda === 'premios') {
-      return this.urlListado(this.urlPremios);
-    } else if (tipoAyuda === 'oposiciones') {
-      return this.urlListado(this.urlOposiciones);
+      return this.urlListado(urlPremios);
+    } else if (tipoAyuda === 'empleoPublico') {
+      return this.urlListado(urlEmpleoPublico);
     }
   };
+});
+// =====================================================================================================================
+MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
 
-  this.hallaId = function(url){
-    return url.split('=')[1];
+  var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
+
+  this.urlFrom = function(urlDetalle){
+    return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
-
+  this.getRemoteData = function(urlDetalle){
+    return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
+        //console.log( resp );
+        return Utiles.xmlParser(resp.data);;
+      },
+      function(datosError){
+        //Error.mostrar(datosError);
+        return datosError;
+      });
+  };
 });
 // =====================================================================================================================
 MyApp.angular.service('Idepa', function($http, Error, Utiles, C){
@@ -238,7 +225,7 @@ MyApp.angular.filter('FiltroHtml', ['$sce', function($sce) {
   }
 }]);
 // =====================================================================================================================
-MyApp.angular.service('IpymeCollection', function($http, Error){
+MyApp.angular.service('IpymeItems', function($http, Error){
 
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
@@ -247,7 +234,7 @@ MyApp.angular.service('IpymeCollection', function($http, Error){
   this.getItems = function(){
     return this.collection;
   };
-  this.getListado = function(){
+  this.getAll = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.collection = resp.data.results.listado;
         console.log(self.collection);
@@ -270,8 +257,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
     console.log('url', this.urlFrom(urlDetalle));
     return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
-        var htmlDetalle = Utiles.xmlParser(resp.data);
-        return htmlDetalle;
+        return Utiles.xmlParser(resp.data);
       },
       function(datosError){
         //Error.mostrar(datosError);

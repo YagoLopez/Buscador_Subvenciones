@@ -39,7 +39,7 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
     $scope.hello2= 'hello from AboutPageController';
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, BoeItems) {
 
     MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
         $scope.tipoAyuda = page.query.tipo;
@@ -47,36 +47,33 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, Boe) {
         $scope.searchbarBoe.params.removeDiacritics = true;
         if (page.fromPage.name === 'index'){
             $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-            $scope.obtenerItems( Boe.creaUrl(page.query.tipo) );
+            $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
         }
         $$('#bloqueListaBoe').on('search', function(e){
             $scope.numItems = e.detail.foundItems.length; $scope.$apply();
         });
     });
-    $scope.obtenerItems = function(url){
-      Boe.getListado(url).then(function(resp){
+    $scope.getItems = function(url){
+      BoeItems.getAll(url).then(function(){
           $scope.searchbarBoe.disable();
-          $scope.items = resp.data.query.results.item;
-          $scope.numItems = resp.data.query.results.item.length;
+          $scope.items = BoeItems.getCollection();
+          $scope.numItems = BoeItems.getCollection().length;
           MyApp.fw7.app.hideIndicator();
       });
     };
     $scope.onIconBack = function() {
         $scope.items = null;
     };
-    $scope.hallaId = Boe.hallaId;
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, Utiles) {
+MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {
 
     MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
         MyApp.fw7.app.showIndicator();
         $scope.htmlDetalle = 'Obteniendo datos...';
-        $scope.web = decodeURIComponent(page.query.web);
         $scope.pdf = decodeURIComponent(page.query.pdf);
-        $scope.idboe = page.query.id;
-        Boe.getDetalle( Boe.urlDetalle(page.query.id)).then(function(htmlDetalle){
-            //console.log(htmlDetalle);
+        $scope.url = decodeURIComponent(page.query.url);
+        BoeItem.getRemoteData( $scope.url ).then(function(htmlDetalle){
             $scope.htmlDetalle = htmlDetalle;
             $scope.showButtons = true;
             MyApp.fw7.app.hideIndicator();
@@ -85,7 +82,6 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, Boe, Utiles) {
     $scope.onIconBack = function(){
         $scope.showButtons = false;
     };
-    //$scope.getHtmlSafe = Utiles.getHtmlSafe;
     $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
@@ -169,24 +165,24 @@ MyApp.angular.controller('DetalleMineturCtrl', function ($scope, Minetur) {
   });
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeCollection) {
+MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
     $scope.searchbarIpyme = $$('#searchbarIpyme')[0].f7Searchbar;
     $scope.searchbarIpyme.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.obtenerItems();
+      $scope.getItems();
     }
     $$('#bloqueListaIpyme').on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.obtenerItems = function(){
-    IpymeCollection.getListado().then(function(){
+  $scope.getItems = function(){
+    IpymeItems.getAll().then(function(){
       $scope.searchbarIpyme.disable();
-      $scope.items = IpymeCollection.getItems();
-      $scope.numItems = IpymeCollection.getItems().length;
+      $scope.items = IpymeItems.getItems();
+      $scope.numItems = IpymeItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
     })
   };

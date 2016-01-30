@@ -1,32 +1,18 @@
-<style type="text/css">
-    #lista .item-inner {
-        font-size: small;}
-    .pieItem {
-        font-size: x-small;
-        color: cornflowerblue;}
-    div.center {
-        width: 100%;}
-    .searchbar {
-        background: deepskyblue; }
-    #itemsLength {
-        margin-right: 10px;
-        font-size: small;
-        background:blueviolet;}
-</style>
 <div data-page="listadoBoe" class="page cached">
     <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#index" class="link icon-only" ng-click="resetSearchbar()">
+                <a href="#index" class="link icon-only" ng-click="onIconBack()">
                     <i class="icon icon-back"></i></a>
             </div>
             <div class="center">BOE: {{ tipoAyuda }}</div>
-            <div class="right"><span id="itemsLength" class="badge">{{ itemsLength }}</span></div>
+            <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
         </div>
     </div>
+    <!--todo: poner barra de navegación al final de la pantalla con el nombre completo de la institución y logo a ser posible-->
     <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
-    <form data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+    <form id="searchbarBoe" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
         <div class="searchbar-input">
             <input id= "inputTxt" type="search" placeholder="Buscar"/>
             <a href="#" class="searchbar-clear"></a>
@@ -35,17 +21,17 @@
     </form>
     <div class="searchbar-overlay"></div>
     <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
-    <div class="page-content" style="padding-top:94px">
+    <div class="page-content" style="padding-top:73px">
+        <!-- Listado ----------------------------------------------------------------------------------------------- -->
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
-    <!-- Listado --------------------------------------------------------------------------------------------------- -->
-        <div class="list-block list-block-search searchbar-found" style="margin-top:10px;">
-            <ul id="lista">
-                <li ng-repeat="item in items" class="item-content">
+        <div id="bloqueListaBoe" class="list-block list-block-search searchbar-found">
+            <ul id="listaBoe">
+                <li ng-repeat="item in items">
                     <a ng-href="#detalleBoe?id={{hallaId(item.link)}}&web={{item.link|urlEncode}}&pdf={{item.guid.content|urlEncode}}"
                        class="item-link">
-                        <div class="item-inner">
+                        <div class="item-inner paddingLeft">
                             <div>
                                 {{ item.title }}<br>
                                 <div class="pieItem">{{ item.description }}</div>
