@@ -218,7 +218,7 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
       $location.hash(itemIndex);
       $anchorScroll();
     }, 250);
-    this.markItem( $$('#'+itemIndex)[0] );
+    //this.markItem( $$('#'+itemIndex)[0] );
   };
 });
 // =====================================================================================================================

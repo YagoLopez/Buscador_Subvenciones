@@ -131,7 +131,7 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles
   $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, MineturItem, Utiles) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, MineturItem, Utiles, $timeout) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
     Utiles.scrollToItem(MineturItem.index);
@@ -155,6 +155,15 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, M
   };
   $scope.onIconBack = function() {
     $scope.items = null;
+  };
+  $scope.clickItem = function(index){
+    console.log('click item index', index);
+    //console.log('main view', MyApp.fw7.app.getCurrentView());
+    $timeout(function(){
+      var currentView = MyApp.fw7.app.getCurrentView();
+      var urlDetalle = '#detalleMinetur?index='+index;
+      currentView.loadPage(urlDetalle);
+    });
   };
 });
 // =====================================================================================================================

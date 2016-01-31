@@ -42,6 +42,19 @@ div.center {
 }
 .page-content{
     padding-top: 70px;}
+.padLeft5 {
+    padding-left: 5px !important;
+}
+.minWith0 {
+    min-width: 0 !important;
+}
+.margLeft8 {
+    margin-left: 8px !important;
+}
+.padTop73 {
+    padding-top: 73px !important;
+}
+
 /* fin listado ****************************************************************************************************** */
 /**********************************************************************************************************************/
 .popover {
