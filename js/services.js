@@ -110,7 +110,7 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   this.getItems = function(){
     return this.items;
   };
-  this.getAll = function(){
+  this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.items = resp.data.results.collection1;
         console.log(self.items);
@@ -126,18 +126,18 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems)
   var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
     'charset="utf-8" and compat="html5"';
 
-  var IdepaItem = function (index){
+  this.new = function (index){
     var i = IdepaItems.getItems()[index];
     this.titulo = i.descripcion;
     this.ambito = i.ambito;
     this.link = i.link_detalle.href;
     this.index = index;
   };
-  IdepaItem.prototype.url = function(){
+  this.getUrl = function(){
     return C.YQL + ('?url='+ this.link) + ('q=' +query);
   }
-  IdepaItem.prototype.getData = function(){
-    return $http.get(this.url(), {cache: true}).then(function(resp){
+  this.getData = function(){
+    return $http.get(this.getUrl(), {cache: true}).then(function(resp){
       htmlDetalle = Utiles.xmlParser(resp.data);
       if (htmlDetalle.length < 100)
         htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n';
@@ -145,7 +145,7 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems)
     }, function(datosError){
       Error.mostrar(datosError);
     });
-  };return IdepaItem;
+  };
 });
 // =====================================================================================================================
 MyApp.angular.service('Error', function(){
@@ -167,7 +167,7 @@ MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;
 }]);
 // =====================================================================================================================
-MyApp.angular.service('Utiles', function($sce){
+MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeout, $interval){
 
   this.btnTop = function(){
     console.log('btnTop en detalle');
@@ -203,6 +203,23 @@ MyApp.angular.service('Utiles', function($sce){
     };
   };
 
+  this.markItem = function(elem){
+    if(elem){
+      $interval(function(){
+        elem.style.background = 'white';
+      },700 );
+      elem.style.background = 'lightgrey';
+    }
+  };
+
+  this.scrollToItem = function(itemIndex){
+    $timeout(function(){
+      itemIndex = parseInt(itemIndex)-2;
+      $location.hash(itemIndex);
+      $anchorScroll();
+    }, 250);
+    this.markItem( $$('#'+itemIndex)[0] );
+  };
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
@@ -218,7 +235,7 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
     return this.items;
   };
   this.getItemById = function(index){
-    MineturItem.constructor(this.items[index], index);
+    MineturItem.new(this.items[index], index);
     return MineturItem;
   };
   this.getData = function(){
@@ -235,7 +252,7 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
 // =====================================================================================================================
 MyApp.angular.service('MineturItem', function(){
 
-  this.constructor = function(obj, index){
+  this.new = function(obj, index){
     if (obj && index){
       this.title = obj.title;
       this.content = obj.description;

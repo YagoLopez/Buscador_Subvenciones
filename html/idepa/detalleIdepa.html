@@ -15,7 +15,7 @@
         <a href="#" class="floating-button color-indigo">
             <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
         <div class="speed-dial-buttons">
-            <a href="{{ url }}" class="external color-indigo" target="_blank">
+            <a href="{{ $scope.link }}" class="external color-indigo" target="_blank">
                 <i class="icon ks-icon-calendar"></i></a>
         </div>
     </div>
@@ -28,7 +28,7 @@
 
             <div ng-show="showButtons">
                 <p class="buttons-row">
-                    <a href="{{ url }}" class="external button button-raised button-fill"
+                    <a href="{{ link }}" class="external button button-raised button-fill"
                        target="_blank">Texto Completo (Web)</a></p>
                 <div id="btnTop" class="button" style="text-align:center" ng-click="btnTop()">Inicio</div>
             </div>

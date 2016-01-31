@@ -85,31 +85,31 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {
     $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems) {
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems, IdepaItem, Utiles) {
 
-    MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-        $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
-        $scope.searchbarIdepa.params.removeDiacritics = true;
-        if (page.fromPage.name === 'index'){
-            $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-            $scope.getItems();
-        }
-        $$('#bloqueListaIdepa').on('search', function(e){
-            $scope.numItems = e.detail.foundItems.length; $scope.$apply();
-        });
+  MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
+    Utiles.scrollToItem(IdepaItem.index);
+    $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
+    $scope.searchbarIdepa.params.removeDiacritics = true;
+    if (page.fromPage.name === 'index'){
+      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
+      $scope.getItems();
+    }
+    $$('#bloqueListaIdepa').on('search', function(e){
+      $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
-    $scope.getItems = function(){
-        IdepaItems.getAll().then(function(){
-            $scope.searchbarIdepa.disable();
-            $scope.items = IdepaItems.getItems();
-            $scope.numItems = IdepaItems.getItems().length;
-            MyApp.fw7.app.hideIndicator();
-        })
-    };
-    $scope.onIconBack = function() {
-        //todo: intentar arreglar esto: al volver atras desde el detalle se pierde la posicion de scroll
-        $scope.items = null;
-    };
+  });
+  $scope.getItems = function(){
+    IdepaItems.getData().then(function(){
+      $scope.searchbarIdepa.disable();
+      $scope.items = IdepaItems.getItems();
+      $scope.numItems = IdepaItems.getItems().length;
+      MyApp.fw7.app.hideIndicator();
+    })
+  };
+  $scope.onIconBack = function() {
+    $scope.items = null;
+  };
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles, IdepaItems) {
@@ -117,8 +117,9 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles
   MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.htmlDetalle = 'Obteniendo datos...';
-    var idepaItem = new IdepaItem(page.query.index);
-    idepaItem.getData().then(function(htmlDetalle){
+    $scope.url = IdepaItem.link;
+    IdepaItem.new( page.query.index );
+    IdepaItem.getData().then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();
@@ -130,12 +131,10 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles
   $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, $location, $anchorScroll, MineturItem, $timeout) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, MineturItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
-    $timeout(function(){
-      $scope.scrollToItem(MineturItem.index);
-    }, 250);
+    Utiles.scrollToItem(MineturItem.index);
     $scope.searchbarMinetur = $$('#searchbarMinetur')[0].f7Searchbar;
     $scope.searchbarMinetur.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
@@ -157,10 +156,6 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, $
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $scope.scrollToItem = function(itemIndex){
-    itemIndex = parseInt(itemIndex)-2;
-    $location.hash(itemIndex); $anchorScroll();
-  }
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
