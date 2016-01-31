@@ -88,7 +88,7 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems, IdepaItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-    Utiles.scrollToItem(IdepaItem.index);
+    Utiles.scrollToItemAndMark(IdepaItem.index);
     $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
     $scope.searchbarIdepa.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
@@ -112,13 +112,13 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems, Idepa
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles, IdepaItems) {
+MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.htmlDetalle = 'Obteniendo datos...';
-    $scope.url = IdepaItem.link;
     IdepaItem.new( page.query.index );
+    $scope.url = IdepaItem.link;
     IdepaItem.getData().then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
@@ -134,7 +134,7 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles
 MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, MineturItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
-    Utiles.scrollToItem(MineturItem.index);
+    Utiles.scrollToItemAndMark(MineturItem.index);
     $scope.searchbarMinetur = $$('#searchbarMinetur')[0].f7Searchbar;
     $scope.searchbarMinetur.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
@@ -166,9 +166,10 @@ MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
   });
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems) {
+MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems, IpymeItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
+    Utiles.scrollToItemAndMark(IpymeItem.index);
     $scope.searchbarIpyme = $$('#searchbarIpyme')[0].f7Searchbar;
     $scope.searchbarIpyme.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
@@ -197,14 +198,13 @@ MyApp.angular.controller('DetalleIpymeCtrl', function ($scope, IpymeItem, Utiles
   MyApp.fw7.app.onPageBeforeAnimation('detalleIpyme', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.htmlDetalle = 'Obteniendo datos...';
-    $scope.url = decodeURIComponent(page.query.url);
-    console.log('$scope.url',$scope.url);
-    IpymeItem.getRemoteData( $scope.url ).then(function(htmlDetalle){
+    IpymeItem.new( page.query.index );
+    $scope.url = IpymeItem.link;
+    IpymeItem.getData( $scope.url ).then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();
     });
-    $scope.$apply();
   });
   $scope.onIconBack = function(){
     $scope.showButtons = false;

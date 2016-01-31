@@ -41,5 +41,5 @@ MyApp.fw7 = {
 };
 
 MyApp.angular.run( function($anchorScroll) {
-  $anchorScroll.yOffset = 100;   // always scroll by 50 extra pixels
+  //$anchorScroll.yOffset = 300;
 });

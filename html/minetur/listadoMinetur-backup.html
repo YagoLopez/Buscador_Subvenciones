@@ -1,5 +1,4 @@
-<!--todo: probar infinite scroll-->
-<div data-page="listadoIpyme" class="page cached">
+<div data-page="listadoMinetur" class="page cached">
     <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
     <div class="navbar">
         <div class="navbar-inner">
@@ -7,12 +6,12 @@
                 <a href="#index" class="link icon-only" ng-click="onIconBack()">
                     <i class="icon icon-back"></i></a>
             </div>
-            <div class="center">IPYME</div>
+            <div class="center">MINETUR</div>
             <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
         </div>
     </div>
     <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
-    <form id="searchbarIpyme" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+    <form id="searchbarMinetur" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
         <div class="searchbar-input">
             <input id= "inputTxt" type="search" placeholder="Buscar"/>
             <a href="#" class="searchbar-clear"></a>
@@ -26,16 +25,15 @@
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
-        <div id="bloqueListaIpyme" class="list-block list-block-search searchbar-found">
-            <ul id="listaIpyme">
+        <div id="bloqueListaMinetur" class="list-block list-block-search searchbar-found">
+            <ul id="listaMinetur">
                 <li ng-repeat="item in items">
-                    <a id="{{ $index }}" ng-href="#detalleIpyme?index={{ $index }}" class="item-link">
+                    <a id="{{ $index }}" ng-href="#detalleMinetur?index={{ $index }}" class="item-link">
                         <div class="item-inner paddingLeft" >
                             <div>
-                                <div>{{ item.titulo.text }}</div>
+                                <div>{{ item.title }}</div>
                                 <div class="pieItem">
-                                    <div>Ámbito: {{ item.ambito }}</div>
-                                    <div>Plazo solicitud: {{ item.plazo }}</div>
+                                    <div>{{ item.creator }}</div>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +43,7 @@
         </div>
         <a href="#index">go back</a><br>
     <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
-        <ng-include src="'html/ipyme/detalleIpyme.html'" ng-controller="DetalleIpymeCtrl"></ng-include>
+        <ng-include src="'html/minetur/detalleMinetur.html'" ng-controller="DetalleMineturCtrl"></ng-include>
     <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
     </div>
 </div>

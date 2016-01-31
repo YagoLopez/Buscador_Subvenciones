@@ -85,41 +85,41 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {
     $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, Idepa) {
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems, IdepaItem, Utiles) {
 
-    MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-        $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
-        $scope.searchbarIdepa.params.removeDiacritics = true;
-        if (page.fromPage.name === 'index'){
-            $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-            $scope.obtenerItems();
-        }
-        $$('#bloqueListaIdepa').on('search', function(e){
-            $scope.numItems = e.detail.foundItems.length; $scope.$apply();
-        });
+  MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
+    Utiles.scrollToItem(IdepaItem.index);
+    $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
+    $scope.searchbarIdepa.params.removeDiacritics = true;
+    if (page.fromPage.name === 'index'){
+      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
+      $scope.getItems();
+    }
+    $$('#bloqueListaIdepa').on('search', function(e){
+      $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
-    $scope.obtenerItems = function(){
-        Idepa.getListado().then(function(resp){
-            $scope.searchbarIdepa.disable();
-            $scope.items = resp.data.results.collection1;
-            $scope.numItems = resp.data.results.collection1.length;
-            MyApp.fw7.app.hideIndicator();
-        })
-    };
-    $scope.onIconBack = function() {
-        $scope.items = null;
-    };
+  });
+  $scope.getItems = function(){
+    IdepaItems.getData().then(function(){
+      $scope.searchbarIdepa.disable();
+      $scope.items = IdepaItems.getItems();
+      $scope.numItems = IdepaItems.getItems().length;
+      MyApp.fw7.app.hideIndicator();
+    })
+  };
+  $scope.onIconBack = function() {
+    $scope.items = null;
+  };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, Idepa, Utiles) {
+MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles, IdepaItems) {
 
   MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.htmlDetalle = 'Obteniendo datos...';
-    $scope.web = decodeURIComponent(page.query.web);
-    console.log($scope.web);
-    Idepa.getDetalle( Idepa.urlDetalle($scope.web) ).then(function(htmlDetalle){
-      //console.log(htmlDetalle);
+    $scope.url = IdepaItem.link;
+    IdepaItem.new( page.query.index );
+    IdepaItem.getData().then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();
@@ -131,24 +131,25 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, Idepa, Utiles) {
   $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, Minetur) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, MineturItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
+    Utiles.scrollToItem(MineturItem.index);
     $scope.searchbarMinetur = $$('#searchbarMinetur')[0].f7Searchbar;
     $scope.searchbarMinetur.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.obtenerItems();
+      $scope.getItems();
     }
     $$('#bloqueListaMinetur').on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.obtenerItems = function(){
-    Minetur.getListado().then(function(resp){
+  $scope.getItems = function(){
+    MineturItems.getData().then(function(){
       $scope.searchbarMinetur.disable();
-      $scope.items = resp.data.query.results.item;
-      $scope.numItems = resp.data.query.results.item.length;
+      $scope.items = MineturItems.getItems();
+      $scope.numItems = MineturItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
     })
   };
@@ -157,10 +158,10 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, Minetur) {
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleMineturCtrl', function ($scope, Minetur) {
+MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
 
   MyApp.fw7.app.onPageBeforeAnimation('detalleMinetur', function (page) {
-    $scope.item = Minetur.getItemById( page.query.index );
+    $scope.item = MineturItems.getItemById( page.query.index );
     $scope.$apply();
   });
 });
