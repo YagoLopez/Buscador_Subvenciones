@@ -289,10 +289,6 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   this.getItems = function(){
     return this.items;
   };
-  //this.getItemById = function(index){
-  //  IpymeItem.new(this.items[index], index);
-  //  return IpymeItem;
-  //};
   this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.items = resp.data.results.listado;

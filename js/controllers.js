@@ -213,14 +213,11 @@ MyApp.angular.controller('DetalleIpymeCtrl', function ($scope, IpymeItem, Utiles
     $scope.htmlDetalle = 'Obteniendo datos...';
     IpymeItem.new( page.query.index );
     $scope.url = IpymeItem.link;
-    console.log('$scope.url',$scope.url);
-    console.log('ipymeitem en pag detalle', IpymeItem);
     IpymeItem.getData( $scope.url ).then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();
     });
-    //$scope.$apply();
   });
   $scope.onIconBack = function(){
     $scope.showButtons = false;
