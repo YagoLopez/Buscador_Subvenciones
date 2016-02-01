@@ -131,10 +131,10 @@ MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles
   $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, MineturItem, Utiles, $timeout) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Utiles, $timeout) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
-    Utiles.scrollToItem(MineturItem.index);
+    //Utiles.scrollToItem(MineturItem.index);
     $scope.searchbarMinetur = $$('#searchbarMinetur')[0].f7Searchbar;
     $scope.searchbarMinetur.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
@@ -156,21 +156,27 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, M
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $scope.itemDetail = function(index){
-    console.log('click item index', index);
-    $timeout(function(){
-      MyApp.fw7.app.getCurrentView().loadPage('#detalleMinetur?index='+index);
-    });
+  //$scope.itemDetail = function(index){
+  //  console.log('click item index', index);
+  //  $timeout(function(){
+  //    MyApp.fw7.app.getCurrentView().loadPage('#detalleMinetur?index='+index);
+  //  });
+  //};
+  $scope.openPopup = function(index){
+    console.log('cargando datos detalle en popup. indice:', index);
+    MyApp.fw7.app.popup('.popup-detalle');
+    $rootScope.item = MineturItems.getItemById(index);
+    console.log('$scope.item', $rootScope.item);
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
-
-  MyApp.fw7.app.onPageBeforeAnimation('detalleMinetur', function (page) {
-    $scope.item = MineturItems.getItemById( page.query.index );
-    $scope.$apply();
-  });
-});
+//MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
+//
+//  MyApp.fw7.app.onPageBeforeAnimation('detalleMinetur', function (page) {
+//    $scope.item = MineturItems.getItemById( page.query.index );
+//    $scope.$apply();
+//  });
+//});
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems, IpymeItem, Utiles, $timeout) {
 
