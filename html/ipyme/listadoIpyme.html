@@ -28,14 +28,13 @@
         </div>
         <div id="bloqueListaIpyme" class="list-block list-block-search searchbar-found">
             <ul id="listaIpyme">
-                <li id="{{$index}}" ng-repeat="item in items" ng-click="itemDetail($index)">
+                <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)">
                     <label class="label-radio item-content padLeft5">
                         <input type="radio" name="my-radio">
                         <div class="item-inner margLeft8" >
                             <div>
                                 <div>
-                                    <!--<i class="icon icon-form-radio" style="margin-right: 7px;background-color:lightcyan;height:17px;width:17px">-->
-                                    <i class="icon icon-form-radio" style="margin-right:7px;height:16px;width:16px">
+                                    <i class="icon icon-form-radio smallRadio">
                                     </i>{{ item.titulo.text }}
                                 </div>
                                 <div class="pieItem">
@@ -49,8 +48,5 @@
             </ul>
         </div>
         <a href="#index">go back</a><br>
-    <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
-        <ng-include src="'html/ipyme/detalleIpyme.html'" ng-controller="DetalleIpymeCtrl"></ng-include>
-    <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
     </div>
 </div>

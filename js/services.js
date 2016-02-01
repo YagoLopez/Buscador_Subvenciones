@@ -203,6 +203,7 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
     };
   };
 
+/*
   this.markItem = function(elem){
     if(elem){
       $interval(function(){
@@ -211,7 +212,9 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
       elem.style.background = 'lightgrey';
     }
   };
+*/
 
+/*
   this.scrollToItem = function(itemIndex){
     $timeout(function(){
       if(itemIndex == null){
@@ -226,12 +229,7 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
     }, 250);
     //this.markItem( $$('#'+itemIndex)[0] );
   };
-  this.itemDetail = function(index){
-    console.log('click item index', index);
-    $timeout(function(){
-      MyApp.fw7.app.getCurrentView().loadPage('#detalleIpyme?index='+index);
-    });
-  };
+*/
 
 });
 // =====================================================================================================================
@@ -271,6 +269,7 @@ MyApp.angular.service('MineturItem', function(Error){
       this.content = obj.description;
       this.creator = obj.creator;
       this.link = obj.link;
+      this.showButtons = true;
       this.index = index;
     } else
       Error.mostrar2('No se ha podido crear MineturItem');
@@ -320,7 +319,8 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
     this.titulo = i.titulo.text;
     this.ambito = i.ambito;
     this.link = i.titulo.href;
-    this.plazo = i.plazo
+    this.plazo = i.plazo;
+    this.showButtons = false;
     this.index = index;
   };
   this.getData = function(urlDetalle){
