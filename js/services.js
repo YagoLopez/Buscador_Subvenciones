@@ -214,7 +214,13 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
 
   this.scrollToItem = function(itemIndex){
     $timeout(function(){
+      if(itemIndex == null){
+        console.log('index es undefined o nan', itemIndex);
+        return;
+      }
+      console.log('itemindex inicial', itemIndex);
       itemIndex = parseInt(itemIndex)-2;
+      console.log('itemindex modificado (itemindex-2)', itemIndex);
       $location.hash(itemIndex);
       $anchorScroll();
     }, 250);
@@ -250,16 +256,17 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('MineturItem', function(){
+MyApp.angular.service('MineturItem', function(Error){
 
   this.new = function(obj, index){
-    if (obj && index){
+    if (obj != null && index != null){
       this.title = obj.title;
       this.content = obj.description;
       this.creator = obj.creator;
       this.link = obj.link;
       this.index = index;
-    }
+    } else
+      Error.mostrar2('No se ha podido crear MineturItem');
   }
 });
 // =====================================================================================================================
@@ -277,15 +284,19 @@ MyApp.angular.service('IpymeItems', function($http, Error){
 
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
-  this.collection = null;
+  this.items = null;
 
   this.getItems = function(){
-    return this.collection;
+    return this.items;
   };
-  this.getAll = function(){
+  //this.getItemById = function(index){
+  //  IpymeItem.new(this.items[index], index);
+  //  return IpymeItem;
+  //};
+  this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
-        self.collection = resp.data.results.listado;
-        console.log(self.collection);
+        self.items = resp.data.results.listado;
+        console.log(self.items);
         return resp;},
       function(datosError){
         Error.mostrar(datosError);
@@ -293,7 +304,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
+MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems) {
 
   var query = 'select * from html where url=@url and xpath="//div[@class=\'zonalistado\']/p" and' +
     ' charset="utf-8" and compat="html5"';
@@ -301,16 +312,24 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
   this.urlFrom = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
-  this.getRemoteData = function(urlDetalle){
+  this.new = function (index){
+    var i = IpymeItems.getItems()[index];
+    this.titulo = i.titulo.text;
+    this.ambito = i.ambito;
+    this.link = i.titulo.href;
+    this.plazo = i.plazo
+    this.index = index;
+  };
+  this.getData = function(urlDetalle){
     console.log('url', this.urlFrom(urlDetalle));
     return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){
-        //Error.mostrar(datosError);
-        return datosError;
+        Error.mostrar(datosError);
       });
   };
+
 });
 // =====================================================================================================================

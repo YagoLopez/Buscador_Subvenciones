@@ -156,13 +156,10 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, MineturItems, M
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $scope.clickItem = function(index){
+  $scope.itemDetail = function(index){
     console.log('click item index', index);
-    //console.log('main view', MyApp.fw7.app.getCurrentView());
     $timeout(function(){
-      var currentView = MyApp.fw7.app.getCurrentView();
-      var urlDetalle = '#detalleMinetur?index='+index;
-      currentView.loadPage(urlDetalle);
+      MyApp.fw7.app.getCurrentView().loadPage('#detalleMinetur?index='+index);
     });
   };
 });
@@ -175,9 +172,10 @@ MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
   });
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems) {
+MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems, IpymeItem, Utiles, $timeout) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
+    Utiles.scrollToItem(IpymeItem.index);
     $scope.searchbarIpyme = $$('#searchbarIpyme')[0].f7Searchbar;
     $scope.searchbarIpyme.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
@@ -189,7 +187,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems) {
     });
   });
   $scope.getItems = function(){
-    IpymeItems.getAll().then(function(){
+    IpymeItems.getData().then(function(){
       $scope.searchbarIpyme.disable();
       $scope.items = IpymeItems.getItems();
       $scope.numItems = IpymeItems.getItems().length;
@@ -199,6 +197,13 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems) {
   $scope.onIconBack = function() {
     $scope.items = null;
   };
+  $scope.itemDetail = function(index){
+    console.log('click item index', index);
+    $timeout(function(){
+      MyApp.fw7.app.getCurrentView().loadPage('#detalleIpyme?index='+index);
+    });
+  };
+
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleIpymeCtrl', function ($scope, IpymeItem, Utiles) {
@@ -206,14 +211,16 @@ MyApp.angular.controller('DetalleIpymeCtrl', function ($scope, IpymeItem, Utiles
   MyApp.fw7.app.onPageBeforeAnimation('detalleIpyme', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.htmlDetalle = 'Obteniendo datos...';
-    $scope.url = decodeURIComponent(page.query.url);
+    IpymeItem.new( page.query.index );
+    $scope.url = IpymeItem.link;
     console.log('$scope.url',$scope.url);
-    IpymeItem.getRemoteData( $scope.url ).then(function(htmlDetalle){
+    console.log('ipymeitem en pag detalle', IpymeItem);
+    IpymeItem.getData( $scope.url ).then(function(htmlDetalle){
       $scope.htmlDetalle = htmlDetalle;
       $scope.showButtons = true;
       MyApp.fw7.app.hideIndicator();
     });
-    $scope.$apply();
+    //$scope.$apply();
   });
   $scope.onIconBack = function(){
     $scope.showButtons = false;
