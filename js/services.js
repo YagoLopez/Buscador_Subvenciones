@@ -52,10 +52,10 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   var urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
   var urlEmpleoPublico = 'http://www.boe.es/rss/canal_per.php?l=p&c=140';
 
-  this.collection = null;
+  this.items = null;
 
-  this.getCollection = function(){
-    return this.collection;
+  this.getItems = function(){
+    return this.items;
   };
   this.urlListado = function(url){
     return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
@@ -63,7 +63,7 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   this.getAll = function(url){
     console.log('url', url);
     return $http.get(url, {cache: true}).then(function(resp){
-        self.collection = resp.data.query.results.item;
+        self.items = resp.data.query.results.item;
       },
       function(datosError){
         Error.mostrar(datosError);
@@ -82,21 +82,29 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
+MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
 
   var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
 
   this.urlFrom = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
-  this.getRemoteData = function(urlDetalle){
+  this.new = function (index){
+    var i = BoeItems.getItems()[index];
+    this.titulo = i.title;
+    this.description = i.description;
+    this.link = i.link;
+    this.pdf = i.guid.content;
+    this.showButtons = false;
+    this.index = index;
+  };
+  this.getData = function(urlDetalle){
     return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
-        //console.log( resp );
+        console.log( resp );
         return Utiles.xmlParser(resp.data);;
       },
       function(datosError){
-        //Error.mostrar(datosError);
-        return datosError;
+        Error.mostrar(datosError);
       });
   };
 });

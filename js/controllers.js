@@ -1,6 +1,6 @@
 //todo: posibles nombres: todo ayudas (buscador de ayudas y subvenciones), subventia, public money
 //todo: slogan: base de datos con mas de 600 ayudas y subvenciones nacionales e internacinales actualizadas
-MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope) {
+MyApp.angular.controller('HomePageController', function ($scope, InitService, $rootScope) {
 
     InitService.addEventListener('ready', function () {
         // DOM ready
@@ -40,31 +40,43 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
     $scope.hello2= 'hello from AboutPageController';
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, BoeItems) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem) {
 
-    MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-        $scope.tipoAyuda = page.query.tipo;
-        $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
-        $scope.searchbarBoe.params.removeDiacritics = true;
-        if (page.fromPage.name === 'index'){
-            $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-            $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
-        }
-        $$('#bloqueListaBoe').on('search', function(e){
-            $scope.numItems = e.detail.foundItems.length; $scope.$apply();
-        });
+  MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
+    $scope.tipoAyuda = page.query.tipo;
+    $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
+    $scope.searchbarBoe.params.removeDiacritics = true;
+    if (page.fromPage.name === 'index'){
+      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
+      $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
+    }
+    $$('#bloqueListaBoe').on('search', function(e){
+      $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
-    $scope.getItems = function(url){
-      BoeItems.getAll(url).then(function(){
-          $scope.searchbarBoe.disable();
-          $scope.items = BoeItems.getCollection();
-          $scope.numItems = BoeItems.getCollection().length;
-          MyApp.fw7.app.hideIndicator();
-      });
-    };
-    $scope.onIconBack = function() {
-        $scope.items = null;
-    };
+  });
+  $scope.getItems = function(url){
+    BoeItems.getAll(url).then(function(){
+      $scope.searchbarBoe.disable();
+      $scope.items = BoeItems.getItems();
+      $scope.numItems = BoeItems.getItems().length;
+      MyApp.fw7.app.hideIndicator();
+    });
+  };
+  $scope.onIconBack = function() {
+    $scope.items = null;
+  };
+  $scope.openPopup = function(index){
+    MyApp.fw7.app.popup('.popup-detalle');
+    MyApp.fw7.app.showIndicator();
+    BoeItem.new( index );
+    BoeItem.content = 'Obteniendo datos...';
+    $rootScope.item = BoeItem;
+    BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
+      BoeItem.content = htmlDetalle;
+      BoeItem.showButtons = true;
+      MyApp.fw7.app.hideIndicator();
+    });
+  };
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {

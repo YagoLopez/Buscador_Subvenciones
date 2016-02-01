@@ -33,7 +33,7 @@
                 </div>
             </div>
             <!-- home page ---------------------------------------------------------------------------------------- -->
-            <div data-page="index" class="page" ng-controller="IndexPageController">
+            <div data-page="index" class="page" ng-controller="HomePageController">
                 <ng-include src="'html/home.html'"></ng-include>
             </div>
             <!-- details page -------------------------------------------------------------------------------------- -->
@@ -56,7 +56,9 @@
                 </div>
             </div>
             <!-- pagina listado boe -------------------------------------------------------------------------------- -->
-            <ng-include src="'html/boe/listadoBoe.html'" ng-controller="ListadoBoeCtrl"></ng-include>
+            <div data-page="listadoBoe" class="page cached" ng-controller="ListadoBoeCtrl">
+                <ng-include src="'html/boe/listadoBoe.html'"></ng-include>
+            </div>
             <!-- pagina listado idepa------------------------------------------------------------------------------- -->
             <div data-page="listadoIdepa" class="page cached" ng-controller="ListadoIdepaCtrl">
                 <ng-include src="'html/idepa/listadoIdepa.html'""></ng-include>
@@ -76,7 +78,9 @@
 
 </div>
 <!-- Popup Detalle ------------------------------------------------------------------------------------------------- -->
-<ng-include src="'html/popupDetalle.html'"></ng-include>
+<div class="popup popup-detalle tablet-fullscreen">
+    <ng-include src="'html/popupDetalle.html'"></ng-include>
+</div>
 <!-- Picker -------------------------------------------------------------------------------------------------------- -->
 <div class="picker-modal picker-1">
     <div class="toolbar">
