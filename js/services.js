@@ -131,6 +131,7 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems)
     this.titulo = i.descripcion;
     this.ambito = i.ambito;
     this.link = i.link_detalle.href;
+    this.showButtons = false;
     this.index = index;
   };
   this.getUrl = function(){

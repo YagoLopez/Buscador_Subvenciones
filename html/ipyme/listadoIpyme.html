@@ -1,52 +1,50 @@
 <!--todo: probar infinite scroll-->
-<div data-page="listadoIpyme" class="page cached">
-    <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
-    <div class="navbar">
-        <div class="navbar-inner">
-            <div class="left">
-                <a href="#index" class="link icon-only" ng-click="onIconBack()">
-                    <i class="icon icon-back"></i></a>
-            </div>
-            <div class="center">IPYME</div>
-            <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
+<!-- Barra nav ------------------------------------------------------------------------------------------------- -->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#index" class="link icon-only" ng-click="onIconBack()">
+                <i class="icon icon-back"></i></a>
         </div>
+        <div class="center">IPYME</div>
+        <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
     </div>
-    <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
-    <form id="searchbarIpyme" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
-        <div class="searchbar-input">
-            <input id= "inputTxt" type="search" placeholder="Buscar"/>
-            <a href="#" class="searchbar-clear"></a>
-        </div>
-        <a href="#" class="searchbar-cancel">Cancel</a>
-    </form>
-    <div class="searchbar-overlay"></div>
-    <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
-    <div class="page-content" style="padding-top: 73px;">
-        <!-- Listado ----------------------------------------------------------------------------------------------- -->
-        <div class="content-block searchbar-not-found">
-            <div class="content-block-inner">No se han encontrado resultados</div>
-        </div>
-        <div id="bloqueListaIpyme" class="list-block list-block-search searchbar-found">
-            <ul id="listaIpyme">
-                <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)">
-                    <label class="label-radio item-content padLeft5">
-                        <input type="radio" name="my-radio">
-                        <div class="item-inner margLeft8" >
+</div>
+<!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
+<form id="searchbarIpyme" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+    <div class="searchbar-input">
+        <input id= "inputTxt" type="search" placeholder="Buscar"/>
+        <a href="#" class="searchbar-clear"></a>
+    </div>
+    <a href="#" class="searchbar-cancel">Cancel</a>
+</form>
+<div class="searchbar-overlay"></div>
+<!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
+<div class="page-content padTop0">
+    <!-- Listado ----------------------------------------------------------------------------------------------- -->
+    <div class="content-block searchbar-not-found">
+        <div class="content-block-inner">No se han encontrado resultados</div>
+    </div>
+    <div id="bloqueListaIpyme" class="list-block list-block-search searchbar-found margTop0">
+        <ul id="listaIpyme">
+            <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)">
+                <label class="label-radio item-content padLeft5">
+                    <input type="radio" name="my-radio">
+                    <div class="item-inner margLeft8" >
+                        <div>
                             <div>
-                                <div>
-                                    <i class="icon icon-form-radio smallRadio">
-                                    </i>{{ item.titulo.text }}
-                                </div>
-                                <div class="pieItem">
-                                    <div>Ámbito: {{ item.ambito }}</div>
-                                    <div>Plazo solicitud: {{ item.plazo }}</div>
-                                </div>
+                                <i class="icon icon-form-radio smallRadio">
+                                </i>{{ item.titulo.text }}
+                            </div>
+                            <div class="pieItem">
+                                <div>Ámbito: {{ item.ambito }}</div>
+                                <div>Plazo solicitud: {{ item.plazo }}</div>
                             </div>
                         </div>
-                    </label>
-                </li>
-            </ul>
-        </div>
-        <a href="#index">go back</a><br>
+                    </div>
+                </label>
+            </li>
+        </ul>
     </div>
+    <a href="#index">go back</a><br>
 </div>

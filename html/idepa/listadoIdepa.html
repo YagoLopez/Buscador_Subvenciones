@@ -1,4 +1,4 @@
-<div data-page="listadoIdepa" class="page cached">
+<!--<div data-page="listadoIdepa" class="page cached">-->
     <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
     <div class="navbar">
         <div class="navbar-inner">
@@ -22,33 +22,32 @@
     </form>
     <div class="searchbar-overlay"></div>
     <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
-    <div class="page-content" style="padding-top: 73px;">
+    <div class="page-content padTop0" style="padding-top: 73px;">
         <!-- Listado ----------------------------------------------------------------------------------------------- -->
         <div class="content-block searchbar-not-found">
             <div class="content-block-inner">No se han encontrado resultados</div>
         </div>
-        <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found">
+        <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found margTop0">
             <ul id="listaIdepa">
-                <li ng-repeat="item in items">
-                    <a id="{{ $index }}" ng-href="#detalleIdepa?index={{ $index }}"
-                       class="item-link">
-                        <div class="item-inner paddingLeft" >
+                <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)">
+                    <label class="label-radio item-content padLeft5">
+                        <input type="radio" name="my-radio">
+                        <div class="item-inner margLeft8" >
                             <div>
-                                <div>{{ item.descripcion }}</div>
-                                <div>{{ item.anexo }}</div>
+                                <div><i class="icon icon-form-radio smallRadio"></i>{{ item.descripcion }}</div>
+                                <!--<div>{{ item.anexo }}</div>-->
                                 <div class="pieItem">
                                     <div>{{ item.vigencia }}</div>
                                     <div>Ámbito: {{ item.ambito }}</div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+
+
+                    </label>
                 </li>
             </ul>
         </div>
         <a href="#index">go back</a><br>
-    <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
-        <ng-include src="'html/idepa/detalleIdepa.html'" ng-controller="DetalleIdepaCtrl"></ng-include>
-    <!-- pagina detalle -------------------------------------------------------------------------------------------- -->
     </div>
-</div>
+<!--</div>-->

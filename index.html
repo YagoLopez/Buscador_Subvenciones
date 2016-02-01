@@ -32,40 +32,9 @@
                     <p><a href="#" class="open-left-panel">Open Left Panel</a></p>
                 </div>
             </div>
-            <!-- index page ---------------------------------------------------------------------------------------- -->
+            <!-- home page ---------------------------------------------------------------------------------------- -->
             <div data-page="index" class="page" ng-controller="IndexPageController">
-                <div class="navbar sombra">
-                    <div class="navbar-inner">
-                        <div class="left">
-                            <a href="#" class="link icon-only open-panel" data-panel="left">
-                                <i class="icon icon-bars"></i>
-                            </a>
-                        </div>
-                        index
-                    </div>
-                </div>
-                <div class="page-content">
-                    <!--todo: pagina principal: menu con cards y fotos de fondo. animar cards con animate.css. menu lateral no visible en pagina principal -->
-                    <a href="#detailsPage">details</a><br>
-                    <a href="html/about.html">about</a><br>
-                    {{ hello }}
-                    <p><a href="#" class="open-panel">Open Left Panel</a></p>
-                    <p><a href="#" data-panel="right" class="open-panel">Open Right Panel</a></p>
-                    <p><a href="#" class="alert-text" ng-click="doAlert()">Alert With Text</a></p>
-                    <p><a href="#" data-popup=".popup-about" class="open-popup">Open About Popup </a></p>
-                    <p><a href="#" data-picker=".picker-1" class="open-picker">Open Picker </a></p>
-                    <p><a href="html/tabs.html">tabs</a></p>
-                    <p><a href="html/accordion.html">accordion</a></p>
-                    <p><a href="#listadoBoe?tipo=subvenciones">Subvenciones Boe</a></p>
-                    <p><a href="#listadoBoe?tipo=becas">Becas Boe</a></p>
-                    <p><a href="#listadoBoe?tipo=premios">Premios Boe</a></p>
-                    <p><a href="#listadoBoe?tipo=empleoPublico">Empleo Público Boe</a></p>
-                    <p><a href="#listadoIdepa">IDEPA</a></p>
-                    <p><a href="#listadoMinetur">MINETUR</a></p>
-                    <p><a href="#listadoIpyme">IPYME</a></p>
-
-
-                </div>
+                <ng-include src="'html/home.html'"></ng-include>
             </div>
             <!-- details page -------------------------------------------------------------------------------------- -->
             <div data-page="detailsPage" class="page cached" ng-controller="DetailPageController">
@@ -89,33 +58,25 @@
             <!-- pagina listado boe -------------------------------------------------------------------------------- -->
             <ng-include src="'html/boe/listadoBoe.html'" ng-controller="ListadoBoeCtrl"></ng-include>
             <!-- pagina listado idepa------------------------------------------------------------------------------- -->
-            <ng-include src="'html/idepa/listadoIdepa.html'" ng-controller="ListadoIdepaCtrl"></ng-include>
+            <div data-page="listadoIdepa" class="page cached" ng-controller="ListadoIdepaCtrl">
+                <ng-include src="'html/idepa/listadoIdepa.html'""></ng-include>
+            </div>
             <!-- pagina listado minetur----------------------------------------------------------------------------- -->
-            <ng-include src="'html/minetur/listadoMinetur.html'" ng-controller="ListadoMineturCtrl"></ng-include>
-            <!-- pagina listado ipyme----------------------------------------------------------------------------- -->
-            <ng-include src="'html/ipyme/listadoIpyme.html'" ng-controller="ListadoIpymeCtrl"></ng-include>
+            <div data-page="listadoMinetur" class="page cached" ng-controller="ListadoMineturCtrl">
+                <ng-include src="'html/minetur/listadoMinetur.html'"></ng-include>
+            </div>
+            <!-- pagina listado ipyme------------------------------------------------------------------------------- -->
+            <div data-page="listadoIpyme" class="page cached" ng-controller="ListadoIpymeCtrl">
+                <ng-include src="'html/ipyme/listadoIpyme.html'"></ng-include>
+            </div>
 
         </div>
 
     </div>
 
 </div>
-<!-- About Popup --------------------------------------------------------------------------------------------------- -->
-<div class="popup popup-about">
-    <div class="content-block">
-        <p>About</p>
-        <p><a href="#" class="close-popup">Close popup</a></p>
-        <p>Lorem ipsum dolor ...</p>
-        <p class="">Here comes popup. You can put here anything, even independent view with its own navigation. Also not, that by default popup looks a bit different on iPhone/iPod and iPad, on iPhone it is fullscreen.</p>
-        <p class="">Here comes popup. You can put here anything, even independent view with its own navigation. Also not, that by default popup looks a bit different on iPhone/iPod and iPad, on iPhone it is fullscreen.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus, viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a faucibus lectus.</p>
-        <p>Duis ut mauris sollicitudin, venenatis nisi sed, luctus ligula. Phasellus blandit nisl ut lorem semper pharetra. Nullam tortor nibh, suscipit in consequat vel, feugiat sed quam. Nam risus libero, auctor vel tristique ac, malesuada ut ante. Sed molestie, est in eleifend sagittis, leo tortor ullamcorper erat, at vulputate eros sapien nec libero. Mauris dapibus laoreet nibh quis bibendum. Fusce dolor sem, suscipit in iaculis id, pharetra at urna. Pellentesque tempor congue massa quis faucibus. Vestibulum nunc eros, convallis blandit dui sit amet, gravida adipiscing libero.</p>
-        <p>Morbi posuere ipsum nisl, accumsan tincidunt nibh lobortis sit amet. Proin felis lorem, dictum vel nulla quis, lobortis dignissim nunc. Pellentesque dapibus urna ut imperdiet mattis. Proin purus diam, accumsan ut mollis ac, vulputate nec metus. Etiam at risus neque. Fusce tincidunt, risus in faucibus lobortis, diam mi blandit nunc, quis molestie dolor tellus ac enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse interdum turpis a velit vestibulum pharetra. Vivamus blandit dapibus cursus. Aenean lorem augue, vehicula in eleifend ut, imperdiet quis felis.</p>
-        <p>Duis non erat vel lacus consectetur ultricies. Sed non velit dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel varius mi, a tristique ante. Vivamus eget nibh ac elit tempor bibendum sit amet vitae velit. Proin sit amet dapibus nunc, non porta tellus. Fusce interdum vulputate imperdiet. Sed faucibus metus at pharetra fringilla. Fusce mattis orci et massa congue, eget dapibus ante rhoncus. Morbi semper sed tellus vel dignissim. Cras vestibulum, sapien in suscipit tincidunt, lectus mi sodales purus, at egestas ligula dui vel erat. Etiam cursus neque eu lectus eleifend accumsan vitae non leo. Aliquam scelerisque nisl sed lacus suscipit, ac consectetur sapien volutpat. Etiam nulla diam, accumsan ut enim vel, hendrerit venenatis sem. Vestibulum convallis justo vitae pharetra consequat. Mauris sollicitudin ac quam non congue.</p>
-    </div>
-</div>
-<!-- Detalle minetur popup ----------------------------------------------------------------------------------------- -->
-<ng-include src="'html/minetur/popupMinetur.html'"></ng-include>
+<!-- Popup Detalle ------------------------------------------------------------------------------------------------- -->
+<ng-include src="'html/popupDetalle.html'"></ng-include>
 <!-- Picker -------------------------------------------------------------------------------------------------------- -->
 <div class="picker-modal picker-1">
     <div class="toolbar">

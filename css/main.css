@@ -40,8 +40,12 @@ div.center {
 .item-inner.paddingLeft {
     padding-left: 8px;
 }
-.page-content{
-    padding-top: 70px;}
+.padTop0{
+    padding-top: 0 !important;
+    }
+.margTop0 {
+    margin-top: 0;
+}
 .padLeft5 {
     padding-left: 5px !important;
 }
@@ -51,9 +55,9 @@ div.center {
 .margLeft8 {
     margin-left: 8px !important;
 }
-.padTop73 {
-    padding-top: 73px !important;
-}
+/*.padTop73 {*/
+    /*padding-top: 73px !important;*/
+/*}*/
 .smallRadio {
     margin-right: 7px;
     background-color: lightcyan;

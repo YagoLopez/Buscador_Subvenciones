@@ -1,4 +1,5 @@
 //todo: posibles nombres: todo ayudas (buscador de ayudas y subvenciones), subventia, public money
+//todo: slogan: base de datos con mas de 600 ayudas y subvenciones nacionales e internacinales actualizadas
 MyApp.angular.controller('IndexPageController', function ($scope, InitService, $rootScope) {
 
     InitService.addEventListener('ready', function () {
@@ -85,10 +86,10 @@ MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {
     $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems, IdepaItem, Utiles) {
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-    Utiles.scrollToItem(IdepaItem.index);
+    //Utiles.scrollToItem(IdepaItem.index);
     $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
     $scope.searchbarIdepa.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
@@ -110,25 +111,18 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, IdepaItems, Idepa
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-});
-// =====================================================================================================================
-MyApp.angular.controller('DetalleIdepaCtrl', function ($scope, IdepaItem, Utiles, IdepaItems) {
-
-  MyApp.fw7.app.onPageBeforeAnimation('detalleIdepa', function (page) {
+  $scope.openPopup = function(index){
+    MyApp.fw7.app.popup('.popup-detalle');
     MyApp.fw7.app.showIndicator();
-    $scope.htmlDetalle = 'Obteniendo datos...';
-    $scope.url = IdepaItem.link;
-    IdepaItem.new( page.query.index );
-    IdepaItem.getData().then(function(htmlDetalle){
-      $scope.htmlDetalle = htmlDetalle;
-      $scope.showButtons = true;
+    IdepaItem.new( index );
+    IdepaItem.content = 'Obteniendo datos...';
+    $rootScope.item = IdepaItem;
+    IdepaItem.getData( IdepaItem.link ).then(function(htmlDetalle){
+      IdepaItem.content = htmlDetalle;
+      IdepaItem.showButtons = true;
       MyApp.fw7.app.hideIndicator();
     });
-  });
-  $scope.onIconBack = function(){
-    $scope.showButtons = false;
   };
-  $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Utiles, $timeout) {

@@ -101,32 +101,47 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('Idepa', function($http, Error, Utiles, C){
+MyApp.angular.service('IdepaItems', function($http, Error){
 
-  var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
-      'charset="utf-8" and compat="html5"';
+  var self = this;
+  this.items = null;
+  this.url = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
 
-  this.urlListado = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
-  this.urlDetalle = function(urlDetalleIdepa){
-    return C.YQL + '?url=' + urlDetalleIdepa + '&q=' + query;
+  this.getItems = function(){
+    return this.items;
   };
-
-  this.getListado = function(){
-    return $http.jsonp(this.urlListado, {cache: true}).then(function(resp){
-        console.log(resp);
-        return resp;},
+  this.getData = function(){
+    return $http.jsonp(this.url, {cache: true}).then(function(resp){
+        self.items = resp.data.results.collection1;
+        console.log(self.items);
+      },
       function(datosError){
         Error.mostrar(datosError);
       });
   };
+});
+// =====================================================================================================================
+MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems){
 
-  this.getDetalle = function(url){
-    return $http.get(url, {cache: true}).then(function(resp){
-      //console.log(resp);
+  var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
+    'charset="utf-8" and compat="html5"';
+
+  this.new = function (index){
+    var i = IdepaItems.getItems()[index];
+    this.titulo = i.descripcion;
+    this.ambito = i.ambito;
+    this.link = i.link_detalle.href;
+    this.showButtons = false;
+    this.index = index;
+  };
+  this.getUrl = function(){
+    return C.YQL + ('?url='+ this.link) + ('q=' +query);
+  }
+  this.getData = function(){
+    return $http.get(this.getUrl(), {cache: true}).then(function(resp){
       htmlDetalle = Utiles.xmlParser(resp.data);
       if (htmlDetalle.length < 100)
-        htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n'
-      //console.warn('htmlDetalle', htmlDetalle);
+        htmlDetalle = 'No hay datos. Consultar Web para m&#225;s informaci&#243;n';
       return htmlDetalle;
     }, function(datosError){
       Error.mostrar(datosError);
@@ -137,7 +152,9 @@ MyApp.angular.service('Idepa', function($http, Error, Utiles, C){
 MyApp.angular.service('Error', function(){
   this.mostrar = function(resp){
     MyApp.fw7.app.hideIndicator();
-    msg = 'Codigo: '+resp.status+'<br>Datos: '+resp.statusText;
+    msg = 'Codigo: '+resp.status+'<br>'+resp.statusText;
+    if(resp.status == -1)
+      msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto';
     MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };
@@ -151,7 +168,7 @@ MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;
 }]);
 // =====================================================================================================================
-MyApp.angular.service('Utiles', function($sce){
+MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeout, $interval){
 
   this.btnTop = function(){
     console.log('btnTop en detalle');
@@ -187,32 +204,77 @@ MyApp.angular.service('Utiles', function($sce){
     };
   };
 
+/*
+  this.markItem = function(elem){
+    if(elem){
+      $interval(function(){
+        elem.style.background = 'white';
+      },700 );
+      elem.style.background = 'lightgrey';
+    }
+  };
+*/
+
+/*
+  this.scrollToItem = function(itemIndex){
+    $timeout(function(){
+      if(itemIndex == null){
+        console.log('index es undefined o nan', itemIndex);
+        return;
+      }
+      console.log('itemindex inicial', itemIndex);
+      itemIndex = parseInt(itemIndex)-2;
+      console.log('itemindex modificado (itemindex-2)', itemIndex);
+      $location.hash(itemIndex);
+      $anchorScroll();
+    }, 250);
+    //this.markItem( $$('#'+itemIndex)[0] );
+  };
+*/
+
 });
 // =====================================================================================================================
-MyApp.angular.service('Minetur', function($http, Utiles, C, Error){
+MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
 
   var self = this;
-  var queryListado = 'select * from rss where url=@url';
-  var queryDetalle = 'select * from html where url =@url and xpath="//div[@class=\'datos-ayuda\']/p"';
-  var urlListadoOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
+  var query = 'select * from rss where url=@url';
+  var urlOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
 
-  this.itemsCollection = null;
-  this.urlListado = C.YQL + '?url=' +encodeURIComponent(urlListadoOrigen) + '&q='+queryListado+ '&format=json';
-  this.urlDetalle = function(urlDetalleMinetur){
-    return C.YQL + '?url='+ encodeURIComponent(urlDetalleMinetur) + '&q='+queryDetalle + '&format=json';
+  this.items = null;
+  this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
+
+  this.getItems = function(){
+    return this.items;
   };
   this.getItemById = function(index){
-    return this.itemsCollection[index];
+    MineturItem.new(this.items[index], index);
+    return MineturItem;
   };
-  this.getListado = function(){
-    var promesa = $http.get(this.urlListado, {cache: true}).then(function(resp){
-        self.itemsCollection = resp.data.query.results.item;
-        return resp;},
+  this.getData = function(){
+    return $http.get(this.urlListado, {cache: true}).then(function(resp){
+        if (!resp.data.query.results)
+          Error.mostrar2('Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto');
+        self.items = resp.data.query.results.item;
+      },
       function(datosError){
         Error.mostrar(datosError);
       });
-    return promesa;
   };
+});
+// =====================================================================================================================
+MyApp.angular.service('MineturItem', function(Error){
+
+  this.new = function(obj, index){
+    if (obj != null && index != null){
+      this.title = obj.title;
+      this.content = obj.description;
+      this.creator = obj.creator;
+      this.link = obj.link;
+      this.showButtons = true;
+      this.index = index;
+    } else
+      Error.mostrar2('No se ha podido crear MineturItem');
+  }
 });
 // =====================================================================================================================
 MyApp.angular.constant('C', {
@@ -229,15 +291,15 @@ MyApp.angular.service('IpymeItems', function($http, Error){
 
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
-  this.collection = null;
+  this.items = null;
 
   this.getItems = function(){
-    return this.collection;
+    return this.items;
   };
-  this.getAll = function(){
+  this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
-        self.collection = resp.data.results.listado;
-        console.log(self.collection);
+        self.items = resp.data.results.listado;
+        console.log(self.items);
         return resp;},
       function(datosError){
         Error.mostrar(datosError);
@@ -245,7 +307,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
+MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems) {
 
   var query = 'select * from html where url=@url and xpath="//div[@class=\'zonalistado\']/p" and' +
     ' charset="utf-8" and compat="html5"';
@@ -253,15 +315,25 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
   this.urlFrom = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
-  this.getRemoteData = function(urlDetalle){
+  this.new = function (index){
+    var i = IpymeItems.getItems()[index];
+    this.titulo = i.titulo.text;
+    this.ambito = i.ambito;
+    this.link = i.titulo.href;
+    this.plazo = i.plazo;
+    this.showButtons = false;
+    this.index = index;
+  };
+  this.getData = function(urlDetalle){
     console.log('url', this.urlFrom(urlDetalle));
     return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){
-        //Error.mostrar(datosError);
-        return datosError;
+        Error.mostrar(datosError);
       });
   };
+
 });
+// =====================================================================================================================
