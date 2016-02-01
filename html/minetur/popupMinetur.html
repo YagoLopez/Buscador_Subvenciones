@@ -1,0 +1,51 @@
+<style type="text/css">
+    #detalleMinetur > div {
+        padding-top: 7px;
+        padding-bottom: 7px;   }
+</style>
+<div class="popup popup-detalle tablet-fullscreen">
+    <div class="pages">
+        <div data-page="popupDetalleMinetur" class="page">
+        <div class="navbar sombra">
+            <div class="navbar-inner">
+                <div class="left">&nbsp;&nbsp;
+                    <!--<a href="#index" class="link icon-only" ng-click="onIconBack()">-->
+                        <!--<i class="icon icon-back"></i></a>-->
+                </div>
+                <div class="center">Detalles</div>
+                <div class="right">
+                    <!--<a href="#" class="link icon-only open-panel" data-panel="left">-->
+                    <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- speed dial ------------------------------------------------------------------------------------------------ -->
+        <div class="speed-dial">
+            <a href="#" class="floating-button color-indigo">
+                <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
+            <div class="speed-dial-buttons">
+                <a href="{{ item.link }}" class="external color-indigo" target="_blank">
+                    <i class="icon ks-icon-calendar"></i></a>
+            </div>
+        </div>
+        <!-- contenido pagina ------------------------------------------------------------------------------------------ -->
+        <div class="page-content hide-navbar-on-scroll" style="padding-top:50px;font-size:small">
+            <div class="content-block">
+                <b>EXTRACTO:</b>
+
+                <p id='detalleMinetur' ng-bind-html="item.content | FiltroHtml"></p>
+
+                <p class="buttons-row">
+                    <a href="{{ item.link }}" class="external button button-raised button-fill"
+                       target="_blank">Ver P&aacute;gina Web</a></p>
+            </div>
+        </div>
+        <!-- fin contenido pagina -------------------------------------------------------------------------------------- -->
+    </div>
+</div>
+</div>
+
+
+
+
+
