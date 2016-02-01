@@ -3111,8 +3111,8 @@ label.label-radio {
   cursor: pointer;
 }
 label.label-radio i.icon-form-radio {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   position: relative;
   border-radius: 20px;
   border: 2px solid #6d6d6d;

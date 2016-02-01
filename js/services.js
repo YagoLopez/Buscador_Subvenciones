@@ -226,6 +226,13 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
     }, 250);
     //this.markItem( $$('#'+itemIndex)[0] );
   };
+  this.itemDetail = function(index){
+    console.log('click item index', index);
+    $timeout(function(){
+      MyApp.fw7.app.getCurrentView().loadPage('#detalleIpyme?index='+index);
+    });
+  };
+
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){

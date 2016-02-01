@@ -197,12 +197,13 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems, Ipyme
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $scope.itemDetail = function(index){
-    console.log('click item index', index);
-    $timeout(function(){
-      MyApp.fw7.app.getCurrentView().loadPage('#detalleIpyme?index='+index);
-    });
-  };
+  $scope.itemDetail = Utiles.itemDetail;
+  //$scope.itemDetail = function(index){
+  //  console.log('click item index', index);
+  //  $timeout(function(){
+  //    MyApp.fw7.app.getCurrentView().loadPage('#detalleIpyme?index='+index);
+  //  });
+  //};
 
 });
 // =====================================================================================================================

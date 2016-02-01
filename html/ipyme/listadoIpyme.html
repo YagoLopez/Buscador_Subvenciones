@@ -31,12 +31,13 @@
                 <li id="{{$index}}" ng-repeat="item in items" ng-click="itemDetail($index)">
                     <label class="label-radio item-content padLeft5">
                         <input type="radio" name="my-radio">
-                        <!--<div class="item-media minWith0"><i class="icon icon-form-radio"></i></div>-->
                         <div class="item-inner margLeft8" >
                             <div>
-                                <div><i class="icon icon-form-radio" style="margin-right: 7px;background-color:lightcyan">
-
-                                </i>{{ item.titulo.text }}</div>
+                                <div>
+                                    <!--<i class="icon icon-form-radio" style="margin-right: 7px;background-color:lightcyan;height:17px;width:17px">-->
+                                    <i class="icon icon-form-radio" style="margin-right:7px;height:16px;width:16px">
+                                    </i>{{ item.titulo.text }}
+                                </div>
                                 <div class="pieItem">
                                     <div>Ámbito: {{ item.ambito }}</div>
                                     <div>Plazo solicitud: {{ item.plazo }}</div>
