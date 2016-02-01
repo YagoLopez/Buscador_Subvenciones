@@ -170,6 +170,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
   };
 });
 // =====================================================================================================================
+
 //MyApp.angular.controller('DetalleMineturCtrl', function ($scope, MineturItems) {
 //
 //  MyApp.fw7.app.onPageBeforeAnimation('detalleMinetur', function (page) {
@@ -177,6 +178,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
 //    $scope.$apply();
 //  });
 //});
+
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems, IpymeItem, Utiles, $timeout) {
 
@@ -204,12 +206,19 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, IpymeItems, Ipyme
     $scope.items = null;
   };
   $scope.itemDetail = Utiles.itemDetail;
+
   //$scope.itemDetail = function(index){
   //  console.log('click item index', index);
   //  $timeout(function(){
   //    MyApp.fw7.app.getCurrentView().loadPage('#detalleIpyme?index='+index);
   //  });
   //};
+  $scope.openPopup = function(index){
+    console.log('cargando datos detalle en popup. indice:', index);
+    MyApp.fw7.app.popup('.popup-detalle');
+    $rootScope.item = MineturItems.getItemById(index);
+    console.log('$scope.item', $rootScope.item);
+  };
 
 });
 // =====================================================================================================================
