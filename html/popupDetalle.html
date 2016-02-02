@@ -1,43 +1,49 @@
-<!--<div class="popup popup-detalle tablet-fullscreen">-->
-    <div class="pages">
-        <div data-page="popupDetalleMinetur" class="page">
-        <div class="navbar sombra">
-            <div class="navbar-inner">
-                <div class="left width44"></div>
-                <div class="center">Detalles</div>
-                <div class="right">
-                    <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
-                </div>
+<div data-page="popupDetalle" class="page">
+    <div class="navbar sombra">
+        <div class="navbar-inner">
+            <!--<div class="left width44"></div>-->
+            <div class="left">
+                <a href="#" class="link icon-only open-panel" data-panel="left">
+                    <i class="icon icon-bars"></i>
+                </a>
+            </div>
+            <div class="center">Detalles</div>
+            <div class="right">
+                <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
             </div>
         </div>
-        <!-- speed dial ------------------------------------------------------------------------------------------------ -->
-        <div class="speed-dial">
-            <a href="#" class="floating-button color-indigo">
-                <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
-            <div class="speed-dial-buttons">
-                <a href="{{ item.link }}" class="external color-indigo" target="_blank">
-                    <i class="icon ks-icon-calendar"></i></a>
-            </div>
+    </div>
+    <!-- speed dial ------------------------------------------------------------------------------------------------ -->
+    <div class="speed-dial">
+        <a href="#" class="floating-button color-indigo">
+            <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
+        <div class="speed-dial-buttons">
+            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external color-indigo" target="_blank">
+                <i class="icon ks-icon-calendar"></i></a>
+            <a href="{{ item.link }}" class="external color-indigo" target="_blank">
+                <i class="icon ks-icon-calendar"></i></a>
         </div>
-        <!-- contenido pagina ------------------------------------------------------------------------------------------ -->
-        <div class="page-content hide-navbar-on-scroll" style="padding-top:50px;font-size:small">
-            <div class="content-block">
-                <b>EXTRACTO:</b>
+    </div>
+    <!-- contenido pagina ------------------------------------------------------------------------------------------ -->
+    <div class="page-content hide-navbar-on-scroll detailPageContent">
+        <div class="content-block">
+            <b>EXTRACTO:</b>
 
-                <p id='detailContent' ng-bind-html="item.content | FiltroHtml"></p>
+            <p id='detailContent' ng-bind-html="item.content | FiltroHtml"></p>
 
-                <div ng-show="item.showButtons">
+            <div ng-show="item.showButtons">
                 <p class="buttons-row">
                     <a href="{{ item.link }}" class="external button button-raised button-fill"
                        target="_blank">Ver P&aacute;gina Web</a></p>
+                <p ng-if="item.pdf" class="buttons-row">
+                    <a href="{{ item.pdf }}" class="external button button-raised button-fill"
+                       target="_blank">Ver Documento PDF</a></p>
                 <div id="btnTop" class="button" style="text-align:center" ng-click="btnTop()">Inicio</div>
-                </div>
             </div>
         </div>
-        <!-- fin contenido pagina -------------------------------------------------------------------------------------- -->
     </div>
+    <!-- fin contenido pagina -------------------------------------------------------------------------------------- -->
 </div>
-<!--</div>-->
 
 
 

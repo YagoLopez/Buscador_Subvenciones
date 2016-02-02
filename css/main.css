@@ -30,6 +30,9 @@ div.center {
     background: deepskyblue;
     box-shadow: -1px 1px 5px #888888;
 }
+.searchbar-overlay {
+    top: 103px;
+}
 .sombra{
     box-shadow: -1px 1px 5px #888888;}
 #itemsLength {
@@ -55,9 +58,6 @@ div.center {
 .margLeft8 {
     margin-left: 8px !important;
 }
-/*.padTop73 {*/
-    /*padding-top: 73px !important;*/
-/*}*/
 .smallRadio {
     margin-right: 7px;
     background-color: lightcyan;
@@ -72,6 +72,10 @@ div.center {
 }
 .margRight30 {
     margin-right: 35px !important;
+}
+.detailPageContent {
+    padding-top: 50px;
+    font-size: small;
 }
 
 /* fin listado ****************************************************************************************************** */

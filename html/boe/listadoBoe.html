@@ -5,11 +5,10 @@
             <a href="#index" class="link icon-only" ng-click="onIconBack()">
                 <i class="icon icon-back"></i></a>
         </div>
-        <div class="center margRight30">{{ tipoAyuda }}</div>
+        <div class="center margRight30">{{ tipoAyuda  | capitalize}}</div>
         <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
     </div>
 </div>
-<!--todo: poner barra de navegación al final de la pantalla con el nombre completo de la institución y logo a ser posible-->
 <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
 <form id="searchbarBoe" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
     <div class="searchbar-input">
@@ -42,5 +41,4 @@
             </li>
         </ul>
     </div>
-    <a href="#index">go back</a><br>
 </div>

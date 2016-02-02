@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>MyApp</title>
+    <!--<link rel="stylesheet" href="lib/f7/framework7.material.css">-->
+    <!--<link rel="stylesheet" href="lib/f7/framework7.material.colors.css">-->
+    <!--<link rel="stylesheet" href="css/main.css">-->
+    <link rel="stylesheet" href="http://www.idangero.us/framework7/dist/css/framework7.material.min.css">
+    <link rel="stylesheet" href="http://www.idangero.us/framework7/dist/css/framework7.material.colors.min.css">
+</head>
+
+<body>
+<div class="views">
+    <div class="view view-main">
+        <div class="pages toolbar-fixed navbar-fixed">
+            <div class="toolbar toolbar-bottom">
+                <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a><a href="#" class="link">Link 3</a></div>
+            </div>
+            <!-- menu ---------------------------------------------------------------------------------------------- -->
+            <div class="panel-overlay"></div>
+            <div class="panel panel-left panel-cover">
+                <div class="content-block">
+                    <p>Left Panel content here</p>
+                    <p><a href="#" class="close-panel">Close me</a></p>
+                    <p><a href="#" data-panel="right" class="open-panel">Open Right Panel</a></p>
+                </div>
+            </div>
+            <div class="panel panel-right panel-cover">
+                <div class="content-block">
+                    <p>Right Panel content here</p>
+                    <p><a href="#" class="panel-close">Close me</a></p>
+                    <p><a href="#" class="open-left-panel">Open Left Panel</a></p>
+                </div>
+            </div>
+<!--            &lt;!&ndash; home page &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+            <div data-page="index" class="page" ng-controller="HomePageController">
+                <ng-include src="'html/home.html'"></ng-include>
+            </div>
+            &lt;!&ndash; details page &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+            <div data-page="detailsPage" class="page cached" ng-controller="DetailPageController">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a href="#index" class="link icon-only"><i class="icon icon-back"></i></a>
+                        </div>
+                        <div class="center">Center</div>
+                        <div class="right">
+                            <a href="#index" class="link icon-only"><i class="icon icon-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    This is details page (inline)<br/>
+                    {{ hello2 }}
+                    <a href="#index" class="back"> Go back</a>
+                </div>
+            </div>
+            &lt;!&ndash; pagina listado boe &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+            <div data-page="listadoBoe" class="page cached toolbar-fixed" ng-controller="ListadoBoeCtrl">
+                <ng-include src="'html/boe/listadoBoe.html'"></ng-include>
+            </div>
+            &lt;!&ndash; pagina listado idepa-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+            <div data-page="listadoIdepa" class="page cached" ng-controller="ListadoIdepaCtrl">
+                <ng-include src="'html/idepa/listadoIdepa.html'""></ng-include>
+            </div>
+            &lt;!&ndash; pagina listado minetur-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+            <div data-page="listadoMinetur" class="page cached" ng-controller="ListadoMineturCtrl">
+                <ng-include src="'html/minetur/listadoMinetur.html'"></ng-include>
+            </div>
+            &lt;!&ndash; pagina listado ipyme-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;
+            <div data-page="listadoIpyme" class="page cached" ng-controller="ListadoIpymeCtrl">
+                <ng-include src="'html/ipyme/listadoIpyme.html'"></ng-include>
+            </div>-->
+
+        </div>
+
+    </div>
+
+</div>
+<!-- Popup Detalle ------------------------------------------------------------------------------------------------- -->
+<!--<div class="popup popup-detalle tablet-fullscreen">-->
+    <!--<ng-include src="'html/popupDetalle.html'"></ng-include>-->
+<!--</div>-->
+<!-- Picker -------------------------------------------------------------------------------------------------------- -->
+<!--<div class="picker-modal picker-1">-->
+    <!--<div class="toolbar">-->
+        <!--<div class="toolbar-inner">-->
+            <!--<div class="left"></div>-->
+            <!--<div class="right"><a href="#" class="close-picker">Done</a></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="picker-modal-inner">-->
+        <!--<div class="content-block">-->
+            <!--<h4>Info 1</h4>-->
+            <!--<p>Lorem ipsum dolor...</p>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!-- Scripts ------------------------------------------------------------------------------------------------------- -->
+<!--<script type="text/javascript" src="lib/angular/angular.js"></script>-->
+<!--<script type="text/javascript" src="lib/f7/framework7.js"></script>-->
+<script type="text/javascript" src="http://www.idangero.us/framework7/dist/js/framework7.min.js"></script>
+<!--
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/services.js"></script>
+<script type="text/javascript" src="js/controllers.js"></script>
+-->
+</body>
+
+</html>

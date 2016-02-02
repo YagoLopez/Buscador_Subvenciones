@@ -55,7 +55,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     });
   });
   $scope.getItems = function(url){
-    BoeItems.getAll(url).then(function(){
+    BoeItems.getData(url).then(function(){
       $scope.searchbarBoe.disable();
       $scope.items = BoeItems.getItems();
       $scope.numItems = BoeItems.getItems().length;
@@ -77,25 +77,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       MyApp.fw7.app.hideIndicator();
     });
   };
-});
-// =====================================================================================================================
-MyApp.angular.controller('DetalleBoeCtrl', function ($scope, BoeItem, Utiles) {
-
-    MyApp.fw7.app.onPageBeforeAnimation('detalleBoe', function (page) {
-        MyApp.fw7.app.showIndicator();
-        $scope.htmlDetalle = 'Obteniendo datos...';
-        $scope.pdf = decodeURIComponent(page.query.pdf);
-        $scope.url = decodeURIComponent(page.query.url);
-        BoeItem.getRemoteData( $scope.url ).then(function(htmlDetalle){
-            $scope.htmlDetalle = htmlDetalle;
-            $scope.showButtons = true;
-            MyApp.fw7.app.hideIndicator();
-        });
-    });
-    $scope.onIconBack = function(){
-        $scope.showButtons = false;
-    };
-    $scope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem) {

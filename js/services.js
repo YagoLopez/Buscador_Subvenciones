@@ -60,7 +60,7 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   this.urlListado = function(url){
     return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
   };
-  this.getAll = function(url){
+  this.getData = function(url){
     console.log('url', url);
     return $http.get(url, {cache: true}).then(function(resp){
         self.items = resp.data.query.results.item;
@@ -171,10 +171,6 @@ MyApp.angular.service('Error', function(){
     MyApp.fw7.app.alert(txtExcepcion, 'Error');
   };
 });
-// =====================================================================================================================
-MyApp.angular.filter('urlEncode', [function() {
-  return window.encodeURIComponent;
-}]);
 // =====================================================================================================================
 MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeout, $interval){
 
@@ -295,6 +291,12 @@ MyApp.angular.filter('FiltroHtml', ['$sce', function($sce) {
   }
 }]);
 // =====================================================================================================================
+MyApp.angular.filter('capitalize', function() {
+  return function(input) {
+    return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1) : '';
+  }
+});
+// =====================================================================================================================
 MyApp.angular.service('IpymeItems', function($http, Error){
 
   var self = this;
@@ -345,3 +347,9 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 
 });
 // =====================================================================================================================
+// =====================================================================================================================
+/*
+MyApp.angular.filter('urlEncode', [function() {
+  return window.encodeURIComponent;
+}]);
+*/
