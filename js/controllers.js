@@ -43,9 +43,10 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
+    $scope.titulo = 'BOE'; $scope.$apply();
     $scope.tipoAyuda = page.query.tipo;
-    $scope.searchbarBoe = $$('#searchbarBoe')[0].f7Searchbar;
-    $scope.searchbarBoe.params.removeDiacritics = true;
+    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
       $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
@@ -56,7 +57,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   });
   $scope.getItems = function(url){
     BoeItems.getData(url).then(function(){
-      $scope.searchbarBoe.disable();
+      $scope.searchbar.disable();
       $scope.items = BoeItems.getItems();
       $scope.numItems = BoeItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
@@ -82,11 +83,11 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-    //Utiles.scrollToItem(IdepaItem.index);
-    $scope.searchbarIdepa = $$('#searchbarIdepa')[0].f7Searchbar;
-    $scope.searchbarIdepa.params.removeDiacritics = true;
+    $scope.titulo = 'IDEPA'; $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
-      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
+      $scope.numItems = null; MyApp.fw7.app.showIndicator();// init
       $scope.getItems();
     }
     $$('#bloqueListaIdepa').on('search', function(e){
@@ -95,7 +96,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   });
   $scope.getItems = function(){
     IdepaItems.getData().then(function(){
-      $scope.searchbarIdepa.disable();
+      $scope.searchbar.disable();
       $scope.items = IdepaItems.getItems();
       $scope.numItems = IdepaItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
@@ -121,8 +122,9 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
 MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Utiles, $timeout) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
-    $scope.searchbarMinetur = $$('#searchbarMinetur')[0].f7Searchbar;
-    $scope.searchbarMinetur.params.removeDiacritics = true;
+    $scope.titulo = 'MINETUR'; $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
       $scope.getItems();
@@ -133,7 +135,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
   });
   $scope.getItems = function(){
     MineturItems.getData().then(function(){
-      $scope.searchbarMinetur.disable();
+      $scope.searchbar.disable();
       $scope.items = MineturItems.getItems();
       $scope.numItems = MineturItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
@@ -153,8 +155,9 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
 MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
-    $scope.searchbarIpyme = $$('#searchbarIpyme')[0].f7Searchbar;
-    $scope.searchbarIpyme.params.removeDiacritics = true;
+    $scope.titulo = 'IPYME'; $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
       $scope.getItems();
@@ -165,7 +168,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   });
   $scope.getItems = function(){
     IpymeItems.getData().then(function(){
-      $scope.searchbarIpyme.disable();
+      $scope.searchbar.disable();
       $scope.items = IpymeItems.getItems();
       $scope.numItems = IpymeItems.getItems().length;
       MyApp.fw7.app.hideIndicator();

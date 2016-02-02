@@ -5,14 +5,12 @@
             <a href="#index" class="link icon-only" ng-click="onIconBack()">
                 <i class="icon icon-back"></i></a>
         </div>
-        <!--todo: poner icono de idepa en barra de titulo-->
-        <!--todo: arreglar duplicado id=itemsLength-->
-        <div class="center">IDEPA</div>
+        <div class="center margRight30">{{ titulo }}</div>
         <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
     </div>
 </div>
 <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
-<form id="searchbarIdepa" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+<form id="searchbar{{titulo}}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
     <div class="searchbar-input">
         <input id= "inputTxt" type="search" placeholder="Buscar"/>
         <a href="#" class="searchbar-clear"></a>
@@ -26,18 +24,23 @@
     <div class="content-block searchbar-not-found">
         <div class="content-block-inner">No se han encontrado resultados</div>
     </div>
-    <div id="bloqueListaIdepa" class="list-block list-block-search searchbar-found margTop0">
-        <ul id="listaIdepa">
+    <div id="bloqueListaBoe" class="list-block list-block-search searchbar-found margTop0">
+        <ul id="listaBoe">
             <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)">
                 <label class="label-radio item-content padLeft5">
                     <input type="radio" name="my-radio">
-                    <div class="item-inner margLeft8" >
+                    <div class="item-inner margLeft8">
                         <div>
-                            <div><i class="icon icon-form-radio smallRadio"></i>{{ item.descripcion }}</div>
-                            <!--<div>{{ item.anexo }}</div>-->
+                            <i class="icon icon-form-radio smallRadio"></i>
+                            <span ng-if="item.title">{{ item.title }}</span>
+                            <span ng-if="item.descripcion">{{ item.descripcion }}</span>
+                            <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
                             <div class="pieItem">
-                                <div>{{ item.vigencia }}</div>
-                                <div>Ámbito: {{ item.ambito }}</div>
+                                <div ng-if="titulo == 'BOE'">{{ item.description }}</div>
+                                <div ng-if="item.vigencia">{{ item.vigencia }}</div>
+                                <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>
+                                <div ng-if="item.plazo">Plazo solicitud: {{ item.plazo }}</div>
+                                <div ng-if="item.creator">{{ item.creator }}</div>
                             </div>
                         </div>
                     </div>
@@ -45,5 +48,4 @@
             </li>
         </ul>
     </div>
-    <a href="#index">go back</a><br>
 </div>

@@ -246,7 +246,6 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
 
   this.items = null;
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
-
   this.getItems = function(){
     return this.items;
   };
