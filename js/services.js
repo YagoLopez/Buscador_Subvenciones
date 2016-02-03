@@ -54,6 +54,8 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
 
   this.items = null;
 
+  this.txt = { titulo: 'BOE', subtitulo: 'Boletín Oficial del Estado', tipo: ''};
+
   this.getItems = function(){
     return this.items;
   };
@@ -114,6 +116,7 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   var self = this;
   this.items = null;
   this.url = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+  this.txt = { titulo: 'IDEPA', subtitulo: 'Instituto de Desarrollo Empresarial del Principado de Asturias'};
 
   this.getItems = function(){
     return this.items;
@@ -245,6 +248,7 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   var urlOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
 
   this.items = null;
+  this.txt = { titulo: 'MINETUR', subtitulo: 'Ministerio de Turismo'};
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;
@@ -301,6 +305,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
   this.items = null;
+  this.txt = { titulo: 'IPYME', subtitulo: 'Instituto de la Pequeña y Mediana Empresa'};
 
   this.getItems = function(){
     return this.items;

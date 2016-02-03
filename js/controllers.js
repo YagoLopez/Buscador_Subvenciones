@@ -43,9 +43,10 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-    $scope.titulo = 'BOE'; $scope.$apply();
-    $scope.tipoAyuda = page.query.tipo;
-    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    BoeItems.txt.tipo = page.query.tipo;
+    $scope.txt = BoeItems.txt;
+    $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
@@ -83,8 +84,9 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-    $scope.titulo = 'IDEPA'; $scope.$apply();
-    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    $scope.txt = IdepaItems.txt;
+    $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.txt.titulo)[0].f7Searchbar;
     $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator();// init
@@ -122,8 +124,9 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
 MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Utiles, $timeout) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
-    $scope.titulo = 'MINETUR'; $scope.$apply();
-    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    $scope.txt = MineturItems.txt;
+    $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
@@ -155,8 +158,9 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
 MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
-    $scope.titulo = 'IPYME'; $scope.$apply();
-    $scope.searchbar = $$( '#searchbar'+$scope.titulo )[0].f7Searchbar;
+    $scope.txt = IpymeItems.txt;
+    $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     $scope.searchbar.params.removeDiacritics = true;
     if (page.fromPage.name === 'index'){
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init

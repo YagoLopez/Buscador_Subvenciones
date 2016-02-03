@@ -1,16 +1,18 @@
 <!-- Barra nav ------------------------------------------------------------------------------------------------- -->
+<style type="text/css">
+</style>
 <div class="navbar">
     <div class="navbar-inner">
         <div class="left">
             <a href="#index" class="link icon-only" ng-click="onIconBack()">
                 <i class="icon icon-back"></i></a>
         </div>
-        <div class="center margRight30">{{ titulo }}</div>
+        <div class="center margRight30">{{ txt.titulo }}</div>
         <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
     </div>
 </div>
 <!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
-<form id="searchbar{{titulo}}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+<form id="searchbar{{txt.titulo}}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
     <div class="searchbar-input">
         <input id= "inputTxt" type="search" placeholder="Buscar"/>
         <a href="#" class="searchbar-clear"></a>
@@ -20,6 +22,9 @@
 <div class="searchbar-overlay"></div>
 <!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
 <div class="page-content padTop0">
+    <div class="subtitulos">
+        {{ txt.subtitulo }}. {{ txt.tipo | capitalize }}
+    </div>
     <!-- Listado ----------------------------------------------------------------------------------------------- -->
     <div class="content-block searchbar-not-found">
         <div class="content-block-inner">No se han encontrado resultados</div>
@@ -36,8 +41,8 @@
                             <span ng-if="item.descripcion">{{ item.descripcion }}</span>
                             <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
                             <div class="pieItem">
-                                <div ng-if="titulo == 'BOE'">{{ item.description }}</div>
-                                <div ng-if="item.vigencia">{{ item.vigencia }}</div>
+                                <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
+                                <!--<div ng-if="item.vigencia">{{ item.vigencia }}</div>-->
                                 <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>
                                 <div ng-if="item.plazo">Plazo solicitud: {{ item.plazo }}</div>
                                 <div ng-if="item.creator">{{ item.creator }}</div>
