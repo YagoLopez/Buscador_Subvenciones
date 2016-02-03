@@ -33,53 +33,44 @@
                     <p><a href="#" class="open-left-panel">Open Left Panel</a></p>
                 </div>
             </div>
-
             <!-- home page ---------------------------------------------------------------------------------------- -->
             <div data-page="index" class="page" ng-controller="HomePageController">
                 <ng-include src="'html/home.html'"></ng-include>
-            </div>
-            <!-- details page -------------------------------------------------------------------------------------- -->
-            <div data-page="detailsPage" class="page cached" ng-controller="DetailPageController">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="left">
-                            <a href="#index" class="link icon-only"><i class="icon icon-back"></i></a>
-                        </div>
-                        <div class="center">Center</div>
-                        <div class="right">
-                            <a href="#index" class="link icon-only"><i class="icon icon-bars"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-content">
-                    This is details page (inline)<br/>
-                    {{ hello2 }}
-                    <a href="#index" class="back"> Go back</a>
-                </div>
             </div>
             <!-- pagina listado boe -------------------------------------------------------------------------------- -->
             <div data-page="listadoBoe" class="page cached toolbar-fixed" ng-controller="ListadoBoeCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
-                        <a href="#tab-1" class="link">
-                            <i class="icon ks-icon-email"></i></a>
-                        <a href="#tab-2" class="link"><i class="icon ks-icon-calendar"></i></a>
-                        <a href="#tab-3" class="link"><i class="icon ks-icon-upload"></i></a>
-                        <a href="#tab-1" class="link">Text Link</a>
+                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
                     </div>
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
             <!-- pagina listado idepa------------------------------------------------------------------------------- -->
             <div data-page="listadoIdepa" class="page cached" ng-controller="ListadoIdepaCtrl">
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
+                    </div>
+                </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
             <!-- pagina listado minetur----------------------------------------------------------------------------- -->
             <div data-page="listadoMinetur" class="page cached" ng-controller="ListadoMineturCtrl">
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
+                    </div>
+                </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
             <!-- pagina listado ipyme------------------------------------------------------------------------------- -->
             <div data-page="listadoIpyme" class="page cached" ng-controller="ListadoIpymeCtrl">
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
+                    </div>
+                </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
 

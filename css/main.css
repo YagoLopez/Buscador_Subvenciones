@@ -25,7 +25,8 @@ li.a{
     font-size: x-small;
     color: cornflowerblue;}
 div.center {
-    width: 100%;}
+    width: 100%;
+    }
 .searchbar {
     background: deepskyblue;
     box-shadow: -1px 1px 5px #888888;
@@ -46,8 +47,9 @@ div.center {
 .padTop0{
     padding-top: 0 !important;
     }
-.margTop0 {
+.margLista {
     margin-top: 0;
+    margin-bottom: 152px;
 }
 .padLeft5 {
     padding-left: 5px !important;
@@ -59,7 +61,8 @@ div.center {
     margin-left: 8px !important;
 }
 .smallRadio {
-    margin-right: 7px;
+    margin-right: 1px;
+    margin-bottom: 3px;
     background-color: lightcyan;
     height: 17px;
     width: 17px;
@@ -71,17 +74,16 @@ div.center {
     width: 44px;
 }
 .margRight30 {
-    margin-right: 35px !important;
+    margin-right: 33px !important;
 }
 .detailPageContent {
     padding-top: 50px;
     font-size: small;
 }
 .subtitulos {
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: darkgray;
+    text-align:center !important;
+    padding: 5px;
+    font-size: 13px;
 }
 
 /* fin listado ****************************************************************************************************** */
@@ -155,7 +157,7 @@ i.ks-icon-calendar {
 i.ks-icon-upload {
     width: 24px;
     height: 24px;
-    background-image: url("data:image/svg+xml;charset=utf-8,<svg fill='#FFFFFF' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><path d='M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z'/></svg>");
+    background-image: url("data:image/svg+xml;charset=utf-8,<svg fill='cornflowerblue' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><path d='M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z'/></svg>");
 }
 
 .tabbar i.ks-icon-upload {

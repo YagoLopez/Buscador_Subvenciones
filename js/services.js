@@ -54,7 +54,7 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
 
   this.items = null;
 
-  this.txt = { titulo: 'BOE', subtitulo: 'Boletín Oficial del Estado', tipo: ''};
+  this.txt = { titulo: 'BOE', subtitulo: 'Bolet\u00EDn Oficial del Estado', tipo: ''};
 
   this.getItems = function(){
     return this.items;
@@ -211,34 +211,6 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
     };
   };
 
-/*
-  this.markItem = function(elem){
-    if(elem){
-      $interval(function(){
-        elem.style.background = 'white';
-      },700 );
-      elem.style.background = 'lightgrey';
-    }
-  };
-*/
-
-/*
-  this.scrollToItem = function(itemIndex){
-    $timeout(function(){
-      if(itemIndex == null){
-        console.log('index es undefined o nan', itemIndex);
-        return;
-      }
-      console.log('itemindex inicial', itemIndex);
-      itemIndex = parseInt(itemIndex)-2;
-      console.log('itemindex modificado (itemindex-2)', itemIndex);
-      $location.hash(itemIndex);
-      $anchorScroll();
-    }, 250);
-    //this.markItem( $$('#'+itemIndex)[0] );
-  };
-*/
-
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
@@ -305,7 +277,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
   this.items = null;
-  this.txt = { titulo: 'IPYME', subtitulo: 'Instituto de la Pequeña y Mediana Empresa'};
+  this.txt = { titulo: 'IPYME', subtitulo: 'Instituto de la Peque\u00F1a y Mediana Empresa'};
 
   this.getItems = function(){
     return this.items;
@@ -350,7 +322,6 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   };
 
 });
-// =====================================================================================================================
 // =====================================================================================================================
 /*
 MyApp.angular.filter('urlEncode', [function() {

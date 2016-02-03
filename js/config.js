@@ -7,7 +7,7 @@ var $$ = Dom7;
 //
 //};
 
-// Init angular
+// Define angular
 MyApp.angular = angular.module('MyApp', []);
 
 // Config angular
@@ -40,6 +40,6 @@ MyApp.fw7 = {
   views : []
 };
 
-MyApp.angular.run( function($anchorScroll) {
-  //$anchorScroll.yOffset = 100;   // always scroll by 50 extra pixels
+MyApp.angular.run( function(Utiles, $rootScope) {
+  $rootScope.btnTop = Utiles.btnTop;
 });

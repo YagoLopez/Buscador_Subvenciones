@@ -52,18 +52,20 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   var urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
   var urlEmpleoPublico = 'http://www.boe.es/rss/canal_per.php?l=p&c=140';
 
-  this.collection = null;
+  this.items = null;
 
-  this.getCollection = function(){
-    return this.collection;
+  this.txt = { titulo: 'BOE', subtitulo: 'Bolet\u00EDn Oficial del Estado', tipo: ''};
+
+  this.getItems = function(){
+    return this.items;
   };
   this.urlListado = function(url){
     return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
   };
-  this.getAll = function(url){
+  this.getData = function(url){
     console.log('url', url);
     return $http.get(url, {cache: true}).then(function(resp){
-        self.collection = resp.data.query.results.item;
+        self.items = resp.data.query.results.item;
       },
       function(datosError){
         Error.mostrar(datosError);
@@ -82,21 +84,29 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
+MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
 
   var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
 
   this.urlFrom = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
-  this.getRemoteData = function(urlDetalle){
+  this.new = function (index){
+    var i = BoeItems.getItems()[index];
+    this.titulo = i.title;
+    this.description = i.description;
+    this.link = i.link;
+    this.pdf = i.guid.content;
+    this.showButtons = false;
+    this.index = index;
+  };
+  this.getData = function(urlDetalle){
     return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
-        //console.log( resp );
+        console.log( resp );
         return Utiles.xmlParser(resp.data);;
       },
       function(datosError){
-        //Error.mostrar(datosError);
-        return datosError;
+        Error.mostrar(datosError);
       });
   };
 });
@@ -106,6 +116,7 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   var self = this;
   this.items = null;
   this.url = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+  this.txt = { titulo: 'IDEPA', subtitulo: 'Instituto de Desarrollo Empresarial del Principado de Asturias'};
 
   this.getItems = function(){
     return this.items;
@@ -164,10 +175,6 @@ MyApp.angular.service('Error', function(){
   };
 });
 // =====================================================================================================================
-MyApp.angular.filter('urlEncode', [function() {
-  return window.encodeURIComponent;
-}]);
-// =====================================================================================================================
 MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeout, $interval){
 
   this.btnTop = function(){
@@ -204,34 +211,6 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
     };
   };
 
-/*
-  this.markItem = function(elem){
-    if(elem){
-      $interval(function(){
-        elem.style.background = 'white';
-      },700 );
-      elem.style.background = 'lightgrey';
-    }
-  };
-*/
-
-/*
-  this.scrollToItem = function(itemIndex){
-    $timeout(function(){
-      if(itemIndex == null){
-        console.log('index es undefined o nan', itemIndex);
-        return;
-      }
-      console.log('itemindex inicial', itemIndex);
-      itemIndex = parseInt(itemIndex)-2;
-      console.log('itemindex modificado (itemindex-2)', itemIndex);
-      $location.hash(itemIndex);
-      $anchorScroll();
-    }, 250);
-    //this.markItem( $$('#'+itemIndex)[0] );
-  };
-*/
-
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
@@ -241,8 +220,8 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   var urlOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
 
   this.items = null;
+  this.txt = { titulo: 'MINETUR', subtitulo: 'Ministerio de Turismo'};
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
-
   this.getItems = function(){
     return this.items;
   };
@@ -287,11 +266,18 @@ MyApp.angular.filter('FiltroHtml', ['$sce', function($sce) {
   }
 }]);
 // =====================================================================================================================
+MyApp.angular.filter('capitalize', function() {
+  return function(input) {
+    return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1) : '';
+  }
+});
+// =====================================================================================================================
 MyApp.angular.service('IpymeItems', function($http, Error){
 
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
   this.items = null;
+  this.txt = { titulo: 'IPYME', subtitulo: 'Instituto de la Peque\u00F1a y Mediana Empresa'};
 
   this.getItems = function(){
     return this.items;
@@ -337,3 +323,8 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 
 });
 // =====================================================================================================================
+/*
+MyApp.angular.filter('urlEncode', [function() {
+  return window.encodeURIComponent;
+}]);
+*/
