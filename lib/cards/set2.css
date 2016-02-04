@@ -2,7 +2,7 @@
 	position: relative;
 	clear: both;
 	margin: 0 auto;
-	padding: 1em 0 4em;
+	/* padding: 1em 0 4em; */
 	max-width: 1000px;
 	list-style: none;
 	text-align: center;
@@ -147,7 +147,7 @@ figure.effect-duke:hover p {
 		text-align: center;
 	}
 	.grid figure {
-		display: inline-block;
+		/* display: inline-block; */
 		float: none;
 		margin: 10px auto;
 		width: 100%;
