@@ -117,13 +117,13 @@ figure.effect-duke h2 {
 }
 
 figure.effect-duke p {
-	position: absolute;
+	/* position: absolute; */
 	bottom: 0;
 	left: 0;
-	margin-botton: 125px;
-	margin: 20px;
-	/* padding: 30px; */
-	/* border: 2px solid #fff; */
+	/* margin-bottom: 125px; */
+	/* margin: 10px; */
+	padding: 10px;
+	border: 2px solid #fff;
 	text-transform: none;
 	/* font-size: 90%; */
 	opacity: 0;
