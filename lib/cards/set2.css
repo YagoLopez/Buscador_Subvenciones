@@ -14,7 +14,7 @@
 	float: left;
 	overflow: hidden;
 	margin: 10px 1%;
-	min-width: 320px;
+	/* min-width: 320px; */
 	max-width: 480px;
 	max-height: 360px;
 	width: 48%;
@@ -33,7 +33,7 @@
 }
 
 .grid figure figcaption {
-	padding: 2em;
+	padding: 0.5em;
 	color: #fff;
 	text-transform: uppercase;
 	font-size: 1.25em;
@@ -122,11 +122,10 @@ figure.effect-duke p {
 	left: 0;
 	margin-botton: 125px;
 	margin: 20px;
-
-	padding: 30px;
-	border: 2px solid #fff;
+	/* padding: 30px; */
+	/* border: 2px solid #fff; */
 	text-transform: none;
-	font-size: 90%;
+	/* font-size: 90%; */
 	opacity: 0;
 	-webkit-transform: scale3d(0.8,0.8,1);
 	transform: scale3d(0.8,0.8,1);

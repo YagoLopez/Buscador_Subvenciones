@@ -136,7 +136,7 @@ section {
 	font-variant: normal;
 	font-family: 'codropsicons';
 	line-height: 1;
-	speak: none;
+	/*speak: none;*/
 	-webkit-font-smoothing: antialiased;
 }
 
