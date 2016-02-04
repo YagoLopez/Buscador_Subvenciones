@@ -220,7 +220,7 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   var urlOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
 
   this.items = null;
-  this.txt = { titulo: 'MINETUR', subtitulo: 'Ministerio de Turismo'};
+  this.txt = { titulo: 'MINETUR', subtitulo: 'Ministerio de Industria, Energ\u00EDa y Turismo'};
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;

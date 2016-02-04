@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html ng-app="MyApp">
+<html ng-app="MyApp" lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <title>MyApp</title>
+    <title>Todo Ayudas</title>
     <link rel="stylesheet" href="lib/f7/framework7.material.css">
     <link rel="stylesheet" href="lib/f7/framework7.material.colors.css">
     <link rel="stylesheet" href="css/main.css">
+    <!-- Cards ----------------------------------------------------------------------------------------------------- -->
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="lib/cards/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="lib/cards/demo.css" />
+    <link rel="stylesheet" type="text/css" href="lib/cards/set2.css" />
+    <link rel="stylesheet" type="text/css" href="lib/cards/font-awesome.min.css" />
+    <!-- Fin Cards ------------------------------------------------------------------------------------------------- -->
+
 </head>
 
 <body>
@@ -46,7 +54,7 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina listado idepa------------------------------------------------------------------------------- -->
+            <!-- pagina listado idepa ------------------------------------------------------------------------------ -->
             <div data-page="listadoIdepa" class="page cached" ng-controller="ListadoIdepaCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -55,7 +63,7 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina listado minetur----------------------------------------------------------------------------- -->
+            <!-- pagina listado minetur ---------------------------------------------------------------------------- -->
             <div data-page="listadoMinetur" class="page cached" ng-controller="ListadoMineturCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -64,7 +72,7 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina listado ipyme------------------------------------------------------------------------------- -->
+            <!-- pagina listado ipyme ------------------------------------------------------------------------------ -->
             <div data-page="listadoIpyme" class="page cached" ng-controller="ListadoIpymeCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -72,6 +80,10 @@
                     </div>
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
+            </div>
+            <!-- pagina cards -------------------------------------------------------------------------------------- -->
+            <div data-page="cards" class="page cached">
+                <ng-include src="'html/cards.html'"></ng-include>
             </div>
 
         </div>
@@ -104,6 +116,12 @@
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
+<!-- Cards --------------------------------------------------------------------------------------------------------- -->
+<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!-- Cards --------------------------------------------------------------------------------------------------------- -->
+
 </body>
 
 </html>

@@ -36,6 +36,10 @@ div.center {
 }
 .sombra{
     box-shadow: -1px 1px 5px #888888;}
+.sombraCard{
+    box-shadow: 0 4px 10px #888888;
+}
+
 #itemsLength {
     margin-right: 20px;
     font-size: small;
@@ -84,6 +88,9 @@ div.center {
     text-align:center !important;
     padding: 5px;
     font-size: 13px;
+}
+.padBot50 {
+    padding-bottom: 50px;
 }
 
 /* fin listado ****************************************************************************************************** */
@@ -434,7 +441,7 @@ div.ks-demo-lazy {
     -webkit-background-size: cover;
     background-size: cover;
     height: 300px;
-    height: 60vw;
+    /*height: 60vw;*/
 }
 
 .ks-layout-theme {
