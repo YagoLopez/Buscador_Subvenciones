@@ -26,6 +26,7 @@ li.a{
     color: cornflowerblue;}
 div.center {
     width: 100%;
+    text-align: center;
     }
 .searchbar {
     background: deepskyblue;
@@ -88,7 +89,7 @@ div.center {
 .subtitulos {
     text-align:center !important;
     padding: 5px;
-    font-size: 13px;
+    /* font-size: 13px; */
 }
 .padBot50 {
     padding-bottom: 50px;
@@ -479,7 +480,7 @@ div.ks-demo-lazy {
 }
 
 .ks-card-header-pic .card-header {
-    height: 40vw;
+    height: 25vw;
     background-size: cover;
     background-position: center;
 }

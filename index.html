@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="lib/f7/framework7.material.colors.css">
     <link rel="stylesheet" href="css/main.css">
     <!-- Cards ----------------------------------------------------------------------------------------------------- -->
-    <link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">
+    <!--<link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" href="lib/cards/normalize.css" />
     <link rel="stylesheet" type="text/css" href="lib/cards/demo.css" />
     <link rel="stylesheet" type="text/css" href="lib/cards/set2.css" />
-    <link rel="stylesheet" type="text/css" href="lib/cards/font-awesome.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="lib/cards/font-awesome.min.css" />-->
     <!-- Fin Cards ------------------------------------------------------------------------------------------------- -->
 
 </head>
@@ -49,7 +49,7 @@
             <div data-page="listadoBoe" class="page cached toolbar-fixed" ng-controller="ListadoBoeCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
-                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
+                        <div class="center">{{ txt.tipo | capitalize }}</div>
                     </div>
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
@@ -58,7 +58,7 @@
             <div data-page="listadoIdepa" class="page cached" ng-controller="ListadoIdepaCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
-                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
+                        <div class="center">{{ txt.subtitulo }}</div>
                     </div>
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
@@ -67,7 +67,7 @@
             <div data-page="listadoMinetur" class="page cached" ng-controller="ListadoMineturCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
-                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
+                        <div class="center">{{ txt.subtitulo }}</div>
                     </div>
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
@@ -76,7 +76,7 @@
             <div data-page="listadoIpyme" class="page cached" ng-controller="ListadoIpymeCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
-                        <div class="center subtitulos">{{ txt.subtitulo }}. {{ txt.tipo | capitalize }}</div>
+                        <div class="center">{{ txt.subtitulo }}</div>
                     </div>
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
@@ -96,6 +96,7 @@
     <ng-include src="'html/detalle.html'"></ng-include>
 </div>
 <!-- Popuover ------------------------------------------------------------------------------------------------------ -->
+<!--
 <div class="popover popover-menu" style="/*display: block; top: 218px; left: 16px;*/">
     <div class="popover-inner">
         <div class="list-block">
@@ -112,21 +113,7 @@
         </div>
     </div>
 </div>
-<!-- Picker -------------------------------------------------------------------------------------------------------- -->
-<div class="picker-modal picker-1">
-    <div class="toolbar">
-        <div class="toolbar-inner">
-            <div class="left"></div>
-            <div class="right"><a href="#" class="close-picker">Done</a></div>
-        </div>
-    </div>
-    <div class="picker-modal-inner">
-        <div class="content-block">
-            <h4>Info 1</h4>
-            <p>Lorem ipsum dolor...</p>
-        </div>
-    </div>
-</div>
+-->
 <!-- Scripts ------------------------------------------------------------------------------------------------------- -->
 <script type="text/javascript" src="lib/angular/angular.js"></script>
 <script type="text/javascript" src="lib/f7/framework7.js"></script>

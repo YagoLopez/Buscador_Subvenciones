@@ -2,26 +2,26 @@
 	position: relative;
 	clear: both;
 	margin: 0 auto;
-	/*padding: 1em 0 4em;*/
+	/* padding: 1em 0 4em; */
 	max-width: 1000px;
 	list-style: none;
-	/* text-align: center; */
+	text-align: center;
 }
 
 /* Common style */
 .grid figure {
-	/* position: relative; */
+	position: relative;
 	float: left;
-	/* overflow: hidden; */
-	/* margin: -7px 0%; */
+	overflow: hidden;
+	margin: 10px 1%;
 	/* min-width: 320px; */
-	/* max-width: 480px; */
-	/* max-height: 360px; */
-	width: 50%;
+	max-width: 480px;
+	max-height: 360px;
+	width: 48%;
 	height: auto;
-	/* background: #3085a3; */
-	/* text-align: center; */
-	/* cursor: pointer; */
+	background: #3085a3;
+	text-align: center;
+	cursor: pointer;
 }
 
 .grid figure img {
@@ -90,7 +90,6 @@
 /***** Duke *****/
 /*---------------*/
 
-/*
 figure.effect-duke {
 	background: -webkit-linear-gradient(-45deg, #34495e 0%,#cc6055 100%);
 	background: linear-gradient(-45deg, #34495e 0%,#cc6055 100%);
@@ -118,15 +117,15 @@ figure.effect-duke h2 {
 }
 
 figure.effect-duke p {
-	/!* position: absolute; *!/
+	/* position: absolute; */
 	bottom: 0;
 	left: 0;
-	/!* margin-bottom: 125px; *!/
+	/* margin-bottom: 125px; */
 	margin: 10px;
 	padding: 10px;
 	border: 2px solid #fff;
 	text-transform: none;
-	/!* font-size: 90%; *!/
+	/* font-size: 90%; */
 	opacity: 0;
 	-webkit-transform: scale3d(0.8,0.8,1);
 	transform: scale3d(0.8,0.8,1);
@@ -140,18 +139,17 @@ figure.effect-duke:hover p {
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);
 }
-*/
 
 /* Media queries */
 @media screen and (max-width: 50em) {
 	.content {
-		padding: 0 0;
+		padding: 0 10px;
 		text-align: center;
 	}
 	.grid figure {
 		/* display: inline-block; */
 		float: none;
-		/* margin: -5px auto; */
+		margin: 10px auto;
 		width: 100%;
 	}
 }
