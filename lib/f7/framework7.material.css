@@ -2251,7 +2251,8 @@ html.pixel-ratio-3 .list-block .item-inner:after {
 }
 .list-block .item-link .item-inner {
   padding-right: 42px;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%2060%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'm60%2061.5-38.25%2038.25-9.75-9.75%2029.25-28.5-29.25-28.5%209.75-9.75z'%20fill%3D'%23c7c7cc'%2F%3E%3C%2Fsvg%3E");
+  /*background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%2060%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'm60%2061.5-38.25%2038.25-9.75-9.75%2029.25-28.5-29.25-28.5%209.75-9.75z'%20fill%3D'%23c7c7cc'%2F%3E%3C%2Fsvg%3E");*/
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%2060%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'm60%2061.5-38.25%2038.25-9.75-9.75%2029.25-28.5-29.25-28.5%209.75-9.75z'%20fill%3D'lightblue'%2F%3E%3C%2Fsvg%3E");
   background-size: 10px 20px;
   background-repeat: no-repeat;
   background-position: 95% center;
@@ -2460,15 +2461,15 @@ html:not(.watch-active-state) .list-block .item-link:active,
 .list-block .list-group-title {
   background: #f4f4f4;
   padding: 0px 16px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   position: relative;
   max-width: 100%;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  /* text-overflow: ellipsis; */
+  /* overflow: hidden; */
   color: rgba(0, 0, 0, 0.54);
-  height: 48px;
+  /* height: 48px; */
   box-sizing: border-box;
-  line-height: 48px;
+  /* line-height: 48px; */
   font-size: 14px;
 }
 .list-block .item-divider:before,
