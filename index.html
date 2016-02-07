@@ -1,8 +1,8 @@
 <!--todo: nombre: busca fondos-->
 <!--todo: favoritos-->
-<!--todo: compartir -->
 <!--todo: quitar info de depuracion para optimizar-->
 <!--todo: desinstalar angular-social de bower-->
+<!--todo: poner popover-share en detalle.html-->
 
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
@@ -16,13 +16,13 @@
     <link rel="stylesheet" href="lib/f7/framework7.material.css">
     <link rel="stylesheet" href="lib/f7/framework7.material.colors.css">
     <link rel="stylesheet" href="css/main.css">
-    <!-- Cards ----------------------------------------------------------------------------------------------------- -->
+        <!-- Cards ----------------------------------------------------------------------------------------------------- -->
     <!--<link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">-->
-    <link rel="stylesheet" type="text/css" href="lib/cards/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <!--<link rel="stylesheet" type="text/css" href="lib/cards/demo.css" />-->
-    <link rel="stylesheet" type="text/css" href="lib/cards/set2.css" />
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/set2.css" />
     <!-- Fin Cards ------------------------------------------------------------------------------------------------- -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 
 </head>
 
@@ -41,7 +41,7 @@
                 <ng-include src="'html/home.html'"></ng-include>
             </div>
             <!-- pagina listado boe -------------------------------------------------------------------------------- -->
-            <div data-page="listadoBoe" class="page cached toolbar-fixed" ng-controller="ListadoBoeCtrl">
+            <div data-page="listadoBoe" class="page cached" ng-controller="ListadoBoeCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
                         <div class="center">{{ txt.tipo | capitalize }}</div>
@@ -77,14 +77,12 @@
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
             <!-- pagina cards -------------------------------------------------------------------------------------- -->
-            <div data-page="cards" class="page cached">
-                <ng-include src="'html/cards.html'"></ng-include>
-            </div>
+            <!--<div data-page="cards" class="page cached">-->
+                <!--<ng-include src="'html/cards.html'"></ng-include>-->
+            <!--</div>-->
 
         </div>
-
     </div>
-
 </div>
 <!-- Popup Detalle ------------------------------------------------------------------------------------------------- -->
 <div class="popup popup-detalle tablet-fullscreen">
