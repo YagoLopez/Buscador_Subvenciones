@@ -11,7 +11,14 @@ var $$ = Dom7;
 MyApp.angular = angular.module('MyApp', ['socialLinks']);
 
 // Config angular
-MyApp.angular.config( function($provide) {
+MyApp.angular.config( function($provide, $compileProvider, $httpProvider) {
+
+  $compileProvider.debugInfoEnabled(true);
+  $httpProvider.defaults.withCredentials = true;
+
+  //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
+  //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
   $provide.decorator('$exceptionHandler', function($log, $delegate, Error) {
     return function(exception, cause) {
       $log.debug('Manejador de excepciones de la aplicacion');

@@ -327,6 +327,33 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 
 });
 // =====================================================================================================================
+MyApp.angular.service('BdnsItems', function($http, Error){
+
+  this.url = 'http://www.pap.minhap.gob.es/bdnstrans/';
+
+  var requestHeaders = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
+  };
+
+  var requestConfig = {
+    url: this.url,
+    method: 'GET',
+    headers: requestHeaders,
+    //params: {},
+    //data: { title: 'pesca' },
+    cache: true
+  };
+
+  this.getData = function(){
+    $http(requestConfig).then(
+      function(resp){
+        console.log('test', resp);
+      },
+      function(resp){
+      });  };
+
+})
 /*
 MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;

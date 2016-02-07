@@ -3,6 +3,7 @@
 <!--todo: quitar info de depuracion para optimizar-->
 <!--todo: desinstalar angular-social de bower-->
 <!--todo: poner popover-share en detalle.html-->
+<!--todo: usar versiones minificadas de ficheros-->
 
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
@@ -80,6 +81,10 @@
             <!--<div data-page="cards" class="page cached">-->
                 <!--<ng-include src="'html/cards.html'"></ng-include>-->
             <!--</div>-->
+            <!-- pagina test -------------------------------------------------------------------------------------- -->
+            <div data-page="test" class="page cached" ng-controller="ListadoBdns">
+                <ng-include src="'html/test.html'"></ng-include>
+            </div>
 
         </div>
     </div>
@@ -98,7 +103,7 @@
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
-<script type="text/javascript" src="lib/angular-social/angular-social-links.js"></script>
+<script type="text/javascript" src="lib/angular/angular-social/angular-social-links.js"></script>
 <!--<script src="lib/cards/html5.js"></script>-->
 <![endif]-->
 </body>

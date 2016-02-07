@@ -186,4 +186,58 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     });
   };
 });
+// =====================================================================================================================
+MyApp.angular.controller('ListadoBdns', function($scope, $http){
 
+  var  getUltimas = function(){
+    var requestHeaders = {
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
+    };
+
+    var requestConfig = {
+      url: 'http://www.pap.minhap.gob.es/bdnstrans/',
+      method: 'GET',
+      headers: requestHeaders,
+      //params: {},
+      //data: { title: 'pesca' },
+      cache: true
+    };
+
+    $http(requestConfig).then(
+      function(resp){
+        console.log('test', resp);
+      },
+      function(resp){
+
+      });
+  };
+
+  var  getPesca = function(){
+    var requestHeaders = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
+    };
+
+    var requestConfig = {
+      url: 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatorias',
+      method: 'POST',
+      headers: requestHeaders,
+      //params: {title: 'pesca'},
+      data: { administracion: 'Admon_estado', title: 'pesca' },
+      cache: true
+    };
+
+    $http(requestConfig).then(
+      function(resp){
+        console.log('test', resp);
+      },
+      function(resp){
+
+      });
+  };
+  getPesca();
+
+
+});
