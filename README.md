@@ -1,9 +1,21 @@
-# Buscador de Subvenciones
-Aplicación móvil para facilitar la búsqueda de subvenciones proporcionadas por distintos organismos e instituciones 
-españolas orientada también a subveciones y ayudas ofertadas en la comunidad autónoma del Principado de Asturias.
+# Busca Fondos
 
-En principio las fuentes de datos son instituciones como el BOE, IPyme y algunas más. Más adelante se podrán ir
-añadiendo otras fuentes.
+Aplicación para smartphone para buscar fondos, ayudas y subvenciones públicas.
+
+La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, 
+facilita la consulta y búsqueda de los mismos de una forma centralizada, rápida y eficiente.
+
+(En el futuro se implementará la función de guardar favoritos)
+
+Los fondos pueden ser de caracter europeo, nacional o regional. La aplicación está particularizada para buscar fondos 
+en el Principado de Asturias aunque también es válida a nivel nacional.
+
+Las fuentes de datos son las siguientes (se podrán ir añadiendo más fuentes en el futuro):
+
+- BOE: Boletín Oficial del Estado
+- IDEPA: Institudo para el Desarrollo Empresarial del Principado de Asturias
+- MINETUR: Ministerio de Industría, Energía y Turismo
+- DGPYME: Dirección General de Industria y de la Pequeña y Mediana Empresa
 
 Tecnologías empleadas:
  

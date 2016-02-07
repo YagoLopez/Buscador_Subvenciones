@@ -40,7 +40,7 @@ MyApp.angular.controller('AboutPageController', function ($scope) {
     $scope.hello2= 'hello from AboutPageController';
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
     BoeItems.txt.tipo = page.query.tipo;
@@ -52,7 +52,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
       $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
     }
-    $$( '#lista'+ $scope.txt.titulo ).on('search', function(e){
+    $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
@@ -63,9 +63,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       $scope.numItems = BoeItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
     });
-  };
-  $scope.onIconBack = function() {
-    $scope.items = null;
   };
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
@@ -79,6 +76,10 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       MyApp.fw7.app.hideIndicator();
     });
   };
+  $scope.onIconBack = function() {
+    $scope.items = null;
+  };
+  $rootScope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem) {
@@ -92,7 +93,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       $scope.numItems = null; MyApp.fw7.app.showIndicator();// init
       $scope.getItems();
     }
-    $$( '#lista'+ $scope.txt.titulo ).on('search', function(e){
+    $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
@@ -132,7 +133,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
       $scope.getItems();
     }
-    $$( '#lista'+ $scope.txt.titulo ).on('search', function(e){
+    $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
@@ -166,7 +167,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
       $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
       $scope.getItems();
     }
-    $$( '#lista'+ $scope.txt.titulo ).on('search', function(e){
+    $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });

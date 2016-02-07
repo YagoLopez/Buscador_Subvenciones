@@ -116,7 +116,7 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   var self = this;
   this.items = null;
   this.url = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
-  this.txt = { titulo: 'IDEPA', subtitulo: 'Instituto de Desarrollo Empresarial del Principado de Asturias'};
+  this.txt = { titulo: 'IDEPA', subtitulo: 'Instituto de Desarrollo Econ\u00F3mico del Principado de Asturias'};
 
   this.getItems = function(){
     return this.items;
@@ -179,7 +179,7 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
 
   this.btnTop = function(){
     console.log('btnTop en detalle');
-    $$('.page-content').scrollTop(0, 500); //500 velocidad
+    $$('#detalleContent').scrollTop(0, 500); //500 velocidad
   };
 
   this.xmlParser = function(xmlStr){
@@ -220,7 +220,7 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   var urlOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
 
   this.items = null;
-  this.txt = { titulo: 'MINETUR', subtitulo: 'Ministerio de Turismo'};
+  this.txt = { titulo: 'MINETUR', subtitulo: 'Ministerio de Industria, Energ\u00EDa y Turismo'};
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;
@@ -277,7 +277,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   var self = this;
   this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
   this.items = null;
-  this.txt = { titulo: 'IPYME', subtitulo: 'Instituto de la Peque\u00F1a y Mediana Empresa'};
+  this.txt = { titulo: 'DGPYME', subtitulo: 'Direcci\u00F3n General de la Peque\u00F1a y Mediana Empresa'};
 
   this.getItems = function(){
     return this.items;

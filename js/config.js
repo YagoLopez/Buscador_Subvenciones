@@ -8,7 +8,7 @@ var $$ = Dom7;
 //};
 
 // Define angular
-MyApp.angular = angular.module('MyApp', []);
+MyApp.angular = angular.module('MyApp', ['socialLinks']);
 
 // Config angular
 MyApp.angular.config( function($provide) {
@@ -42,4 +42,5 @@ MyApp.fw7 = {
 
 MyApp.angular.run( function(Utiles, $rootScope) {
   $rootScope.btnTop = Utiles.btnTop;
+  $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });

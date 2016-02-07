@@ -2,7 +2,7 @@
 <!--todo: favoritos-->
 <!--todo: compartir -->
 <!--todo: quitar info de depuracion para optimizar-->
-<!--todo: poner las flechas del menu de color naranja-->
+<!--todo: desinstalar angular-social de bower-->
 
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
@@ -19,9 +19,9 @@
     <!-- Cards ----------------------------------------------------------------------------------------------------- -->
     <!--<link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" href="lib/cards/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="lib/cards/demo.css" />
+    <!--<link rel="stylesheet" type="text/css" href="lib/cards/demo.css" />-->
     <link rel="stylesheet" type="text/css" href="lib/cards/set2.css" />
-    <!--<link rel="stylesheet" type="text/css" href="lib/cards/font-awesome.min.css" />-->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <!-- Fin Cards ------------------------------------------------------------------------------------------------- -->
 
 </head>
@@ -35,13 +35,6 @@
             <div class="panel-overlay"></div>
             <div class="panel panel-left panel-cover ">
                 <ng-include src="'html/menu.html'"></ng-include>
-            </div>
-            <div class="panel panel-right panel-cover">
-                <div class="content-block">
-                    <p>Right Panel content here</p>
-                    <p><a href="#" class="panel-close">Close me</a></p>
-                    <p><a href="#" class="open-left-panel">Open Left Panel</a></p>
-                </div>
             </div>
             <!-- pagina home --------------------------------------------------------------------------------------- -->
             <div data-page="index" class="page" ng-controller="HomePageController">
@@ -97,12 +90,17 @@
 <div class="popup popup-detalle tablet-fullscreen">
     <ng-include src="'html/detalle.html'"></ng-include>
 </div>
+<!-- Popover Share ------------------------------------------------------------------------------------------------- -->
+<div id="popover-share" class="popover">
+    <ng-include src="'html/popover-share.html'"></ng-include>
+</div>
 <!-- Scripts ------------------------------------------------------------------------------------------------------- -->
 <script type="text/javascript" src="lib/angular/angular.js"></script>
 <script type="text/javascript" src="lib/f7/framework7.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
+<script type="text/javascript" src="lib/angular-social/angular-social-links.js"></script>
 <!--<script src="lib/cards/html5.js"></script>-->
 <![endif]-->
 </body>

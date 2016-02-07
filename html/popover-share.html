@@ -1,0 +1,54 @@
+<div class="popover-inner">
+    <style type="text/css" scoped>
+        #popover-share {
+            width: 70%;
+        }
+        .iconoShare {
+            font-size: 38px;
+            float: left;
+        }
+        .anchoBtn {
+            width: 100%;
+        }
+    </style>
+    <div class="list-block" style="padding:20px;">
+
+        <div style="text-align:center;">Compartir</div>
+
+        <p class="buttons-row anchoBtn">
+            <a href="http://twitter.com/share?url={{ item.link }}&text={{ msgShare }}"
+               class="external button button-raised button-fill color-blue" target="_blank">
+                <i class="fa fa-twitter-square iconoShare"></i>Twitter</a>
+        </p>
+        <p class="buttons-row anchoBtn">
+            <a href="https://plus.google.com/share?url={{ item.link }}"
+               class="external button button-raised button-fill color-pink" target="_blank">
+                <i class="fa fa-google-plus-square iconoShare"></i>Google +</a>
+        </p>
+        <p class="buttons-row anchoBtn">
+            <a href="http://www.facebook.com/sharer/sharer.php?u={{ item.link }}"
+               class="external button button-raised button-fill color-indigo" target="_blank">
+                <i class="fa fa-facebook-square iconoShare"></i>Facebook</a>
+        </p>
+        <p class="buttons-row anchoBtn">
+            <a href="http://www.linkedin.com/shareArticle?url={{ item.link }}&title={{ msgShare }}&summary=&source="
+               class="external button button-raised button-fill color-purple" target="_blank">
+                <i class="fa fa-linkedin-square iconoShare"></i>LinkedIn</a>
+        </p>
+        <p class="buttons-row anchoBtn">
+            <a href="mailto:?subject={{ encodeURIComponent(msgShare) }}&body={{ encodeURIComponent(msgShare + '<br><br>' + item.link) }}"
+               class="external button button-raised button-fill color-cyan" target="_blank">
+                <i class="fa fa-envelope iconoShare" style="font-size:32px;"></i>Email</a>
+        </p>
+
+        <!--<a social-twitter custom-url="{{ item.link }}" class="external color-indigo" target="_blank">-->
+            <!--<i class="icon ks-icon-calendar"></i>angular social</a>-->
+
+        <div>
+            <a href="#" class="close-popover" data-popover="#popover-share">
+                <i class="fa fa-times-circle-o" style="font-size: 19px;">
+                    <span style="font-size: 14px;font-family: Arial;"> Cerrar</span></i>
+            </a>
+        </div>
+    </div>
+</div>

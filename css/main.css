@@ -94,6 +94,14 @@ div.center {
 .padBot50 {
     padding-bottom: 50px;
 }
+.backgrnd {
+    /*background-image: url('../img/wall/wp1.jpg');*/
+    background: ghostwhite;
+}
+.iconListPicker {
+    font-size: 21px !important;
+    color: lightskyblue;
+}
 /*
 .bckgrnd {
     background: -webkit-linear-gradient(90deg, #00aaee 10%, #DD2476 90%); /!* Chrome 10+, Saf5.1+ *!/
@@ -103,15 +111,12 @@ div.center {
     background:         linear-gradient(90deg, #00aaee 10%, #DD2476 90%); /!* W3C *!/
 }
 */
-.backgrnd {
-    /*background-image: url('../img/wall/wp1.jpg');*/
-    background: ghostwhite;
-}
 /*
 .backgrndMenu{
     background: ghostwhite;
 }
 */
+
 /* fin listado ****************************************************************************************************** */
 /**********************************************************************************************************************/
 .popover {
@@ -529,3 +534,4 @@ div.ks-demo-lazy {
 .ks-facebook-card .card-content-inner {
     padding: 15px 10px;
 }
+

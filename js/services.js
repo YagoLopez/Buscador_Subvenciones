@@ -65,7 +65,10 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   this.getData = function(url){
     console.log('url', url);
     return $http.get(url, {cache: true}).then(function(resp){
-        self.items = resp.data.query.results.item;
+        if(resp.data.query)
+          self.items = resp.data.query.results.item;
+        else
+          Error.mostrar2('No datos. Posibles causas: 1) Sin conexion. 2) Fallo servidor remoto');
       },
       function(datosError){
         Error.mostrar(datosError);
@@ -178,7 +181,6 @@ MyApp.angular.service('Error', function(){
 MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeout, $interval){
 
   this.btnTop = function(){
-    console.log('btnTop en detalle');
     $$('#detalleContent').scrollTop(0, 500); //500 velocidad
   };
 
@@ -211,6 +213,8 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
     };
   };
 
+  this.modalShare = function(){
+  }
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){

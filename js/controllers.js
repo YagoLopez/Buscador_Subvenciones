@@ -31,15 +31,6 @@ MyApp.angular.controller('HomePageController', function ($scope, InitService, $r
 
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetailPageController', function ($scope) {
-  $scope.hello= 'hello from DetailPageController';
-});
-// =====================================================================================================================
-MyApp.angular.controller('AboutPageController', function ($scope) {
-    console.log('hello from AboutPageController');
-    $scope.hello2= 'hello from AboutPageController';
-});
-// =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Utiles) {
 
   MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
