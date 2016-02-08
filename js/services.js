@@ -91,7 +91,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
 
   var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
 
-  this.urlFrom = function(urlDetalle){
+  this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
   this.new = function (index){
@@ -104,7 +104,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
     this.index = index;
   };
   this.getData = function(urlDetalle){
-    return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
+    return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);;
       },
@@ -166,7 +166,7 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems)
 MyApp.angular.service('Error', function(){
   this.mostrar = function(resp){
     MyApp.fw7.app.hideIndicator();
-    msg = 'Codigo: '+resp.status+'<br>'+resp.statusText;
+    msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
       msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto';
     MyApp.fw7.app.alert(msg, 'Error');
@@ -302,7 +302,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   var query = 'select * from html where url=@url and xpath="//div[@class=\'zonalistado\']/p" and' +
     ' charset="utf-8" and compat="html5"';
 
-  this.urlFrom = function(urlDetalle){
+  this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
   this.new = function (index){
@@ -315,8 +315,8 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
     this.index = index;
   };
   this.getData = function(urlDetalle){
-    console.log('url', this.urlFrom(urlDetalle));
-    return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
+    console.log('url', this.createUrl(urlDetalle));
+    return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
@@ -330,8 +330,8 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 MyApp.angular.service('BdnsItems', function($http, Error){
 
   var self = this;
-  var url = 'http://www.pap.minhap.gob.es/bdnstrans/';
-  var url2 = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc';
+  var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/';
+  var urlUltimas = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc';
 
   var requestHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -339,39 +339,80 @@ MyApp.angular.service('BdnsItems', function($http, Error){
   };
 
   var requestConfig = {
-    url: url,
+    url: urlBase,
     method: 'GET',
     headers: requestHeaders,
     //params: {},
     //data: { title: 'pesca' },
-    cache: true
+    cache: true,
+    withCredentials: true
   };
 
   this.items = null;
-  this.txt = { titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
+  this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
   this.getItems = function(){
     return this.items;
   };
-
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
+  }
   this.getData = function(){
     return $http(requestConfig).then(
       function(resp){
         //console.log('datos para url 1', resp);
-        return $http.get(url2).then(function(resp){
+        return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(function(resp){
           self.items = resp.data.rows;
           console.log('datos para url2', resp.data.rows);
           return resp.data.rows;
         }, function(respError){
-          Error.mostrar(datosError);
+          Error.mostrar(respError);
         });
       },
       function(respError){
-        Error.mostrar(datosError);
+        Error.mostrar(respError);
       });
   };
 
 })
+// =====================================================================================================================
+MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
+  var query = 'select * from html where url=@url and xpath="/html/body/article/section[1]" and' +
+    ' charset="utf-8" and compat="html5"';
+  //var urlDetalle = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/';
+
+  this.createUrl = function(){
+    console.log('this.link', this.link);
+    console.log('url detalle final', C.YQL + ( '?url='+this.link) + ( '&q='+query ) + '&format=xml' );
+    return C.YQL + ( '?url='+this.link ) + ( '&q='+query ) + '&format=xml';
+  };
+
+  this.new = function (index){
+    var i = BdnsItems.getItemByIndex(index);
+    console.log('i', i);
+    this.idDetalle = i[0];
+    this.idItem = i[10];
+    this.titulo = i[5];
+    this.ambito = i[1];
+    this.linkExternal_Url_or_Pdf = i[6];
+    this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/' + this.idDetalle;
+    this.fechaConvocatoria = i[4];
+    //this.plazo = i.plazo;
+    this.showButtons = false;
+    this.index = index;
+  };
+  this.getData = function(){
+    console.log('url', this.createUrl());
+    return $http.get(this.createUrl(), {cache: true}).then(function(resp){
+        console.log( resp );
+        return Utiles.xmlParser(resp.data);
+      },
+      function(datosError){
+        Error.mostrar(datosError);
+      });
+  };
+
+});
 /*
 MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;

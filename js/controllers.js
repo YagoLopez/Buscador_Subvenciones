@@ -187,7 +187,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $http, BdnsItems){
+MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, BdnsItems, BdnsItem){
 
   var  getUltimas = function(){
     var requestHeaders = {
@@ -238,7 +238,6 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $http, BdnsItems){
       });
   };
 
-
   //BdnsItems.getData().then(function(resp){
   //  console.log('resp', resp);
   //});
@@ -265,6 +264,20 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $http, BdnsItems){
       MyApp.fw7.app.hideIndicator();
     })
   };
+
+  $scope.openPopup = function(index){
+    MyApp.fw7.app.popup('.popup-detalle');
+    MyApp.fw7.app.showIndicator();
+    BdnsItem.new( index );
+    BdnsItem.content = 'Obteniendo datos...';
+    $rootScope.item = BdnsItem;
+    BdnsItem.getData().then(function(htmlDetalle){
+      BdnsItem.content = htmlDetalle;
+      BdnsItem.showButtons = true;
+      MyApp.fw7.app.hideIndicator();
+    });
+  };
+
   $scope.onIconBack = function() {
     $scope.items = null;
   };

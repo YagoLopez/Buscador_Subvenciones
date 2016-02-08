@@ -88,7 +88,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
 
   var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
 
-  this.urlFrom = function(urlDetalle){
+  this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
   this.new = function (index){
@@ -101,7 +101,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
     this.index = index;
   };
   this.getData = function(urlDetalle){
-    return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
+    return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);;
       },
@@ -163,7 +163,7 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems)
 MyApp.angular.service('Error', function(){
   this.mostrar = function(resp){
     MyApp.fw7.app.hideIndicator();
-    msg = 'Codigo: '+resp.status+'<br>'+resp.statusText;
+    msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
       msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto';
     MyApp.fw7.app.alert(msg, 'Error');
@@ -298,7 +298,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   var query = 'select * from html where url=@url and xpath="//div[@class=\'zonalistado\']/p" and' +
     ' charset="utf-8" and compat="html5"';
 
-  this.urlFrom = function(urlDetalle){
+  this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
   this.new = function (index){
@@ -311,8 +311,8 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
     this.index = index;
   };
   this.getData = function(urlDetalle){
-    console.log('url', this.urlFrom(urlDetalle));
-    return $http.get(this.urlFrom(urlDetalle), {cache: true}).then(function(resp){
+    console.log('url', this.createUrl(urlDetalle));
+    return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
