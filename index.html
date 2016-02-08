@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <title>Todo Ayudas</title>
+    <title>Busca Fondos</title>
     <link rel="stylesheet" href="lib/f7/framework7.material.css">
     <link rel="stylesheet" href="lib/f7/framework7.material.colors.css">
     <link rel="stylesheet" href="css/main.css">
@@ -77,14 +77,25 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
+            <!-- pagina listado bdns ----------------------------------------------------------------------------- -->
+            <div data-page="listadoBdns" class="page cached" ng-controller="ListadoBdnsCtrl">
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <div class="center">{{ txt.subtitulo }}</div>
+                    </div>
+                </div>
+                <ng-include src="'html/listado.html'"></ng-include>
+            </div>
             <!-- pagina cards -------------------------------------------------------------------------------------- -->
             <!--<div data-page="cards" class="page cached">-->
                 <!--<ng-include src="'html/cards.html'"></ng-include>-->
             <!--</div>-->
             <!-- pagina test -------------------------------------------------------------------------------------- -->
-            <div data-page="test" class="page cached" ng-controller="ListadoBdns">
+<!--
+            <div data-page="test" class="page cached" ng-controller="ListadoBdnsCtrl">
                 <ng-include src="'html/test.html'"></ng-include>
             </div>
+-->
 
         </div>
     </div>

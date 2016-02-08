@@ -35,6 +35,7 @@
                             <span ng-if="item.title">{{ item.title }}</span>
                             <span ng-if="item.descripcion">{{ item.descripcion }}</span>
                             <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
+                            <span ng-if="item[5]">{{ item[5] | uppercase }}</span>
                             <div class="pieItem">
                                 <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
                                 <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>

@@ -329,7 +329,9 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 // =====================================================================================================================
 MyApp.angular.service('BdnsItems', function($http, Error){
 
-  this.url = 'http://www.pap.minhap.gob.es/bdnstrans/';
+  var self = this;
+  var url = 'http://www.pap.minhap.gob.es/bdnstrans/';
+  var url2 = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc';
 
   var requestHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -337,7 +339,7 @@ MyApp.angular.service('BdnsItems', function($http, Error){
   };
 
   var requestConfig = {
-    url: this.url,
+    url: url,
     method: 'GET',
     headers: requestHeaders,
     //params: {},
@@ -345,15 +347,31 @@ MyApp.angular.service('BdnsItems', function($http, Error){
     cache: true
   };
 
+  this.items = null;
+  this.txt = { titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
+  this.getItems = function(){
+    return this.items;
+  };
+
   this.getData = function(){
-    $http(requestConfig).then(
+    return $http(requestConfig).then(
       function(resp){
-        console.log('test', resp);
+        //console.log('datos para url 1', resp);
+        return $http.get(url2).then(function(resp){
+          self.items = resp.data.rows;
+          console.log('datos para url2', resp.data.rows);
+          return resp.data.rows;
+        }, function(respError){
+          Error.mostrar(datosError);
+        });
       },
-      function(resp){
-      });  };
+      function(respError){
+        Error.mostrar(datosError);
+      });
+  };
 
 })
+
 /*
 MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;

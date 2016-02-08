@@ -187,7 +187,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBdns', function($scope, $http){
+MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $http, BdnsItems){
 
   var  getUltimas = function(){
     var requestHeaders = {
@@ -237,7 +237,37 @@ MyApp.angular.controller('ListadoBdns', function($scope, $http){
 
       });
   };
-  getPesca();
+
+
+  //BdnsItems.getData().then(function(resp){
+  //  console.log('resp', resp);
+  //});
+
+  MyApp.fw7.app.onPageBeforeAnimation('listadoBdns', function (page) {
+    $scope.txt = BdnsItems.txt;
+    $scope.$apply();
+    $scope.searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
+    $scope.searchbar.params.removeDiacritics = true;
+    if (page.fromPage.name === 'index'){
+      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
+      $scope.getItems();
+    }
+    $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
+      $scope.numItems = e.detail.foundItems.length; $scope.$apply();
+    });
+  });
+
+  $scope.getItems = function(){
+    BdnsItems.getData().then(function(){
+      $scope.searchbar.disable();
+      $scope.items = BdnsItems.getItems();
+      $scope.numItems = BdnsItems.getItems().length;
+      MyApp.fw7.app.hideIndicator();
+    })
+  };
+  $scope.onIconBack = function() {
+    $scope.items = null;
+  };
 
 
 });
