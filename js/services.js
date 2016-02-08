@@ -377,9 +377,8 @@ MyApp.angular.service('BdnsItems', function($http, Error){
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
-  var query = 'select * from html where url=@url and xpath="/html/body/article/section[1]" and' +
-    ' charset="utf-8" and compat="html5"';
-  //var urlDetalle = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/';
+  var query = 'select * from html where url=@url and xpath="//section[1]" and' +
+    ' compat="html5"';
 
   this.createUrl = function(){
     console.log('this.link', this.link);
@@ -390,17 +389,18 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
   this.new = function (index){
     var i = BdnsItems.getItemByIndex(index);
     console.log('i', i);
-    this.idDetalle = i[0];
-    this.idItem = i[10];
-    this.titulo = i[5];
-    this.ambito = i[1];
+    this.idConvocatoria = i[0];
     this.linkExternal_Url_or_Pdf = i[6];
-    this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/' + this.idDetalle;
-    this.fechaConvocatoria = i[4];
-    //this.plazo = i.plazo;
+    this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
     this.showButtons = false;
     this.index = index;
+    //this.fechaConvocatoria = i[4];
+    //this.titulo = i[5];
+    //this.entidadConvocante = i[2];
+    //this.ambito = i[1];
+    //this.fechaConvocatoria = i[4];
   };
+
   this.getData = function(){
     console.log('url', this.createUrl());
     return $http.get(this.createUrl(), {cache: true}).then(function(resp){
