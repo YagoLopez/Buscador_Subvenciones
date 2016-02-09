@@ -1,11 +1,9 @@
-<!--todo: nombre: busca fondos-->
 <!--todo: favoritos-->
 <!--todo: quitar info de depuracion para optimizar-->
 <!--todo: desinstalar angular-social de bower-->
-<!--todo: poner popover-share en detalle.html-->
 <!--todo: usar versiones minificadas de ficheros-->
-<!--todo: poner icono menu principal a la derecha en pagina detalle-->
-<!--todo: cambiar color total listado-->
+<!--todo: obtener detalle boe directamente del extracto xml-->
+<!--todo: arreglar lo de que no se vea bien el fondo de la pantalla-->
 
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
@@ -33,7 +31,6 @@
 <div class="views">
     <div class="view view-main">
         <div class="pages">
-
             <!-- menu lateral -------------------------------------------------------------------------------------- -->
             <div class="panel-overlay"></div>
             <div class="panel panel-left panel-cover ">
@@ -88,17 +85,6 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina cards -------------------------------------------------------------------------------------- -->
-            <!--<div data-page="cards" class="page cached">-->
-                <!--<ng-include src="'html/cards.html'"></ng-include>-->
-            <!--</div>-->
-            <!-- pagina test -------------------------------------------------------------------------------------- -->
-<!--
-            <div data-page="test" class="page cached" ng-controller="ListadoBdnsCtrl">
-                <ng-include src="'html/test.html'"></ng-include>
-            </div>
--->
-
         </div>
     </div>
 </div>
@@ -118,7 +104,6 @@
 <script type="text/javascript" src="js/controllers.js"></script>
 <script type="text/javascript" src="lib/angular/angular-social/angular-social-links.js"></script>
 <!--<script src="lib/cards/html5.js"></script>-->
-<![endif]-->
 </body>
 
 </html>

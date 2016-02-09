@@ -38,10 +38,6 @@ div.center {
 .sombra{
     box-shadow: -1px 1px 5px #888888;
 }
-.miCard {
-    box-shadow: 0 4px 5px #888888;
-    height: 150px !important;
-}
 #itemsLength {
     margin-right: 20px;
     font-size: small;
@@ -89,7 +85,6 @@ div.center {
 .subtitulos {
     text-align:center !important;
     padding: 5px;
-    /* font-size: 13px; */
 }
 .padBot50 {
     padding-bottom: 50px;
@@ -102,20 +97,6 @@ div.center {
     font-size: 21px !important;
     color: lightskyblue;
 }
-/*
-.bckgrnd {
-    background: -webkit-linear-gradient(90deg, #00aaee 10%, #DD2476 90%); /!* Chrome 10+, Saf5.1+ *!/
-    background:    -moz-linear-gradient(90deg, #00aaee 10%, #DD2476 90%); /!* FF3.6+ *!/
-    background:     -ms-linear-gradient(90deg, #00aaee 10%, #DD2476 90%); /!* IE10 *!/
-    background:      -o-linear-gradient(90deg, #00aaee 10%, #DD2476 90%); /!* Opera 11.10+ *!/
-    background:         linear-gradient(90deg, #00aaee 10%, #DD2476 90%); /!* W3C *!/
-}
-*/
-/*
-.backgrndMenu{
-    background: ghostwhite;
-}
-*/
 
 /* fin listado ****************************************************************************************************** */
 /**********************************************************************************************************************/

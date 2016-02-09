@@ -178,12 +178,11 @@ MyApp.angular.service('Error', function(){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeout, $interval){
+MyApp.angular.service('Utiles', function(){
 
-  this.btnTop = function(){
+  this.btnTop = function(Error){
     $$('#detalleContent').scrollTop(0, 500); //500 velocidad
   };
-
   this.xmlParser = function(xmlStr){
     var xmlDoc = null;
     if( /Edge\/12./i.test(navigator.userAgent )){ // IE EDGE
@@ -207,14 +206,11 @@ MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeou
       return xmlDoc.getElementsByTagName('results')[0].innerHTML;
     }
      else {
-      //todo: mostrar popup error?
-      //throw new Error('No hay datos. Error al analizar fichero XML');
-      return 'No hay datos. Error al analizar fichero XML';
+      Error.mostrar2('No hay datos. Error al analizar fichero XML. Posible navegador no soportado');
+      //return 'No hay datos. Error al analizar fichero XML';
     };
   };
 
-  this.modalShare = function(){
-  }
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
@@ -377,12 +373,9 @@ MyApp.angular.service('BdnsItems', function($http, Error){
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
-  var query = 'select * from html where url=@url and xpath="//section[1]" and' +
-    ' compat="html5"';
+  var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
 
   this.createUrl = function(){
-    console.log('this.link', this.link);
-    console.log('url detalle final', C.YQL + ( '?url='+this.link) + ( '&q='+query ) + '&format=xml' );
     return C.YQL + ( '?url='+this.link ) + ( '&q='+query ) + '&format=xml';
   };
 

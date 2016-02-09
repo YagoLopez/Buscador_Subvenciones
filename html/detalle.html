@@ -5,26 +5,19 @@
                 <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
             </div>
             <div class="center" style="margin-right:70px">Detalles</div>
-            <!--<div class="right"></div>-->
         </div>
     </div>
     <!-- speed dial ------------------------------------------------------------------------------------------------ -->
     <div class="speed-dial">
-        <a href="#" class="floating-button color-purple">
+        <a href="#" class="floating-button color-indigo">
             <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
 
         <div class="speed-dial-buttons">
             <a href="#" class="open-popover color-indigo" data-popover="#popover-share">
                 <i class="fa fa-share-alt-square" style="font-size:18px"></i>
             </a>
-            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external color-indigo" target="_blank">
-                <!--<i class="fa fa-file-pdf-o" style="font-size:22px"></i>-->
-                Doc
-            </a>
-            <a href="{{ item.link }}" class="external color-indigo" target="_blank">
-                <!--<i class="fa fa-link" style="font-size:20px"></i>-->
-                Web
-            </a>
+            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external color-indigo" target="_blank">Doc</a>
+            <a href="{{ item.link }}" class="external color-indigo" target="_blank">Web</a>
             <a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf}}"
                class="external color-indigo" target="_blank">Doc</a>
         </div>
@@ -37,12 +30,15 @@
             <p id='detailContent' ng-bind-html="item.content | FiltroHtml"></p>
 
             <div ng-show="item.showButtons">
+<!--
                 <p class="buttons-row">
                     <a href="{{ item.link }}" class="external button button-raised button-fill"
                        target="_blank">Ver P&aacute;gina Web</a></p>
                 <p ng-if="item.pdf" class="buttons-row">
                     <a href="{{ item.pdf }}" class="external button button-raised button-fill"
                        target="_blank">Ver Documento PDF</a></p>
+-->
+                <hr/>
                 <div id="btnTop" class="button" ng-click="btnTop()">
                     Inicio<i class="icon ks-icon-upload"></i>
                 </div>
