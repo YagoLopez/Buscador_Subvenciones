@@ -18,11 +18,11 @@ i.demo-icon-upload {
 }
 /* listado ********************************************************************************************************** */
 .list-block-search .item-inner {
-    font-size: small;}
+    font-size: medium;}
 li.a{
     width: 100%;}
 .pieItem {
-    font-size: x-small;
+    font-size: small;
     color: cornflowerblue;}
 div.center {
     width: 100%;
@@ -97,11 +97,11 @@ div.center {
     font-size: 21px !important;
     color: lightskyblue;
 }
-.footerLink{
-    text-transform: none;
-    text-align: left;
-    overflow: initial;
-    text-overflow: initial;
+.card-footer{
+    color: #007aff;
+}
+.card-footer.active-state{
+    background: lightgray;
 }
 /* fin listado ****************************************************************************************************** */
 /**********************************************************************************************************************/

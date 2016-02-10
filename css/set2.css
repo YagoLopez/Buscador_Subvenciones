@@ -1,7 +1,7 @@
 .grid {
 	position: relative;
 	clear: both;
-	margin: 0 auto;
+	margin: 20px auto 0;
 	/*padding: 1em 0 4em;*/
 	max-width: 1000px;
 	list-style: none;
