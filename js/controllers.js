@@ -1,4 +1,3 @@
-//todo: slogan: base de datos con mas de 600 ayudas y subvenciones nacionales e internacinales actualizadas
 MyApp.angular.controller('HomePageController', function ($scope, InitService, $rootScope) {
 
     InitService.addEventListener('ready', function () {
@@ -11,35 +10,18 @@ MyApp.angular.controller('HomePageController', function ($scope, InitService, $r
         // And you can access Framework7 like this:
         // MyApp.fw7.app
     });
-
-    //$$(document).on('ajaxComplete', function (e) {
-    //    var xhr = e.detail.xhr;
-    //    console.log('e.detail.xhr');
-    //});
-
-    //$$('.alert-text').on('click', function () {
-    //    MyApp.fw7.app.alert('Here goes alert text');
-    //});
-
-    $scope.doAlert = function(){
-        MyApp.fw7.app.alert('Here goes alert text');
-    }
-
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Utiles) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
+    MyApp.fw7.app.showIndicator();
     BoeItems.txt.tipo = page.query.tipo;
-    $scope.txt = BoeItems.txt;
-    $scope.$apply();
+    $scope.txt = BoeItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
-    if (page.fromPage.name === 'index'){
-      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
-    }
+    $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
@@ -67,7 +49,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  //$scope.onIconBack = Utiles.onIconBack($scope.items);
   $rootScope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
@@ -75,14 +56,11 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-    $scope.txt = IdepaItems.txt;
-    $scope.$apply();
+    MyApp.fw7.app.showIndicator();
+    $scope.txt = IdepaItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo)[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
-    if (page.fromPage.name === 'index'){
-      $scope.numItems = null; MyApp.fw7.app.showIndicator();// init
-      $scope.getItems();
-    }
+    $scope.getItems();
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
@@ -116,14 +94,11 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
-    $scope.txt = MineturItems.txt;
-    $scope.$apply();
+    MyApp.fw7.app.showIndicator();
+    $scope.txt = MineturItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
-    if (page.fromPage.name === 'index'){
-      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.getItems();
-    }
+    $scope.getItems();
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
@@ -150,14 +125,11 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
-    $scope.txt = IpymeItems.txt;
-    $scope.$apply();
+    MyApp.fw7.app.showIndicator();
+    $scope.txt = IpymeItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
-    if (page.fromPage.name === 'index'){
-      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.getItems();
-    }
+    $scope.getItems();
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
@@ -191,14 +163,11 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoBdns', function (page) {
-    $scope.txt = BdnsItems.txt;
-    $scope.$apply();
+    MyApp.fw7.app.showIndicator();
+    $scope.txt = BdnsItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
-    if (page.fromPage.name === 'index'){
-      $scope.numItems = null; MyApp.fw7.app.showIndicator(); // init
-      $scope.getItems();
-    }
+    $scope.getItems();
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });

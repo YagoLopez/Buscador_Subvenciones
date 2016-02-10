@@ -1,14 +1,33 @@
 // Global variables ====================================================================================================
+
 var MyApp = {};
 var $$ = Dom7;
 
-// config MyApp
-//MyApp.config = {
-//
-//};
+// Framework 7 Creation and configuration ==============================================================================
+MyApp.fw7 = {
+  app : new Framework7({
+    material: true,
+    materialRipple:false,
+    pushState: false,
+    sortable: false,
+    cache: false,
+    materialPageLoadDelay: 1,
+    modalTitle: 'Informaci\u00F3n',
+    modalButtonCancel: 'Cancelar',
+    dynamicNavbar: false,
+    //pushStateSeparator: '#!'
+  })
+  //,
+  //options : {
+  //  domCache: true
+  //},
+  //views : []
+};
+
+MyApp.fw7.app.addView( '.view-main', {domCache: true} );
 
 // Angular configuration and initialization ============================================================================
-MyApp.angular = angular.module('MyApp', ['socialLinks']);
+MyApp.angular = angular.module('MyApp', []);
 
 MyApp.angular.config( function($provide, $compileProvider) {
 
@@ -31,23 +50,4 @@ MyApp.angular.run( function(Utiles, $rootScope) {
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 
-// Framework 7 Creation and configuration ==============================================================================
-
-MyApp.fw7 = {
-  app : new Framework7({
-    material: true,
-    pushState: false,
-    sortable: false,
-    cache: false,
-    materialPageLoadDelay: 1,
-    modalTitle: 'Informaci\u00F3n',
-    modalButtonCancel: 'Cancelar',
-    dynamicNavbar: false,
-    //pushStateSeparator: '#!'
-  }),
-  options : {
-    domCache: true
-  },
-  views : []
-};
 

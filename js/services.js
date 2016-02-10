@@ -20,7 +20,7 @@ MyApp.angular.factory('InitService', function ($document) {
     for (i = 0; i < eventListeners.ready.length; i = i + 1) {
       eventListeners.ready[i]();
     }
-  }
+  };
 
   // Init
   (function () {
@@ -35,12 +35,12 @@ MyApp.angular.factory('InitService', function ($document) {
         console.log("Using web browser setting");
         onReady();
       }
-      
+      onReady();
     });
   }());
 
   return pub;
-  
+
 });
 // =====================================================================================================================
 MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
@@ -210,7 +210,6 @@ MyApp.angular.service('Utiles', function(){
       //return 'No hay datos. Error al analizar fichero XML';
     };
   };
-
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){

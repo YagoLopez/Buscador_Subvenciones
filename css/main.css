@@ -97,7 +97,12 @@ div.center {
     font-size: 21px !important;
     color: lightskyblue;
 }
-
+.footerLink{
+    text-transform: none;
+    text-align: left;
+    overflow: initial;
+    text-overflow: initial;
+}
 /* fin listado ****************************************************************************************************** */
 /**********************************************************************************************************************/
 .popover {
