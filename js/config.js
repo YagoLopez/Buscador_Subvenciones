@@ -11,10 +11,15 @@ MyApp.fw7 = {
     pushState: false,
     sortable: false,
     cache: false,
-    materialPageLoadDelay: 1,
+    materialPageLoadDelay: 10,
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
+    //activeState: false,
+    fastClicks: false,
+    materialPreloaderHtml: '<div style="font-size:12px; color:white; display:block;padding:10px;left:100px">' +
+    '<b>Cargando...</b></div>',
+
     //pushStateSeparator: '#!'
   })
   //,
@@ -49,5 +54,17 @@ MyApp.angular.run( function(Utiles, $rootScope) {
   $rootScope.btnTop = Utiles.btnTop;
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
+// Cordova/Phonegap init ===============================================================================================
 
+// Wait for device API libraries to load
+
+function onLoad() {
+  document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+// device APIs are available
+//
+function onDeviceReady() {
+  // Now safe to use device APIs
+}
 

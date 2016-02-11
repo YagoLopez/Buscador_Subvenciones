@@ -10,10 +10,11 @@
 <content src="index.html"/>
 <access origin="*"/>
 <access origin="*" launch-external="yes"/>
+<intelxdk:plugin intelxdk:name="InAppBrowser" intelxdk:value="cordova-plugin-inappbrowser" intelxdk:version="1.1.0" intelxdk:checksum="20096ffc"/>
 <intelxdk:plugin intelxdk:name="Cordova Legacy Whitelist Plugin" intelxdk:value="cordova-plugin-legacy-whitelist" intelxdk:version="1.1.0"/>
 <preference name="android-minSdkVersion" value="14"/>
 <preference name="android-targetSdkVersion" value="19"/>
 <preference name="android-installLocation" value="auto"/>
 <intelxdk:crosswalk version="15"/>
-<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.webapp"}-->
+<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.jsapp"}-->
 <preference name="debuggable" value="false"/></widget>

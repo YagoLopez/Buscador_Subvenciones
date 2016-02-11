@@ -4925,8 +4925,10 @@ html.with-statusbar-overlay body .panel {
     Preloader
     By Rudi Theunissen (https://github.com/rtheunissen/md-preloader)
 === */
+
+/*
 .preloader {
-  font-size: 0;
+  font-size: 10px;
   display: inline-block;
   width: 32px;
   height: 32px;
@@ -5161,6 +5163,7 @@ html.with-statusbar-overlay body .panel {
     transform: rotate(1080deg);
   }
 }
+*/
 /* === Progress Bar === */
 .progressbar,
 .progressbar-infinite {

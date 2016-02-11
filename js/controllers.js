@@ -16,9 +16,11 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
+    $scope.loading = true;
     BoeItems.txt.tipo = page.query.tipo;
-    $scope.txt = BoeItems.txt; $scope.$apply();
+    $scope.txt = BoeItems.txt;
+    $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
     $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
@@ -31,19 +33,22 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       searchbar.disable();
       $scope.items = BoeItems.getItems();
       $scope.numItems = BoeItems.getItems().length;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
+      $scope.loading = false;
     });
   };
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
+    $scope.loading = true;
     BoeItem.new( index );
     BoeItem.content = 'Obteniendo datos...';
     $rootScope.item = BoeItem;
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
       BoeItem.showButtons = true;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
+      $scope.loading = false;
     });
   };
   $scope.onIconBack = function() {
@@ -56,7 +61,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
     $scope.txt = IdepaItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo)[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -70,7 +75,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       searchbar.disable();
       $scope.items = IdepaItems.getItems();
       $scope.numItems = IdepaItems.getItems().length;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
     })
   };
   $scope.onIconBack = function() {
@@ -78,14 +83,14 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   };
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
     IdepaItem.new( index );
     IdepaItem.content = 'Obteniendo datos...';
     $rootScope.item = IdepaItem;
     IdepaItem.getData( IdepaItem.link ).then(function(htmlDetalle){
       IdepaItem.content = htmlDetalle;
       IdepaItem.showButtons = true;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
     });
   };
 });
@@ -94,7 +99,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
     $scope.txt = MineturItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -108,7 +113,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
       searchbar.disable();
       $scope.items = MineturItems.getItems();
       $scope.numItems = MineturItems.getItems().length;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
     })
   };
   $scope.onIconBack = function() {
@@ -125,7 +130,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
     $scope.txt = IpymeItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -139,7 +144,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
       searchbar.disable();
       $scope.items = IpymeItems.getItems();
       $scope.numItems = IpymeItems.getItems().length;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
     })
   };
   $scope.onIconBack = function() {
@@ -147,14 +152,14 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   };
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
     IpymeItem.new( index );
     IpymeItem.content = 'Obteniendo datos...';
     $rootScope.item = IpymeItem;
     IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
       IpymeItem.content = htmlDetalle;
       IpymeItem.showButtons = true;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
     });
   };
 });
@@ -163,7 +168,7 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
 
   var searchbar = null;
   MyApp.fw7.app.onPageBeforeAnimation('listadoBdns', function (page) {
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
     $scope.txt = BdnsItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -177,19 +182,19 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
       searchbar.disable();
       $scope.items = BdnsItems.getItems();
       $scope.numItems = BdnsItems.getItems().length;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
     })
   };
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
-    //MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showIndicator();
     BdnsItem.new( index );
     BdnsItem.content = 'Obteniendo datos...';
     $rootScope.item = BdnsItem;
     BdnsItem.getData().then(function(htmlDetalle){
       BdnsItem.content = htmlDetalle;
       BdnsItem.showButtons = true;
-      //MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hideIndicator();
     });
   };
   $scope.onIconBack = function() {

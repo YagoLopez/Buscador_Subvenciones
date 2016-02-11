@@ -16,10 +16,10 @@
             <a href="#" class="open-popover color-indigo" data-popover="#popover-share" target="system">
                 <i class="fa fa-share-alt-square" style="font-size:18px"></i>
             </a>
-            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external color-indigo">Doc</a>
-            <a href="{{ item.link }}" class="external color-indigo">Web</a>
+            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external color-indigo" target="_blank">Doc</a>
+            <a href="{{ item.link }}" class="external color-indigo" target="_blank">Web</a>
             <a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf}}"
-               class="external color-indigo">Doc</a>
+               class="external color-indigo" target="_blank">Doc</a>
         </div>
     </div>
     <!-- contenido pagina ------------------------------------------------------------------------------------------ -->
@@ -30,14 +30,6 @@
             <p id='detailContent' ng-bind-html="item.content | FiltroHtml"></p>
 
             <div ng-show="item.showButtons">
-<!--
-                <p class="buttons-row">
-                    <a href="{{ item.link }}" class="external button button-raised button-fill"
-                       target="_blank">Ver P&aacute;gina Web</a></p>
-                <p ng-if="item.pdf" class="buttons-row">
-                    <a href="{{ item.pdf }}" class="external button button-raised button-fill"
-                       target="_blank">Ver Documento PDF</a></p>
--->
                 <hr/>
                 <div id="btnTop" class="button" ng-click="btnTop()">
                     Inicio<i class="icon ks-icon-upload"></i>
