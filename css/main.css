@@ -108,6 +108,12 @@ div.center {
 .cardFooter.active-state{
     background: lightgray;
 }
+.avisoFavs {
+    text-align: center;
+    font-size: 12px;
+    color: gainsboro;
+    padding: 7px 7px 3px;
+}
 /* fin listado ****************************************************************************************************** */
 /**********************************************************************************************************************/
 .popover {
@@ -526,10 +532,3 @@ div.ks-demo-lazy {
     padding: 15px 10px;
 }
 
-.avisoFavs {
-    text-align: center;
-    padding: 7px;
-    font-size: 12px;
-    color: gainsboro;
-    padding-bottom: 3px;
-}
