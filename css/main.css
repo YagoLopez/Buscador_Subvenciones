@@ -526,3 +526,10 @@ div.ks-demo-lazy {
     padding: 15px 10px;
 }
 
+.avisoFavs {
+    text-align: center;
+    padding: 7px;
+    font-size: 12px;
+    color: gainsboro;
+    padding-bottom: 3px;
+}
