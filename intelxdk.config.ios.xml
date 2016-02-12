@@ -9,5 +9,5 @@
 <access origin="*"/>
 <preference name="ios-target" value="6"/>
 <preference name="ios-configuration" value="adhoc"/>
-<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.jsapp"}-->
+<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.webapp"}-->
 <preference name="debuggable" value="false"/></widget>

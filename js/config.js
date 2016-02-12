@@ -8,6 +8,8 @@ MyApp.fw7 = {
   app : new Framework7({
     material: true,
     materialRipple: false,
+    activeState: false,
+    fastClicks: false,
     pushState: false,
     sortable: false,
     cache: true,
@@ -15,17 +17,17 @@ MyApp.fw7 = {
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    activeState: false,
-    fastClicks: true,
-    materialPreloaderHtml: '<div><img src="img/10.gif" width="25px"></div>',
-
+    materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
+    activeStateElements: '',
+    materialPreloaderSvg: '',
+    materialRippleElements: '',
+    scrollTopOnNavbarClick: true,
+    swipePanel: 'left',
+    swipePanelActiveArea: 200,
+    swipePanelNoFollow: false,
+    swipePanelThreshold: 10
     //pushStateSeparator: '#!'
   })
-  //,
-  //options : {
-  //  domCache: true
-  //},
-  //views : []
 };
 
 MyApp.fw7.app.addView( '.view-main', {domCache: true} );
@@ -54,6 +56,7 @@ MyApp.angular.run( function(Utiles, $rootScope) {
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================
+/*
 
 // Wait for device API libraries to load
 
@@ -66,4 +69,5 @@ function onLoad() {
 function onDeviceReady() {
   // Now safe to use device APIs
 }
+*/
 

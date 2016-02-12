@@ -322,7 +322,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 
 });
 // =====================================================================================================================
-MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
+MyApp.angular.service('BdnsItems', function($http, Error){
 
   var self = this;
   var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/';
@@ -351,25 +351,43 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
   this.getItemByIndex = function(index){
     return this.getItems()[index];
   }
+
+
+/*
   this.getData = function(){
     return $http(requestConfig).then(
       function(resp){
         //console.log('datos para url 1', resp);
-        var promise;
-        $timeout(
-          promise = $http.get(urlUltimas, {cache:true, withCredentials:true}).then(function(resp){
+        return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
+          function(resp){
             self.items = resp.data.rows;
             //console.log('datos para url2', resp.data.rows);
             return resp.data.rows;
-          }, function(respError){
+        }, function(respError){
             Error.mostrar(respError);
-          }), 500);
-        return promise;
-      },
+        }),
       function(respError){
         Error.mostrar(respError);
-      });
+      };
+  //};
+*/
+
+  this.getData = function(){
+    return $http(requestConfig).then(
+      function(resp){
+        return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
+          function(resp){
+            self.items = resp.data.rows;
+            //console.log('datos para url2', resp.data.rows);
+            return resp.data.rows;
+          },
+          function(respError){Error.mostrar(respError)}
+        )
+      },
+      function(respError){Error.mostrar(respError)}
+    );
   };
+
 
 })
 // =====================================================================================================================

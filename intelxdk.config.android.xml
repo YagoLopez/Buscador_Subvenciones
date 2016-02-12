@@ -11,5 +11,5 @@
 <preference name="android-minSdkVersion" value="14"/>
 <preference name="android-targetSdkVersion" value="19"/>
 <preference name="android-installLocation" value="auto"/>
-<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.jsapp"}-->
+<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.webapp"}-->
 <preference name="debuggable" value="false"/></widget>

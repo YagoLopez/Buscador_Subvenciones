@@ -1,4 +1,4 @@
-<!-- Barra nav ------------------------------------------------------------------------------------------------- -->
+<!-- Barra nav ===================================================================================================== -->
 <div class="navbar">
     <div class="navbar-inner">
         <div class="left">
@@ -9,7 +9,7 @@
         <div class="right"><span id="itemsLength" class="badge">{{ numItems }}</span></div>
     </div>
 </div>
-<!-- Barra busqueda -------------------------------------------------------------------------------------------- -->
+<!-- Barra busqueda ================================================================================================ -->
 <form id="searchbar{{txt.titulo}}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
     <div class="searchbar-input">
         <input type="search" placeholder="Buscar"/>
@@ -17,11 +17,9 @@
     </div>
 </form>
 <div class="searchbar-overlay"></div>
-<!-- Fin barra busqueda ---------------------------------------------------------------------------------------- -->
+<!-- Fin barra busqueda ======================================================================================== -->
 <div class="page-content padTop0 hide-toolbar-on-scroll">
-    <!-- Listado ----------------------------------------------------------------------------------------------- -->
-    <!--<p ng-show="items == null" style="">Cargando datos...</p>-->
-    <!--<p ng-if="loading" style="padding:10px"><span class="progressbar-infinite color-multi"></span></p>-->
+    <!-- Listado =============================================================================================== -->
     <div class="content-block searchbar-not-found">
         <div class="content-block-inner">No se han encontrado resultados</div>
     </div>
@@ -29,27 +27,27 @@
         <ul id="listaBoe">
             <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)" class="swipeout">
                 <div class="swipeout-content">
-                <label class="label-radio item-content padLeft5">
-                    <input type="radio" name="my-radio">
-                    <div class="item-inner margLeft8">
-                        <div>
-                            <i class="icon icon-form-radio smallRadio"></i>
-                            <span ng-if="item.title">{{ item.title }}</span>
-                            <span ng-if="item.descripcion">{{ item.descripcion }}</span>
-                            <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
-                            <span ng-if="item[5]">{{ item[5] | uppercase }}</span>
-                            <div class="pieItem">
-                                <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
-                                <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>
-                                <div ng-if="item.plazo">Plazo solicitud: {{ item.plazo }}</div>
-                                <div ng-if="item.creator">{{ item.creator }}</div>
-                                <div ng-if="item[2]">{{ item[2] }} - {{ item[4] }}</div>
+                    <label class="label-radio item-content padLeft5">
+                        <input type="radio" name="my-radio">
+                        <div class="item-inner margLeft8">
+                            <div>
+                                <i class="icon icon-form-radio smallRadio"></i>
+                                <span ng-if="item.title">{{ item.title }}</span>
+                                <span ng-if="item.descripcion">{{ item.descripcion }}</span>
+                                <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
+                                <span ng-if="item[5]">{{ item[5] | uppercase }}</span>
+                                <div class="pieItem">
+                                    <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
+                                    <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>
+                                    <div ng-if="item.plazo">Plazo solicitud: {{ item.plazo }}</div>
+                                    <div ng-if="item.creator">{{ item.creator }}</div>
+                                    <div ng-if="item[2]">{{ item[2] }} - {{ item[4] }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </label>
                 </div>
-                <div class="swipeout-actions-left">
+                <div class="swipeout-actions-right">
                     <a href="#" ng-click="favorito">A&nacute;adir a Favoritos</a>
                 </div>
             </li>

@@ -7,5 +7,5 @@
 <name>BuscaFondos</name>
 <content src="index.html"/>
 <access origin="*"/>
-<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.jsapp"}-->
+<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.webapp"}-->
 <preference name="debuggable" value="false"/></widget>
