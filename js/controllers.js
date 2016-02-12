@@ -14,10 +14,12 @@ MyApp.angular.controller('HomePageController', function ($scope, InitService, $r
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Utiles) {
 
+  //MyApp.fw7.app.onPageAfterAnimation('listadoBoe', function(){
+  //  MyApp.fw7.app.showIndicator();
+  //});
+
   var searchbar = null;
-  MyApp.fw7.app.onPageBeforeAnimation('listadoBoe', function (page) {
-    MyApp.fw7.app.showIndicator();
-    $scope.loading = true;
+  MyApp.fw7.app.onPageAfterAnimation('listadoBoe', function (page) {
     BoeItems.txt.tipo = page.query.tipo;
     $scope.txt = BoeItems.txt;
     $scope.$apply();
@@ -27,6 +29,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
+    MyApp.fw7.app.showIndicator();
   });
   $scope.getItems = function(url){
     BoeItems.getData(url).then(function(){
@@ -34,21 +37,18 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       $scope.items = BoeItems.getItems();
       $scope.numItems = BoeItems.getItems().length;
       MyApp.fw7.app.hideIndicator();
-      $scope.loading = false;
     });
   };
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
-    MyApp.fw7.app.showIndicator();
-    $scope.loading = true;
     BoeItem.new( index );
     BoeItem.content = 'Obteniendo datos...';
     $rootScope.item = BoeItem;
+    MyApp.fw7.app.showIndicator();
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
       BoeItem.showButtons = true;
       MyApp.fw7.app.hideIndicator();
-      $scope.loading = false;
     });
   };
   $scope.onIconBack = function() {
@@ -60,7 +60,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem) {
 
   var searchbar = null;
-  MyApp.fw7.app.onPageBeforeAnimation('listadoIdepa', function (page) {
+  MyApp.fw7.app.onPageAfterAnimation('listadoIdepa', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.txt = IdepaItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo)[0].f7Searchbar;
@@ -98,7 +98,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
 MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Utiles, $timeout) {
 
   var searchbar = null;
-  MyApp.fw7.app.onPageBeforeAnimation('listadoMinetur', function (page) {
+  MyApp.fw7.app.onPageAfterAnimation('listadoMinetur', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.txt = MineturItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
@@ -122,14 +122,14 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
     $rootScope.item = MineturItems.getItemById(index);
-    console.log('$scope.item', $rootScope.item);
+    //console.log('$scope.item', $rootScope.item);
   };
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem) {
 
   var searchbar = null;
-  MyApp.fw7.app.onPageBeforeAnimation('listadoIpyme', function (page) {
+  MyApp.fw7.app.onPageAfterAnimation('listadoIpyme', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.txt = IpymeItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
@@ -167,7 +167,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
 MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, BdnsItems, BdnsItem){
 
   var searchbar = null;
-  MyApp.fw7.app.onPageBeforeAnimation('listadoBdns', function (page) {
+  MyApp.fw7.app.onPageAfterAnimation('listadoBdns', function (page) {
     MyApp.fw7.app.showIndicator();
     $scope.txt = BdnsItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;

@@ -63,7 +63,7 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
     return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
   };
   this.getData = function(url){
-    console.log('url', url);
+    //console.log('url', url);
     return $http.get(url, {cache: true}).then(function(resp){
         if(resp.data.query)
           self.items = resp.data.query.results.item;
@@ -105,7 +105,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
   };
   this.getData = function(urlDetalle){
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
-        console.log( resp );
+        //console.log( resp );
         return Utiles.xmlParser(resp.data);;
       },
       function(datosError){
@@ -127,7 +127,7 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.items = resp.data.results.collection1;
-        console.log(self.items);
+        //console.log(self.items);
       },
       function(datosError){
         Error.mostrar(datosError);
@@ -186,21 +186,21 @@ MyApp.angular.service('Utiles', function(){
   this.xmlParser = function(xmlStr){
     var xmlDoc = null;
     if( /Edge\/12./i.test(navigator.userAgent )){ // IE EDGE
-      console.log('xmlParser, navegador edge');
+      //console.log('xmlParser, navegador edge');
       xmlDoc = document.implementation.createHTMLDocument(''); // es un hack
       xmlDoc.open(); xmlDoc.write(xmlStr); xmlDoc.close();
       return xmlDoc.getElementsByTagName('results')[0].innerHTML;
     }
     else if( ('ActiveXObject' in window) &&
               typeof(new window.ActiveXObject('Microsoft.XMLDOM')) === 'object' ) { // IEXPLORER
-      console.log('xmlParser, IExplorer');
+      //console.log('xmlParser, IExplorer');
       xmlDoc = new window.ActiveXObject('Microsoft.XMLDOM');
       xmlDoc.async = 'false';
       xmlDoc.loadXML(xmlStr);
       return xmlDoc.getElementsByTagName('results')[0].xml; // no se puede usar innerHTML
     }
     else if (typeof window.DOMParser != 'undefined') { // CHROME, FIREFOX, ETC.
-      console.log('xmlParser, Chrome, Firefox, etc.');
+      //console.log('xmlParser, Chrome, Firefox, etc.');
       var parser = new DOMParser();
       xmlDoc = parser.parseFromString(xmlStr, 'application/xml');
       return xmlDoc.getElementsByTagName('results')[0].innerHTML;
@@ -284,7 +284,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.items = resp.data.results.listado;
-        console.log(self.items);
+        //console.log(self.items);
         return resp;},
       function(datosError){
         Error.mostrar(datosError);
@@ -310,9 +310,9 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
     this.index = index;
   };
   this.getData = function(urlDetalle){
-    console.log('url', this.createUrl(urlDetalle));
+    //console.log('url', this.createUrl(urlDetalle));
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
-        console.log( resp );
+        //console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){
@@ -322,7 +322,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 
 });
 // =====================================================================================================================
-MyApp.angular.service('BdnsItems', function($http, Error){
+MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
 
   var self = this;
   var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/';
@@ -355,13 +355,16 @@ MyApp.angular.service('BdnsItems', function($http, Error){
     return $http(requestConfig).then(
       function(resp){
         //console.log('datos para url 1', resp);
-        return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(function(resp){
-          self.items = resp.data.rows;
-          console.log('datos para url2', resp.data.rows);
-          return resp.data.rows;
-        }, function(respError){
-          Error.mostrar(respError);
-        });
+        var promise;
+        $timeout(
+          promise = $http.get(urlUltimas, {cache:true, withCredentials:true}).then(function(resp){
+            self.items = resp.data.rows;
+            //console.log('datos para url2', resp.data.rows);
+            return resp.data.rows;
+          }, function(respError){
+            Error.mostrar(respError);
+          }), 500);
+        return promise;
       },
       function(respError){
         Error.mostrar(respError);
@@ -380,7 +383,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
   this.new = function (index){
     var i = BdnsItems.getItemByIndex(index);
-    console.log('i', i);
+    //console.log('i', i);
     this.idConvocatoria = i[0];
     this.linkExternal_Url_or_Pdf = i[6];
     this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
@@ -394,9 +397,9 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
   };
 
   this.getData = function(){
-    console.log('url', this.createUrl());
+    //console.log('url', this.createUrl());
     return $http.get(this.createUrl(), {cache: true}).then(function(resp){
-        console.log( resp );
+        //console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){

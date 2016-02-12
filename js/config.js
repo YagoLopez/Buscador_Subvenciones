@@ -7,18 +7,17 @@ var $$ = Dom7;
 MyApp.fw7 = {
   app : new Framework7({
     material: true,
-    materialRipple:false,
+    materialRipple: false,
     pushState: false,
     sortable: false,
-    cache: false,
-    materialPageLoadDelay: 10,
+    cache: true,
+    materialPageLoadDelay: 0, // revisar
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    //activeState: false,
-    fastClicks: false,
-    materialPreloaderHtml: '<div style="font-size:12px; color:white; display:block;padding:10px;left:100px">' +
-    '<b>Cargando...</b></div>',
+    activeState: false,
+    fastClicks: true,
+    materialPreloaderHtml: '<div><img src="img/10.gif" width="25px"></div>',
 
     //pushStateSeparator: '#!'
   })
@@ -36,7 +35,7 @@ MyApp.angular = angular.module('MyApp', []);
 
 MyApp.angular.config( function($provide, $compileProvider) {
 
-  $compileProvider.debugInfoEnabled(true);
+  $compileProvider.debugInfoEnabled(false);
   //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 

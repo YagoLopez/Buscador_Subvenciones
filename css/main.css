@@ -41,7 +41,7 @@ div.center {
 #itemsLength {
     margin-right: 20px;
     font-size: small;
-    background:chocolate;
+    background:palevioletred;
     }
 .item-inner.paddingLeft {
     padding-left: 8px;
@@ -72,7 +72,7 @@ div.center {
 #detailContent > div {
     padding-top: 7px;
     padding-bottom: 7px;
-    font-size: medium
+    font-size: small
 }
 .width44 {
     width: 44px;
@@ -99,25 +99,14 @@ div.center {
     font-size: 21px !important;
     color: lightskyblue;
 }
-/*.card-footer{*/
-    /*color: #007aff;*/
+/*.card-footer.active-state{*/
+    /*background: lightgray;*/
 /*}*/
-.card-footer.active-state{
-    background: lightgray;
-}
 .cardFooter{
     display: block;
 }
-#btnMenuPpal.active-state{
-    color: red;
-}
-#btnMenuPpal{
-    padding-left: 10px;
-}
-.cargando{
-    padding:10px;
-    /*outline:none;*/
-    /*border: 0 none;*/
+.cardFooter.active-state{
+    background: lightgray;
 }
 /* fin listado ****************************************************************************************************** */
 /**********************************************************************************************************************/

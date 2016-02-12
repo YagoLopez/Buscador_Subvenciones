@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "f193b48b-ca14-4143-a4f8-54416e10b8e4",
-      "lastModifiedDate": 1455147220547,
+      "lastModifiedDate": 1455235075702,
       "creationDate": 1455134187592
     },
     "sourceDirectory": "",
@@ -27,27 +27,7 @@
       }
     },
     "libraries": [],
-    "cordovaPlugins": [
-      {
-        "id": "cordova-plugin-inappbrowser",
-        "name": "InAppBrowser",
-        "version": "1.1.0",
-        "originType": "cordova.io",
-        "origin": "cordova-plugin-inappbrowser",
-        "gitref": "",
-        "paramvals": {},
-        "sourceLocation": "plugins/cordova-plugin-inappbrowser",
-        "selectedState": "Included",
-        "checksum": "20096ffc",
-        "dependsOn": [],
-        "topLevel": true,
-        "cordovaVersion": ">=3.1.0",
-        "permissions": {},
-        "description": "Cordova InAppBrowser Plugin",
-        "data": {},
-        "dependedBy": []
-      }
-    ],
+    "cordovaPlugins": [],
     "serviceMethods": [],
     "buildConfigurations": {
       "Android": {
@@ -59,7 +39,7 @@
           "android-targetSdkVersion": "19",
           "android-installLocation": "auto"
         },
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "BuscaFondos",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -92,7 +72,7 @@
         "appName_": "BuscaFondos",
         "appID_": "com.yagolopez.buscafondos",
         "appAccess_": {
-          "mode": "legacy",
+          "mode": "whitelist",
           "network": [
             "*"
           ],
@@ -167,7 +147,7 @@
         "runtime_": "W3C",
         "name_": "WebApp",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "BuscaFondos",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -211,7 +191,7 @@
         "runtime_": "W3C on Chrome OS",
         "name_": "Chrome",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "BuscaFondos",
         "appID_": "not.yet.specified",
         "appAccess_": {
