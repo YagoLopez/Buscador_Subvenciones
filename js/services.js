@@ -352,26 +352,6 @@ MyApp.angular.service('BdnsItems', function($http, Error){
     return this.getItems()[index];
   }
 
-
-/*
-  this.getData = function(){
-    return $http(requestConfig).then(
-      function(resp){
-        //console.log('datos para url 1', resp);
-        return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
-          function(resp){
-            self.items = resp.data.rows;
-            //console.log('datos para url2', resp.data.rows);
-            return resp.data.rows;
-        }, function(respError){
-            Error.mostrar(respError);
-        }),
-      function(respError){
-        Error.mostrar(respError);
-      };
-  //};
-*/
-
   this.getData = function(){
     return $http(requestConfig).then(
       function(resp){
@@ -387,8 +367,23 @@ MyApp.angular.service('BdnsItems', function($http, Error){
       function(respError){Error.mostrar(respError)}
     );
   };
-
-
+/*
+  this.getData = function(){
+    return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
+      function (resp) {
+        return $http(requestConfig).then(
+          function (resp) {
+            self.items = resp.data.rows;
+            //console.log('datos para url2', resp.data.rows);
+            return resp.data.rows;
+        },
+          function (respError) { Error.mostrar(respError) }
+        );
+      },
+      function(respError){ Error.mostrar(respError) }
+    )
+  };
+*/
 })
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {

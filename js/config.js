@@ -3,7 +3,7 @@
 var MyApp = {};
 var $$ = Dom7;
 
-// Framework 7 Creation and configuration ==============================================================================
+// Framework 7 creation and configuration ==============================================================================
 MyApp.fw7 = {
   app : new Framework7({
     material: true,
@@ -23,9 +23,11 @@ MyApp.fw7 = {
     materialRippleElements: '',
     scrollTopOnNavbarClick: true,
     swipePanel: 'left',
-    swipePanelActiveArea: 200,
+    swipePanelActiveArea: 500,
     swipePanelNoFollow: false,
-    swipePanelThreshold: 10
+    swipePanelThreshold: 10,
+    uniqueHistory: false,
+    preloadPreviousPage: false
     //pushStateSeparator: '#!'
   })
 };

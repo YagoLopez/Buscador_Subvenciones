@@ -38,7 +38,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   $scope.openPopup = function(itemIndex){
     MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.new( itemIndex );
-    BoeItem.content = 'Obteniendo datos... '+'<img src="img/3.gif">';
+    BoeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = BoeItem;
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
@@ -78,7 +78,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
     IdepaItem.new( index );
-    IdepaItem.content = 'Obteniendo datos... '+'<img src="img/3.gif">';
+    IdepaItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = IdepaItem;
     IdepaItem.getData( IdepaItem.link ).then(function(htmlDetalle){
       IdepaItem.content = htmlDetalle;
@@ -144,7 +144,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
     IpymeItem.new( index );
-    IpymeItem.content = 'Obteniendo datos... '+'<img src="img/3.gif">';
+    IpymeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = IpymeItem;
     IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
       IpymeItem.content = htmlDetalle;
@@ -177,7 +177,7 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
   $scope.openPopup = function(index){
     MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.new( index );
-    BdnsItem.content = 'Obteniendo datos... '+'<img src="img/3.gif">';
+    BdnsItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = BdnsItem;
     BdnsItem.getData().then(function(htmlDetalle){
       BdnsItem.content = htmlDetalle;

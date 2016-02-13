@@ -1,14 +1,12 @@
 <!--todo: falta por quitar el enlace roto en la pagina de detalle-->
 <!--todo: favoritos-->
 <!--todo: quitar info de depuracion para optimizar-->
-<!--todo: usar versiones minificadas de ficheros-->
 <!--todo: obtener detalle boe directamente del extracto xml-->
 <!--todo: slogan: base de datos con mas de 600 ayudas y subvenciones nacionales e internacinales actualizadas-->
 <!--todo: buscar fuente diferente para pagina detalle-->
-<!--todo: cuando se implemente favoritos, poner aviso con icono al principio de la pagina listado-->
-<!--todo: estado activo en enlaces de pag principal y en menu laterial-->
-<!--todo: no usar loader con overlay. usar el loader el la propia pagina de detalle. probar con progress bar-->
-<!--todo: intentar definir toolbar en una sola definicion, no en cada pagina-->
+<!--todo: intentar resolver el problema de bdns con la primera llamada. igual hay que cambiar el orden de las llamadas http-->
+<!--todo: en la ayuda poner: se puede activar el panel de menu arrastrando borde izqdo - hacer scroll haciendo tap en barra superior, fvoritos, etc-->
+<!--todo: icono y splashscreen-->
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
 <head>
@@ -19,13 +17,12 @@
 
     <title>Busca Fondos</title>
     <link rel="stylesheet" href="lib/f7/framework7.material.css">
-    <link rel="stylesheet" href="lib/f7/framework7.material.colors.css">
+    <link rel="stylesheet" href="lib/f7/framework7.material.colors.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-    <!--<link rel="stylesheet" type="text/css" href="lib/cards/demo.css" />-->
     <link rel="stylesheet" type="text/css" href="css/set2.css" />
-    <!--<link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <!--<link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">-->
     <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
 </head>
 
@@ -33,16 +30,16 @@
 <div class="views">
     <div class="view view-main">
         <div class="pages">
-            <!-- menu lateral -------------------------------------------------------------------------------------- -->
+            <!-- menu lateral =====================================================================================- -->
             <div class="panel-overlay"></div>
             <div class="panel panel-left panel-cover ">
                 <ng-include src="'html/menu.html'"></ng-include>
             </div>
-            <!-- pagina home --------------------------------------------------------------------------------------- -->
+            <!-- pagina home ======================================================================================= -->
             <div data-page="index" class="page">
                 <ng-include src="'html/home.html'"></ng-include>
             </div>
-            <!-- pagina listado boe -------------------------------------------------------------------------------- -->
+            <!-- pagina listado boe ================================================================================ -->
             <div data-page="listadoBoe" class="page cached" ng-controller="ListadoBoeCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -51,7 +48,7 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina listado idepa ------------------------------------------------------------------------------ -->
+            <!-- pagina listado idepa ============================================================================== -->
             <div data-page="listadoIdepa" class="page cached" ng-controller="ListadoIdepaCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -60,7 +57,7 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina listado minetur ---------------------------------------------------------------------------- -->
+            <!-- pagina listado minetur ============================================================================ -->
             <div data-page="listadoMinetur" class="page cached" ng-controller="ListadoMineturCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -69,7 +66,7 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina listado dgpyme ----------------------------------------------------------------------------- -->
+            <!-- pagina listado dgpyme ============================================================================= -->
             <div data-page="listadoIpyme" class="page cached" ng-controller="ListadoIpymeCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -78,7 +75,7 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
-            <!-- pagina listado bdns ----------------------------------------------------------------------------- -->
+            <!-- pagina listado bdns =============================================================================== -->
             <div data-page="listadoBdns" class="page cached" ng-controller="ListadoBdnsCtrl">
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
@@ -90,22 +87,19 @@
         </div>
     </div>
 </div>
-<!-- Popup Detalle ------------------------------------------------------------------------------------------------- -->
+<!-- Popup Detalle ================================================================================================= -->
 <div class="popup popup-detalle tablet-fullscreen">
     <ng-include src="'html/detalle.html'"></ng-include>
 </div>
-<!-- Popover Share ------------------------------------------------------------------------------------------------- -->
+<!-- Popover Share ================================================================================================= -->
 <div id="popover-share" class="popover">
     <ng-include src="'html/popover-share.html'"></ng-include>
 </div>
-<!-- Scripts ------------------------------------------------------------------------------------------------------- -->
-<script type="text/javascript" src="lib/angular/angular.js"></script>
-<script type="text/javascript" src="lib/f7/framework7.js"></script>
+<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+<script type="text/javascript" src="lib/f7/framework7.min.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
-<!--<script src="http://debug-software.intel.com/target/target-script-min.js#dmEU5xsSQcFd41fOoocyRby0f_gwf89PEfWaOkXQpB8"></script>-->
-<!--<script src="lib/cards/html5.js"></script>-->
 </body>
 
 </html>
