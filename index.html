@@ -3,8 +3,6 @@
 <!--todo: quitar info de depuracion para optimizar-->
 <!--todo: obtener detalle boe directamente del extracto xml-->
 <!--todo: slogan: base de datos con mas de 600 ayudas y subvenciones nacionales e internacinales actualizadas-->
-<!--todo: buscar fuente diferente para pagina detalle-->
-<!--todo: intentar resolver el problema de bdns con la primera llamada. igual hay que cambiar el orden de las llamadas http-->
 <!--todo: en la ayuda poner: se puede activar el panel de menu arrastrando borde izqdo - hacer scroll haciendo tap en barra superior, fvoritos, etc-->
 <!--todo: icono y splashscreen-->
 <!DOCTYPE html>
@@ -31,10 +29,10 @@
     <div class="view view-main">
         <div class="pages">
             <!-- menu lateral =====================================================================================- -->
-            <div class="panel-overlay"></div>
             <div class="panel panel-left panel-cover ">
                 <ng-include src="'html/menu.html'"></ng-include>
             </div>
+            <div class="panel-overlay"></div>
             <!-- pagina home ======================================================================================= -->
             <div data-page="index" class="page">
                 <ng-include src="'html/home.html'"></ng-include>

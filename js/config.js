@@ -12,12 +12,12 @@ MyApp.fw7 = {
     fastClicks: false,
     pushState: false,
     sortable: false,
-    cache: true,
+    cache: false,
     materialPageLoadDelay: 0, // revisar
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
+    materialPreloaderHtml: '<div style="color:white;font-size:12px;">Cargando</div>',
     activeStateElements: '',
     materialPreloaderSvg: '',
     materialRippleElements: '',
@@ -27,8 +27,9 @@ MyApp.fw7 = {
     swipePanelNoFollow: false,
     swipePanelThreshold: 10,
     uniqueHistory: false,
-    preloadPreviousPage: false
+    preloadPreviousPage: true
     //pushStateSeparator: '#!'
+    //materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
   })
 };
 
@@ -54,12 +55,11 @@ MyApp.angular.config( function($provide, $compileProvider) {
 });
 
 MyApp.angular.run( function(Utiles, $rootScope) {
-  $rootScope.btnTop = Utiles.btnTop;
+  //$rootScope.btnTop = Utiles.btnTop;
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================
 /*
-
 // Wait for device API libraries to load
 
 function onLoad() {

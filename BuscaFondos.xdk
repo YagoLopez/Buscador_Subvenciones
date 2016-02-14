@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.webapp",
       "src": "",
       "projectGuid": "aabd29cc-33e5-4ab7-84fc-c11f2cdf9de7",
-      "lastModifiedDate": 1455293604140,
+      "lastModifiedDate": 1455399312894,
       "creationDate": 1455293488031
     },
     "sourceDirectory": "",
@@ -81,8 +81,90 @@
           ],
           "navigation": []
         },
-        "icons_": [],
-        "splashes_": [],
+        "icons_": [
+          {
+            "relPath": "img/icons-splashscreen/36x36.png",
+            "density": "ldpi",
+            "height": 36,
+            "width": 36
+          },
+          {
+            "relPath": "img/icons-splashscreen/48x48.png",
+            "density": "mdpi",
+            "height": 48,
+            "width": 48
+          },
+          {
+            "relPath": "img/icons-splashscreen/72x72.png",
+            "density": "hdpi",
+            "height": 72,
+            "width": 72
+          },
+          {
+            "relPath": "img/icons-splashscreen/96x96.png",
+            "density": "xhdpi",
+            "height": 96,
+            "width": 96
+          }
+        ],
+        "splashes_": [
+          {
+            "relPath": "img/icons-splashscreen/320x426.png",
+            "density": "ldpi",
+            "height": 426,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "img/icons-splashscreen/320x470.png",
+            "density": "mdpi",
+            "height": 470,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "img/icons-splashscreen/480x640.png",
+            "density": "hdpi",
+            "height": 640,
+            "width": 480,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "img/icons-splashscreen/720x960.png",
+            "density": "xhdpi",
+            "height": 960,
+            "width": 720,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "img/icons-splashscreen/426x320.png",
+            "density": "ldpi",
+            "height": 320,
+            "width": 426,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "img/icons-splashscreen/470x320.png",
+            "density": "mdpi",
+            "height": 320,
+            "width": 470,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "img/icons-splashscreen/640x480.png",
+            "density": "hdpi",
+            "height": 480,
+            "width": 640,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "img/icons-splashscreen/960x720.png",
+            "density": "xhdpi",
+            "height": 720,
+            "width": 960,
+            "orientation": "landscape"
+          }
+        ],
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "appVersion_": "1.0.0",

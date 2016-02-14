@@ -48,7 +48,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $rootScope.btnTop = Utiles.btnTop;
+  //$rootScope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem) {
