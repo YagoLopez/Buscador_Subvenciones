@@ -169,7 +169,7 @@ MyApp.angular.service('Error', function(){
     msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
       msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto<br>' +
-        '3) Navegador no soportado [IExplorer] para esta operacion [preflight request]';
+        '3) Navegador no soportado.';
     MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };
@@ -323,7 +323,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 
 });
 // =====================================================================================================================
-MyApp.angular.service('BdnsItems', function($http, Error){
+MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
 
   var self = this;
   var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/';
@@ -353,8 +353,10 @@ MyApp.angular.service('BdnsItems', function($http, Error){
     return this.getItems()[index];
   }
 
+/*
   this.getData = function(){
-    return $http(requestConfig).then(
+   $http.defaults.useXDomain = true;
+   return $http(requestConfig).then(
       function(resp){
         return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
           function(resp){
@@ -368,23 +370,28 @@ MyApp.angular.service('BdnsItems', function($http, Error){
       function(respError){Error.mostrar(respError)}
     );
   };
-/*
+*/
+
   this.getData = function(){
     return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
-      function (resp) {
-        return $http(requestConfig).then(
-          function (resp) {
-            self.items = resp.data.rows;
-            //console.log('datos para url2', resp.data.rows);
-            return resp.data.rows;
-        },
-          function (respError) { Error.mostrar(respError) }
-        );
+      function(resp){
+        self.items = resp.data.rows;
+        //console.log('datos para url2', resp.data.rows);
+        return resp.data.rows;
       },
-      function(respError){ Error.mostrar(respError) }
+      function(respError){Error.mostrar(respError)}
     )
   };
-*/
+
+  this.getSessionCookie = function () {
+    return $http(requestConfig).then(
+      function (resp) {
+        //console.log('bdns preflight, getting session cookie', resp);
+      },
+      function(respError){Error.mostrar(respError)}
+    );
+  };
+
 })
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
@@ -422,6 +429,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
   };
 
 });
+
 /*
 MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;

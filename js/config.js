@@ -18,7 +18,7 @@ MyApp.fw7 = {
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    materialPreloaderHtml: '<div style="color:white;font-size:12px;padding:10px">Cargando</div>',
+    materialPreloaderHtml: '<div style="color:white;font-size:12px">Cargando</div>',
     //materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
     materialPreloaderSvg: '',
     materialRippleElements: '',
@@ -38,7 +38,7 @@ MyApp.fw7.app.addView( '.view-main', {domCache: true} );
 // Angular configuration and initialization ============================================================================
 MyApp.angular = angular.module('MyApp', []);
 
-MyApp.angular.config( function($provide, $compileProvider, $httpProvider) {
+MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // config
 
   $compileProvider.debugInfoEnabled(false);
   $httpProvider.useApplyAsync(true);
@@ -55,8 +55,9 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider) {
   });
 });
 
-MyApp.angular.run( function(Utiles, $rootScope) {
+MyApp.angular.run( function(Utiles, $rootScope, BdnsItems) { // init
   //$rootScope.btnTop = Utiles.btnTop;
+  BdnsItems.getSessionCookie();
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================
