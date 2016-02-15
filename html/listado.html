@@ -10,7 +10,7 @@
     </div>
 </div>
 <!-- Barra busqueda ================================================================================================ -->
-<form id="searchbar{{txt.titulo}}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+<form id="searchbar{{ txt.titulo }}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
     <div class="searchbar-input">
         <input type="search" placeholder="Buscar"/>
         <a href="#" class="searchbar-clear"></a>
@@ -25,8 +25,8 @@
     </div>
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
         <div class="avisoFavs">Deslizar izquierda para a&nacute;adir favoritos <img class="verticalMid" src="img/s1.jpg"></div>
-        <ul id="listaBoe">
-            <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)" class="swipeout">
+        <ul>
+            <li id="{{ $index }}" ng-repeat="item in items track by $index" ng-click="openPopup($index)" class="swipeout">
                 <div class="swipeout-content">
                     <label class="label-radio item-content padLeft5">
                         <input type="radio" name="my-radio">

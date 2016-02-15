@@ -36,10 +36,10 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     });
   };
   $scope.openPopup = function(itemIndex){
-    MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.new( itemIndex );
     BoeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = BoeItem;
+    MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
       BoeItem.showButtons = true;
@@ -76,10 +76,10 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
     $scope.items = null;
   };
   $scope.openPopup = function(index){
-    MyApp.fw7.app.popup('.popup-detalle');
     IdepaItem.new( index );
     IdepaItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = IdepaItem;
+    MyApp.fw7.app.popup('.popup-detalle');
     IdepaItem.getData( IdepaItem.link ).then(function(htmlDetalle){
       IdepaItem.content = htmlDetalle;
       IdepaItem.showButtons = true;
@@ -112,8 +112,8 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     $scope.items = null;
   };
   $scope.openPopup = function(itemIndex){
-    MyApp.fw7.app.popup('.popup-detalle');
     $rootScope.item = MineturItems.getItemById(itemIndex);
+    MyApp.fw7.app.popup('.popup-detalle');
   };
 });
 // =====================================================================================================================
@@ -142,10 +142,10 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     $scope.items = null;
   };
   $scope.openPopup = function(index){
-    MyApp.fw7.app.popup('.popup-detalle');
     IpymeItem.new( index );
     IpymeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = IpymeItem;
+    MyApp.fw7.app.popup('.popup-detalle');
     IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
       IpymeItem.content = htmlDetalle;
       IpymeItem.showButtons = true;
@@ -175,10 +175,10 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     })
   };
   $scope.openPopup = function(index){
-    MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.new( index );
     BdnsItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = BdnsItem;
+    MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.getData().then(function(htmlDetalle){
       BdnsItem.content = htmlDetalle;
       BdnsItem.showButtons = true;

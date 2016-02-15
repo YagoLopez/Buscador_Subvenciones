@@ -168,7 +168,8 @@ MyApp.angular.service('Error', function(){
     MyApp.fw7.app.hideIndicator();
     msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
-      msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto';
+      msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto<br>' +
+        '3) Navegador no soportado [IExplorer] para esta operacion [preflight request]';
     MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };

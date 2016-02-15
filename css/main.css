@@ -1,18 +1,13 @@
+/*
 .popup-overlay.modal-overlay-visible {
     opacity: 0;
 }
+*/
 i.demo-icon-email {
     width: 24px;
     height: 24px;
     background-image: url("data:image/svg+xml;charset=utf-8,<svg fill='#fff' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 }
-/*
-i.demo-icon-upload {
-    width: 24px;
-    height: 24px;
-    background-image: url("data:image/svg+xml;charset=utf-8,<svg fill='#FFFFFF' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><path d='M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z'/></svg>");
-}
-*/
 /* ================================================================================================================== */
 .list-block-search .item-inner {
     font-size: small;}
@@ -44,7 +39,7 @@ div.center {
     padding-left: 8px;
 }
 .padTop0{
-    padding-top: 0 !important;
+    padding-top: 10px !important;
     }
 .margLista {
     margin-top: 0;
@@ -86,7 +81,7 @@ div.center {
     padding: 5px;
 }
 .padBot50 {
-    padding-bottom: 50px;
+    padding-bottom: 30px;
 }
 .backgrnd {
     /*background-image: url('../img/wall/wp1.jpg');*/
@@ -102,18 +97,26 @@ div.center {
 .avisoFavs {
     text-align: center;
     font-size: 12px;
-    color: lightgray;
+    color: gray;
     padding: 7px 7px 3px;
 }
 .verticalMid{
     vertical-align: middle;
 }
-/*
+
 .cardFooter.active-state{
     background: lightgray;
 }
+.marg15{
+    margin:2.5%;
+}
 /* ================================================================================================================== */
-.popover {
+.ks-card-header-pic .card-header {
+    height: 25vw;
+    background-size: cover;
+    background-position: center;
+}
+/*.popover {
     width: 200px;
 }
 
@@ -149,6 +152,11 @@ div.center {
 .tabbar i.icon {
     -webkit-transition: 200ms;
     transition: 200ms;
+}
+i.demo-icon-upload {
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml;charset=utf-8,<svg fill='#FFFFFF' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><path d='M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z'/></svg>");
 }
 
 i.ks-icon-email {
@@ -221,12 +229,7 @@ i.ks-icon-edit {
 
 .active i.ks-icon-edit, .active-state i.ks-icon-edit {
     opacity: 1;
-}
-.ks-card-header-pic .card-header {
-    height: 25vw;
-    background-size: cover;
-    background-position: center;
-}
+}*/
 /* ================================================================================================================== */
 /*
 .ks-demo-slider {

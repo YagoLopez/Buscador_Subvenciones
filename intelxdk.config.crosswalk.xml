@@ -22,11 +22,12 @@
 <splash platform="android" src="img/icons-splashscreen/470x320.png" density="mdpi" width="470" height="320" orientation="landscape"/>
 <splash platform="android" src="img/icons-splashscreen/640x480.png" density="hdpi" width="640" height="480" orientation="landscape"/>
 <splash platform="android" src="img/icons-splashscreen/960x720.png" density="xhdpi" width="960" height="720" orientation="landscape"/>
+<intelxdk:plugin intelxdk:name="Splashscreen" intelxdk:value="cordova-plugin-splashscreen" intelxdk:version="3.0.0" intelxdk:checksum="3a611d61"/>
 <intelxdk:plugin intelxdk:name="Cordova Network Whitelist Plugin" intelxdk:value="cordova-plugin-whitelist" intelxdk:version="1.1.0"/>
 <preference name="android-minSdkVersion" value="14"/>
 <preference name="android-targetSdkVersion" value="19"/>
 <preference name="android-installLocation" value="auto"/>
 <intelxdk:crosswalk version="15"/>
 <preference name="splashscreen" value="splash"/>
-<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.webapp"}-->
+<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.jsapp"}-->
 <preference name="debuggable" value="false"/></widget>

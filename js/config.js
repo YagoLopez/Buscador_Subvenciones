@@ -8,17 +8,18 @@ MyApp.fw7 = {
   app : new Framework7({
     material: true,
     materialRipple: false,
-    activeState: false,
-    fastClicks: false,
-    pushState: false,
+    materialPageLoadDelay: 10, // revisar
+    activeState: true,
+    fastClicks: true,//?
+    pushState: false,//?
+    //activeStateElements: '',
     sortable: false,
     cache: false,
-    materialPageLoadDelay: 0, // revisar
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    materialPreloaderHtml: '<div style="color:white;font-size:12px;">Cargando</div>',
-    activeStateElements: '',
+    materialPreloaderHtml: '<div style="color:white;font-size:12px;padding:10px">Cargando</div>',
+    //materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
     materialPreloaderSvg: '',
     materialRippleElements: '',
     scrollTopOnNavbarClick: true,
@@ -29,7 +30,6 @@ MyApp.fw7 = {
     uniqueHistory: false,
     preloadPreviousPage: true
     //pushStateSeparator: '#!'
-    //materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
   })
 };
 
@@ -38,9 +38,10 @@ MyApp.fw7.app.addView( '.view-main', {domCache: true} );
 // Angular configuration and initialization ============================================================================
 MyApp.angular = angular.module('MyApp', []);
 
-MyApp.angular.config( function($provide, $compileProvider) {
+MyApp.angular.config( function($provide, $compileProvider, $httpProvider) {
 
   $compileProvider.debugInfoEnabled(false);
+  $httpProvider.useApplyAsync(true);
   //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
