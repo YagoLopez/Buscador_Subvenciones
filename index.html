@@ -6,6 +6,7 @@
 <!--todo: en la ayuda poner: se puede activar el panel de menu arrastrando borde izqdo - hacer scroll haciendo tap en barra superior, fvoritos, etc-->
 <!--todo: intentar limpiar mas los ficheros css-->
 <!--todo: falta ajutstar imagenes splash screen-->
+<!--todo: intentar arreglar el listado minetur. cambiar nombres de columnas en definicion de api?-->
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
 <head>
@@ -83,6 +84,11 @@
                 </div>
                 <ng-include src="'html/listado.html'"></ng-include>
             </div>
+            <!-- pagina favoritos ================================================================================== -->
+            <div data-page="favoritos" class="page cached" ng-controller="FavoritosCtrl">
+                <ng-include src="'html/favoritos.html'"></ng-include>
+            </div>
+            <!-- pagina favoritos ================================================================================== -->
         </div>
     </div>
 </div>
@@ -100,6 +106,8 @@
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
+<script type="text/javascript" src="lib/ngstorage/ngStorage.js"></script>
+
 </body>
 
 </html>

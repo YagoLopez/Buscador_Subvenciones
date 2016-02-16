@@ -169,7 +169,7 @@ MyApp.angular.service('Error', function(){
     msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
       msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto<br>' +
-        '3) Navegador no soportado.';
+        '3) Configuracion de seguridad excesiva en IExplorer<br><br>';
     MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };
@@ -332,6 +332,7 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
   var requestHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
+    //'Access-Control-Allow-Origin': '*'
   };
 
   var requestConfig = {
@@ -427,6 +428,26 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
         Error.mostrar(datosError);
       });
   };
+
+});
+// =====================================================================================================================
+MyApp.angular.service('Favoritos', function ($localStorage) {
+
+  this.getAll = function () {
+    return $localStorage.favoritos;
+  }
+
+  this.add = function (item) {
+    if(!$localStorage.favoritos){
+      $localStorage.favoritos = [];
+    };
+    $localStorage.favoritos.push(item);
+  };
+
+  this.delete = function (index) {
+    $localStorage.favoritos.splice(index, 1);
+  };
+
 
 });
 

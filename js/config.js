@@ -36,7 +36,7 @@ MyApp.fw7 = {
 MyApp.fw7.app.addView( '.view-main', {domCache: true} );
 
 // Angular configuration and initialization ============================================================================
-MyApp.angular = angular.module('MyApp', []);
+MyApp.angular = angular.module('MyApp', ['ngStorage']);
 
 MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // config
 

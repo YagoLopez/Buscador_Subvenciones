@@ -26,24 +26,24 @@
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
         <div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s1.jpg"></div>
         <ul>
-            <!--<li id="{{ $index }}" ng-repeat="item in items track by $index" ng-click="openPopup($index)" class="swipeout">-->
+            <!--<li id="{{ $index }}" ng-repeat="item in items track by $index" ng-click="openPanel($index)" class="swipeout">-->
             <li id="{{ $index }}" ng-repeat="item in items track by $index" class="swipeout">
             <div class="swipeout-content">
                     <label class="label-radio item-content padLeft5">
                         <input type="radio" name="my-radio">
                         <div class="item-inner margLeft8">
-                            <div ng-click="openPopup($index)"><!-- todo: probar a poner aqui el evento ng-click=openPopup() -->
+                            <div>
                                 <i class="icon icon-form-radio smallRadio"></i>
-                                <span>{{ item.title }}</span>
-                                <span>{{ item.titulo.text }}</span>
-                                <span>{{ item.descripcion }}</span>
-                                <span>{{ item[5] | uppercase }}</span>
+                                <span ng-if="item.title">{{ item.title }}</span>
+                                <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
+                                <span ng-if="item.descripcion">{{ item.descripcion }}</span>
+                                <span ng-if="item[5]">{{ item[5] | uppercase }}</span>
                                 <div class="pieItem">
-                                    <div>{{ item.description }}</div>
-                                    <div>{{ item.ambito }}</div>
-                                    <div>{{ item.plazo }}</div>
-                                    <div>{{ item.creator }}</div>
-                                    <div>{{ item[2] }} {{ item[4] }}</div>
+                                    <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
+                                    <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>
+                                    <div ng-if="item.plazo">Plazo solicitud: {{ item.plazo }}</div>
+                                    <div ng-if="item.creator">{{ item.creator }}</div>
+                                    <div ng-if="item[2]">{{ item[2] }} - {{ item[4] }}</div>
                                 </div>
                             </div>
                         </div>
