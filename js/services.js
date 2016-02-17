@@ -211,14 +211,6 @@ MyApp.angular.service('Utiles', function(){
       //return 'No hay datos. Error al analizar fichero XML';
     };
   };
-  this.avisoFavoritoAdded = function () {
-    MyApp.fw7.app.addNotification({
-      message:'Favorito a&#241;adido',
-      hold:1500,
-      button: {text: 'Cerrar', color:'blue', close:true},
-      closeOnClick:true
-    });
-  };
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
@@ -349,7 +341,7 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
     headers: requestHeaders,
     //params: {},
     //data: { title: 'pesca' },
-    cache: true,
+    cache: false,
     withCredentials: true
   };
 
@@ -380,7 +372,7 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
     );
   };
 */
-
+/* segunda solucion *************************************************************************************************
   this.getData = function(){
     return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
       function(resp){
@@ -400,6 +392,32 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
       function(respError){Error.mostrar(respError)}
     );
   };
+********************************************************************************************************************* */
+
+  // Para poder hacer una llamada a la url que devuelve los datos en formato json es necesario previamente
+  // obtener una cookie de sesion, es decir, en realidad hay que hacer dos peticiones http.
+  // Para lograr esto se utilizaa el patron de encadenamiento de promesas. Primero se hace una peticion http en donde se
+  // obtiene la cookie y luego se encadena una segunda peticion donde se obtienen los datos json
+
+  this.getData = function () {
+    return $http(requestConfig)
+      .then(function (resp) {               // Primer then(), se obtiene la cookie de session de forma transparente
+        console.log('bdns, obteniendo cookie de sesion', resp);
+      }, function () { Error.mostrar2('BDNS. Error obteniendo cookie de sesion') })
+      .then(function (resp) {               // Segundo then(), se obtienen los datos
+        return $http.get(urlUltimas, {cache:true, withCredentials:true})
+          .then(function (resp) {
+            self.items = resp.data.rows;
+            console.log('datos para urlUltimas', resp.data.rows);
+            return resp.data.rows;
+          }, function (respError) {
+            Error.mostrar(respError);
+          })
+      }, function (respError) { Error.mostrar(respError) });
+  };
+
+
+
 
 })
 // =====================================================================================================================
@@ -443,21 +461,28 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
 
   this.getAll = function () {
     return $localStorage.favoritos;
-  }
+  };
   this.add = function (item) {
     if(!$localStorage.favoritos){
       $localStorage.favoritos = [];
     };
     $localStorage.favoritos.push(item);
   };
-
   this.delete = function (index) {
     $localStorage.favoritos.splice(index, 1);
   };
   this.deleteAll = function () {
-    //$localStorage.favoritos.length = 0; Esta forma es menos portable, por lo visto
+    //$localStorage.favoritos.length = 0; Esta forma es menos portable
     totalFavs = $localStorage.favoritos.length;
     $localStorage.favoritos.splice(0, totalFavs);
+  };
+  this.mostrarAviso = function (texto) {
+    MyApp.fw7.app.addNotification({
+      message: texto,
+      hold: 1500,
+      button: {text:'Cerrar', close:true},
+      closeOnClick: true
+    });
   };
 });
 

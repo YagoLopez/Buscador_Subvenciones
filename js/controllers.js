@@ -12,7 +12,7 @@ MyApp.angular.controller('HomePageController', function ($scope, InitService) {
     });
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Utiles, Favoritos, $timeout) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Favoritos) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoBoe', function (page) {
@@ -49,7 +49,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     $scope.items = null;
   };
   $scope.addFavorito = function (itemIndex) {
-    Utiles.avisoFavoritoAdded();
+    Favoritos.mostrarAviso('Favorito guardado');
     var favorito = BoeItems.getItems()[itemIndex];
     Favoritos.add(favorito);
   };
@@ -91,6 +91,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
     });
   };
   $scope.addFavorito = function (index) {
+    Favoritos.mostrarAviso('Favorito guardado');
     var favorito = IdepaItems.getItems()[index];
     Favoritos.add(favorito);
   };
@@ -125,6 +126,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     MyApp.fw7.app.popup('.popup-detalle');
   };
   $scope.addFavorito = function (itemIndex) {
+    Favoritos.mostrarAviso('Favorito guardado');
     var favorito = MineturItems.getItemById(itemIndex);
     Favoritos.add(favorito);
   };
@@ -165,6 +167,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     });
   };
   $scope.addFavorito = function (itemIndex) {
+    Favoritos.mostrarAviso('Favorito guardado');
     var favorito = IpymeItems.getItems()[itemIndex];
     Favoritos.add(favorito);
   };
@@ -202,6 +205,7 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     });
   };
   $scope.addFavorito = function (index) {
+    Favoritos.mostrarAviso('Favorito guardado');
     var favorito = BdnsItems.getItems()[index];
     Favoritos.add(favorito);
   };
@@ -215,19 +219,17 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos) {
   MyApp.fw7.app.onPageAfterAnimation('favoritos', function () {
     $scope.favoritos = Favoritos.getAll();
     $scope.$apply();
-    console.log('favoritos', $scope.favoritos);
   });
-
   $scope.deleteFavorito = function (itemIndex) {
-    console.log('favoritos antes de borrar', Favoritos.getAll());
     Favoritos.delete(itemIndex);
-    console.log('borrando favorito indice', itemIndex);
-    console.log('favoritos despues de borrar', Favoritos.getAll());
+    Favoritos.mostrarAviso('Favorito borrado');
   };
   $scope.deleteAll = function () {
     //todo: pedir confirmacion para borrar todos
-    Favoritos.deleteAll();
-
+    MyApp.fw7.app.confirm('Confirmar', 'Borrar Todos los favoritos', function () {
+      Favoritos.deleteAll();
+      $scope.$apply();
+    });
   };
 
 });
