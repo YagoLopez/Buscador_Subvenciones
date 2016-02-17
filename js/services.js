@@ -211,6 +211,14 @@ MyApp.angular.service('Utiles', function(){
       //return 'No hay datos. Error al analizar fichero XML';
     };
   };
+  this.avisoFavoritoAdded = function () {
+    MyApp.fw7.app.addNotification({
+      message:'Favorito a&#241;adido',
+      hold:1500,
+      button: {text: 'Cerrar', color:'blue', close:true},
+      closeOnClick:true
+    });
+  };
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
@@ -436,7 +444,6 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
   this.getAll = function () {
     return $localStorage.favoritos;
   }
-
   this.add = function (item) {
     if(!$localStorage.favoritos){
       $localStorage.favoritos = [];
@@ -447,8 +454,11 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
   this.delete = function (index) {
     $localStorage.favoritos.splice(index, 1);
   };
-
-
+  this.deleteAll = function () {
+    //$localStorage.favoritos.length = 0; Esta forma es menos portable, por lo visto
+    totalFavs = $localStorage.favoritos.length;
+    $localStorage.favoritos.splice(0, totalFavs);
+  };
 });
 
 /*

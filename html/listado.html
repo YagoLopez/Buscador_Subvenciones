@@ -23,8 +23,9 @@
     <div class="content-block searchbar-not-found">
         <div class="content-block-inner">No se han encontrado resultados</div>
     </div>
+    <!--todo: implementar overswipe-->
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
-        <div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s1.jpg"></div>
+        <div class="avisoFavs">Deslizar item todo izquierda para guardar <img class="verticalMid" src="img/s1.jpg"></div>
         <ul>
             <!--<li id="{{ $index }}" ng-repeat="item in items track by $index" ng-click="openPopup($index)" class="swipeout">-->
             <li id="{{ $index }}" ng-repeat="item in items track by $index" class="swipeout">
@@ -32,7 +33,7 @@
                     <label class="label-radio item-content padLeft5">
                         <input type="radio" name="my-radio">
                         <div class="item-inner margLeft8">
-                            <div ng-click="openPopup($index)"><!-- todo: probar a poner aqui el evento ng-click=openPopup() -->
+                            <div>
                                 <i class="icon icon-form-radio smallRadio"></i>
                                 <span>{{ item.title }}</span>
                                 <span>{{ item.titulo.text }}</span>

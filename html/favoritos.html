@@ -6,28 +6,37 @@
         </div>
         <div class="center">Favoritos</div>
         <div class="right">
-            <a href="#" class="link icon-only open-panel" data-panel="left">
+            <a href="#" class="link icon-only" ng-click="deleteAll()" style="padding:0">
+                <i class="fa fa-trash-o fa-2"></i>
+            </a>
+            <a href="#" class="link icon-only open-panel" data-panel="left" style="padding:8px">
                 <i class="link icon icon-bars"></i>
             </a>
         </div>
-        <!--<div class="right" style="width:65px;"></div>-->
     </div>
 </div>
 <div class="page-content padTop0 hide-toolbar-on-scroll">
     <!-- Listado =============================================================================================== -->
     <!--todo: implementar overswipe-->
     <div class="list-block margLista">
-        <div class="avisoFavs">Deslizar item izquierda para borrar <img class="verticalMid" src="img/s1.jpg"></div>
+        <div ng-if="favoritos.length > 0" class="avisoFavs">
+            Deslizar item izquierda para borrar <img class="verticalMid" src="img/s1.jpg"></div>
+        <div ng-if="favoritos.length < 1" class="avisoFavs">No hay favoritos</div>
         <ul>
-            <li id="fav{{ $index }}" ng-repeat="favorito in favoritos track by $index" class="swipeout">
+            <li id="fav{{ $index }}" ng-repeat="fav in favoritos track by $index" class="swipeout">
                 <div class="swipeout-content">
                     <div class="item-inner margLeft8">
                         <div>
-                            <span>{{ favorito.titulo }}</span>
-
+                            <span>{{ fav.title }}</span>
+                            <span>{{ fav.titulo.text }}</span>
+                            <span>{{ fav.descripcion }}</span>
+                            <span>{{ fav[5] | uppercase }}</span>
                             <div class="pieItem">
-                                <span>{{ favorito.description }}</span>
-                                <span>{{ favorito.ambito }}</span>
+                                <div>{{ fav.description }}</div>
+                                <div>{{ fav.ambito }}</div>
+                                <div>{{ fav.plazo }}</div>
+                                <div>{{ fav.creator }}</div>
+                                <div>{{ fav[2] }} {{ fav[4] }}</div>
                             </div>
                         </div>
                     </div>
