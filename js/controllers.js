@@ -1,17 +1,3 @@
-MyApp.angular.controller('HomePageController', function ($scope, InitService) {
-
-    InitService.addEventListener('ready', function () {
-        // DOM ready
-        console.log('IndexPageController: ok, DOM ready');
-
-        // You can access angular like this:
-        // MyApp.angular
-
-        // And you can access Framework7 like this:
-        // MyApp.fw7.app
-    });
-});
-// =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Favoritos) {
 
   var searchbar = null;
@@ -48,12 +34,15 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $scope.addFavorito = function (itemIndex) {
-    Favoritos.mostrarAviso('Favorito guardado');
-    var favorito = BoeItems.getItems()[itemIndex];
-    Favoritos.add(favorito);
+  $scope.addFavorito = function (favoritoIndex) {
+    var aceptarGuardar = function () {
+      var favorito = BoeItems.getItems()[favoritoIndex];
+      Favoritos.add(favorito);
+      $scope.$apply();
+      Favoritos.mostrarAviso('Favorito guardado');
+    };
+    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
-  //$rootScope.btnTop = Utiles.btnTop;
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem, Favoritos) {
@@ -90,10 +79,14 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       IdepaItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (index) {
-    Favoritos.mostrarAviso('Favorito guardado');
-    var favorito = IdepaItems.getItems()[index];
-    Favoritos.add(favorito);
+  $scope.addFavorito = function (favoritoIndex) {
+    var aceptarGuardar = function () {
+      var favorito = IdepaItems.getItems()[favoritoIndex];
+      Favoritos.add(favorito);
+      $scope.$apply();
+      Favoritos.mostrarAviso('Favorito guardado');
+    };
+    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
 });
 // =====================================================================================================================
@@ -122,13 +115,17 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     $scope.items = null;
   };
   $scope.openPopup = function(itemIndex){
-    $rootScope.item = MineturItems.getItemById(itemIndex);
+    $rootScope.item = MineturItems.getItems()[itemIndex];
     MyApp.fw7.app.popup('.popup-detalle');
   };
-  $scope.addFavorito = function (itemIndex) {
-    Favoritos.mostrarAviso('Favorito guardado');
-    var favorito = MineturItems.getItemById(itemIndex);
-    Favoritos.add(favorito);
+  $scope.addFavorito = function (favoritoIndex) {
+    var aceptarGuardar = function () {
+      var favorito = MineturItems.getItems()[favoritoIndex];
+      Favoritos.add(favorito);
+      $scope.$apply();
+      Favoritos.mostrarAviso('Favorito guardado');
+    };
+    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
 });
 // =====================================================================================================================
@@ -166,10 +163,14 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
       IpymeItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (itemIndex) {
-    Favoritos.mostrarAviso('Favorito guardado');
-    var favorito = IpymeItems.getItems()[itemIndex];
-    Favoritos.add(favorito);
+  $scope.addFavorito = function (favoritoIndex) {
+    var aceptarGuardar = function () {
+      var favorito = IpymeItems.getItems()[favoritoIndex];
+      Favoritos.add(favorito);
+      $scope.$apply();
+      Favoritos.mostrarAviso('Favorito guardado');
+    };
+    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
 });
 // =====================================================================================================================
@@ -198,16 +199,21 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     BdnsItem.new( index );
     BdnsItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = BdnsItem;
+    console.log('item', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.getData().then(function(htmlDetalle){
       BdnsItem.content = htmlDetalle;
       BdnsItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (index) {
-    Favoritos.mostrarAviso('Favorito guardado');
-    var favorito = BdnsItems.getItems()[index];
-    Favoritos.add(favorito);
+  $scope.addFavorito = function (favoritoIndex) {
+    var aceptarGuardar = function () {
+      var favorito = BdnsItems.getItems()[favoritoIndex];
+      Favoritos.add(favorito);
+      $scope.$apply();
+      Favoritos.mostrarAviso('Favorito guardado');
+    };
+    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
   $scope.onIconBack = function() {
     $scope.items = null;
@@ -221,15 +227,17 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos) {
     $scope.$apply();
   });
   $scope.deleteFavorito = function (itemIndex) {
-    Favoritos.delete(itemIndex);
-    Favoritos.mostrarAviso('Favorito borrado');
+    var aceptarBorrar = function () {
+      Favoritos.delete(itemIndex);
+      $scope.$apply();
+      Favoritos.mostrarAviso('Favorito borrado');
+    };
+    MyApp.fw7.app.confirm('Borrar favorito?', 'Confirmar', aceptarBorrar);
   };
   $scope.deleteAll = function () {
-    //todo: pedir confirmacion para borrar todos
-    MyApp.fw7.app.confirm('Confirmar', 'Borrar Todos los favoritos', function () {
+    MyApp.fw7.app.confirm('Borrar Todos los favoritos', 'Confirmar', function () {
       Favoritos.deleteAll();
       $scope.$apply();
     });
   };
-
 });

@@ -169,7 +169,7 @@ MyApp.angular.service('Error', function(){
     msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
       msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto<br>' +
-        '3) Configuracion de seguridad excesiva en IExplorer<br><br>';
+        '3) Configuracion de seguridad restrictiva en IExplorer<br><br>';
     MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };
@@ -326,12 +326,14 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
 MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
 
   var self = this;
-  var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/';
-  var urlUltimas = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc';
+  var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/index';
+  var urlUltimasAyudas = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?' +
+    'type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc';
 
   var requestHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
+    //,
     //'Access-Control-Allow-Origin': '*'
   };
 
@@ -354,27 +356,10 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
     return this.getItems()[index];
   }
 
-/*
+/* segunda solucion ************************************************************************************************ */
+
   this.getData = function(){
-   $http.defaults.useXDomain = true;
-   return $http(requestConfig).then(
-      function(resp){
-        return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
-          function(resp){
-            self.items = resp.data.rows;
-            //console.log('datos para url2', resp.data.rows);
-            return resp.data.rows;
-          },
-          function(respError){Error.mostrar(respError)}
-        )
-      },
-      function(respError){Error.mostrar(respError)}
-    );
-  };
-*/
-/* segunda solucion *************************************************************************************************
-  this.getData = function(){
-    return $http.get(urlUltimas, {cache:true, withCredentials:true}).then(
+    return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true}).then(
       function(resp){
         self.items = resp.data.rows;
         //console.log('datos para url2', resp.data.rows);
@@ -392,34 +377,35 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
       function(respError){Error.mostrar(respError)}
     );
   };
-********************************************************************************************************************* */
+/* ****************************************************************************************************************** */
 
-  // Para poder hacer una llamada a la url que devuelve los datos en formato json es necesario previamente
-  // obtener una cookie de sesion, es decir, en realidad hay que hacer dos peticiones http.
+  // Para poder los datos en formato json de bdns es necesario previamente
+  // obtener una cookie de sesion. Es decir, en realidad hay que hacer dos peticiones http.
   // Para lograr esto se utilizaa el patron de encadenamiento de promesas. Primero se hace una peticion http en donde se
   // obtiene la cookie y luego se encadena una segunda peticion donde se obtienen los datos json
 
-  this.getData = function () {
+/*  this.getData = function () {
     return $http(requestConfig)
-      .then(function (resp) {               // Primer then(), se obtiene la cookie de session de forma transparente
-        console.log('bdns, obteniendo cookie de sesion', resp);
-      }, function () { Error.mostrar2('BDNS. Error obteniendo cookie de sesion') })
-      .then(function (resp) {               // Segundo then(), se obtienen los datos
-        return $http.get(urlUltimas, {cache:true, withCredentials:true})
-          .then(function (resp) {
-            self.items = resp.data.rows;
-            console.log('datos para urlUltimas', resp.data.rows);
-            return resp.data.rows;
-          }, function (respError) {
-            Error.mostrar(respError);
-          })
-      }, function (respError) { Error.mostrar(respError) });
+      .then(function (resp) {
+        console.log('efectuando primera peticion, obtencion de cookie, respuesta', resp);
+        console.log('esperando para hacer la segunda peticion');
+        return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true});
+      }, function (respError) {
+        console.log('fallo primera peticion obtencion de cookie');
+        Error.mostrar(respError);
+      }).then(function (resp) {
+        console.log('procesando resultado de segunda peticion');
+        self.items = resp.data.rows;
+        console.log('datos de segunda peticion', resp.data.rows);
+        return resp.data.rows;
+      }, function (respError) {
+        console.log('Bdns. Error procesando segunda peticion');
+        Error.mostrar(respError);
+      });
   };
+  */
 
-
-
-
-})
+});
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
@@ -469,17 +455,18 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     $localStorage.favoritos.push(item);
   };
   this.delete = function (index) {
+    console.log('borrando favorito indice:', index);
     $localStorage.favoritos.splice(index, 1);
   };
   this.deleteAll = function () {
-    //$localStorage.favoritos.length = 0; Esta forma es menos portable
+    //$localStorage.favoritos.length = 0; <- Esta forma es menos portable
     totalFavs = $localStorage.favoritos.length;
     $localStorage.favoritos.splice(0, totalFavs);
   };
   this.mostrarAviso = function (texto) {
     MyApp.fw7.app.addNotification({
       message: texto,
-      hold: 1500,
+      hold: 2000,
       button: {text:'Cerrar', close:true},
       closeOnClick: true
     });

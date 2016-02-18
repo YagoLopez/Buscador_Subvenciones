@@ -1,5 +1,4 @@
 <!--todo: falta por quitar el enlace roto en la pagina de detalle-->
-<!--todo: favoritos-->
 <!--todo: quitar info de depuracion para optimizar-->
 <!--todo: obtener detalle boe directamente del extracto xml-->
 <!--todo: slogan: base de datos con mas de 600 ayudas y subvenciones nacionales e internacinales actualizadas-->
@@ -8,14 +7,14 @@
 <!--todo: falta ajutstar imagenes splash screen-->
 <!--todo: intentar arreglar el listado minetur. cambiar nombres de columnas en definicion de api?-->
 <!--todo: arreglar lo del estilo del menu lateral-->
-<!--todo: mostrar toast cuando se hace click en añadir a favoritos-->
 <!--todo: comprobar si ya se ha añadido a favoritos y mostrar mensaje en caso de que sea asi-->
 <!--todo: intentar arreglar lo de que no funcionen las opciones de menu para el boe, haciendo que f7 diferencie urls con parametros-->
 <!--todo: borrar todos los favoritos-->
-<!--todo: que al borrar un favorito se cierre el swiper, lo mismo al añadir favorito-->
 <!--todo: mover el titulo, en algunos sitios esta un poco descentrado-->
-<!--todo: poner menu favoritos en otro color-->
 <!--todo: poner el nombre del orgaanismo en cada favorito-->
+<!--todo: desactivar menu lateral en pagina listado usando parametro de aplicacion ??? no lo tengo claro-->
+<!--todo:  al mostrar el listado habria que comprobar si cada item esta ya en favoritos-->
+<!--todo: pedir confirmacion al borrar favorito-->
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
 <head>
@@ -29,9 +28,6 @@
     <link rel="stylesheet" type="text/css" href="lib/f7/framework7.material.colors.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <!--<link rel="stylesheet" type="text/css" href="css/normalize.css" />-->
-    <!--<link rel="stylesheet" type="text/css" href="css/set2.css">-->
-    <!--<link href="http://fonts.googleapis.com/css?family=Raleway:400,800,500,600" rel="stylesheet" type="text/css">-->
     <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
 </head>
 
@@ -109,14 +105,11 @@
 <div id="popover-share" class="popover">
     <ng-include src="'html/popover-share.html'"></ng-include>
 </div>
-
 <script type="text/javascript" src="lib/angular/angular.min.js"></script>
 <script type="text/javascript" src="lib/f7/framework7.min.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
-<script type="text/javascript" src="lib/ngstorage/ngStorage.js"></script>
-
+<script type="text/javascript" src="lib/angular/ngstorage/ngStorage.min.js"></script>
 </body>
-
 </html>

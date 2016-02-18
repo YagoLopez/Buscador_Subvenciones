@@ -23,10 +23,10 @@ MyApp.fw7 = {
     materialPreloaderSvg: '',
     materialRippleElements: '',
     scrollTopOnNavbarClick: true,
-    swipePanel: false,
-    //swipePanelActiveArea: 500,
-    //swipePanelNoFollow: false,
-    //swipePanelThreshold: 10,
+    swipePanel: 'left',
+    swipePanelActiveArea: 500,
+    swipePanelNoFollow: false,
+    swipePanelThreshold: 10,
     uniqueHistory: false,
     preloadPreviousPage: true
     //pushStateSeparator: '#!'
@@ -57,7 +57,7 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // c
 
 MyApp.angular.run( function(Utiles, $rootScope, BdnsItems) { // init
   //$rootScope.btnTop = Utiles.btnTop;
-  BdnsItems.getSessionCookie();
+  //BdnsItems.getSessionCookie();
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================

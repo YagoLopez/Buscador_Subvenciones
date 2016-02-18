@@ -3,5 +3,6 @@
   "private": "true",
   "devDependencies": {},
   "dependencies": {
+    "ios-dblclick": "^0.1.0"
   }
 }
