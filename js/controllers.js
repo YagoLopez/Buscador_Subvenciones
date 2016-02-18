@@ -34,12 +34,17 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $scope.addFavorito = function (favoritoIndex) {
+  $scope.addFavorito = function (candidatoIndex) {
     var aceptarGuardar = function () {
-      var favorito = BoeItems.getItems()[favoritoIndex];
-      Favoritos.add(favorito);
-      $scope.$apply();
-      Favoritos.mostrarAviso('Favorito guardado');
+      var candidatoFavorito = BoeItems.getItems()[candidatoIndex];
+      if( !Favoritos.contiene(candidatoFavorito) ){
+        Favoritos.add(candidatoFavorito);
+        console.log('el candidato a favoritos no esta en la lista de favoritos y sera añadido, candidato', candidatoFavorito);
+        $scope.$apply();
+        Favoritos.mostrarAviso('Favorito guardado');
+      } else {
+        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos');
+      }
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };

@@ -38,7 +38,7 @@
                             <span>{{ item.descripcion }}</span>
                             <span>{{ item[5] | uppercase }}</span>
                             <div class="pieItem">
-                                <div>{{ item.description }}</div>
+                                <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
                                 <div>{{ item.ambito }}</div>
                                 <div>{{ item.plazo }}</div>
                                 <div>{{ item.creator }}</div>

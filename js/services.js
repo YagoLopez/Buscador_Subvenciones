@@ -471,6 +471,15 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
       closeOnClick: true
     });
   };
+  this.contiene = function (item) {
+    var favoritos = this.getAll(); var i;
+    for (i = 0; i < favoritos.length; i++) {
+      if ( angular.equals(favoritos[i], item) ) {
+        return true;
+      }
+    };
+    return false;
+  };
 });
 
 /*
