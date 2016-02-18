@@ -34,17 +34,16 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   $scope.onIconBack = function() {
     $scope.items = null;
   };
-  $scope.addFavorito = function (candidatoIndex) {
+  $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
-      var candidatoFavorito = BoeItems.getItems()[candidatoIndex];
-      if( !Favoritos.contiene(candidatoFavorito) ){
-        Favoritos.add(candidatoFavorito);
-        console.log('el candidato a favoritos no esta en la lista de favoritos y sera añadido, candidato', candidatoFavorito);
+      var item = BoeItems.getItems()[itemIndex];
+      item.txt = $scope.txt;
+      item.enlaceExterno = item.link;
+      if( !Favoritos.contiene(item) ){
+        Favoritos.add(item);
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
-      } else {
-        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos');
-      }
+      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -84,12 +83,16 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       IdepaItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (favoritoIndex) {
+  $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
-      var favorito = IdepaItems.getItems()[favoritoIndex];
-      Favoritos.add(favorito);
-      $scope.$apply();
-      Favoritos.mostrarAviso('Favorito guardado');
+      var iem = IdepaItems.getItems()[itemIndex];
+      item.organismo = $scope.txt;
+      item.enlaceExterno = item.link.href;
+      if( !Favoritos.contiene(iem) ){
+        Favoritos.add(iem);
+        $scope.$apply();
+        Favoritos.mostrarAviso('Favorito guardado');
+      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -123,12 +126,14 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     $rootScope.item = MineturItems.getItems()[itemIndex];
     MyApp.fw7.app.popup('.popup-detalle');
   };
-  $scope.addFavorito = function (favoritoIndex) {
+  $scope.addFavorito = function (candidatoIndex) {
     var aceptarGuardar = function () {
-      var favorito = MineturItems.getItems()[favoritoIndex];
-      Favoritos.add(favorito);
-      $scope.$apply();
-      Favoritos.mostrarAviso('Favorito guardado');
+      var candidatoFavorito = MineturItems.getItems()[candidatoIndex];
+      if( !Favoritos.contiene(candidatoFavorito) ){
+        Favoritos.add(candidatoFavorito);
+        $scope.$apply();
+        Favoritos.mostrarAviso('Favorito guardado');
+      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -168,12 +173,14 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
       IpymeItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (favoritoIndex) {
+  $scope.addFavorito = function (candidatoIndex) {
     var aceptarGuardar = function () {
-      var favorito = IpymeItems.getItems()[favoritoIndex];
-      Favoritos.add(favorito);
-      $scope.$apply();
-      Favoritos.mostrarAviso('Favorito guardado');
+      var candidatoFavorito = IpymeItems.getItems()[candidatoIndex];
+      if( !Favoritos.contiene(candidatoFavorito) ){
+        Favoritos.add(candidatoFavorito);
+        $scope.$apply();
+        Favoritos.mostrarAviso('Favorito guardado');
+      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -204,19 +211,20 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     BdnsItem.new( index );
     BdnsItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = BdnsItem;
-    console.log('item', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.getData().then(function(htmlDetalle){
       BdnsItem.content = htmlDetalle;
       BdnsItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (favoritoIndex) {
+  $scope.addFavorito = function (candidatoIndex) {
     var aceptarGuardar = function () {
-      var favorito = BdnsItems.getItems()[favoritoIndex];
-      Favoritos.add(favorito);
-      $scope.$apply();
-      Favoritos.mostrarAviso('Favorito guardado');
+      var candidatoFavorito = BdnsItems.getItems()[candidatoIndex];
+      if( !Favoritos.contiene(candidatoFavorito) ){
+        Favoritos.add(candidatoFavorito);
+        $scope.$apply();
+        Favoritos.mostrarAviso('Favorito guardado');
+      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -225,10 +233,11 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos) {
+MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos, $window) {
 
   MyApp.fw7.app.onPageAfterAnimation('favoritos', function () {
     $scope.favoritos = Favoritos.getAll();
+    console.log('favoritos', $scope.favoritos);
     $scope.$apply();
   });
   $scope.deleteFavorito = function (itemIndex) {
@@ -240,9 +249,12 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos) {
     MyApp.fw7.app.confirm('Borrar favorito?', 'Confirmar', aceptarBorrar);
   };
   $scope.deleteAll = function () {
-    MyApp.fw7.app.confirm('Borrar Todos los favoritos', 'Confirmar', function () {
+    MyApp.fw7.app.confirm('Borrar todos los favoritos', 'Confirmar', function () {
       Favoritos.deleteAll();
       $scope.$apply();
     });
   };
+  $scope.abreEnlace = function (url) {
+    $window.open(url, '_blank');
+  }
 });

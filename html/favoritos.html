@@ -17,27 +17,27 @@
 </div>
 <div class="page-content padTop0 hide-toolbar-on-scroll">
     <!-- Listado =============================================================================================== -->
-    <!--todo: implementar overswipe-->
-    <div class="list-block margLista">
+<!--    <div class="list-block margLista listaFavs">
         <div ng-if="favoritos.length > 0" class="avisoFavs">
             Deslizar item izquierda para borrar <img class="verticalMid" src="img/s2.png"></div>
         <div ng-if="favoritos.length < 1" class="avisoFavs">No hay favoritos</div>
         <ul>
             <li id="fav{{ $index }}" ng-repeat="fav in favoritos track by $index" class="swipeout">
                 <div class="item-inner margLeft8 swipeout-content">
-                    <div>
+                    <a ng-href="{{ fav.enlaceExterno }}" class="external" target="_blank" style="color:black">
+                        <div>{{ fav.txt.titulo }}</div>
                         <span>{{ fav.title }}</span>
                         <span>{{ fav.titulo.text }}</span>
                         <span>{{ fav.descripcion }}</span>
                         <span>{{ fav[5] | uppercase }}</span>
                         <div class="pieItem">
-                            <div>{{ fav.description }}</div>
+                            <div ng-if="fav.txt.titulo == 'BOE'">{{ fav.description }}</div>
                             <div>{{ fav.ambito }}</div>
                             <div>{{ fav.plazo }}</div>
                             <div>{{ fav.creator }}</div>
                             <div>{{ fav[2] }} {{ fav[4] }}</div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="swipeout-actions-right">
                     <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close swipeout-overswipe bg-red">
@@ -46,5 +46,48 @@
                 </div>
             </li>
         </ul>
+    </div>-->
+
+
+    <div class="list-block margLista listaFavs">
+        <div class="avisoFavs">Deslizar item izquierda para borrar <img class="verticalMid" src="img/s2.png"></div>
+        <div ng-if="favoritos.length < 1" class="avisoFavs">No hay favoritos</div>
+        <ul>
+            <li ng-repeat="fav in favoritos track by $index" class="swipeout">
+                <label class="label-radio item-content padLeft5">
+                    <input type="radio" name="my-radio">
+                    <div class="item-inner swipeout-content margLeft8" ng-click="abreEnlace(fav.enlaceExterno)">
+                        <div>
+                            <div style="color:orange;text-align:center">
+                                <i class="fa fa-building-o fa-3"></i> <b>{{ fav.txt.titulo }}</b>
+                            </div>
+                            <i class="icon icon-form-radio smallRadio"></i>
+                            <span>{{ fav.title }}</span>
+                            <span>{{ fav.titulo.text }}</span>
+                            <span>{{ fav.descripcion }}</span>
+                            <span>{{ fav[5] }}</span>
+                            <div class="pieItem">
+                                <div ng-if="fav.txt.titulo == 'BOE'">{{ fav.description }}</div>
+                                <div>{{ fav.ambito }}</div>
+                                <div>{{ fav.plazo }}</div>
+                                <div>{{ fav.creator }}</div>
+                                <div>{{ fav[2] }} {{ fav[4] }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swipeout-actions-right">
+                        <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close swipeout-overswipe bg-red">
+                            <b>Borrar</b>
+                        </a>
+                    </div>
+                </label>
+            </li>
+        </ul>
     </div>
+
+
+
+
+
+
 </div>
