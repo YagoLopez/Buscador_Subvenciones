@@ -1,4 +1,3 @@
-<!-- Barra nav ===================================================================================================== -->
 <div class="navbar sombra">
     <div class="navbar-inner">
         <div class="left">
@@ -16,39 +15,6 @@
     </div>
 </div>
 <div class="page-content padTop0 hide-toolbar-on-scroll">
-    <!-- Listado =============================================================================================== -->
-<!--    <div class="list-block margLista listaFavs">
-        <div ng-if="favoritos.length > 0" class="avisoFavs">
-            Deslizar item izquierda para borrar <img class="verticalMid" src="img/s2.png"></div>
-        <div ng-if="favoritos.length < 1" class="avisoFavs">No hay favoritos</div>
-        <ul>
-            <li id="fav{{ $index }}" ng-repeat="fav in favoritos track by $index" class="swipeout">
-                <div class="item-inner margLeft8 swipeout-content">
-                    <a ng-href="{{ fav.enlaceExterno }}" class="external" target="_blank" style="color:black">
-                        <div>{{ fav.txt.titulo }}</div>
-                        <span>{{ fav.title }}</span>
-                        <span>{{ fav.titulo.text }}</span>
-                        <span>{{ fav.descripcion }}</span>
-                        <span>{{ fav[5] | uppercase }}</span>
-                        <div class="pieItem">
-                            <div ng-if="fav.txt.titulo == 'BOE'">{{ fav.description }}</div>
-                            <div>{{ fav.ambito }}</div>
-                            <div>{{ fav.plazo }}</div>
-                            <div>{{ fav.creator }}</div>
-                            <div>{{ fav[2] }} {{ fav[4] }}</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="swipeout-actions-right">
-                    <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close swipeout-overswipe bg-red">
-                        <b>Borrar</b>
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>-->
-
-
     <div class="list-block margLista listaFavs">
         <div ng-if="favoritos.length > 0" class="avisoFavs">
             Deslizar item izquierda para opciones <img class="verticalMid" src="img/s2.png"></div>
@@ -87,10 +53,4 @@
             </li>
         </ul>
     </div>
-
-
-
-
-
-
 </div>
