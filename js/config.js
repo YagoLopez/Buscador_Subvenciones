@@ -41,7 +41,7 @@ MyApp.angular = angular.module('MyApp', ['ngStorage']);
 MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // config
 
   $compileProvider.debugInfoEnabled(false);
-  $httpProvider.useApplyAsync(false); //todo: revisar
+  $httpProvider.useApplyAsync(true); //todo: revisar
   //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
@@ -57,7 +57,7 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // c
 
 MyApp.angular.run( function(Utiles, $rootScope, BdnsItems) { // init
   //$rootScope.btnTop = Utiles.btnTop;
-  BdnsItems.getSessionCookie();
+  //BdnsItems.getSessionCookie();
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================

@@ -213,7 +213,7 @@ MyApp.angular.service('Utiles', function(){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
+MyApp.angular.service('MineturItems', function($http, Utiles, C, Error){
 
   var self = this;
   var query = 'select * from rss where url=@url';
@@ -224,10 +224,6 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;
-  };
-  this.getItemById = function(index){
-    MineturItem.new(this.items[index], index);
-    return MineturItem;
   };
   this.getData = function(){
     return $http.get(this.urlListado, {cache: true}).then(function(resp){
@@ -241,18 +237,16 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('MineturItem', function(Error){
+MyApp.angular.service('MineturItem', function(MineturItems){
 
-  this.new = function(obj, index){
-    if (obj != null && index != null){
+  this.new = function(index){
+      var obj = MineturItems.getItems()[index];
       this.title = obj.title;
       this.content = obj.description;
       this.creator = obj.creator;
       this.link = obj.link;
       this.showButtons = true;
       this.index = index;
-    } else
-      Error.mostrar2('No se ha podido crear MineturItem');
   }
 });
 // =====================================================================================================================
@@ -311,16 +305,13 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
     this.index = index;
   };
   this.getData = function(urlDetalle){
-    //console.log('url', this.createUrl(urlDetalle));
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
-        //console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){
         Error.mostrar(datosError);
       });
   };
-
 });
 // =====================================================================================================================
 MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
@@ -333,10 +324,8 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
   var requestHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
-    //,
-    //'Access-Control-Allow-Origin': '*'
+    //,'Access-Control-Allow-Origin': '*'
   };
-
   var requestConfig = {
     url: urlBase,
     method: 'GET',
@@ -346,7 +335,6 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
     cache: false,
     withCredentials: true
   };
-
   this.items = null;
   this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
   this.getItems = function(){
@@ -355,56 +343,28 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
   this.getItemByIndex = function(index){
     return this.getItems()[index];
   }
-
-/* segunda solucion ************************************************************************************************ */
-
-  this.getData = function(){
-    return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true}).then(
-      function(resp){
-        self.items = resp.data.rows;
-        //console.log('datos para url2', resp.data.rows);
-        return resp.data.rows;
-      },
-      function(respError){Error.mostrar(respError)}
-    )
-  };
-
-  this.getSessionCookie = function () {
-    return $http(requestConfig).then(
-      function (resp) {
-        //console.log('bdns preflight, getting session cookie', resp);
-      },
-      function(respError){Error.mostrar(respError)}
-    );
-  };
-/* ****************************************************************************************************************** */
-
-  // Para poder los datos en formato json de bdns es necesario previamente
-  // obtener una cookie de sesion. Es decir, en realidad hay que hacer dos peticiones http.
-  // Para lograr esto se utilizaa el patron de encadenamiento de promesas. Primero se hace una peticion http en donde se
+  // Para poder obtener los datos de BDNS es necesario previamente obtener una cookie de sesion.
+  // Es decir, en realidad hay que hacer dos peticiones http.
+  // Para lograr esto se utilizaa el patron de encadenamiento de promesas. Primero se hace una peticion en donde se
   // obtiene la cookie y luego se encadena una segunda peticion donde se obtienen los datos json
 
-/*  this.getData = function () {
-    return $http(requestConfig)
+  this.getData = function () {
+    return $http(requestConfig) // primera peticion: obtencion de cookie de forma transparente. No hay que hacer nada
       .then(function (resp) {
         console.log('efectuando primera peticion, obtencion de cookie, respuesta', resp);
-        console.log('esperando para hacer la segunda peticion');
-        return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true});
-      }, function (respError) {
-        console.log('fallo primera peticion obtencion de cookie');
-        Error.mostrar(respError);
-      }).then(function (resp) {
-        console.log('procesando resultado de segunda peticion');
+      })
+      .then(function () {
+        return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true}); // segunda peticion: obtencion de datos
+      })
+      .then(function (resp) {
         self.items = resp.data.rows;
         console.log('datos de segunda peticion', resp.data.rows);
         return resp.data.rows;
       }, function (respError) {
-        console.log('Bdns. Error procesando segunda peticion');
+        console.log('Bdns. Error procesando peticiones', respError);
         Error.mostrar(respError);
       });
   };
-  */
-
 });
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
@@ -414,7 +374,6 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
   this.createUrl = function(){
     return C.YQL + ( '?url='+this.link ) + ( '&q='+query ) + '&format=xml';
   };
-
   this.new = function (index){
     var i = BdnsItems.getItemByIndex(index);
     //console.log('i', i);
@@ -429,7 +388,6 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
     //this.ambito = i[1];
     //this.fechaConvocatoria = i[4];
   };
-
   this.getData = function(){
     //console.log('url', this.createUrl());
     return $http.get(this.createUrl(), {cache: true}).then(function(resp){
@@ -440,7 +398,6 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
         Error.mostrar(datosError);
       });
   };
-
 });
 // =====================================================================================================================
 MyApp.angular.service('Favoritos', function ($localStorage) {

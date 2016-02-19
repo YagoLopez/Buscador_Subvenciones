@@ -2,7 +2,7 @@
 
 Buscador de fondos públicos y subvenciones para smartphone.
 
-La aplicación se encarga de recopilar datos de diversos organismos e instituciones, y presentarlos de forma homogénea. Además, 
+La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, 
 facilita la consulta de los mismos de una forma centralizada, rápida y eficiente.
 
 Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicación está particularizada para buscar fondos 
@@ -18,18 +18,18 @@ Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el fut
 
 Tecnologías empleadas:
  
- - Framework 7
- - AngularJS
+- Framework 7
+- AngularJS
  
- Probado en:
+Probado en:
  
- - Chrome (últimas versiones)
- - Microsoft Edge
- - Internet Explorer (últimas versiones)
- - Android
- - IOS (emulador)
+- Chrome (últimas versiones)
+- Microsoft Edge
+- Internet Explorer (últimas versiones)
+- Android
+- IOS (emulador)
  
- Por hacer:
+Por hacer:
 
- - Búsqueda global (buscar en todos los organismos de una sola vez)
- - Añadir organismo: Gobierno de Asturias
+- Búsqueda global (buscar en todos los organismos de una sola vez)
+- Añadir organismo: Gobierno de Asturias

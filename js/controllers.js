@@ -100,7 +100,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, Favoritos) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Favoritos) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoMinetur', function () {
@@ -125,7 +125,8 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     $scope.items = null;
   };
   $scope.openPopup = function(itemIndex){
-    $rootScope.item = MineturItems.getItems()[itemIndex];
+    MineturItem.new( itemIndex );
+    $rootScope.item = MineturItem;
     MyApp.fw7.app.popup('.popup-detalle');
   };
   $scope.addFavorito = function (itemIndex) {
@@ -227,16 +228,16 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
   };
   $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
-      var candidatoFavorito = {};
+      var candidatoFav = {};
       var item = BdnsItems.getItems()[itemIndex];
-      candidatoFavorito.descripcion = item[5];
-      candidatoFavorito.enlaceExterno = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+item[0];
-      candidatoFavorito.creator = item[2];
-      candidatoFavorito.plazo = item[4];
-      candidatoFavorito.txt = {titulo: 'BDNS'};
-      console.log('favorito a añadir', candidatoFavorito);
-      if( !Favoritos.contiene(candidatoFavorito) ){
-        Favoritos.add(candidatoFavorito);
+      candidatoFav.descripcion = item[5];
+      candidatoFav.enlaceExterno = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+item[0];
+      candidatoFav.creator = item[2];
+      candidatoFav.plazo = item[4];
+      candidatoFav.txt = {titulo: 'BDNS'};
+      console.log('favorito a añadir', candidatoFav);
+      if( !Favoritos.contiene(candidatoFav) ){
+        Favoritos.add(candidatoFav);
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
       } else {
