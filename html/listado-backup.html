@@ -24,34 +24,33 @@
         <div class="content-block-inner">No se han encontrado resultados</div>
     </div>
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
-        <div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s1.jpg"></div>
+        <div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s2.png"></div>
         <ul>
-            <!--<li id="{{ $index }}" ng-repeat="item in items track by $index" ng-click="openPanel($index)" class="swipeout">-->
-            <li id="{{ $index }}" ng-repeat="item in items track by $index" class="swipeout">
-            <div class="swipeout-content">
-                    <label class="label-radio item-content padLeft5">
-                        <input type="radio" name="my-radio">
-                        <div class="item-inner margLeft8">
-                            <div>
-                                <i class="icon icon-form-radio smallRadio"></i>
-                                <span ng-if="item.title">{{ item.title }}</span>
-                                <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
-                                <span ng-if="item.descripcion">{{ item.descripcion }}</span>
-                                <span ng-if="item[5]">{{ item[5] | uppercase }}</span>
-                                <div class="pieItem">
-                                    <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
-                                    <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>
-                                    <div ng-if="item.plazo">Plazo solicitud: {{ item.plazo }}</div>
-                                    <div ng-if="item.creator">{{ item.creator }}</div>
-                                    <div ng-if="item[2]">{{ item[2] }} - {{ item[4] }}</div>
-                                </div>
+            <li id="{{$index}}" ng-repeat="item in items track by $index" class="swipeout">
+                <label class="label-radio item-content padLeft5">
+                    <input type="radio" name="my-radio">
+                    <div class="item-inner swipeout-content margLeft8" ng-click="openPopup($index)">
+                        <div>
+                            <i class="icon icon-form-radio smallRadio"></i>
+                            <span>{{ item.title }}</span>
+                            <span>{{ item.titulo.text }}</span>
+                            <span>{{ item.descripcion }}</span>
+                            <span>{{ item[5] | uppercase }}</span>
+                            <div class="pieItem">
+                                <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
+                                <div>{{ item.ambito }}</div>
+                                <div>{{ item.plazo }}</div>
+                                <div>{{ item.creator }}</div>
+                                <div>{{ item[1] }} {{ item[2] }} {{ item[4] }}</div>
                             </div>
                         </div>
+                    </div>
+                    <div class="swipeout-actions-right" style="font-size:small">
+                        <a href="#" ng-click="addFavorito($index)" class="swipeout-close swipeout-overswipe">
+                            <b>Guardar Favorito</b>
+                        </a>
+                    </div>
                 </label>
-                </div>
-                <div class="swipeout-actions-right">
-                    <a href="#" ng-click="addFavorito($index)">A&nacute;adir a Favoritos</a>
-                </div>
             </li>
         </ul>
     </div>

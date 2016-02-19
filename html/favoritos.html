@@ -50,34 +50,37 @@
 
 
     <div class="list-block margLista listaFavs">
-        <div class="avisoFavs">Deslizar item izquierda para borrar <img class="verticalMid" src="img/s2.png"></div>
+        <div ng-if="favoritos.length > 0" class="avisoFavs">
+            Deslizar item izquierda para opciones <img class="verticalMid" src="img/s2.png"></div>
         <div ng-if="favoritos.length < 1" class="avisoFavs">No hay favoritos</div>
         <ul>
             <li ng-repeat="fav in favoritos track by $index" class="swipeout">
                 <label class="label-radio item-content padLeft5">
                     <input type="radio" name="my-radio">
-                    <div class="item-inner swipeout-content margLeft8" ng-click="abreEnlace(fav.enlaceExterno)">
-                        <div>
-                            <div style="color:orange;text-align:center">
-                                <i class="fa fa-building-o fa-3"></i> <b>{{ fav.txt.titulo }}</b>
+                    <div class="item-inner swipeout-content margLeft8">
+                        <div style="width:100%">
+                            <div style="color:orange;text-align:right">
+                                <b style="padding:5px">{{ fav.txt.titulo }}</b>
+                                <i class="fa fa-arrow-circle-left" style="font-size:18px;vertical-align:top;"></i>
                             </div>
                             <i class="icon icon-form-radio smallRadio"></i>
                             <span>{{ fav.title }}</span>
                             <span>{{ fav.titulo.text }}</span>
                             <span>{{ fav.descripcion }}</span>
-                            <span>{{ fav[5] }}</span>
                             <div class="pieItem">
                                 <div ng-if="fav.txt.titulo == 'BOE'">{{ fav.description }}</div>
                                 <div>{{ fav.ambito }}</div>
                                 <div>{{ fav.plazo }}</div>
                                 <div>{{ fav.creator }}</div>
-                                <div>{{ fav[2] }} {{ fav[4] }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="swipeout-actions-right">
-                        <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close swipeout-overswipe bg-red">
+                        <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close bg-red">
                             <b>Borrar</b>
+                        </a>
+                        <a href="#" ng-click="abreEnlace(fav.enlaceExterno)" class="swipeout-close bg-green">
+                            <b>Ver Web</b>
                         </a>
                     </div>
                 </label>

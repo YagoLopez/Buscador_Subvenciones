@@ -43,7 +43,8 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
         Favoritos.add(item);
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
-      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
+      } else {
+        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -85,14 +86,15 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   };
   $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
-      var iem = IdepaItems.getItems()[itemIndex];
-      item.organismo = $scope.txt;
-      item.enlaceExterno = item.link.href;
-      if( !Favoritos.contiene(iem) ){
-        Favoritos.add(iem);
+      var item = IdepaItems.getItems()[itemIndex];
+      item.txt = $scope.txt;
+      item.enlaceExterno = item.link_detalle.href;
+      if( !Favoritos.contiene(item) ){
+        Favoritos.add(item);
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
-      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
+      } else {
+        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -126,14 +128,17 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     $rootScope.item = MineturItems.getItems()[itemIndex];
     MyApp.fw7.app.popup('.popup-detalle');
   };
-  $scope.addFavorito = function (candidatoIndex) {
+  $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
-      var candidatoFavorito = MineturItems.getItems()[candidatoIndex];
-      if( !Favoritos.contiene(candidatoFavorito) ){
-        Favoritos.add(candidatoFavorito);
+      var item = MineturItems.getItems()[itemIndex];
+      item.txt = $scope.txt;
+      item.enlaceExterno = item.link;
+      if( !Favoritos.contiene(item) ){
+        Favoritos.add(item);
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
-      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
+      } else {
+        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -173,14 +178,17 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
       IpymeItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (candidatoIndex) {
+  $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
-      var candidatoFavorito = IpymeItems.getItems()[candidatoIndex];
-      if( !Favoritos.contiene(candidatoFavorito) ){
-        Favoritos.add(candidatoFavorito);
+      var item = IpymeItems.getItems()[itemIndex];
+      item.txt = $scope.txt;
+      item.enlaceExterno = item.titulo.href;
+      if( !Favoritos.contiene(item) ){
+        Favoritos.add(item);
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
-      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
+      } else {
+        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
@@ -217,19 +225,24 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
       BdnsItem.showButtons = true;
     });
   };
-  $scope.addFavorito = function (candidatoIndex) {
+  $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
-      var candidatoFavorito = BdnsItems.getItems()[candidatoIndex];
+      var candidatoFavorito = {};
+      var item = BdnsItems.getItems()[itemIndex];
+      candidatoFavorito.descripcion = item[5];
+      candidatoFavorito.enlaceExterno = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+item[0];
+      candidatoFavorito.creator = item[2];
+      candidatoFavorito.plazo = item[4];
+      candidatoFavorito.txt = {titulo: 'BDNS'};
+      console.log('favorito a añadir', candidatoFavorito);
       if( !Favoritos.contiene(candidatoFavorito) ){
         Favoritos.add(candidatoFavorito);
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
-      } else { MyApp.fw7.app.alert('El item ya existe en la lista de favoritos'); }
+      } else {
+        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  };
-  $scope.onIconBack = function() {
-    $scope.items = null;
   };
 });
 // =====================================================================================================================
@@ -237,7 +250,6 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos, $window) 
 
   MyApp.fw7.app.onPageAfterAnimation('favoritos', function () {
     $scope.favoritos = Favoritos.getAll();
-    console.log('favoritos', $scope.favoritos);
     $scope.$apply();
   });
   $scope.deleteFavorito = function (itemIndex) {
