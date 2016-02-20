@@ -251,6 +251,7 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos, $window) 
 
   MyApp.fw7.app.onPageAfterAnimation('favoritos', function () {
     $scope.favoritos = Favoritos.getAll();
+    console.log('favoritos',  $scope.favoritos);
     $scope.$apply();
   });
   $scope.deleteFavorito = function (itemIndex) {

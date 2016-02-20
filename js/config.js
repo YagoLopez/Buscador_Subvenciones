@@ -8,7 +8,7 @@ MyApp.fw7 = {
   app : new Framework7({
     material: true,
     materialRipple: false,
-    materialPageLoadDelay: 10, // revisar
+    materialPageLoadDelay: 1, // revisar
     activeState: true,
     fastClicks: true,//?
     pushState: false,//?
@@ -18,8 +18,8 @@ MyApp.fw7 = {
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    materialPreloaderHtml: '<div style="color:white;font-size:12px">Cargando</div>',
-    //materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
+    //materialPreloaderHtml: '<div style="color:white;font-size:12px">Cargando</div>',
+    materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
     materialPreloaderSvg: '',
     materialRippleElements: '',
     scrollTopOnNavbarClick: true,
@@ -55,9 +55,15 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // c
   });
 });
 
-MyApp.angular.run( function(Utiles, $rootScope, BdnsItems) { // init
-  //$rootScope.btnTop = Utiles.btnTop;
-  //BdnsItems.getSessionCookie();
+MyApp.angular.run( function($rootScope, $localStorage, Error) { // init
+
+  // inicializacion de favoritos en almacenamiento local
+  if(typeof($localStorage) == 'undefined'){
+    Error.mostrar2('Almacenamiento local de favoritos no soportado');
+  } else{
+    $localStorage.$default(favoritos = []); // valor de favoritos por defecto
+  };
+
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================

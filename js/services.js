@@ -361,7 +361,6 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
         console.log('datos de segunda peticion', resp.data.rows);
         return resp.data.rows;
       }, function (respError) {
-        console.log('Bdns. Error procesando peticiones', respError);
         Error.mostrar(respError);
       });
   };
@@ -389,9 +388,9 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
     //this.fechaConvocatoria = i[4];
   };
   this.getData = function(){
-    //console.log('url', this.createUrl());
+    console.log('url', this.createUrl());
     return $http.get(this.createUrl(), {cache: true}).then(function(resp){
-        //console.log( resp );
+        console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){
@@ -406,9 +405,6 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     return $localStorage.favoritos;
   };
   this.add = function (item) {
-    if(!$localStorage.favoritos){
-      $localStorage.favoritos = [];
-    };
     $localStorage.favoritos.push(item);
   };
   this.delete = function (index) {
@@ -438,6 +434,7 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     return false;
   };
 });
+
 
 /*
 MyApp.angular.filter('urlEncode', [function() {
