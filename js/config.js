@@ -23,10 +23,10 @@ MyApp.fw7 = {
     materialPreloaderSvg: '',
     materialRippleElements: '',
     scrollTopOnNavbarClick: true,
-    swipePanel: false,
-    //swipePanelActiveArea: 500,
-    //swipePanelNoFollow: false,
-    //swipePanelThreshold: 10,
+    swipePanel: 'left',
+    swipePanelActiveArea: 500,
+    swipePanelNoFollow: false,
+    swipePanelThreshold: 10,
     uniqueHistory: false,
     preloadPreviousPage: true
     //pushStateSeparator: '#!'

@@ -2,6 +2,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoBoe', function (page) {
+    MyApp.fw7.app.params.swipePanel = false;
     BoeItems.txt.tipo = page.query.tipo;
     $scope.txt = BoeItems.txt;
     $scope.$apply();
@@ -33,6 +34,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   };
   $scope.onIconBack = function() {
     $scope.items = null;
+    MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
@@ -54,6 +56,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoIdepa', function () {
+    MyApp.fw7.app.params.swipePanel = false;
     $scope.txt = IdepaItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo)[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -73,6 +76,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   };
   $scope.onIconBack = function() {
     $scope.items = null;
+    MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.openPopup = function(index){
     IdepaItem.new( index );
@@ -104,6 +108,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoMinetur', function () {
+    MyApp.fw7.app.params.swipePanel = false;
     $scope.txt = MineturItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -123,6 +128,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
   };
   $scope.onIconBack = function() {
     $scope.items = null;
+    MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.openPopup = function(itemIndex){
     MineturItem.new( itemIndex );
@@ -149,6 +155,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoIpyme', function () {
+    MyApp.fw7.app.params.swipePanel = false;
     $scope.txt = IpymeItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -168,6 +175,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   };
   $scope.onIconBack = function() {
     $scope.items = null;
+    MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.openPopup = function(index){
     IpymeItem.new( index );
@@ -200,6 +208,7 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoBdns', function () {
     MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.params.swipePanel = false;
     $scope.txt = BdnsItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
@@ -225,6 +234,10 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
       BdnsItem.content = htmlDetalle;
       BdnsItem.showButtons = true;
     });
+  };
+  $scope.onIconBack = function() {
+    $scope.items = null;
+    MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.addFavorito = function (itemIndex) {
     var aceptarGuardar = function () {
