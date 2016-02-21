@@ -16,14 +16,14 @@
 </div>
 <div class="page-content padTop0 hide-toolbar-on-scroll">
     <div class="list-block margLista listaFavs">
-        <div ng-if="favoritos.length > 0" class="avisoFavs">
-            Deslizar item izquierda para opciones <img class="verticalMid" src="img/s2.png"></div>
+        <!--<div ng-if="favoritos.length > 0" class="avisoFavs">-->
+            <!--Deslizar item izquierda para opciones <img class="verticalMid" src="img/s2.png"></div>-->
         <div ng-if="favoritos.length < 1" class="avisoFavs">No hay favoritos</div>
         <ul>
-            <li ng-repeat="fav in favoritos track by $index" class="swipeout">
+            <li id="fav{{$index}}" ng-repeat="fav in favoritos track by $index" class="swipeout" ng-click="swipeLeftItem($index)">
                 <label class="label-radio item-content padLeft5">
                     <input type="radio" name="my-radio">
-                    <div class="item-inner swipeout-content margLeft8">
+                    <div id="{{$index}}" class="item-inner swipeout-content margLeft8">
                         <div style="width:100%">
                             <div style="color:orange;text-align:right">
                                 <b style="padding:5px">{{ fav.txt.titulo }}</b>

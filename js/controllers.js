@@ -264,8 +264,15 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos, $window) 
 
   MyApp.fw7.app.onPageAfterAnimation('favoritos', function () {
     $scope.favoritos = Favoritos.getAll();
-    console.log('favoritos',  $scope.favoritos);
     $scope.$apply();
+    $$('.swipeout').on('click', function () {
+      var item = $$(this);
+      MyApp.fw7.app.swipeoutOpen( item );
+    });
+    $$('.swipeout').on('closed', function (e) {
+      var item = $$(this);
+      MyApp.fw7.app.swipeoutClose( item );
+    });
   });
   $scope.deleteFavorito = function (itemIndex) {
     var aceptarBorrar = function () {
@@ -283,5 +290,6 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos, $window) 
   };
   $scope.abreEnlace = function (url) {
     $window.open(url, '_blank');
-  }
+  };
+
 });
