@@ -27,7 +27,8 @@ MyApp.fw7 = {
     swipePanelNoFollow: true,
     swipePanelThreshold: 10,
     uniqueHistory: false,
-    preloadPreviousPage: true
+    preloadPreviousPage: true,
+    swipeoutNoFollow: true
     //activeStateElements: '',
     //pushStateSeparator: '#!'
   })

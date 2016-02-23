@@ -24,12 +24,12 @@
         <div class="content-block-inner">No se han encontrado resultados</div>
     </div>
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
-        <div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s2.png"></div>
+        <!--<div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s2.png"></div>-->
         <ul>
-            <li id="{{$index}}" ng-repeat="item in items track by $index" class="swipeout">
+            <li id="{{$index}}" ng-repeat="item in items track by $index" class="swipeout" ng-click="onClickItem($index)">
                 <label class="label-radio item-content padLeft5">
                     <input type="radio" name="my-radio">
-                    <div class="item-inner swipeout-content margLeft8" ng-click="openPopup($index)">
+                    <div class="item-inner swipeout-content margLeft8">
                         <div>
                             <i class="icon icon-form-radio smallRadio"></i>
                             <span>
@@ -48,8 +48,11 @@
                         </div>
                     </div>
                     <div class="swipeout-actions-right" style="font-size:small">
-                        <a href="#" ng-click="addFavorito($index)" class="swipeout-close swipeout-overswipe">
-                            <b>Guardar Favorito</b>
+                        <a href="#" ng-click="openPopup($index)" class="swipeout-close bg-green">
+                            <b>Detalles</b>
+                        </a>
+                        <a href="#" ng-click="addFavorito($index)" class="swipeout-close bg-orange">
+                            <b>Guardar</b>
                         </a>
                     </div>
                 </label>

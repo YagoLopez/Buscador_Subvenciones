@@ -251,8 +251,8 @@ MyApp.angular.service('MineturItem', function(MineturItems){
 });
 // =====================================================================================================================
 MyApp.angular.constant('C', {
-  YQL2: 'https://98.137.200.255/v1/public/yql', // usa ip en vez de domain name. Da error de seguridad en Edge
-  YQL:'https://query.yahooapis.com/v1/public/yql'})
+  YQL: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
+  YQL2:'https://query.yahooapis.com/v1/public/yql'})
 // =====================================================================================================================
 MyApp.angular.filter('FiltroHtml', ['$sce', function($sce) {
   return function(value, type) {
@@ -351,14 +351,14 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
   this.getData = function () {
     return $http(requestConfig) // primera peticion: obtencion de cookie de forma transparente. No hay que hacer nada
       .then(function (resp) {
-        console.log('efectuando primera peticion, obtencion de cookie, respuesta', resp);
+        //console.log('efectuando primera peticion, obtencion de cookie, respuesta', resp);
       })
       .then(function () {
         return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true}); // segunda peticion: obtencion de datos
       })
       .then(function (resp) {
         self.items = resp.data.rows;
-        console.log('datos de segunda peticion', resp.data.rows);
+        //console.log('datos de segunda peticion', resp.data.rows);
         return resp.data.rows;
       }, function (respError) {
         Error.mostrar(respError);
