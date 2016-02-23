@@ -1,8 +1,5 @@
 <!--todo: falta por quitar el enlace roto en la pagina de detalle-->
-<!--todo: quitar info de depuracion para optimizar-->
 <!--todo: obtener detalle boe directamente del extracto xml-->
-<!--todo: slogan: recopilación de diferentes bases de datos con mas de 600 ayudas y subvenciones nacionales e internacinales actualizadas-->
-<!--todo: en la ayuda poner: se puede activar el panel de menu arrastrando borde izqdo - hacer scroll haciendo tap en barra superior, fvoritos, etc-->
 <!--todo: intentar limpiar mas los ficheros css-->
 <!--todo: mover el titulo, en algunos sitios esta un poco descentrado-->
 <!--todo:  al mostrar el listado habria que comprobar si cada item esta ya en favoritos-->
@@ -86,7 +83,10 @@
             <div data-page="favoritos" class="page cached" ng-controller="FavoritosCtrl">
                 <ng-include src="'html/favoritos.html'"></ng-include>
             </div>
-            <!-- pagina favoritos ================================================================================== -->
+            <!-- pagina ayuda ================================================================================== -->
+            <div data-page="ayuda" class="page cached">
+                <ng-include src="'html/ayuda.html'"></ng-include>
+            </div>
         </div>
     </div>
 </div>
