@@ -10,7 +10,7 @@ MyApp.fw7 = {
     materialRipple: false,
     materialPageLoadDelay: 10, // todo: revisar
     activeState: true,
-    fastClicks: false, // todo: revisar
+    fastClicks: true, // todo: revisar
     pushState: false, //?
     sortable: false,
     cache: false,
