@@ -8,11 +8,10 @@ MyApp.fw7 = {
   app : new Framework7({
     material: true,
     materialRipple: false,
-    materialPageLoadDelay: 1, // revisar
+    materialPageLoadDelay: 10, // todo: revisar
     activeState: true,
-    fastClicks: true,//?
-    pushState: false,//?
-    //activeStateElements: '',
+    fastClicks: false, // todo: revisar
+    pushState: false, //?
     sortable: false,
     cache: false,
     modalTitle: 'Informaci\u00F3n',
@@ -25,10 +24,11 @@ MyApp.fw7 = {
     scrollTopOnNavbarClick: true,
     swipePanel: 'left',
     swipePanelActiveArea: 500,
-    swipePanelNoFollow: false,
+    swipePanelNoFollow: true,
     swipePanelThreshold: 10,
     uniqueHistory: false,
     preloadPreviousPage: true
+    //activeStateElements: '',
     //pushStateSeparator: '#!'
   })
 };
