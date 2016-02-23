@@ -61,9 +61,10 @@ MyApp.angular.run( function($rootScope, $localStorage, Error) { // init
   if(typeof($localStorage) == 'undefined'){
     Error.mostrar2('Almacenamiento local de favoritos no soportado');
   } else{
-    $localStorage.$default(favoritos = []); // valor de favoritos por defecto
+    //$localStorage.$default(favoritos = []); // valor de favoritos por defecto
+    if (!$localStorage.favoritos)
+      $localStorage.favoritos = [];
   };
-
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================
