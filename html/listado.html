@@ -10,7 +10,7 @@
     </div>
 </div>
 <!-- Barra busqueda ================================================================================================ -->
-<form id="searchbar{{txt.titulo}}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+<form id="searchbar{{ txt.titulo }}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
     <div class="searchbar-input">
         <input type="search" placeholder="Buscar"/>
         <a href="#" class="searchbar-clear"></a>
@@ -24,33 +24,34 @@
         <div class="content-block-inner">No se han encontrado resultados</div>
     </div>
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
-        <div class="avisoFavs">Deslizar izquierda para a&nacute;adir favoritos <img class="verticalMid" src="img/s1.jpg"></div>
-        <ul id="listaBoe">
-            <li id="{{$index}}" ng-repeat="item in items" ng-click="openPopup($index)" class="swipeout">
-                <div class="swipeout-content">
-                    <label class="label-radio item-content padLeft5">
-                        <input type="radio" name="my-radio">
-                        <div class="item-inner margLeft8">
-                            <div>
-                                <i class="icon icon-form-radio smallRadio"></i>
-                                <span ng-if="item.title">{{ item.title }}</span>
-                                <span ng-if="item.descripcion">{{ item.descripcion }}</span>
-                                <span ng-if="item.titulo.text">{{ item.titulo.text }}</span>
-                                <span ng-if="item[5]">{{ item[5] | uppercase }}</span>
-                                <div class="pieItem">
-                                    <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
-                                    <div ng-if="item.ambito">Ámbito: {{ item.ambito }}</div>
-                                    <div ng-if="item.plazo">Plazo solicitud: {{ item.plazo }}</div>
-                                    <div ng-if="item.creator">{{ item.creator }}</div>
-                                    <div ng-if="item[2]">{{ item[2] }} - {{ item[4] }}</div>
-                                </div>
+        <!--<div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s2.png"></div>-->
+        <ul>
+            <li id="{{$index}}" ng-repeat="item in items track by $index" class="swipeout" ng-click="onClickItem($index)">
+                <label class="label-radio item-content padLeft5">
+                    <input type="radio" name="my-radio">
+                    <div class="item-inner swipeout-content margLeft8">
+                        <div>
+                            <i class="icon icon-form-radio smallRadio"></i>
+                            <span>
+                            {{ item.title }}
+                            {{ item.titulo.text }}
+                            {{ item.descripcion }}
+                            {{ item[5] | uppercase }}
+                            </span>
+                            <div class="pieItem">
+                                <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
+                                {{ item.ambito }}
+                                {{ item.plazo }}
+                                {{ item.creator }}
+                                {{ item[1] }} {{ item[2] }} {{ item[4] }}
                             </div>
                         </div>
+                    </div>
+                    <div class="swipeout-actions-right">
+                        <a href="#" ng-click="openPopup($index)" class="swipeout-close bg-green"><b>Detalles</b></a>
+                        <a href="#" ng-click="addFavorito($index)" class="swipeout-close bg-cyan"><b>Guardar</b></a>
+                    </div>
                 </label>
-                </div>
-                <div class="swipeout-actions-right">
-                    <a href="#" ng-click="favorito">A&nacute;adir a Favoritos</a>
-                </div>
             </li>
         </ul>
     </div>

@@ -7,7 +7,8 @@
 <name>BuscaFondos</name>
 <content src="index.html"/>
 <access origin="*"/>
+<intelxdk:plugin intelxdk:name="Splashscreen" intelxdk:value="cordova-plugin-splashscreen" intelxdk:version="3.0.0" intelxdk:checksum="3a611d61"/>
 <preference name="ios-target" value="6"/>
 <preference name="ios-configuration" value="adhoc"/>
-<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.webapp"}-->
+<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.jsapp"}-->
 <preference name="debuggable" value="false"/></widget>

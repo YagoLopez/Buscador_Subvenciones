@@ -8,39 +8,41 @@ MyApp.fw7 = {
   app : new Framework7({
     material: true,
     materialRipple: false,
-    activeState: false,
-    fastClicks: false,
-    pushState: false,
+    materialPageLoadDelay: 10, // todo: revisar
+    activeState: true,
+    fastClicks: true, // todo: revisar
+    pushState: false, //?
     sortable: false,
     cache: false,
-    materialPageLoadDelay: 0, // revisar
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    materialPreloaderHtml: '<div style="color:white;font-size:12px;">Cargando</div>',
-    activeStateElements: '',
+    //materialPreloaderHtml: '<div style="color:white;font-size:12px">Cargando</div>',
+    materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
     materialPreloaderSvg: '',
     materialRippleElements: '',
     scrollTopOnNavbarClick: true,
     swipePanel: 'left',
     swipePanelActiveArea: 500,
-    swipePanelNoFollow: false,
+    swipePanelNoFollow: true,
     swipePanelThreshold: 10,
     uniqueHistory: false,
-    preloadPreviousPage: true
+    preloadPreviousPage: true,
+    swipeoutNoFollow: true
+    //activeStateElements: '',
     //pushStateSeparator: '#!'
-    //materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
   })
 };
 
 MyApp.fw7.app.addView( '.view-main', {domCache: true} );
 
 // Angular configuration and initialization ============================================================================
-MyApp.angular = angular.module('MyApp', []);
+MyApp.angular = angular.module('MyApp', ['ngStorage']);
 
-MyApp.angular.config( function($provide, $compileProvider) {
+MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // config
 
   $compileProvider.debugInfoEnabled(false);
+  $httpProvider.useApplyAsync(true); //todo: revisar
   //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
@@ -54,8 +56,16 @@ MyApp.angular.config( function($provide, $compileProvider) {
   });
 });
 
-MyApp.angular.run( function(Utiles, $rootScope) {
-  //$rootScope.btnTop = Utiles.btnTop;
+MyApp.angular.run( function($rootScope, $localStorage, Error) { // init
+
+  // inicializacion de favoritos en almacenamiento local
+  if(typeof($localStorage) == 'undefined'){
+    Error.mostrar2('Almacenamiento local de favoritos no soportado');
+  } else{
+    //$localStorage.$default(favoritos = []); // valor de favoritos por defecto
+    if (!$localStorage.favoritos)
+      $localStorage.favoritos = [];
+  };
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
 });
 // Cordova/Phonegap init ===============================================================================================

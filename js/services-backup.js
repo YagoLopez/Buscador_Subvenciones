@@ -20,7 +20,7 @@ MyApp.angular.factory('InitService', function ($document) {
     for (i = 0; i < eventListeners.ready.length; i = i + 1) {
       eventListeners.ready[i]();
     }
-  }
+  };
 
   // Init
   (function () {
@@ -35,12 +35,12 @@ MyApp.angular.factory('InitService', function ($document) {
         console.log("Using web browser setting");
         onReady();
       }
-      
+      onReady();
     });
   }());
 
   return pub;
-  
+
 });
 // =====================================================================================================================
 MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
@@ -63,9 +63,12 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
     return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
   };
   this.getData = function(url){
-    console.log('url', url);
+    //console.log('url', url);
     return $http.get(url, {cache: true}).then(function(resp){
-        self.items = resp.data.query.results.item;
+        if(resp.data.query)
+          self.items = resp.data.query.results.item;
+        else
+          Error.mostrar2('No datos. Posibles causas: 1) Sin conexion. 2) Fallo servidor remoto');
       },
       function(datosError){
         Error.mostrar(datosError);
@@ -102,7 +105,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
   };
   this.getData = function(urlDetalle){
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
-        console.log( resp );
+        //console.log( resp );
         return Utiles.xmlParser(resp.data);;
       },
       function(datosError){
@@ -124,7 +127,7 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.items = resp.data.results.collection1;
-        console.log(self.items);
+        //console.log(self.items);
       },
       function(datosError){
         Error.mostrar(datosError);
@@ -165,7 +168,8 @@ MyApp.angular.service('Error', function(){
     MyApp.fw7.app.hideIndicator();
     msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
-      msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto';
+      msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto<br>' +
+        '3) Configuracion de seguridad restrictiva en IExplorer<br><br>';
     MyApp.fw7.app.alert(msg, 'Error');
     console.error(resp);
   };
@@ -175,45 +179,41 @@ MyApp.angular.service('Error', function(){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('Utiles', function($sce, $location, $anchorScroll, $timeout, $interval){
+MyApp.angular.service('Utiles', function(){
 
-  this.btnTop = function(){
-    console.log('btnTop en detalle');
+  this.btnTop = function(Error){
     $$('#detalleContent').scrollTop(0, 500); //500 velocidad
   };
-
   this.xmlParser = function(xmlStr){
     var xmlDoc = null;
     if( /Edge\/12./i.test(navigator.userAgent )){ // IE EDGE
-      console.log('xmlParser, navegador edge');
+      //console.log('xmlParser, navegador edge');
       xmlDoc = document.implementation.createHTMLDocument(''); // es un hack
       xmlDoc.open(); xmlDoc.write(xmlStr); xmlDoc.close();
       return xmlDoc.getElementsByTagName('results')[0].innerHTML;
     }
     else if( ('ActiveXObject' in window) &&
               typeof(new window.ActiveXObject('Microsoft.XMLDOM')) === 'object' ) { // IEXPLORER
-      console.log('xmlParser, IExplorer');
+      //console.log('xmlParser, IExplorer');
       xmlDoc = new window.ActiveXObject('Microsoft.XMLDOM');
       xmlDoc.async = 'false';
       xmlDoc.loadXML(xmlStr);
       return xmlDoc.getElementsByTagName('results')[0].xml; // no se puede usar innerHTML
     }
     else if (typeof window.DOMParser != 'undefined') { // CHROME, FIREFOX, ETC.
-      console.log('xmlParser, Chrome, Firefox, etc.');
+      //console.log('xmlParser, Chrome, Firefox, etc.');
       var parser = new DOMParser();
       xmlDoc = parser.parseFromString(xmlStr, 'application/xml');
       return xmlDoc.getElementsByTagName('results')[0].innerHTML;
     }
      else {
-      //todo: mostrar popup error?
-      //throw new Error('No hay datos. Error al analizar fichero XML');
-      return 'No hay datos. Error al analizar fichero XML';
+      Error.mostrar2('No hay datos. Error al analizar fichero XML. Posible navegador no soportado');
+      //return 'No hay datos. Error al analizar fichero XML';
     };
   };
-
 });
 // =====================================================================================================================
-MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturItem){
+MyApp.angular.service('MineturItems', function($http, Utiles, C, Error){
 
   var self = this;
   var query = 'select * from rss where url=@url';
@@ -224,10 +224,6 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;
-  };
-  this.getItemById = function(index){
-    MineturItem.new(this.items[index], index);
-    return MineturItem;
   };
   this.getData = function(){
     return $http.get(this.urlListado, {cache: true}).then(function(resp){
@@ -241,18 +237,16 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error, MineturI
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('MineturItem', function(Error){
+MyApp.angular.service('MineturItem', function(MineturItems){
 
-  this.new = function(obj, index){
-    if (obj != null && index != null){
+  this.new = function(index){
+      var obj = MineturItems.getItems()[index];
       this.title = obj.title;
       this.content = obj.description;
       this.creator = obj.creator;
       this.link = obj.link;
       this.showButtons = true;
       this.index = index;
-    } else
-      Error.mostrar2('No se ha podido crear MineturItem');
   }
 });
 // =====================================================================================================================
@@ -285,7 +279,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   this.getData = function(){
     return $http.jsonp(this.url, {cache: true}).then(function(resp){
         self.items = resp.data.results.listado;
-        console.log(self.items);
+        //console.log(self.items);
         return resp;},
       function(datosError){
         Error.mostrar(datosError);
@@ -311,8 +305,91 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
     this.index = index;
   };
   this.getData = function(urlDetalle){
-    console.log('url', this.createUrl(urlDetalle));
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
+        return Utiles.xmlParser(resp.data);
+      },
+      function(datosError){
+        Error.mostrar(datosError);
+      });
+  };
+});
+// =====================================================================================================================
+MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
+
+  var self = this;
+  var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/index';
+  var urlUltimasAyudas = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?' +
+    'type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc';
+
+  var requestHeaders = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
+    //,'Access-Control-Allow-Origin': '*'
+  };
+  var requestConfig = {
+    url: urlBase,
+    method: 'GET',
+    headers: requestHeaders,
+    //params: {},
+    //data: { title: 'pesca' },
+    cache: false,
+    withCredentials: true
+  };
+  this.items = null;
+  this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
+  this.getItems = function(){
+    return this.items;
+  };
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
+  }
+  // Para poder obtener los datos de BDNS es necesario previamente obtener una cookie de sesion.
+  // Es decir, en realidad hay que hacer dos peticiones http.
+  // Para lograr esto se utilizaa el patron de encadenamiento de promesas. Primero se hace una peticion en donde se
+  // obtiene la cookie y luego se encadena una segunda peticion donde se obtienen los datos json
+
+  this.getData = function () {
+    return $http(requestConfig) // primera peticion: obtencion de cookie de forma transparente. No hay que hacer nada
+      .then(function (resp) {
+        console.log('efectuando primera peticion, obtencion de cookie, respuesta', resp);
+      })
+      .then(function () {
+        return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true}); // segunda peticion: obtencion de datos
+      })
+      .then(function (resp) {
+        self.items = resp.data.rows;
+        console.log('datos de segunda peticion', resp.data.rows);
+        return resp.data.rows;
+      }, function (respError) {
+        Error.mostrar(respError);
+      });
+  };
+});
+// =====================================================================================================================
+MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
+
+  var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
+
+  this.createUrl = function(){
+    return C.YQL + ( '?url='+this.link ) + ( '&q='+query ) + '&format=xml';
+  };
+  this.new = function (index){
+    var i = BdnsItems.getItemByIndex(index);
+    //console.log('i', i);
+    this.idConvocatoria = i[0];
+    this.linkExternal_Url_or_Pdf = i[6];
+    this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
+    this.showButtons = false;
+    this.index = index;
+    //this.fechaConvocatoria = i[4];
+    //this.titulo = i[5];
+    //this.entidadConvocante = i[2];
+    //this.ambito = i[1];
+    //this.fechaConvocatoria = i[4];
+  };
+  this.getData = function(){
+    console.log('url', this.createUrl());
+    return $http.get(this.createUrl(), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
@@ -320,9 +397,44 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
         Error.mostrar(datosError);
       });
   };
-
 });
 // =====================================================================================================================
+MyApp.angular.service('Favoritos', function ($localStorage) {
+
+  this.getAll = function () {
+    return $localStorage.favoritos;
+  };
+  this.add = function (item) {
+    $localStorage.favoritos.push(item);
+  };
+  this.delete = function (index) {
+    console.log('borrando favorito indice:', index);
+    $localStorage.favoritos.splice(index, 1);
+  };
+  this.deleteAll = function () {
+    //$localStorage.favoritos.length = 0; <- Esta forma es menos portable
+    totalFavs = $localStorage.favoritos.length;
+    $localStorage.favoritos.splice(0, totalFavs);
+  };
+  this.mostrarAviso = function (texto) {
+    MyApp.fw7.app.addNotification({
+      message: texto,
+      hold: 2000,
+      button: {text:'Cerrar', close:true},
+      closeOnClick: true
+    });
+  };
+  this.contiene = function (item) {
+    var favoritos = this.getAll(); var i;
+    for (i = 0; i < favoritos.length; i++) {
+      if ( angular.equals(favoritos[i], item) ) {
+        return true;
+      }
+    };
+    return false;
+  };
+});
+
 /*
 MyApp.angular.filter('urlEncode', [function() {
   return window.encodeURIComponent;

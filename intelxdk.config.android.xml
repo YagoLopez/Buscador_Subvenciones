@@ -7,9 +7,10 @@
 <name>BuscaFondos</name>
 <content src="index.html"/>
 <access origin="*"/>
+<intelxdk:plugin intelxdk:name="Splashscreen" intelxdk:value="cordova-plugin-splashscreen" intelxdk:version="3.0.0" intelxdk:checksum="3a611d61"/>
 <intelxdk:plugin intelxdk:name="Cordova Legacy Whitelist Plugin" intelxdk:value="cordova-plugin-legacy-whitelist" intelxdk:version="1.1.0"/>
 <preference name="android-minSdkVersion" value="14"/>
 <preference name="android-targetSdkVersion" value="19"/>
 <preference name="android-installLocation" value="auto"/>
-<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.webapp"}-->
+<!--creationInfo:{"src":"","projectTypeName":"com.intel.xdk.projecttype.jsapp"}-->
 <preference name="debuggable" value="false"/></widget>
