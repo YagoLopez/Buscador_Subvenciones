@@ -10,8 +10,8 @@ MyApp.fw7 = {
     materialRipple: false,
     materialPageLoadDelay: 10, // todo: revisar
     activeState: true,
-    fastClicks: true, // todo: revisar
-    pushState: false, //?
+    fastClicks: true,
+    pushState: false,
     sortable: false,
     cache: false,
     modalTitle: 'Informaci\u00F3n',
