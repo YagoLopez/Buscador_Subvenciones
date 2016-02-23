@@ -18,8 +18,10 @@ Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el fut
 
 Tecnologías empleadas:
  
-- Framework 7
-- AngularJS
+- Framework 7 (Interfaz de usuario)
+- AngularJS (Arquitectura MVVC y Two way data binding)
+- Apache Cordova/PhoneGap (Acceso a API de móvil mediante Javascript)
+- Intel Crosswalk Runtime (Compilación cruzada a Android e IOS)
  
 Probado en:
  
