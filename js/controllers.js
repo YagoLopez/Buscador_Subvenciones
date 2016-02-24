@@ -253,7 +253,6 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
       candidatoFav.creator = item[2];
       candidatoFav.plazo = item[4];
       candidatoFav.txt = {titulo: 'BDNS'};
-      console.log('favorito a añadir', candidatoFav);
       if( !Favoritos.contiene(candidatoFav) ){
         Favoritos.add(candidatoFav);
         $scope.$apply();

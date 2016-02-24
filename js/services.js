@@ -342,7 +342,6 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
     //this.fechaConvocatoria = i[4];
   };
   this.getData = function(){
-    console.log('url', this.createUrl());
     return $http.get(this.createUrl(), {cache: true}).then(function(resp){
         console.log( resp );
         return Utiles.xmlParser(resp.data);
@@ -362,7 +361,6 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     $localStorage.favoritos.push(item);
   };
   this.delete = function (index) {
-    console.log('borrando favorito indice:', index);
     $localStorage.favoritos.splice(index, 1);
   };
   this.deleteAll = function () {
