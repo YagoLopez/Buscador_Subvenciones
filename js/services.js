@@ -323,17 +323,17 @@ MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
 
   var requestHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'Accept-Language': 'en-US,en;q=0.8,es;q=0.6'
+    'Accept-Language': 'en-US,en;q=0.8,es-ES,es;q=0.6'
     //,'Access-Control-Allow-Origin': '*'
   };
   var requestConfig = {
     url: urlBase,
     method: 'GET',
     headers: requestHeaders,
-    //params: {},
-    //data: { title: 'pesca' },
     cache: false,
     withCredentials: true
+    //params: {},
+    //data: { title: '' },
   };
   this.items = null;
   this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
@@ -371,11 +371,10 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
   var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
 
   this.createUrl = function(){
-    return C.YQL + ( '?url='+this.link ) + ( '&q='+query ) + '&format=xml';
+    return C.YQL + ('?url='+this.link) + ('&q='+query) + '&format=xml';
   };
   this.new = function (index){
     var i = BdnsItems.getItemByIndex(index);
-    //console.log('i', i);
     this.idConvocatoria = i[0];
     this.linkExternal_Url_or_Pdf = i[6];
     this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
@@ -425,8 +424,8 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     });
   };
   this.contiene = function (item) {
-    var favoritos = this.getAll(); var i;
-    for (i = 0; i < favoritos.length; i++) {
+    var favoritos = this.getAll();
+    for (var i = 0; i < favoritos.length; i++) {
       if ( angular.equals(favoritos[i], item) ) {
         return true;
       }
@@ -435,9 +434,3 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
   };
 });
 
-
-/*
-MyApp.angular.filter('urlEncode', [function() {
-  return window.encodeURIComponent;
-}]);
-*/
