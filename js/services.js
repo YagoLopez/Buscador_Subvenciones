@@ -136,34 +136,30 @@ MyApp.angular.service('Error', function(){
 // =====================================================================================================================
 MyApp.angular.service('Utiles', function(){
 
-  this.btnTop = function(Error){
+  this.btnTop = function(){
     $$('#detalleContent').scrollTop(0, 500); //500 velocidad
   };
   this.xmlParser = function(xmlStr){
     var xmlDoc = null;
     if( /Edge\/12./i.test(navigator.userAgent )){ // IE EDGE
-      //console.log('xmlParser, navegador edge');
       xmlDoc = document.implementation.createHTMLDocument(''); // es un hack
       xmlDoc.open(); xmlDoc.write(xmlStr); xmlDoc.close();
       return xmlDoc.getElementsByTagName('results')[0].innerHTML;
     }
     else if( ('ActiveXObject' in window) &&
               typeof(new window.ActiveXObject('Microsoft.XMLDOM')) === 'object' ) { // IEXPLORER
-      //console.log('xmlParser, IExplorer');
       xmlDoc = new window.ActiveXObject('Microsoft.XMLDOM');
       xmlDoc.async = 'false';
       xmlDoc.loadXML(xmlStr);
       return xmlDoc.getElementsByTagName('results')[0].xml; // no se puede usar innerHTML
     }
     else if (typeof window.DOMParser != 'undefined') { // CHROME, FIREFOX, ETC.
-      //console.log('xmlParser, Chrome, Firefox, etc.');
       var parser = new DOMParser();
       xmlDoc = parser.parseFromString(xmlStr, 'application/xml');
       return xmlDoc.getElementsByTagName('results')[0].innerHTML;
     }
      else {
       Error.mostrar2('No hay datos. Error al analizar fichero XML. Posible navegador no soportado');
-      //return 'No hay datos. Error al analizar fichero XML';
     };
   };
 });
@@ -269,7 +265,7 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('BdnsItems', function($http, Error, $timeout){
+MyApp.angular.service('BdnsItems', function($http, Error){
 
   var self = this;
   var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/index';
@@ -343,7 +339,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
   };
   this.getData = function(){
     return $http.get(this.createUrl(), {cache: true}).then(function(resp){
-        console.log( resp );
+        //console.log( resp );
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){

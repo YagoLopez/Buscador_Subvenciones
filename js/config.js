@@ -24,11 +24,11 @@ MyApp.fw7 = {
     scrollTopOnNavbarClick: true,
     swipePanel: 'left',
     swipePanelActiveArea: 500,
-    swipePanelNoFollow: true,
     swipePanelThreshold: 10,
     uniqueHistory: false,
-    preloadPreviousPage: true,
-    swipeoutNoFollow: true
+    preloadPreviousPage: true
+    //swipePanelNoFollow: true,
+    //swipeoutNoFollow: true
     //activeStateElements: '',
     //pushStateSeparator: '#!'
   })
@@ -42,7 +42,7 @@ MyApp.angular = angular.module('MyApp', ['ngStorage']);
 MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // config
 
   $compileProvider.debugInfoEnabled(false);
-  $httpProvider.useApplyAsync(true); //todo: revisar
+  $httpProvider.useApplyAsync(true);
   //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
