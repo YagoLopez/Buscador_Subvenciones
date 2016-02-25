@@ -1,0 +1,15 @@
+<html>
+<head>
+<script type="text/javascript">
+    function iframeclick() {
+        document.getElementById("iframe0").contentWindow.document.body.onclick = function() {
+            document.getElementById("iframe0").contentWindow.location.reload();
+        }
+    }
+</script>
+</head>
+<body style="background:url('auditoria/wp1.jpg')">
+<iframe id="iframe0" src="index.html"
+        style="height: 100%; width: 400px; display:block; margin: 20px auto;"></iframe>
+</body>
+</html>
