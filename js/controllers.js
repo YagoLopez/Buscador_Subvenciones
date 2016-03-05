@@ -30,7 +30,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
-      BoeItem.showButtons = true;
     });
   };
   $scope.onIconBack = function() {
@@ -87,7 +86,6 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
     MyApp.fw7.app.popup('.popup-detalle');
     IdepaItem.getData( IdepaItem.link ).then(function(htmlDetalle){
       IdepaItem.content = htmlDetalle;
-      IdepaItem.showButtons = true;
     });
   };
   $scope.addFavorito = function (itemIndex) {
@@ -188,7 +186,6 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     MyApp.fw7.app.popup('.popup-detalle');
     IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
       IpymeItem.content = htmlDetalle;
-      IpymeItem.showButtons = true;
     });
   };
   $scope.addFavorito = function (itemIndex) {
@@ -237,7 +234,6 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.getData().then(function(htmlDetalle){
       BdnsItem.content = htmlDetalle;
-      BdnsItem.showButtons = true;
     });
   };
   $scope.onIconBack = function() {
