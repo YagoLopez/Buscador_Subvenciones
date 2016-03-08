@@ -20,7 +20,7 @@ Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el fut
 - DGPYME: Dirección General de Industria y de la Pequeña y Mediana Empresa
 - BDNS: Base de Datos Nacional de Subvenciones
 
-Tecnologías empleadas:
+<h1>Tecnologías empleadas</h1>
  
 - Framework 7 (Interfaz de usuario)
 - AngularJS (Arquitectura MVVC y Two way data binding)
