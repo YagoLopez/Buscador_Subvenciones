@@ -1,13 +1,13 @@
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/YagoLopez/webcams_de_asturias/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+<br/>
 # Busca Fondos
 
-Buscador de fondos públicos y subvenciones para smartphone.
+<p><strong>Buscador de fondos públicos y subvenciones para smartphone.</strong></p>
 
 La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, 
 facilita la consulta de los mismos de una forma centralizada, rápida y eficiente. 
 
-[VER ONLINE](http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html)
+<p><a href="http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html" target="_blank">VER ONLINE</a></p>
 
 Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicación está particularizada para buscar fondos 
 en el Principado de Asturias aunque también es válida a nivel nacional.
@@ -44,11 +44,11 @@ Por hacer:
 
 # Auditoría
 
-## Red: tiempos de carga
+<h3>Red: tiempos de carga</h3>
 
 ![Red](auditoria/network.png "")
 
-## Memoria: actividad del recolector de basura, funciones mas costosas, etc
+<h3>Memoria: actividad del recolector de basura, funciones mas costosas, etc.</h3>
 
 ![Memoria](auditoria/timeline.png "")
 
