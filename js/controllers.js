@@ -192,7 +192,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     var aceptarGuardar = function () {
       var item = IpymeItems.getItems()[itemIndex];
       item.txt = $scope.txt;
-      item.enlaceExterno = item.titulo.href;
+      item.enlaceExterno = item.link;
       if( !Favoritos.contiene(item) ){
         Favoritos.add(item);
         $scope.$apply();

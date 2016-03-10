@@ -34,9 +34,10 @@
                             <i class="icon icon-form-radio smallRadio"></i>
                             <span>
                             {{ item.title }}
-                            {{ item.titulo.text }}
+                            <!--{{  item.titulo.text }}-->
                             {{ item.descripcion }}
                             {{ item[5] | uppercase }}
+                            {{ item['link/_text'] }}
                             </span>
                             <div class="pieItem">
                                 <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>

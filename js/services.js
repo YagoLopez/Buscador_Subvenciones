@@ -73,16 +73,20 @@ MyApp.angular.service('IdepaItems', function($http, Error){
 
   var self = this;
   this.items = null;
-  this.url = 'https://www.kimonolabs.com/api/3mabj0bo?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+  this.url = 'https://api.import.io/store/connector/113c753a-37f6-43c2-9757-53fe2b31a079/_query?input=webpage/url:' +
+    'http%3A%2F%2Fwww.idepa.es%2Fsites%2Fweb%2Fidepaweb%2Fservicios%2Fayudas%2Fbuscador%2Fresults.jsp' +
+    '%3FSelectorAmbito%3D%26ayuda_max%3D1000%26ayuda_page%3D1%26EsAyuda%3Dtruee%26Activo%3Dtruee&&' +
+    '_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
+
   this.txt = { titulo: 'IDEPA', subtitulo: 'Instituto de Desarrollo Econ\u00F3mico del Principado de Asturias'};
 
   this.getItems = function(){
     return this.items;
   };
   this.getData = function(){
-    return $http.jsonp(this.url, {cache: true}).then(function(resp){
-        self.items = resp.data.results.collection1;
-        //console.log(self.items);
+    return $http.get(this.url, {cache: true}).then(function(resp){
+        //console.log(resp.data.results);
+        self.items = resp.data.results;
       },
       function(datosError){
         Error.mostrar(datosError);
@@ -99,7 +103,7 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems)
     var i = IdepaItems.getItems()[index];
     this.titulo = i.descripcion;
     this.ambito = i.ambito;
-    this.link = i.link_detalle.href;
+    this.link = i.link_detalle;
     this.showButtons = false;
     this.index = index;
   };
@@ -220,7 +224,11 @@ MyApp.angular.filter('capitalize', function() {
 MyApp.angular.service('IpymeItems', function($http, Error){
 
   var self = this;
-  this.url = 'https://www.kimonolabs.com/api/7ni4mqfa?apikey=d3a469997b9fe51dba6bfaa47742b7c6&callback=JSON_CALLBACK';
+  this.url = 'https://api.import.io/store/connector/3c36ac22-1193-4d86-bc49-646d3b3917b2/_query?input=webpage/url:' +
+    'http%3A%2F%2Fwww.ipyme.org%2Fes-ES%2FBBDD%2FAyudasIncentivos%2FPaginas%2FListaAyudasIncentivos.aspx%3F' +
+    'TipoConsulta%3Dultimas%26PAGE%3D1&&_apikey=' +
+    'a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
+
   this.items = null;
   this.txt = { titulo: 'DGPYME', subtitulo: 'Direcci\u00F3n General de la Peque\u00F1a y Mediana Empresa'};
 
@@ -228,10 +236,10 @@ MyApp.angular.service('IpymeItems', function($http, Error){
     return this.items;
   };
   this.getData = function(){
-    return $http.jsonp(this.url, {cache: true}).then(function(resp){
-        self.items = resp.data.results.listado;
-        //console.log(self.items);
-        return resp;},
+    return $http.get(this.url, {cache: true}).then(function(resp){
+        //console.log(resp);
+        self.items = resp.data.results;
+      },
       function(datosError){
         Error.mostrar(datosError);
       });
@@ -248,9 +256,9 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   };
   this.new = function (index){
     var i = IpymeItems.getItems()[index];
-    this.titulo = i.titulo.text;
+    this.titulo = i['link/_text'];
     this.ambito = i.ambito;
-    this.link = i.titulo.href;
+    this.link = i.link;
     this.plazo = i.plazo;
     this.showButtons = false;
     this.index = index;
