@@ -889,8 +889,8 @@ html:not(.watch-active-state) .subnavbar a.link:active:before,
 .toolbar a.link.active-state:before,
 .subnavbar a.link.active-state:before {
   opacity: 1;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
+  /*-webkit-transition-duration: 150ms;*/
+  /*transition-duration: 150ms;*/
 }
 .navbar a.link i + span,
 .toolbar a.link i + span,
@@ -2144,8 +2144,8 @@ html.pixel-ratio-3 .list-block .item-inner:after {
   display: block;
 }
 .list-block .item-link {
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
   display: block;
   color: inherit;
   position: relative;
@@ -3305,8 +3305,8 @@ html:not(.watch-active-state) .speed-dial-buttons a:active,
 }
 html:not(.watch-active-state) .list-block .accordion-item-toggle:active,
 .list-block .accordion-item-toggle.active-state {
-  -webkit-transition-duration: 0ms;
-  transition-duration: 0ms;
+  /*-webkit-transition-duration: 0ms;*/
+  /*transition-duration: 0ms;*/
   background-color: #d9d9d9;
 }
 html:not(.watch-active-state) .list-block .accordion-item-toggle:active > .item-inner:after,

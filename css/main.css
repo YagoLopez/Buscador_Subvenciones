@@ -114,6 +114,13 @@ div.center {
     background-size: cover;
     background-position: center;
 }
+.lnk:active {
+    background: lightgray;
+    padding:15px;
+}
+/*.lnk:hover {*/
+    /*background: red;*/
+/*}*/
 /*
 .popup-overlay.modal-overlay-visible {
     opacity: 0;

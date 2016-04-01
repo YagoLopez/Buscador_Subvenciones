@@ -266,7 +266,7 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos, $window) 
     $scope.favoritos = Favoritos.getAll();
     $scope.$apply();
     $$('.swipeout').on('click', function () { MyApp.fw7.app.swipeoutOpen( $$(this) ) });
-    $$('.swipeout').on('closed', function () { MyApp.fw7.app.swipeoutClose( $$(this) ) });
+    //$$('.swipeout').on('closed', function () { MyApp.fw7.app.swipeoutClose( $$(this) ) });
   });
   $scope.deleteFavorito = function (itemIndex) {
     var aceptarBorrar = function () {

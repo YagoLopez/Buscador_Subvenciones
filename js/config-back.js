@@ -8,7 +8,7 @@ MyApp.fw7 = {
   app : new Framework7({
     material: true,
     materialRipple: false,
-    materialPageLoadDelay: 100,
+    materialPageLoadDelay: 1,
     activeState: true,
     fastClicks: true,
     pushState: false,

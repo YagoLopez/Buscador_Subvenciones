@@ -273,29 +273,28 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('BdnsItems', function($http, Error, $cookies){
+MyApp.angular.service('BdnsItems', function($http, Error){
 
   var self = this;
 
-  var urlBase = 'http://cors.io/?u=http://www.pap.minhap.gob.es/bdnstrans/GE/es/index';
-  //var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/index';
+  //var urlBase = 'http://cors.io/?u=http://www.pap.minhap.gob.es/bdnstrans/GE/es/index';
+  var urlBase = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/index';
 
   var urlUltimasAyudas =
     'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc';
   //+'&callback=JSON_CALLBACK'
 
-  var urlProxy = 'https://jsonp.afeld.me/?url=';
-
+  //var urlProxy = 'https://jsonp.afeld.me/?url=';
   //var urlUltimasAyudas = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc&callback=angular.callbacks._0';
 
   var requestHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.8,es-ES,es;q=0.6'
-    ,
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, origin, x-requested-with, accept',
-    'Access-Control-Max-Age': 3628800,
-    'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+    //,
+    //'Access-Control-Allow-Origin': '*',
+    //'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, origin, x-requested-with, accept',
+    //'Access-Control-Max-Age': 3628800,
+    //'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
   };
   var requestConfig = {
     url: urlUltimasAyudas,
@@ -319,17 +318,6 @@ MyApp.angular.service('BdnsItems', function($http, Error, $cookies){
   // Para lograr esto se utilizaa el patron de encadenamiento de promesas. Primero se hace una peticion en donde se
   // obtiene la cookie y luego se encadena una segunda peticion donde se obtienen los datos json
 
-  this.getData = function () {
-    var remoteUrl =
-      ('http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1453734096428&rows=200&page=1&sidx=4&sord=desc');
-    return $http.get( urlProxy+encodeURIComponent(urlBase), {headers: {}, withCredentials:false} )
-      .then(function (resp) {
-        console.log('datos bdns', resp);
-        console.log('cookies getall()', $cookies.getAll());
-        console.log('jsessionid', $cookies.get('JSESSIONID'));
-      });
-
-  };
 
 /*  this.getData = function () {
     return $http(requestConfig) // primera peticion: obtencion de cookie de forma transparente. No hay que hacer nada
@@ -348,7 +336,7 @@ MyApp.angular.service('BdnsItems', function($http, Error, $cookies){
       });
   };*/
 
-/*  this.getData = function () {
+  this.getData = function () {
     return $http(requestConfig) // primera peticion: obtencion de cookie de forma transparente. No hay que hacer nada
       .then(function (resp) {
         console.log('efectuando primera peticion, obtencion de cookie, respuesta', resp);
@@ -363,7 +351,7 @@ MyApp.angular.service('BdnsItems', function($http, Error, $cookies){
       }, function (respError) {
         Error.mostrar(respError);
       });
-  };*/
+  };
 
 
 
