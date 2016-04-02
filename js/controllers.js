@@ -26,6 +26,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   $scope.popupDetalle = function(itemIndex){
     BoeItem.new( itemIndex );
     BoeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
+    BoeItem.organismo = 'BOE';
     $rootScope.item = BoeItem;
     MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
@@ -36,20 +37,20 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     $scope.items = null;
     MyApp.fw7.app.params.swipePanel = 'left';
   };
-  $rootScope.addFavorito = function (itemIndex) {
-    var aceptarGuardar = function () {
-      var item = BoeItems.getItems()[itemIndex];
-      item.txt = $scope.txt;
-      item.enlaceExterno = item.link;
-      if( !Favoritos.contiene(item) ){
-        Favoritos.add(item);
-        $scope.$apply();
-        Favoritos.mostrarAviso('Favorito guardado');
-      } else {
-        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-    };
-    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  };
+  //$scope.addFavorito = function (itemIndex) {
+  //  var aceptarGuardar = function () {
+  //    var item = BoeItems.getItems()[itemIndex];
+  //    item.txt = $scope.txt;
+  //    item.enlaceExterno = item.link;
+  //    if( !Favoritos.contiene(item) ){
+  //      Favoritos.add(item);
+  //      $scope.$apply();
+  //      Favoritos.mostrarAviso('Favorito guardado');
+  //    } else {
+  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
+  //  };
+  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
+  //};
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem, Favoritos) {
@@ -88,20 +89,20 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       IdepaItem.content = htmlDetalle;
     });
   };
-  $scope.addFavorito = function (itemIndex) {
-    var aceptarGuardar = function () {
-      var item = IdepaItems.getItems()[itemIndex];
-      item.txt = $scope.txt;
-      item.enlaceExterno = item.link_detalle.href;
-      if( !Favoritos.contiene(item) ){
-        Favoritos.add(item);
-        $scope.$apply();
-        Favoritos.mostrarAviso('Favorito guardado');
-      } else {
-        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-    };
-    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  };
+  //$scope.addFavorito = function (itemIndex) {
+  //  var aceptarGuardar = function () {
+  //    var item = IdepaItems.getItems()[itemIndex];
+  //    item.txt = $scope.txt;
+  //    item.enlaceExterno = item.link_detalle.href;
+  //    if( !Favoritos.contiene(item) ){
+  //      Favoritos.add(item);
+  //      $scope.$apply();
+  //      Favoritos.mostrarAviso('Favorito guardado');
+  //    } else {
+  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
+  //  };
+  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
+  //};
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Favoritos) {
@@ -285,4 +286,44 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, Favoritos, $window) 
   $scope.abreEnlace = function (url) {
     $window.open(url, '_blank');
   };
+});
+// =====================================================================================================================
+MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos) {
+
+  $scope.addItemFavoritos = function () {
+
+    var aceptarGuardar = function () {
+      // Construccion de item (candidato a favorito)
+      var item = {};
+      item.organismo = $rootScope.item.organismo;
+      item.descripcionBreve = $rootScope.item.titulo || $rootScope.item.title;
+      item.textoPie = $rootScope.item.description || $rootScope.item.ambito || $rootScope.item.creator;
+      item.enlaceExterno = $rootScope.item.link;
+      item.content = $rootScope.item.content;
+
+      if( !Favoritos.contiene( item ) ){
+        Favoritos.add( item );
+        $scope.$apply();
+        Favoritos.mostrarAviso('Favorito guardado');
+      } else {
+        MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
+    };
+    MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
+  };
+
+  $scope.popupDetalle = function(itemIndex){
+    //BoeItem.new( itemIndex );
+    //BoeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
+    //BoeItem.organismo = 'BOE';
+    //$rootScope.item = BoeItem;
+    //MyApp.fw7.app.popup('.popup-detalle');
+    //BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
+    //  BoeItem.content = htmlDetalle;
+    //});
+
+    console.log('itemIndex', itemIndex);
+
+
+  };
+
 });

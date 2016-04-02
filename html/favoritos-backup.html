@@ -24,13 +24,18 @@
                     <div id="{{$index}}" class="item-inner swipeout-content margLeft8">
                         <div style="width:100%">
                             <div style="color:orange;text-align:right">
-                                <b style="padding:5px">{{ fav.organismo }}</b>
+                                <b style="padding:5px">{{ fav.txt.titulo }}</b>
                                 <!--<i class="fa fa-arrow-circle-left" style="font-size:18px;vertical-align:top;"></i>-->
                             </div>
                             <i class="icon icon-form-radio smallRadio"></i>
-                            <span>{{ fav.descripcionBreve }}</span>
+                            <span>{{ fav.title }}</span>
+                            <span>{{ fav.titulo.text }}</span>
+                            <span>{{ fav.descripcion }}</span>
                             <div class="pieItem">
-                                <div>{{ fav.textoPie }}</div>
+                                <div ng-if="fav.txt.titulo == 'BOE'">{{ fav.description }}</div>
+                                <div>{{ fav.ambito }}</div>
+                                <div>{{ fav.plazo }}</div>
+                                <div>{{ fav.creator }}</div>
                             </div>
                         </div>
                     </div>
@@ -40,9 +45,6 @@
                         </a>
                         <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close" style="background:red">
                             <b>Borrar</b>
-                        </a>
-                        <a href="#" ng-click="popupDetalle($index)" class="swipeout-close" style="background:purple">
-                            <b>Detalles</b>
                         </a>
                     </div>
                 </label>
