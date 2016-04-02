@@ -122,6 +122,10 @@ div.center {
 .modal-buttons .button.active-state{
     background: lightgray;
 }
-.btnsShare.active-state{
-    background:lightgray;
+.button.button-fill.active-state{
+    color:orange;
+    border: solid  gray;
+    /*-webkit-box-shadow: -1px  1px 1px gray;*/
+    /*-moz-box-shadow: -1px 1px 1px gray;*/
+    /*box-shadow: -1px 1px 1px gray;;*/
 }

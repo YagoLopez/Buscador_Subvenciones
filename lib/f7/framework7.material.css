@@ -953,8 +953,8 @@ html:not(.watch-active-state) .subnavbar a.link:active:before,
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  /*-webkit-transform: translate3d(0, 0, 0);*/
+  /*transform: translate3d(0, 0, 0);*/
 }
 .navbar .right,
 .subnavbar .right {
@@ -1404,14 +1404,14 @@ html:not(.watch-active-state) .tabbar a.tab-link:active,
   background-size: 100% 100%;
   opacity: 0;
   pointer-events: none;
-  -webkit-transition-duration: 600ms;
-  transition-duration: 600ms;
+  /*-webkit-transition-duration: 600ms;*/
+  /*transition-duration: 600ms;*/
 }
 html:not(.watch-active-state) .searchbar a:active:before,
 .searchbar a.active-state:before {
   opacity: 1;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
+  /*-webkit-transition-duration: 150ms;*/
+  /*transition-duration: 150ms;*/
 }
 .searchbar .searchbar-input {
   width: 100%;
@@ -1441,8 +1441,8 @@ html:not(.watch-active-state) .searchbar a:active:before,
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 center;
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20fill%3D'%23FFFFFF'%20height%3D'24'%20viewBox%3D'0%200%2024%2024'%20width%3D'24'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M15.5%2014h-.79l-.28-.27C15.41%2012.59%2016%2011.11%2016%209.5%2016%205.91%2013.09%203%209.5%203S3%205.91%203%209.5%205.91%2016%209.5%2016c1.61%200%203.09-.59%204.23-1.57l.27.28v.79l5%204.99L20.49%2019l-4.99-5zm-6%200C7.01%2014%205%2011.99%205%209.5S7.01%205%209.5%205%2014%207.01%2014%209.5%2011.99%2014%209.5%2014z'%2F%3E%3Cpath%20d%3D'M0%200h24v24H0z'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E");
   -webkit-background-size: 24px 24px;
   background-size: 24px 24px;
@@ -1469,8 +1469,8 @@ html:not(.watch-active-state) .searchbar a:active:before,
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20fill%3D'%23fff'%20height%3D'24'%20viewBox%3D'0%200%2024%2024'%20width%3D'24'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M19%206.41L17.59%205%2012%2010.59%206.41%205%205%206.41%2010.59%2012%205%2017.59%206.41%2019%2012%2013.41%2017.59%2019%2019%2017.59%2013.41%2012z'%2F%3E%3Cpath%20d%3D'M0%200h24v24H0z'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E");
   -webkit-background-size: 24px 24px;
   background-size: 24px 24px;
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
   cursor: pointer;
 }
 .searchbar .searchbar-cancel {
@@ -2164,7 +2164,8 @@ html.pixel-ratio-3 .list-block .item-inner:after {
 }
 html:not(.watch-active-state) .list-block .item-link:active,
 .list-block .item-link.active-state {
-  background-color: rgba(0, 0, 0, 0.1);
+  /*background-color: rgba(0, 0, 0, 0.1);*/
+  background: lightgray;
 }
 .list-block .item-link.list-button {
   padding: 0 16px;
@@ -3315,15 +3316,15 @@ html:not(.watch-active-state) .list-block .accordion-item-toggle:active > .item-
 }
 .list-block .accordion-item-toggle .item-inner,
 .list-block .accordion-item > .item-link .item-inner {
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
-  -webkit-transition-property: background-color;
-  transition-property: background-color;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
+  /*-webkit-transition-property: background-color;*/
+  /*transition-property: background-color;*/
 }
 .list-block .accordion-item-toggle .item-inner:after,
 .list-block .accordion-item > .item-link .item-inner:after {
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
 }
 .list-block:not(.media-list) .accordion-item-expanded:not(.media-item) .accordion-item-toggle .item-inner,
 .list-block:not(.media-list) .accordion-item-expanded:not(.media-item) > .item-link .item-inner,
@@ -3474,10 +3475,10 @@ html.android-4 .accordion-item-content {
   overflow: hidden;
   outline: 0;
   border: none;
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
+  /*-webkit-transform: translate3d(0, 0, 0);*/
+  /*transform: translate3d(0, 0, 0);*/
   -webkit-user-select: none;
   user-select: none;
 }
@@ -3955,8 +3956,8 @@ html.pixel-ratio-3 .actions-modal-group:after {
   line-height: 48px;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.87);
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
 }
 .actions-modal-button a,
 .actions-modal-button {
