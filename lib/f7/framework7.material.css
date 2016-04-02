@@ -2744,8 +2744,8 @@ textarea.resizable {
   background: rgba(33, 150, 243, 0.5);
 }
 .label-switch input[type="checkbox"]:checked + .checkbox:after {
-  -webkit-transform: translateX(16px);
-  transform: translateX(16px);
+  /*-webkit-transform: translateX(16px);*/
+  /*transform: translateX(16px);*/
   background: #2196f3;
 }
 .item-input .label-switch {
@@ -3022,8 +3022,8 @@ label.label-radio i.icon-form-radio {
   border-radius: 20px;
   border: 2px solid #6d6d6d;
   box-sizing: border-box;
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
 }
 label.label-radio i.icon-form-radio:after {
   content: ' ';
@@ -3038,8 +3038,8 @@ label.label-radio i.icon-form-radio:after {
   border-radius: 100%;
   -webkit-transform: scale(0);
   transform: scale(0);
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  /*-webkit-transition-duration: 300ms;*/
+  /*transition-duration: 300ms;*/
 }
 label.label-radio input[type="checkbox"],
 label.label-radio input[type="radio"] {
@@ -3643,7 +3643,7 @@ html.pixel-ratio-3 .card-footer:before {
 /* === Modals === */
 .modal-overlay,
 .preloader-indicator-overlay,
-.popup-overlay,
+/*.popup-overlay,*/
 .picker-modal-overlay {
   position: absolute;
   left: 0;
@@ -3657,12 +3657,27 @@ html.pixel-ratio-3 .card-footer:before {
   /*-webkit-transition-duration: 400ms;*/
   /*transition-duration: 400ms;*/
 }
+.popup-overlay{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 13000;
+  visibility: hidden;
+  /*opacity: 0;*/
+}
 .modal-overlay.modal-overlay-visible,
 .preloader-indicator-overlay.modal-overlay-visible,
-.popup-overlay.modal-overlay-visible,
+/*.popup-overlay.modal-overlay-visible,*/
 .picker-modal-overlay.modal-overlay-visible {
   visibility: visible;
   opacity: 1;
+}
+.popup-overlay.modal-overlay-visible{
+  visibility: visible;
+  opacity: 0;
 }
 .popup-overlay {
   z-index: 10500;

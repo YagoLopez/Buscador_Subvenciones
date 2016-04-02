@@ -14,7 +14,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
+  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(url){
     BoeItems.getData(url).then(function(){
       searchbar.disable();
@@ -66,7 +66,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
+  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     IdepaItems.getData().then(function(){
       searchbar.disable();
@@ -118,7 +118,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
+  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     MineturItems.getData().then(function(){
       searchbar.disable();
@@ -166,7 +166,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
+  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     IpymeItems.getData().then(function(){
       searchbar.disable();
@@ -218,7 +218,7 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  $scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
+  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     BdnsItems.getData().then(function(){
       searchbar.disable();
