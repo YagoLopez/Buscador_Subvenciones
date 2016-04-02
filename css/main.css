@@ -102,6 +102,7 @@ div.center {
 
 .cardFooter.active-state{
     background: lightgray;
+    /*color: orange;*/
 }
 .marg15{
     margin:2.5%;
@@ -114,15 +115,13 @@ div.center {
     background-size: cover;
     background-position: center;
 }
-.lnk:active {
+.lnk.active-state {
     background: lightgray;
     padding:15px;
 }
-/*.lnk:hover {*/
-    /*background: red;*/
-/*}*/
-/*
-.popup-overlay.modal-overlay-visible {
-    opacity: 0;
+.modal-buttons .button.active-state{
+    background: lightgray;
 }
-*/
+.btnsShare.active-state{
+    background:lightgray;
+}

@@ -879,8 +879,8 @@ p {
   background-size: 100% 100%;
   opacity: 0;
   pointer-events: none;
-  /*-webkit-transition-duration: 600ms;*/
-  /*transition-duration: 600ms;*/
+  -webkit-transition-duration: 600ms;
+  transition-duration: 600ms;
 }
 html:not(.watch-active-state) .navbar a.link:active:before,
 html:not(.watch-active-state) .toolbar a.link:active:before,
@@ -1497,10 +1497,10 @@ html:not(.watch-active-state) .searchbar a:active:before,
   opacity: 0;
   pointer-events: none;
   background: rgba(0, 0, 0, 0.25);
-  /*-webkit-transition-duration: 300ms;*/
-  /*transition-duration: 300ms;*/
-  /*-webkit-transform: translate3d(0, 0, 0);*/
-  /*transform: translate3d(0, 0, 0);*/
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 .searchbar-overlay.searchbar-overlay-active {
   opacity: 1;
@@ -3653,8 +3653,8 @@ html.pixel-ratio-3 .card-footer:before {
   z-index: 13000;
   visibility: hidden;
   opacity: 0;
-  /*-webkit-transition-duration: 400ms;*/
-  /*transition-duration: 400ms;*/
+  -webkit-transition-duration: 400ms;
+  transition-duration: 400ms;
 }
 .modal-overlay.modal-overlay-visible,
 .preloader-indicator-overlay.modal-overlay-visible,
@@ -3780,10 +3780,10 @@ html.pixel-ratio-3 .card-footer:before {
   overflow: hidden;
   outline: 0;
   border: none;
-  /*-webkit-transition-duration: 300ms;*/
-  /*transition-duration: 300ms;*/
-  /*-webkit-transform: translate3d(0, 0, 0);*/
-  /*transform: translate3d(0, 0, 0);*/
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   -webkit-user-select: none;
   user-select: none;
 }

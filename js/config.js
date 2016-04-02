@@ -8,7 +8,7 @@ MyApp.fw7 = {
   app : new Framework7({
     material: true,
     materialRipple: false,
-    materialPageLoadDelay: 100,
+    materialPageLoadDelay: 1,
     activeState: true,
     fastClicks: true,
     pushState: false,
@@ -17,8 +17,9 @@ MyApp.fw7 = {
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    //materialPreloaderHtml: '<div style="color:white;font-size:12px">Cargando</div>',
-    materialPreloaderHtml: '<div><img src="img/10.gif" width="25"></div>',
+    //materialPreloaderHtml: '<div style="color:white;font-size:12px;margin:auto">Cargando</div>',
+    materialPreloaderHtml:
+    '<div style="text-align:center"><img src="img/10.gif" width="25"><div style="color:white;font-size:12px">Cargando</div></div>',
     materialPreloaderSvg: '',
     materialRippleElements: '',
     scrollTopOnNavbarClick: true,
