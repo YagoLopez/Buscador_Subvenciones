@@ -24,7 +24,6 @@
         <div class="content-block-inner">No se han encontrado resultados</div>
     </div>
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
-        <!--<div class="avisoFavs">Deslizar item izquierda para guardar <img class="verticalMid" src="img/s2.png"></div>-->
         <ul>
             <li id="{{$index}}" ng-repeat="item in items track by $index" class="swipeout" ng-click="onClickItem($index)">
                 <label class="label-radio item-content padLeft5">
@@ -49,7 +48,7 @@
                         </div>
                     </div>
                     <div class="swipeout-actions-right">
-                        <a href="#" ng-click="openPopup($index)" class="swipeout-close" style="background:green"><b>Detalles</b></a>
+                        <a href="#" ng-click="popupDetalle($index)" class="swipeout-close" style="background:green"><b>Detalles</b></a>
                         <a href="#" ng-click="addFavorito($index)" class="swipeout-close" style="background:cornflowerblue;"><b>Guardar</b></a>
                     </div>
                 </label>

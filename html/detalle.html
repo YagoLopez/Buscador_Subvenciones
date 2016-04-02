@@ -4,22 +4,26 @@
             <div class="left width44">
                 <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
             </div>
-            <div class="center" style="margin-right:70px">Detalles</div>
+            <!--<div class="center" style="margin-right:70px">Detalles</div>-->
+            <div class="center">Detalles</div>
+            <div class="right"><a href="#" class="link" ng-click="addFavorito( item.index )">
+                <i class="icon fa fa-heart"></i></a>
+            </div>
         </div>
     </div>
     <!-- speed dial ================================================================================================ -->
     <div class="speed-dial">
-        <a href="#" class="floating-button color-indigo">
+        <a href="#" class="floating-button" style="background:darkblue;">
             <i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
-
         <div class="speed-dial-buttons">
-            <a href="#" class="open-popover color-indigo" data-popover="#popover-share" target="system">
+            <a href="#" class="open-popover" data-popover="#popover-share" target="system">
                 <i class="fa fa-share-alt-square" style="font-size:18px"></i>
             </a>
-            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external color-indigo" target="_blank">Doc</a>
-            <a href="{{ item.link }}" class="external color-indigo" target="_blank">Web</a>
+            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external" target="_blank">Doc</a>
+            <a href="{{ item.link }}" class="external" target="_blank">Web</a>
+            <!--<a href="#" ng-click="addFavorito( item.index )">Fav</a>-->
             <a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf}}"
-               class="external color-indigo" target="_blank">Doc</a>
+               class="external" target="_blank">Doc</a>
         </div>
     </div>
     <!-- contenido pagina ========================================================================================== -->
