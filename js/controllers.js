@@ -27,7 +27,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     BoeItem.new( itemIndex );
     BoeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
     $rootScope.item = BoeItem;
-    console.log('boe item', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
