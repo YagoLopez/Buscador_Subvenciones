@@ -21,16 +21,13 @@
             </a>
             <a ng-if="item.pdf" href="{{ item.pdf }}" class="external" target="_blank">Doc</a>
             <a href="{{ item.link }}" class="external" target="_blank">Web</a>
-            <a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf }}"
-               class="external" target="_blank">Doc</a>
+            <!--<a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf }}"-->
+               <!--class="external" target="_blank">Doc</a>-->
         </div>
     </div>
     <!-- contenido pagina ========================================================================================== -->
     <div  id="detalleContent" class="page-content hide-navbar-on-scroll detailPageContent">
         <div class="content-block">
-            <p>item.link: {{item.link}}</p>
-            <p>item.pdf: {{item.pdf}}</p>
-            <p>item.linkExternal_Url_or_Pdf: {{item.linkExternal_Url_or_Pdf}}</p>
             <b style="text-decoration:underline">EXTRACTO:</b>
             <p id='detailContent' ng-bind-html="item.content | FiltroHtml"></p>
         </div>

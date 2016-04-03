@@ -186,7 +186,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   $scope.popupDetalle = function(index){
     IpymeItem.new( index );
     IpymeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
-    IpymeItem.organismo = 'IPYME';
+    IpymeItem.organismo = 'DGPYME';
     $rootScope.item = IpymeItem;
     MyApp.fw7.app.popup('.popup-detalle');
     IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
@@ -292,14 +292,10 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
     $window.open(url, '_blank');
   };
   $scope.popupDetalle = function(itemIndex){
-    //console.log('itemIndex', itemIndex);
-    //console.log('Favoritos.getitem()', Favoritos.getItem( itemIndex  ));
     $rootScope.item = Favoritos.getItem( itemIndex );
     console.log('$rootScope.item desde FavoritosCtrl', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
-    //todo: falta arreglar que se agregen duplicados a favoritos
     //todo: añadir un flag para saber en el detalle (o en listado) cuando un item esta en favoritos
-    //todo: fallan los enlaces a web externa y pdf
   };
 });
 // =====================================================================================================================
@@ -307,18 +303,7 @@ MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos)
 
 
   $scope.addItemFavoritos = function () {
-
-    console.log('$rootScope.item desde DetalleCtrl', $rootScope.item);
-
     var aceptarGuardar = function () {
-      // Construccion de item (candidato a favorito)
-      //var item = {};
-      //item.organismo = $rootScope.item.organismo;
-      //item.descripcionBreve = $rootScope.item.titulo || $rootScope.item.title;
-      //item.textoPie = $rootScope.item.description || $rootScope.item.ambito || $rootScope.item.creator;
-      //item.enlaceExterno = $rootScope.item.link;
-      //item.content = $rootScope.item.content;
-
       if( !Favoritos.contiene( $rootScope.item ) ){
         Favoritos.add( $rootScope.item );
         $scope.$apply();

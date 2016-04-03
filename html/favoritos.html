@@ -5,7 +5,7 @@
         </div>
         <div class="center">Favoritos</div>
         <div class="right">
-            <a href="#" class="link icon-only" ng-click="deleteAll()" style="padding:0">
+            <a href="#" class="link icon-only" ng-click="deleteAll()" style="padding:5px">
                 <i class="fa fa-trash-o fa-2"></i>
             </a>
             <a href="#" class="link icon-only open-panel" data-panel="left" style="padding:8px">
@@ -42,15 +42,16 @@
                         </div>
                     </div>
                     <div class="swipeout-actions-right">
-                        <a href="#" ng-click="abreEnlace(fav.link)" class="swipeout-close" style="background:green">
-                            <b>Ver Web</b>
+                        <a href="#" ng-click="popupDetalle($index)" class="swipeout-close" style="background:green">
+                            <b>Detalles</b>
                         </a>
+                        <!--<a href="#" ng-click="abreEnlace(fav.link)" class="swipeout-close" style="background:green">-->
+                            <!--<b>Ver Web</b>-->
+                        <!--</a>-->
                         <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close" style="background:red">
                             <b>Borrar</b>
                         </a>
-                        <a href="#" ng-click="popupDetalle($index)" class="swipeout-close" style="background:Blue">
-                            <b>Detalles</b>
-                        </a></div>
+                    </div>
                 </label>
             </li>
         </ul>
