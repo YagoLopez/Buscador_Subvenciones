@@ -11,7 +11,8 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
     MyApp.fw7.app.showIndicator();
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
-      $scope.numItems = e.detail.foundItems.length; $scope.$apply();
+      $scope.numItems = e.detail.foundItems.length;
+      $scope.$apply();
     });
   });
   //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
@@ -291,10 +292,10 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
     $window.open(url, '_blank');
   };
   $scope.popupDetalle = function(itemIndex){
-    console.log('itemIndex', itemIndex);
-    console.log('getitem', Favoritos.getItem( itemIndex  ));
+    //console.log('itemIndex', itemIndex);
+    //console.log('Favoritos.getitem()', Favoritos.getItem( itemIndex  ));
     $rootScope.item = Favoritos.getItem( itemIndex );
-    $rootScope.esItemFavorito = true;
+    console.log('$rootScope.item desde FavoritosCtrl', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
     //todo: falta arreglar que se agregen duplicados a favoritos
     //todo: añadir un flag para saber en el detalle (o en listado) cuando un item esta en favoritos
@@ -304,18 +305,22 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
 // =====================================================================================================================
 MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos) {
 
+
   $scope.addItemFavoritos = function () {
+
+    console.log('$rootScope.item desde DetalleCtrl', $rootScope.item);
+
     var aceptarGuardar = function () {
       // Construccion de item (candidato a favorito)
-      var item = {};
-      item.organismo = $rootScope.item.organismo;
-      item.descripcionBreve = $rootScope.item.titulo || $rootScope.item.title;
-      item.textoPie = $rootScope.item.description || $rootScope.item.ambito || $rootScope.item.creator;
-      item.enlaceExterno = $rootScope.item.link;
-      item.content = $rootScope.item.content;
+      //var item = {};
+      //item.organismo = $rootScope.item.organismo;
+      //item.descripcionBreve = $rootScope.item.titulo || $rootScope.item.title;
+      //item.textoPie = $rootScope.item.description || $rootScope.item.ambito || $rootScope.item.creator;
+      //item.enlaceExterno = $rootScope.item.link;
+      //item.content = $rootScope.item.content;
 
-      if( !Favoritos.contiene( item ) ){
-        Favoritos.add( item );
+      if( !Favoritos.contiene( $rootScope.item ) ){
+        Favoritos.add( $rootScope.item );
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
       } else {

@@ -5,12 +5,9 @@
                 <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
             </div>
             <div class="center">Detalles</div>
-            <div ng-if="!esItemFavorito" class="right">
-                <a href="#" class="link" ng-click="esFavorito()">
+            <div class="right">
+                <a href="#" class="link" ng-click="addItemFavoritos()">
                 <i class="fa fa-heart"></i></a>
-            </div>
-            <div ng-if="esItemFavorito" class="right">
-                <i class="fa fa-heart" style="padding:15px;color:cyan"></i>
             </div>
         </div>
     </div>
@@ -24,13 +21,16 @@
             </a>
             <a ng-if="item.pdf" href="{{ item.pdf }}" class="external" target="_blank">Doc</a>
             <a href="{{ item.link }}" class="external" target="_blank">Web</a>
-            <a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf}}"
+            <a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf }}"
                class="external" target="_blank">Doc</a>
         </div>
     </div>
     <!-- contenido pagina ========================================================================================== -->
     <div  id="detalleContent" class="page-content hide-navbar-on-scroll detailPageContent">
         <div class="content-block">
+            <p>item.link: {{item.link}}</p>
+            <p>item.pdf: {{item.pdf}}</p>
+            <p>item.linkExternal_Url_or_Pdf: {{item.linkExternal_Url_or_Pdf}}</p>
             <b style="text-decoration:underline">EXTRACTO:</b>
             <p id='detailContent' ng-bind-html="item.content | FiltroHtml"></p>
         </div>
