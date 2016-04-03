@@ -294,6 +294,7 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
     console.log('itemIndex', itemIndex);
     console.log('getitem', Favoritos.getItem( itemIndex  ));
     $rootScope.item = Favoritos.getItem( itemIndex );
+    $rootScope.esItemFavorito = true;
     MyApp.fw7.app.popup('.popup-detalle');
     //todo: falta arreglar que se agregen duplicados a favoritos
     //todo: añadir un flag para saber en el detalle (o en listado) cuando un item esta en favoritos
@@ -325,6 +326,12 @@ MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos)
 
   //todo: comprobar aqui si $rootScope.item esta en la lista de favoritos
   // en base a eso mostrar o no el boton de añadir a favoritos
+  $scope.esFavorito = function () {
+    console.log('favoritos', Favoritos.getAll());
+    console.log('rootscope item', $rootScope.item);
+    console.log(' es favorito', Favoritos.contiene( $rootScope.item ));
+    return Favoritos.contiene( $rootScope.item );
+  }
 
 
 });

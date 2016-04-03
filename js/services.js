@@ -414,17 +414,37 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
       closeOnClick: true
     });
   };
+  //this.contiene = function (item) {
+  //  var favoritos = this.getAll();
+  //  for (var i = 0; i < favoritos.length; i++) {
+  //    if ( angular.equals(favoritos[i], item) ) {
+  //      return true;
+  //    }
+  //  };
+  //  return false;
+  //};
+
   this.contiene = function (item) {
+
+    // Construccion de item (candidato a favorito)
+    var candidatoFavorito = {};
+    candidatoFavorito.organismo = item.organismo;
+    candidatoFavorito.descripcionBreve = item.titulo || item.title;
+    candidatoFavorito.textoPie = item.description || item.ambito || item.creator;
+    candidatoFavorito.enlaceExterno = item.link;
+    candidatoFavorito.content = item.content;
+
     var favoritos = this.getAll();
     for (var i = 0; i < favoritos.length; i++) {
-      if ( angular.equals(favoritos[i], item) ) {
+      if ( angular.equals(favoritos[i], candidatoFavorito) ) {
         return true;
       }
     };
     return false;
   };
+
   this.getItem = function (arrIndex) {
     return this.getAll()[arrIndex];
-  }
+  };
 });
 

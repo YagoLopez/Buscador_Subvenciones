@@ -5,8 +5,12 @@
                 <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
             </div>
             <div class="center">Detalles</div>
-            <div class="right"><a href="#" class="link" ng-click="addItemFavoritos()">
-                <i class="icon fa fa-heart"></i></a>
+            <div ng-if="!esItemFavorito" class="right">
+                <a href="#" class="link" ng-click="esFavorito()">
+                <i class="fa fa-heart"></i></a>
+            </div>
+            <div ng-if="esItemFavorito" class="right">
+                <i class="fa fa-heart" style="padding:15px;color:cyan"></i>
             </div>
         </div>
     </div>
