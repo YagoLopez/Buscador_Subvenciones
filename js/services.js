@@ -423,5 +423,8 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     };
     return false;
   };
+  this.getItem = function (arrIndex) {
+    return this.getAll()[arrIndex];
+  }
 });
 
