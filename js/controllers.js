@@ -28,10 +28,6 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     BoeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     BoeItem.organismo = 'BOE';
     $rootScope.item = BoeItem;
-
-    console.log('rotscope.item desde popup detalle', $rootScope.item );
-
-
     MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
@@ -236,38 +232,22 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
   };
   $scope.popupDetalleFavorito = function(itemIndex){
     $rootScope.item = Favoritos.getItem( itemIndex );
-    console.log('$rootScope.item desde FavoritosCtrl', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos, $localStorage) {
+MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos) {
 
-  //$$('.popup-detalle').on('close', function () {
-  //  console.log('popup-detalle closing');
-  //  $rootScope.item = null;
-  //});
+  // Para guardar un item en favoritos es necesario crear una copia del mismo. Si se guarda $rootScope.item
+  // directamente en favoritos se estará guardando un puntero, es decir, una referencia a dicho valor. Por lo tanto
+  // cuando cambie el valor de dicha referencia a lo largo de la aplicación, cambiará el valor guardado en favoritos,
+  // lo cual no es el comportamiento deseado. Se requiere que el item quede guardado en favoritos y no varie su valor.
 
-
-  //$scope.addItemFavoritos = function () {
-  //  var candidatoFavorito = $rootScope.item;
-  //  var aceptarGuardar = function () {
-  //    if( !Favoritos.contiene( candidatoFavorito ) ){
-  //      Favoritos.add( candidatoFavorito );
-  //      //$scope.$apply();
-  //      Favoritos.mostrarAviso('Favorito guardado');
-  //    } else {
-  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-  //  };
-  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  //};
   $scope.addItemFavoritos = function () {
-    //var candidatoFavorito = $rootScope.item;
-    var candidatoFavorito = angular.copy($rootScope.item);
+    var candidatoFavorito = angular.copy( $rootScope.item );
     var aceptarGuardar = function () {
       if( !Favoritos.contiene( candidatoFavorito ) ){
         Favoritos.add( candidatoFavorito );
-        //Favoritos.add( {titulo: 'favorito de prueba'}  );
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
       } else {
@@ -276,13 +256,10 @@ MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos,
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
 
-
-
-
-
   $scope.esItemFavorito = function () {
     return Favoritos.contiene( $rootScope.item );
   };
+
   $scope.tipFavorito = function () {
     alert('Item ya figura como favorito')
   }

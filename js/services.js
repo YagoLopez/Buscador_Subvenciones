@@ -131,7 +131,7 @@ MyApp.angular.service('Error', function(){
     console.error(resp);
   };
   this.mostrar2 = function(txtExcepcion){
-    MyApp.fw7.app.hideIndicator();
+    MyApp.fw7.app.hidePreloader();
     MyApp.fw7.app.alert(txtExcepcion, 'Error');
   };
 });
@@ -207,7 +207,7 @@ MyApp.angular.constant('C', {
   YQL:'https://query.yahooapis.com/v1/public/yql',
   STRINGS: {
     TXT_LOADING_DETALLE:'<img src="img/3.gif"> '+'Obteniendo datos... ',
-    TXT_PRELOADER: 'Cargado. Espere un momento, por favor...'
+    TXT_PRELOADER: '<span style="font-size:medium">Cargado. Espere un momento, por favor...</span>'
   }
 });
 // =====================================================================================================================
@@ -396,7 +396,6 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     return $localStorage.favoritos;
   };
   this.add = function (item) {
-    console.log('añadiendo favorito', item);
     $localStorage.favoritos.push(item);
   };
   this.delete = function (index) {
