@@ -55,7 +55,6 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
     this.description = i.description;
     this.link = i.link;
     this.pdf = i.guid.content;
-    this.showButtons = false;
     this.index = index;
   };
   this.getData = function(urlDetalle){
@@ -205,7 +204,12 @@ MyApp.angular.service('MineturItem', function(MineturItems){
 // =====================================================================================================================
 MyApp.angular.constant('C', {
   YQL2: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
-  YQL:'https://query.yahooapis.com/v1/public/yql'})
+  YQL:'https://query.yahooapis.com/v1/public/yql',
+  STRINGS: {
+    TXT_LOADING_DETALLE:'<img src="img/3.gif"> '+'Obteniendo datos... ',
+    TXT_PRELOADER: 'Cargado. Espere un momento, por favor...'
+  }
+});
 // =====================================================================================================================
 MyApp.angular.filter('FiltroHtml', ['$sce', function($sce) {
   return function(value, type) {
@@ -258,7 +262,6 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
     this.ambito = i.ambito;
     this.link = i.link;
     this.plazo = i.plazo;
-    this.showButtons = false;
     this.index = index;
   };
   this.getData = function(urlDetalle){
@@ -369,7 +372,6 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
     this.idConvocatoria = i[0];
     this.linkExternal_Url_or_Pdf = i[6];
     this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
-    this.showButtons = false;
     this.index = index;
     //this.fechaConvocatoria = i[4];
     //this.titulo = i[5];
@@ -422,27 +424,9 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     return false;
   };
 
-  //this.contiene = function (item) {
-  //
-  //  // Construccion de item (candidato a favorito)
-  //  var candidatoFavorito = {};
-  //  candidatoFavorito.organismo = item.organismo;
-  //  candidatoFavorito.descripcionBreve = item.titulo || item.title;
-  //  candidatoFavorito.textoPie = item.description || item.ambito || item.creator;
-  //  candidatoFavorito.enlaceExterno = item.link;
-  //  candidatoFavorito.content = item.content;
-  //
-  //  var favoritos = this.getAll();
-  //  for (var i = 0; i < favoritos.length; i++) {
-  //    if ( angular.equals(favoritos[i], candidatoFavorito) ) {
-  //      return true;
-  //    }
-  //  };
-  //  return false;
-  //};
-
   this.getItem = function (arrIndex) {
     return this.getAll()[arrIndex];
   };
 });
+// =====================================================================================================================
 

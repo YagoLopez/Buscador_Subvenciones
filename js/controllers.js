@@ -1,4 +1,4 @@
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Favoritos) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Favoritos, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoBoe', function (page) {
@@ -9,24 +9,23 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
     $scope.getItems( BoeItems.getUrlFor(page.query.tipo) );
-    MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showPreloader(C.STRINGS.TXT_PRELOADER);
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length;
       $scope.$apply();
     });
   });
-  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(url){
     BoeItems.getData(url).then(function(){
       searchbar.disable();
       $scope.items = BoeItems.getItems();
       $scope.numItems = BoeItems.getItems().length;
-      MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hidePreloader();
     });
   };
   $scope.popupDetalle = function(itemIndex){
     BoeItem.new( itemIndex );
-    BoeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
+    BoeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     BoeItem.organismo = 'BOE';
     $rootScope.item = BoeItem;
     MyApp.fw7.app.popup('.popup-detalle');
@@ -38,23 +37,9 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     $scope.items = null;
     MyApp.fw7.app.params.swipePanel = 'left';
   };
-  //$scope.addFavorito = function (itemIndex) {
-  //  var aceptarGuardar = function () {
-  //    var item = BoeItems.getItems()[itemIndex];
-  //    item.txt = $scope.txt;
-  //    item.enlaceExterno = item.link;
-  //    if( !Favoritos.contiene(item) ){
-  //      Favoritos.add(item);
-  //      $scope.$apply();
-  //      Favoritos.mostrarAviso('Favorito guardado');
-  //    } else {
-  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-  //  };
-  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  //};
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem, Favoritos) {
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem, Favoritos, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoIdepa', function () {
@@ -63,18 +48,17 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
     searchbar = $$( '#searchbar'+$scope.txt.titulo)[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
     $scope.getItems();
-    MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showPreloader(C.STRINGS.TXT_PRELOADER);
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     IdepaItems.getData().then(function(){
       searchbar.disable();
       $scope.items = IdepaItems.getItems();
       $scope.numItems = IdepaItems.getItems().length;
-      MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hidePreloader();
     })
   };
   $scope.onIconBack = function() {
@@ -83,7 +67,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   };
   $scope.popupDetalle = function(index){
     IdepaItem.new( index );
-    IdepaItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
+    IdepaItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     IdepaItem.organismo = 'IDEPA';
     $rootScope.item = IdepaItem;
     MyApp.fw7.app.popup('.popup-detalle');
@@ -91,23 +75,9 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       IdepaItem.content = htmlDetalle;
     });
   };
-  //$scope.addFavorito = function (itemIndex) {
-  //  var aceptarGuardar = function () {
-  //    var item = IdepaItems.getItems()[itemIndex];
-  //    item.txt = $scope.txt;
-  //    item.enlaceExterno = item.link_detalle.href;
-  //    if( !Favoritos.contiene(item) ){
-  //      Favoritos.add(item);
-  //      $scope.$apply();
-  //      Favoritos.mostrarAviso('Favorito guardado');
-  //    } else {
-  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-  //  };
-  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  //};
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Favoritos) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Favoritos, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoMinetur', function () {
@@ -116,18 +86,17 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
     $scope.getItems();
-    MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showPreloader(C.STRINGS.TXT_PRELOADER);
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     MineturItems.getData().then(function(){
       searchbar.disable();
       $scope.items = MineturItems.getItems();
       $scope.numItems = MineturItems.getItems().length;
-      MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hidePreloader();
     })
   };
   $scope.onIconBack = function() {
@@ -140,23 +109,9 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     $rootScope.item = MineturItem;
     MyApp.fw7.app.popup('.popup-detalle');
   };
-  //$scope.addFavorito = function (itemIndex) {
-  //  var aceptarGuardar = function () {
-  //    var item = MineturItems.getItems()[itemIndex];
-  //    item.txt = $scope.txt;
-  //    item.enlaceExterno = item.link;
-  //    if( !Favoritos.contiene(item) ){
-  //      Favoritos.add(item);
-  //      $scope.$apply();
-  //      Favoritos.mostrarAviso('Favorito guardado');
-  //    } else {
-  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-  //  };
-  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  //};
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem, Favoritos) {
+MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem, Favoritos, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoIpyme', function () {
@@ -165,18 +120,17 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
     searchbar.params.removeDiacritics = true;
     $scope.getItems();
-    MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showPreloader(C.STRINGS.TXT_PRELOADER);
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     IpymeItems.getData().then(function(){
       searchbar.disable();
       $scope.items = IpymeItems.getItems();
       $scope.numItems = IpymeItems.getItems().length;
-      MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hidePreloader();
     })
   };
   $scope.onIconBack = function() {
@@ -185,7 +139,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   };
   $scope.popupDetalle = function(index){
     IpymeItem.new( index );
-    IpymeItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
+    IpymeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     IpymeItem.organismo = 'DGPYME';
     $rootScope.item = IpymeItem;
     MyApp.fw7.app.popup('.popup-detalle');
@@ -193,27 +147,13 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
       IpymeItem.content = htmlDetalle;
     });
   };
-  //$scope.addFavorito = function (itemIndex) {
-  //  var aceptarGuardar = function () {
-  //    var item = IpymeItems.getItems()[itemIndex];
-  //    item.txt = $scope.txt;
-  //    item.enlaceExterno = item.link;
-  //    if( !Favoritos.contiene(item) ){
-  //      Favoritos.add(item);
-  //      $scope.$apply();
-  //      Favoritos.mostrarAviso('Favorito guardado');
-  //    } else {
-  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-  //  };
-  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  //};
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, BdnsItems, BdnsItem, Favoritos){
+MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, BdnsItems, BdnsItem, Favoritos, C){
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoBdns', function () {
-    MyApp.fw7.app.showIndicator();
+    MyApp.fw7.app.showPreloader(C.STRINGS.TXT_PRELOADER);
     MyApp.fw7.app.params.swipePanel = false;
     $scope.txt = BdnsItems.txt; $scope.$apply();
     searchbar = $$( '#searchbar'+$scope.txt.titulo )[0].f7Searchbar;
@@ -223,18 +163,17 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
   });
-  //$scope.onClickItem = function (index) { MyApp.fw7.app.swipeoutOpen( $$('#'+index) ) };
   $scope.getItems = function(){
     BdnsItems.getData().then(function(){
       searchbar.disable();
       $scope.items = BdnsItems.getItems();
       $scope.numItems = BdnsItems.getItems().length;
-      MyApp.fw7.app.hideIndicator();
+      MyApp.fw7.app.hidePreloader();
     })
   };
   $scope.popupDetalle = function(index){
     BdnsItem.new( index );
-    BdnsItem.content = '<img src="img/3.gif"> '+'Obteniendo datos... ';
+    BdnsItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     BdnsItem.organismo = 'BDNS';
     $rootScope.item = BdnsItem;
     MyApp.fw7.app.popup('.popup-detalle');
@@ -295,12 +234,10 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
     $rootScope.item = Favoritos.getItem( itemIndex );
     console.log('$rootScope.item desde FavoritosCtrl', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
-    //todo: añadir un flag para saber en el detalle (o en listado) cuando un item esta en favoritos
   };
 });
 // =====================================================================================================================
 MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos) {
-
 
   $scope.addItemFavoritos = function () {
     var aceptarGuardar = function () {
@@ -313,15 +250,10 @@ MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos)
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
-
-  //todo: comprobar aqui si $rootScope.item esta en la lista de favoritos
-  // en base a eso mostrar o no el boton de añadir a favoritos
-  $scope.esFavorito = function () {
-    console.log('favoritos', Favoritos.getAll());
-    console.log('rootscope item', $rootScope.item);
-    console.log(' es favorito', Favoritos.contiene( $rootScope.item ));
+  $scope.esItemFavorito = function () {
     return Favoritos.contiene( $rootScope.item );
+  };
+  $scope.tipFavorito = function () {
+    alert('Item ya figura como favorito')
   }
-
-
 });

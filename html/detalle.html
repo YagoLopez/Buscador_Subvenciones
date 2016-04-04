@@ -5,9 +5,12 @@
                 <a href="#" class="link close-popup"><i class="icon icon-close"></i></a>
             </div>
             <div class="center">Detalles</div>
-            <div class="right">
+            <div ng-if="!esItemFavorito()" class="right">
                 <a href="#" class="link" ng-click="addItemFavoritos()">
                 <i class="fa fa-heart"></i></a>
+            </div>
+            <div ng-if="esItemFavorito()" class="right">
+                <i class="fa fa-gratipay" ng-click="tipFavorito()" style="padding:15px;color:cyan;font-size:28px"></i>
             </div>
         </div>
     </div>
@@ -28,6 +31,7 @@
     <!-- contenido pagina ========================================================================================== -->
     <div  id="detalleContent" class="page-content hide-navbar-on-scroll detailPageContent">
         <div class="content-block">
+            <p>es favorito: {{esItemFavorito()}}</p>
             <b style="text-decoration:underline">EXTRACTO:</b>
             <p id='detailContent' ng-bind-html="item.content | FiltroHtml"></p>
         </div>
