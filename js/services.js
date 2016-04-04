@@ -396,6 +396,7 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     return $localStorage.favoritos;
   };
   this.add = function (item) {
+    console.log('añadiendo favorito', item);
     $localStorage.favoritos.push(item);
   };
   this.delete = function (index) {
@@ -423,7 +424,6 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
     };
     return false;
   };
-
   this.getItem = function (arrIndex) {
     return this.getAll()[arrIndex];
   };

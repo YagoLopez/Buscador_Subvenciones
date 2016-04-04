@@ -1,4 +1,4 @@
-MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, Favoritos, C) {
+MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoBoe', function (page) {
@@ -28,6 +28,10 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     BoeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     BoeItem.organismo = 'BOE';
     $rootScope.item = BoeItem;
+
+    console.log('rotscope.item desde popup detalle', $rootScope.item );
+
+
     MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
       BoeItem.content = htmlDetalle;
@@ -39,7 +43,7 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem, Favoritos, C) {
+MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, IdepaItems, IdepaItem, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoIdepa', function () {
@@ -77,7 +81,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, Favoritos, C) {
+MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, MineturItems, MineturItem, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoMinetur', function () {
@@ -111,7 +115,7 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem, Favoritos, C) {
+MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem, C) {
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoIpyme', function () {
@@ -149,7 +153,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, BdnsItems, BdnsItem, Favoritos, C){
+MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, BdnsItems, BdnsItem, C){
 
   var searchbar = null;
   MyApp.fw7.app.onPageAfterAnimation('listadoBdns', function () {
@@ -230,19 +234,40 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
   $scope.abreEnlace = function (url) {
     $window.open(url, '_blank');
   };
-  $scope.popupDetalle = function(itemIndex){
+  $scope.popupDetalleFavorito = function(itemIndex){
     $rootScope.item = Favoritos.getItem( itemIndex );
     console.log('$rootScope.item desde FavoritosCtrl', $rootScope.item);
     MyApp.fw7.app.popup('.popup-detalle');
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos) {
+MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos, $localStorage) {
 
+  //$$('.popup-detalle').on('close', function () {
+  //  console.log('popup-detalle closing');
+  //  $rootScope.item = null;
+  //});
+
+
+  //$scope.addItemFavoritos = function () {
+  //  var candidatoFavorito = $rootScope.item;
+  //  var aceptarGuardar = function () {
+  //    if( !Favoritos.contiene( candidatoFavorito ) ){
+  //      Favoritos.add( candidatoFavorito );
+  //      //$scope.$apply();
+  //      Favoritos.mostrarAviso('Favorito guardado');
+  //    } else {
+  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
+  //  };
+  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
+  //};
   $scope.addItemFavoritos = function () {
+    //var candidatoFavorito = $rootScope.item;
+    var candidatoFavorito = angular.copy($rootScope.item);
     var aceptarGuardar = function () {
-      if( !Favoritos.contiene( $rootScope.item ) ){
-        Favoritos.add( $rootScope.item );
+      if( !Favoritos.contiene( candidatoFavorito ) ){
+        Favoritos.add( candidatoFavorito );
+        //Favoritos.add( {titulo: 'favorito de prueba'}  );
         $scope.$apply();
         Favoritos.mostrarAviso('Favorito guardado');
       } else {
@@ -250,6 +275,11 @@ MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos)
     };
     MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
   };
+
+
+
+
+
   $scope.esItemFavorito = function () {
     return Favoritos.contiene( $rootScope.item );
   };
