@@ -6,6 +6,7 @@ var $$ = Dom7;
 // Framework 7 creation and configuration ==============================================================================
 MyApp.fw7 = {
   app : new Framework7({
+    animatePages: false,
     material: true,
     materialRipple: false,
     materialPageLoadDelay: 1,
