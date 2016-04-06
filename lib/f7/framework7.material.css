@@ -872,15 +872,16 @@ p {
   position: absolute;
   left: -26%;
   top: -26%;
-  background-image: -webkit-radial-gradient(center, circle cover, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);
-  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
+  /*background-image: -webkit-radial-gradient(center, circle cover, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);*/
+  /*background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center;*/
+  /*background-size: 100% 100%;*/
   opacity: 0;
-  pointer-events: none;
+  /*pointer-events: none;*/
   /*-webkit-transition-duration: 600ms;*/
   /*transition-duration: 600ms;*/
+  background: lightskyblue;
 }
 html:not(.watch-active-state) .navbar a.link:active:before,
 html:not(.watch-active-state) .toolbar a.link:active:before,
@@ -1397,8 +1398,8 @@ html:not(.watch-active-state) .tabbar a.tab-link:active,
   position: absolute;
   left: -26%;
   top: -26%;
-  background-image: -webkit-radial-gradient(center, circle cover, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);
-  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);
+  /*background-image: -webkit-radial-gradient(center, circle cover, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);*/
+  /*background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 66%, rgba(255, 255, 255, 0) 66%);*/
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -1406,6 +1407,7 @@ html:not(.watch-active-state) .tabbar a.tab-link:active,
   pointer-events: none;
   /*-webkit-transition-duration: 600ms;*/
   /*transition-duration: 600ms;*/
+  /*background: lightskyblue;*/
 }
 html:not(.watch-active-state) .searchbar a:active:before,
 .searchbar a.active-state:before {
@@ -3695,8 +3697,8 @@ html.pixel-ratio-3 .card-footer:before {
   top: 50%;
   border-radius: 3px;
   opacity: 0;
-  -webkit-transform: translate3d(0, 0, 0) scale(1.185);
-  transform: translate3d(0, 0, 0) scale(1.185);
+  /*-webkit-transform: translate3d(0, 0, 0) scale(1.185);*/
+  /*transform: translate3d(0, 0, 0) scale(1.185);*/
   -webkit-transition-property: -webkit-transform, opacity;
   -moz-transition-property: -moz-transform, opacity;
   -ms-transition-property: -ms-transform, opacity;
@@ -3712,8 +3714,8 @@ html.pixel-ratio-3 .card-footer:before {
   opacity: 1;
   -webkit-transition-duration: 400ms;
   transition-duration: 400ms;
-  -webkit-transform: translate3d(0, 0, 0) scale(1);
-  transform: translate3d(0, 0, 0) scale(1);
+  /*-webkit-transform: translate3d(0, 0, 0) scale(1);*/
+  /*transform: translate3d(0, 0, 0) scale(1);*/
 }
 .modal.modal-out {
   opacity: 0;
@@ -4482,7 +4484,7 @@ html.with-statusbar-overlay .popup.tablet-fullscreen {
 }
 body.with-panel-left-cover .panel,
 body.with-panel-right-cover .panel {
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  /*box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);*/
 }
 body.with-panel-left-cover .views,
 body.with-panel-right-cover .views {
