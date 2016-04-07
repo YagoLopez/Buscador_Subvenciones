@@ -162,16 +162,6 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
-
-    //var url = 'https://run.blockspring.com/api_v2/blocks/query-public-google-spreadsheet?api_key=br_9403_540bc3c7fbaf65825e90de7bfa42dd6b0328bf54&flatten=true&cache=true&expiry=3600';
-    //var post_data = {"query":"select * ","url":"https://docs.google.com/spreadsheets/d/1YrT9nzrSjF9agiCXrJqFCpHtSr49A6QazgFOfKWdTQQ/edit#gid=0","_blockspring_spec":true,"_blockspring_ui":true};
-    //var test = function () {
-    //  $http.post(url, post_data).then(function (resp) {
-    //    console.log('csv', resp);
-    //  })
-    //};
-    //test();
-
   });
   $scope.getItems = function(){
     BdnsItems.getData().then(function(){
@@ -246,7 +236,7 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos) {
+MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos, $http, $httpParamSerializerJQLike) {
 
   // Para guardar un item en favoritos es necesario crear una copia del mismo. Si se guarda $rootScope.item
   // directamente en favoritos se estará guardando un puntero, es decir, una referencia a dicho valor. Por lo tanto
@@ -272,5 +262,30 @@ MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos)
 
   $scope.tipFavorito = function () {
     alert('Item ya figura como favorito')
-  }
+  };
+
+
+
+  //var url = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatorias?titulo=&fecDesde=&fecHasta=&finalidad=&administracion=Admon_estado&_ministerios=1&_organos=1&_cAutonomas=1&_departamentos=1&_locales=1&_localesOculto=1&_regionalizacion=1&_beneficiarios=1&_sectores=1&strnumcov=300618';
+  ////var post_data = 'administracion=Admon_estado&strnumcov=300617';
+  ////var headers = { 'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*' };
+  ////var headers = { 'Content-Type': 'application/x-www-form-urlencoded'};
+  //
+  //var req = {
+  //  method: 'POST',
+  //  url: url,
+  //  headers: headers,
+  //  withCredentials: false,
+  //  data: $httpParamSerializerJQLike({ 'administration':'Admon_estado', 'strnumcov':'300617' })
+  //};
+  //var test = function () {
+  //  $http(req).then(function (resp) {
+  //    console.log('resp', resp);
+  //  })
+  //};
+  //test();
+
+
+
 });
+

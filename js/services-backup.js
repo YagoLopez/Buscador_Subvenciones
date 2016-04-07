@@ -351,7 +351,7 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
     'api_key=br_9403_540bc3c7fbaf65825e90de7bfa42dd6b0328bf54&flatten=true&cache=true&expiry=3600';
   var urlGoogleSheet = 'https://docs.google.com/spreadsheets/d/1YrT9nzrSjF9agiCXrJqFCpHtSr49A6QazgFOfKWdTQQ/edit#gid=0';
   var post_data = {
-    'query': 'select *',
+    'query':'select *',
     'url': urlGoogleSheet,
     '_blockspring_spec': true,
     '_blockspring_ui': true
@@ -399,30 +399,23 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
   var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
-  var urlDetalleId = 'https://api.import.io/store/connector/4134e2eb-7dc0-417f-b939-5b670eec0a3f/_query?' +
-    'input=strnumcov:' + '300618' +
-    '&_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
 
   this.createUrl = function(){
     return C.YQL + ('?url='+this.link) + ('&q='+query) + '&format=xml';
   };
-  this.createUrlDetalleId = function (id_falso) {
-    return 'https://api.import.io/store/connector/4134e2eb-7dc0-417f-b939-5b670eec0a3f/_query?' +
-      'input=strnumcov:' + id_falso  +
-      '&_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
-  };
   this.new = function (index){
     var item = BdnsItems.getItemByIndex(index);
 
-    this.titulo = item['TÃ­tulo'];
+    this.titulo = item['Título'];
     this.idConvocatoria = item.ID;
     this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
     this.linkExternal_Url_or_Pdf = item['Bases reguladoras'];
 
-    this.administracion = item['AdministraciÃ³n'];
+    this.administracion = item['Administración'];
     this.departamento = item['Departamento'];
     this.fecha = item['Fecha de registro'];
-    this.organo = item['Ã“rgano'];
+    this.organo = item['Órgano'];
+    this.description = 'Órgano: '+this.organo+'. Departamento: '+this.departamento+'. Administración: '+this.administracion;
     this.index = index;
 
     //this.fechaConvocatoria = i[4];
@@ -431,31 +424,14 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
     //this.ambito = i[1];
     //this.fechaConvocatoria = i[4];
   };
-
-  //this.getData = function(){
-  //  return $http.get(this.createUrl(), {cache: true}).then(function(resp){
-  //      console.log( resp );
-  //      return Utiles.xmlParser(resp.data);
-  //    },
-  //    function(datosError){
-  //      Error.mostrar(datosError);
-  //    });
-  //};
-
   this.getData = function(){
-    return $http.get(this.createUrlDetalleId('300618'), {cache: true}).then(function(resp){
+    return $http.get(this.createUrl(), {cache: true}).then(function(resp){
         console.log( resp );
+        return Utiles.xmlParser(resp.data);
       },
       function(datosError){
         Error.mostrar(datosError);
       });
   };
-
-
-
-
-
-
-
 });
 // =====================================================================================================================

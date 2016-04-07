@@ -32,18 +32,19 @@
                         <div>
                             <i class="icon icon-form-radio smallRadio"></i>
                             <span>
-                            {{ item.title }}
+                            {{ ::item.title }}
                             <!--{{  item.titulo.text }}-->
                             <!--{{ item.descripcion }}-->
-                            {{ item['link/_text'] }}
-                            {{ item['Título'] }}
+                            {{ ::item['link/_text'] }}
+                            {{ ::item['Título'] }}
                             </span>
                             <div class="pieItem">
                                 <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
-                                {{ item.ambito }}
-                                {{ item.plazo }}
-                                {{ item.creator }}
-                                {{ item['Órgano'] }}. {{ item['Departamento'] }}
+                                {{ ::item.ambito }}
+                                {{ ::item.plazo }}
+                                {{ ::item.creator }}
+                                {{ ::item['Departamento'] }}<br/>
+                                {{ ::item['Órgano'] }}
                             </div>
                         </div>
                     </div>
