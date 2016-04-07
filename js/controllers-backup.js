@@ -162,16 +162,6 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
     });
-
-    //var url = 'https://run.blockspring.com/api_v2/blocks/query-public-google-spreadsheet?api_key=br_9403_540bc3c7fbaf65825e90de7bfa42dd6b0328bf54&flatten=true&cache=true&expiry=3600';
-    //var post_data = {"query":"select * ","url":"https://docs.google.com/spreadsheets/d/1YrT9nzrSjF9agiCXrJqFCpHtSr49A6QazgFOfKWdTQQ/edit#gid=0","_blockspring_spec":true,"_blockspring_ui":true};
-    //var test = function () {
-    //  $http.post(url, post_data).then(function (resp) {
-    //    console.log('csv', resp);
-    //  })
-    //};
-    //test();
-
   });
   $scope.getItems = function(){
     BdnsItems.getData().then(function(){

@@ -34,16 +34,16 @@
                             <span>
                             {{ item.title }}
                             <!--{{  item.titulo.text }}-->
-                            {{ item.descripcion }}
-                             {{ item['link/_text'] }}
-                            {{ item[5] | uppercase }}
+                            <!--{{ item.descripcion }}-->
+                            {{ item['link/_text'] }}
+                            {{ item['Título'] }}
                             </span>
                             <div class="pieItem">
                                 <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
                                 {{ item.ambito }}
                                 {{ item.plazo }}
                                 {{ item.creator }}
-                                {{ item[1] }} {{ item[2] }} {{ item[4] }}
+                                {{ item['Órgano'] }}. {{ item['Departamento'] }}
                             </div>
                         </div>
                     </div>
