@@ -22,9 +22,9 @@
             <a href="#" class="open-popover" data-popover="#popover-share" target="system">
                 <i class="fa fa-share-alt-square" style="font-size:18px"></i>
             </a>
-            <a ng-if="item.pdf" href="{{ item.pdf }}" class="external" target="_blank">Doc</a>
-            <a href="{{ item.link }}" class="external" target="_blank">Web</a>
-            <a ng-if="item.linkExternal_Url_or_Pdf" href="{{ item.linkExternal_Url_or_Pdf }}"
+            <a ng-if="item.pdf" ng-href="{{ item.pdf }}" class="external" target="_blank">Doc</a>
+            <a ng-href="{{ item.link }}" class="external" target="_blank">Web</a>
+            <a ng-if="item.linkExternal_Url_or_Pdf" ng-href="{{ item.linkExternal_Url_or_Pdf }}"
                class="external" target="_blank">Doc</a>
         </div>
     </div>

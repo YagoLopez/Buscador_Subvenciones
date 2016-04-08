@@ -420,7 +420,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
     this.titulo = item['Título'];
     this.idConvocatoria = item.ID;
-    //this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.createUrlDetalleId( this.idConvocatoria  );
+    this.link = 'test';
     this.linkExternal_Url_or_Pdf = item['Bases reguladoras'];
 
     this.administracion = item['Administración'];
@@ -465,12 +465,13 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
     })*/
 
     return this.getUrlDetalleBdns( this.creaUrlIdDetalle(this.idConvocatoria)).then(function (urlDetalleBdns) {
-      //console.log('urlDetalleBdns', urlDetalleBdns);
       $http.get( self.creaUrlYQL( urlDetalleBdns  ), reqConfig).then(function (respDatosDetalle) {
         console.log('url final', self.creaUrlYQL(urlDetalleBdns));
         var htmlDetalle = Utiles.xmlParser( respDatosDetalle.data);
         //console.log('htmlDetalle', htmlDetalle );
         self.content = htmlDetalle;
+        self.link = urlDetalleBdns;
+        console.log('this.link', urlDetalleBdns);
         return htmlDetalle;
       }, function (datosError) {
         Error.mostrar(datosError);

@@ -177,10 +177,11 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     BdnsItem.organismo = 'BDNS';
     $rootScope.item = BdnsItem;
     MyApp.fw7.app.popup('.popup-detalle');
-    BdnsItem.getData().then(function(htmlDetalle){
+/*    BdnsItem.getData().then(function(htmlDetalle){
       console.log('htmlDetalle', htmlDetalle);
       //BdnsItem.content = htmlDetalle;
-    });
+    });*/
+    BdnsItem.getData();
   };
   $scope.onIconBack = function() {
     $scope.items = null;
