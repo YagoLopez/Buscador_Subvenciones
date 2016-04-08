@@ -398,25 +398,29 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
 
+  var self = this;
   var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
-  var urlDetalleId = 'https://api.import.io/store/connector/4134e2eb-7dc0-417f-b939-5b670eec0a3f/_query?' +
-    'input=strnumcov:' + '300618' +
-    '&_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
 
-  this.createUrl = function(){
-    return C.YQL + ('?url='+this.link) + ('&q='+query) + '&format=xml';
-  };
-  this.createUrlDetalleId = function (id_falso) {
+  // Hay dos ids: idConvocatorio e idDetalle. El segundo se halla a partir del primero haciendo una consulta a la url
+  // resultante de esta funcion y es necesario para hallar el texto del detalle.
+  this.creaUrlIdDetalle = function (idConvocatoria) {
     return 'https://api.import.io/store/connector/4134e2eb-7dc0-417f-b939-5b670eec0a3f/_query?' +
-      'input=strnumcov:' + id_falso  +
+      'input=strnumcov:' + idConvocatoria  +
       '&_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
   };
+
+  this.creaUrlYQL = function(urlDetalleBdns){
+    //var temp =  C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
+    //console.log('url datos detalle', temp);
+    return C.YQL + ('?url='+urlDetalleBdns) + ('&q='+query) + '&format=xml';
+  };
+
   this.new = function (index){
     var item = BdnsItems.getItemByIndex(index);
 
     this.titulo = item['Título'];
     this.idConvocatoria = item.ID;
-    this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
+    //this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.createUrlDetalleId( this.idConvocatoria  );
     this.linkExternal_Url_or_Pdf = item['Bases reguladoras'];
 
     this.administracion = item['Administración'];
@@ -442,16 +446,49 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
   //    });
   //};
 
+  //var datosIdDetalle = null;
+  //var urltmp = null;
+  var reqConfig = {cache: true};
   this.getData = function(){
-    return $http.get(this.createUrlDetalleId('300618'), {cache: true}).then(function(resp){
-        console.log( resp );
-      },
-      function(datosError){
+/*    return $http.get(this.getUrlIdDetalle( this.idConvocatoria ), reqConfig).then(function(datosIdDetalle){
+        //console.log( 'datosIdDetalle desde primera llamada http', datosIdDetalle );
+        //console.log('datosIdDetalle.data.results[0].titulo', datosIdDetalle.data.results[0].titulo);
+        urltmp = self.getUrlContenidoDetalle( datosIdDetalle.data.results[0].titulo );
+        console.log('urltmp', urltmp);
+    }).then(function () {
+        console.log('self.createurlcontenidodetalle() en segunda llamada', self.getUrlContenidoDetalle(urltmp));
+        return $http.get(urltmp, reqConfig);
+    }).then(function (contenidoDetalle) {
+      console.log('contenido detalle', contenidoDetalle);
+      console.log('xml parser', Utiles.xmlParser(contenidoDetalle));
+      return Utiles.xmlParser( contenidoDetalle )
+    })*/
+
+    return this.getUrlDetalleBdns( this.creaUrlIdDetalle(this.idConvocatoria)).then(function (urlDetalleBdns) {
+      //console.log('urlDetalleBdns', urlDetalleBdns);
+      $http.get( self.creaUrlYQL( urlDetalleBdns  ), reqConfig).then(function (respDatosDetalle) {
+        console.log('url final', self.creaUrlYQL(urlDetalleBdns));
+        var htmlDetalle = Utiles.xmlParser( respDatosDetalle.data);
+        //console.log('htmlDetalle', htmlDetalle );
+        self.content = htmlDetalle;
+        return htmlDetalle;
+      }, function (datosError) {
         Error.mostrar(datosError);
-      });
+      })
+    });
+
+
+
+
+
+
   };
 
-
+  this.getUrlDetalleBdns = function (urlIdDetalle) {
+    return $http.get(urlIdDetalle, {cache: true}).then(function (datosDetalleBdns) {
+      return datosDetalleBdns.data.results[0].titulo
+    })
+  }
 
 
 

@@ -178,7 +178,8 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     $rootScope.item = BdnsItem;
     MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.getData().then(function(htmlDetalle){
-      BdnsItem.content = htmlDetalle;
+      console.log('htmlDetalle', htmlDetalle);
+      //BdnsItem.content = htmlDetalle;
     });
   };
   $scope.onIconBack = function() {
@@ -263,29 +264,6 @@ MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos,
   $scope.tipFavorito = function () {
     alert('Item ya figura como favorito')
   };
-
-
-
-  //var url = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatorias?titulo=&fecDesde=&fecHasta=&finalidad=&administracion=Admon_estado&_ministerios=1&_organos=1&_cAutonomas=1&_departamentos=1&_locales=1&_localesOculto=1&_regionalizacion=1&_beneficiarios=1&_sectores=1&strnumcov=300618';
-  ////var post_data = 'administracion=Admon_estado&strnumcov=300617';
-  ////var headers = { 'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*' };
-  ////var headers = { 'Content-Type': 'application/x-www-form-urlencoded'};
-  //
-  //var req = {
-  //  method: 'POST',
-  //  url: url,
-  //  headers: headers,
-  //  withCredentials: false,
-  //  data: $httpParamSerializerJQLike({ 'administration':'Admon_estado', 'strnumcov':'300617' })
-  //};
-  //var test = function () {
-  //  $http(req).then(function (resp) {
-  //    console.log('resp', resp);
-  //  })
-  //};
-  //test();
-
-
 
 });
 
