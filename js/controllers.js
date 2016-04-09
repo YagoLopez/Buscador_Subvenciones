@@ -172,39 +172,17 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
     })
   };
   $scope.popupDetalle = function(index){
-    BdnsItem.new( index );
+    BdnsItem.new( BdnsItems.getItemByIndex(index) );
     BdnsItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     BdnsItem.organismo = 'BDNS';
     $rootScope.item = BdnsItem;
     MyApp.fw7.app.popup('.popup-detalle');
-/*    BdnsItem.getData().then(function(htmlDetalle){
-      console.log('htmlDetalle', htmlDetalle);
-      //BdnsItem.content = htmlDetalle;
-    });*/
-    BdnsItem.getData();
+    BdnsItem.getContenidoRemoto();
   };
   $scope.onIconBack = function() {
     $scope.items = null;
     MyApp.fw7.app.params.swipePanel = 'left';
   };
-  //$scope.addFavorito = function (itemIndex) {
-  //  var aceptarGuardar = function () {
-  //    var candidatoFav = {};
-  //    var item = BdnsItems.getItems()[itemIndex];
-  //    candidatoFav.descripcion = item[5];
-  //    candidatoFav.enlaceExterno = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+item[0];
-  //    candidatoFav.creator = item[2];
-  //    candidatoFav.plazo = item[4];
-  //    candidatoFav.txt = {titulo: 'BDNS'};
-  //    if( !Favoritos.contiene(candidatoFav) ){
-  //      Favoritos.add(candidatoFav);
-  //      $scope.$apply();
-  //      Favoritos.mostrarAviso('Favorito guardado');
-  //    } else {
-  //      MyApp.fw7.app.alert('El item ya existe en la lista de favoritos')}
-  //  };
-  //  MyApp.fw7.app.confirm('Guardar como favorito?', 'Confirmar', aceptarGuardar);
-  //};
 });
 // =====================================================================================================================
 MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favoritos, $window) {

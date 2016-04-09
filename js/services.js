@@ -207,7 +207,7 @@ MyApp.angular.constant('C', {
   YQL:'https://query.yahooapis.com/v1/public/yql',
   STRINGS: {
     TXT_LOADING_DETALLE:'<img src="img/3.gif"> '+'Obteniendo datos... ',
-    TXT_PRELOADER: '<span style="font-size:medium">Cargado. Espere un momento, por favor...</span>'
+    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>'
   }
 });
 // =====================================================================================================================
@@ -274,38 +274,6 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   };
 });
 // =====================================================================================================================
-/*
-MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
-
-  var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
-
-  this.createUrl = function(){
-    return C.YQL + ('?url='+this.link) + ('&q='+query) + '&format=xml';
-  };
-  this.new = function (index){
-    var i = BdnsItems.getItemByIndex(index);
-    this.idConvocatoria = i[0];
-    this.linkExternal_Url_or_Pdf = i[6];
-    this.link = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/convocatoria/'+this.idConvocatoria;
-    this.index = index;
-    //this.fechaConvocatoria = i[4];
-    //this.titulo = i[5];
-    //this.entidadConvocante = i[2];
-    //this.ambito = i[1];
-    //this.fechaConvocatoria = i[4];
-  };
-  this.getData = function(){
-    return $http.get(this.createUrl(), {cache: true}).then(function(resp){
-        console.log( resp );
-        return Utiles.xmlParser(resp.data);
-      },
-      function(datosError){
-        Error.mostrar(datosError);
-      });
-  };
-});
-*/
-// =====================================================================================================================
 MyApp.angular.service('Favoritos', function ($localStorage) {
 
   this.getAll = function () {
@@ -349,151 +317,100 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
   var self = this;
   var urlBlockspring = 'https://run.blockspring.com/api_v2/blocks/query-public-google-spreadsheet?' +
     'api_key=br_9403_540bc3c7fbaf65825e90de7bfa42dd6b0328bf54&flatten=true&cache=true&expiry=3600';
+
   var urlGoogleSheet = 'https://docs.google.com/spreadsheets/d/1YrT9nzrSjF9agiCXrJqFCpHtSr49A6QazgFOfKWdTQQ/edit#gid=0';
+
   var post_data = {
     'query': 'select *',
     'url': urlGoogleSheet,
     '_blockspring_spec': true,
     '_blockspring_ui': true
   };
+
   this.items = null;
+
   this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
+
   this.getItems = function(){
     return this.items;
   };
+
   this.getItemByIndex = function(index){
     return this.getItems()[index];
   };
+
   this.getData = function () {
     return $http.post( urlBlockspring, post_data, {cache: true} ).then(function (resp) {
+      // Invierte array para tener items recientes al principio
+      resp.data.data.reverse();
       // Trunca array
-      resp.data.data.length = 200;
+      resp.data.data.length = 300;
       self.items = resp.data.data;
-      console.log('data', resp.data.data);
+      //console.log('data', resp.data.data);
       return resp.data.data;
     }, function (respError) {
       Error.mostrar(respError);
     })
   };
-
-  // Encadenamiento de promesas
-/*  this.getData2 = function () {
-    return $http(requestConfig) // primera peticion: obtencion de cookie de forma transparente. No hay que hacer nada
-      .then(function (resp) {
-        console.log('efectuando primera peticion, obtencion de cookie, respuesta', resp);
-      })
-      .then(function () {
-        return $http.get(urlUltimasAyudas, {cache:true, withCredentials:true}); // segunda peticion: obtencion de datos
-      })
-      .then(function (resp) {
-        self.items = resp.data.rows;
-        console.log('datos de segunda peticion', resp.data.rows);
-        return resp.data.rows;
-      }, function (respError) {
-        Error.mostrar(respError);
-      });
-  };*/
-
 });
 // =====================================================================================================================
-MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C, BdnsItems) {
+MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
 
   var self = this;
   var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
 
-  // Hay dos ids: idConvocatorio e idDetalle. El segundo se halla a partir del primero haciendo una consulta a la url
-  // resultante de esta funcion y es necesario para hallar el texto del detalle.
-  this.creaUrlIdDetalle = function (idConvocatoria) {
+  this.urlParaHallarIdDetalle = function (idConvocatoria) {
     return 'https://api.import.io/store/connector/4134e2eb-7dc0-417f-b939-5b670eec0a3f/_query?' +
       'input=strnumcov:' + idConvocatoria  +
       '&_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
   };
 
   this.creaUrlYQL = function(urlDetalleBdns){
-    //var temp =  C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
-    //console.log('url datos detalle', temp);
     return C.YQL + ('?url='+urlDetalleBdns) + ('&q='+query) + '&format=xml';
   };
 
-  this.new = function (index){
-    var item = BdnsItems.getItemByIndex(index);
+  this.new = function (itemDeArray){
 
-    this.titulo = item['Título'];
-    this.idConvocatoria = item.ID;
-    this.link = 'test';
-    this.linkExternal_Url_or_Pdf = item['Bases reguladoras'];
+    this.titulo = itemDeArray['Título'];
+    this.idConvocatoria = itemDeArray.ID;
+    //this.linkExternal_Url_or_Pdf = itemDeArray['Bases reguladoras'];
 
-    this.administracion = item['Administración'];
-    this.departamento = item['Departamento'];
-    this.fecha = item['Fecha de registro'];
-    this.organo = item['Órgano'];
-    this.index = index;
-
-    //this.fechaConvocatoria = i[4];
-    //this.titulo = i[5];
-    //this.entidadConvocante = i[2];
-    //this.ambito = i[1];
-    //this.fechaConvocatoria = i[4];
-  };
-
-  //this.getData = function(){
-  //  return $http.get(this.createUrl(), {cache: true}).then(function(resp){
-  //      console.log( resp );
-  //      return Utiles.xmlParser(resp.data);
-  //    },
-  //    function(datosError){
-  //      Error.mostrar(datosError);
-  //    });
-  //};
-
-  //var datosIdDetalle = null;
-  //var urltmp = null;
-  var reqConfig = {cache: true};
-  this.getData = function(){
-/*    return $http.get(this.getUrlIdDetalle( this.idConvocatoria ), reqConfig).then(function(datosIdDetalle){
-        //console.log( 'datosIdDetalle desde primera llamada http', datosIdDetalle );
-        //console.log('datosIdDetalle.data.results[0].titulo', datosIdDetalle.data.results[0].titulo);
-        urltmp = self.getUrlContenidoDetalle( datosIdDetalle.data.results[0].titulo );
-        console.log('urltmp', urltmp);
-    }).then(function () {
-        console.log('self.createurlcontenidodetalle() en segunda llamada', self.getUrlContenidoDetalle(urltmp));
-        return $http.get(urltmp, reqConfig);
-    }).then(function (contenidoDetalle) {
-      console.log('contenido detalle', contenidoDetalle);
-      console.log('xml parser', Utiles.xmlParser(contenidoDetalle));
-      return Utiles.xmlParser( contenidoDetalle )
-    })*/
-
-    return this.getUrlDetalleBdns( this.creaUrlIdDetalle(this.idConvocatoria)).then(function (urlDetalleBdns) {
-      $http.get( self.creaUrlYQL( urlDetalleBdns  ), reqConfig).then(function (respDatosDetalle) {
-        console.log('url final', self.creaUrlYQL(urlDetalleBdns));
-        var htmlDetalle = Utiles.xmlParser( respDatosDetalle.data);
-        //console.log('htmlDetalle', htmlDetalle );
-        self.content = htmlDetalle;
-        self.link = urlDetalleBdns;
-        console.log('this.link', urlDetalleBdns);
-        return htmlDetalle;
-      }, function (datosError) {
-        Error.mostrar(datosError);
-      })
-    });
-
-
-
-
-
-
+    this.administracion = itemDeArray['Administración'];
+    this.departamento = itemDeArray['Departamento'];
+    this.fecha = itemDeArray['Fecha de registro'];
+    this.organo = itemDeArray['Órgano'];
+    // propiedad creada para mostrar en favoritos
+    this.creator = this.departamento + '. ' + this.organo;
   };
 
   this.getUrlDetalleBdns = function (urlIdDetalle) {
     return $http.get(urlIdDetalle, {cache: true}).then(function (datosDetalleBdns) {
       return datosDetalleBdns.data.results[0].titulo
     })
-  }
+  };
 
+  // Para obtener el contenido del detalle es necesario saber su id en BDNS. Para ello hay que hacer una consulta previa
+  // a la url que se obtiene mediante creaUrlIdDetalle(). Hay dos ids: idConvocatoria e id de BDNS, que es
+  // el que aparece en la url de BDNS en el detalle.
+  //
+  // Por lo tanto hay que hacer dos consultas http. La primera para hallar el verdadero id de la url del detalle de BDNS
+  // (que no es idConvocatoria) y la segunda para obtener el contenido del
+  // detalle. Lo de los dobles ids es por mal diseño de BDNS.
 
+  var reqConfig = {cache: true};
 
-
+  this.getContenidoRemoto = function(){
+    // 1. Primero se obtiene urlDetalleBdns
+    return this.getUrlDetalleBdns( this.urlParaHallarIdDetalle(this.idConvocatoria)).then(function (urlDetalleBdns) {
+      // 2. Despues se obtiene el contenido del detalle del item
+      $http.get( self.creaUrlYQL( urlDetalleBdns  ), reqConfig).then(function (xmlDetalle) {
+        self.content = Utiles.xmlParser( xmlDetalle.data );
+        self.link = urlDetalleBdns;
+      }, function (datosError) {
+        Error.mostrar(datosError);
+      })
+    })
+  };
 
 });
 // =====================================================================================================================

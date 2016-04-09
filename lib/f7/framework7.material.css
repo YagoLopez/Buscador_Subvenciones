@@ -4465,8 +4465,8 @@ html.with-statusbar-overlay .popup.tablet-fullscreen {
   height: 100%;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
 }
 .panel.panel-left.panel-cover {
   z-index: 6000;

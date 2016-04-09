@@ -29,15 +29,12 @@
                             </div>
                             <i class="icon icon-form-radio smallRadio"></i>
                             <span>{{ fav.titulo }}</span>
-                            <!--<span>{{ fav.title }}</span>-->
-                            <!--<span>{{ fav.titulo.text }}</span>-->
-                            <!--<span>{{ fav.descripcion }}</span>-->
                             <div class="pieItem">
                                 <!--<div ng-if="fav.txt.titulo == 'BOE'">{{ fav.description }}</div>-->
-                                <div>{{ fav.description }}</div>
-                                <div>{{ fav.ambito }}</div>
-                                <div>{{ fav.plazo }}</div>
-                                <div>{{ fav.creator }}</div>
+                                {{ fav.description }}
+                                {{ fav.ambito }}
+                                {{ fav.plazo }}
+                                {{ fav.creator }}
                             </div>
                         </div>
                     </div>
@@ -45,9 +42,6 @@
                         <a href="#" ng-click="popupDetalleFavorito($index)" class="swipeout-close" style="background:green">
                             <b>Detalles</b>
                         </a>
-                        <!--<a href="#" ng-click="abreEnlace(fav.link)" class="swipeout-close" style="background:green">-->
-                            <!--<b>Ver Web</b>-->
-                        <!--</a>-->
                         <a href="#" ng-click="deleteFavorito($index)" class="swipeout-close" style="background:red">
                             <b>Borrar</b>
                         </a>
