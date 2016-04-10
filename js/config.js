@@ -18,7 +18,6 @@ MyApp.fw7 = {
     modalTitle: 'Informaci\u00F3n',
     modalButtonCancel: 'Cancelar',
     dynamicNavbar: false,
-    //materialPreloaderHtml: '<div style="color:white;font-size:12px;margin:auto">Cargando</div>',
     materialPreloaderHtml: '<div style="text-align:center"><img src="img/9.gif" width="25"></div>',
     materialPreloaderSvg: '',
     materialRippleElements: '',

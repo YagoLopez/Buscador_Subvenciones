@@ -14,11 +14,13 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   this.getItems = function(){
     return this.items;
   };
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
+  };
   this.urlListado = function(url){
     return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
   };
   this.getData = function(url){
-    //console.log('url', url);
     return $http.get(url, {cache: true}).then(function(resp){
         if(resp.data.query)
           self.items = resp.data.query.results.item;
