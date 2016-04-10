@@ -216,7 +216,7 @@ MyApp.angular.controller('FavoritosCtrl', function ($scope, $rootScope, Favorito
   };
 });
 // =====================================================================================================================
-MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos, $http, $httpParamSerializerJQLike) {
+MyApp.angular.controller('DetalleCtrl', function ($scope, $rootScope, Favoritos) {
 
   // Para guardar un item en favoritos es necesario crear una copia del mismo. Si se guarda $rootScope.item
   // directamente en favoritos se estará guardando un puntero, es decir, una referencia a dicho valor. Por lo tanto
