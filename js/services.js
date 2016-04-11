@@ -1,4 +1,4 @@
-MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
+MyApp.angular.service('BoeItems', function($http, Error, C){
 
   var self = this;
   var query = 'select * from rss where url=@url';
@@ -44,20 +44,19 @@ MyApp.angular.service('BoeItems', function($http, Error, Utiles, C){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('BoeItem', function($http, Error, Utiles, C, BoeItems) {
+MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
 
   var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
 
   this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
-  this.new = function (index){
-    var i = BoeItems.getItems()[index];
-    this.titulo = i.title;
-    this.description = i.description;
-    this.link = i.link;
-    this.pdf = i.guid.content;
-    this.index = index;
+  this.new = function (itemDeArray){
+    this.titulo = itemDeArray.title;
+    this.description = itemDeArray.description;
+    this.link = itemDeArray.link;
+    this.pdf = itemDeArray.guid.content;
+    this.organismo = 'BOE';
   };
   this.getData = function(urlDetalle){
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
@@ -84,6 +83,9 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   this.getItems = function(){
     return this.items;
   };
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
+  };
   this.getData = function(){
     return $http.get(this.url, {cache: true}).then(function(resp){
         //console.log(resp.data.results);
@@ -95,17 +97,16 @@ MyApp.angular.service('IdepaItems', function($http, Error){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C, IdepaItems){
+MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C){
 
   var query = 'select * from html where url=@url and xpath="//div[@class=\'contenidosubseccionFichaAyuda\']" and  ' +
     'charset="utf-8" and compat="html5"';
 
-  this.new = function (index){
-    var i = IdepaItems.getItems()[index];
-    this.titulo = i.descripcion;
-    this.ambito = i.ambito;
-    this.link = i.link_detalle;
-    this.index = index;
+  this.new = function (itemDeArray){
+    this.titulo = itemDeArray.descripcion;
+    this.ambito = itemDeArray.ambito;
+    this.link = itemDeArray.link_detalle;
+    this.organismo = 'IDEPA';
   };
   this.getUrl = function(){
     return C.YQL + ('?url='+ this.link) + ('q=' +query);
@@ -168,7 +169,7 @@ MyApp.angular.service('Utiles', function(){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('MineturItems', function($http, Utiles, C, Error){
+MyApp.angular.service('MineturItems', function($http, C, Error){
 
   var self = this;
   var query = 'select * from rss where url=@url';
@@ -179,6 +180,9 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error){
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;
+  };
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
   };
   this.getData = function(){
     return $http.get(this.urlListado, {cache: true}).then(function(resp){
@@ -194,13 +198,12 @@ MyApp.angular.service('MineturItems', function($http, Utiles, C, Error){
 // =====================================================================================================================
 MyApp.angular.service('MineturItem', function(MineturItems){
 
-  this.new = function(index){
-      var obj = MineturItems.getItems()[index];
-      this.titulo = obj.title;
-      this.content = obj.description;
-      this.creator = obj.creator;
-      this.link = obj.link;
-      this.index = index;
+  this.new = function(itemDeArray){
+    this.titulo   = itemDeArray.title;
+    this.content  = itemDeArray.description;
+    this.creator  = itemDeArray.creator;
+    this.link     = itemDeArray.link;
+    this.organismo = 'MINETUR';
   }
 });
 // =====================================================================================================================
@@ -239,6 +242,9 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   this.getItems = function(){
     return this.items;
   };
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
+  };
   this.getData = function(){
     return $http.get(this.url, {cache: true}).then(function(resp){
         //console.log(resp);
@@ -250,7 +256,7 @@ MyApp.angular.service('IpymeItems', function($http, Error){
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems) {
+MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
 
   var query = 'select * from html where url=@url and xpath="//div[@class=\'zonalistado\']/p" and' +
     ' charset="utf-8" and compat="html5"';
@@ -258,13 +264,12 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C, IpymeItems)
   this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
   };
-  this.new = function (index){
-    var i = IpymeItems.getItems()[index];
-    this.titulo = i['link/_text'];
-    this.ambito = i.ambito;
-    this.link = i.link;
-    this.plazo = i.plazo;
-    this.index = index;
+  this.new = function (itemDeArray){
+    this.titulo = itemDeArray['link/_text'];
+    this.ambito = itemDeArray.ambito;
+    this.link = itemDeArray.link;
+    this.plazo = itemDeArray.plazo;
+    this.organismo = 'DGPYME';
   };
   this.getData = function(urlDetalle){
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){

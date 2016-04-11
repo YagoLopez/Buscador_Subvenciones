@@ -7,7 +7,7 @@
 La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, 
 facilita la consulta de los mismos de una forma centralizada, rápida y eficiente. 
 
-<p><a href="http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html" target="_blank">VER ONLINE</a></p>
+<p><a href="/iframe/iframe.html" target="_blank">VER ONLINE VERSIÓN WEB</a></p>
 
 Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicación está particularizada para buscar fondos 
 en el Principado de Asturias aunque también es válida a nivel nacional.
@@ -23,7 +23,7 @@ Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el fut
 <h1>Tecnologías empleadas</h1>
  
 - Framework 7 (Interfaz de usuario)
-- AngularJS (Arquitectura MVVC y Two way data binding)
+- AngularJS (Arquitectura MVC y Two way data binding)
 - Apache Cordova/PhoneGap (Acceso a API de móvil mediante Javascript)
 - Intel Crosswalk Runtime (Compilación cruzada a Android e IOS)
  

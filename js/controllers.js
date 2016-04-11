@@ -23,10 +23,9 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
       MyApp.fw7.app.hidePreloader();
     });
   };
-  $scope.popupDetalle = function(itemIndex){
-    BoeItem.new( itemIndex );
+  $scope.popupDetalle = function(index){
+    BoeItem.new( BoeItems.getItemByIndex(index) );
     BoeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
-    BoeItem.organismo = 'BOE';
     $rootScope.item = BoeItem;
     MyApp.fw7.app.popup('.popup-detalle');
     BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
@@ -66,9 +65,8 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
     MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.popupDetalle = function(index){
-    IdepaItem.new( index );
+    IdepaItem.new( IdepaItems.getItemByIndex(index) );
     IdepaItem.content = C.STRINGS.TXT_LOADING_DETALLE;
-    IdepaItem.organismo = 'IDEPA';
     $rootScope.item = IdepaItem;
     MyApp.fw7.app.popup('.popup-detalle');
     IdepaItem.getData( IdepaItem.link ).then(function(htmlDetalle){
@@ -103,9 +101,8 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     $scope.items = null;
     MyApp.fw7.app.params.swipePanel = 'left';
   };
-  $scope.popupDetalle = function(itemIndex){
-    MineturItem.new( itemIndex );
-    MineturItem.organismo = 'MINETUR';
+  $scope.popupDetalle = function(index){
+    MineturItem.new( MineturItems.getItemByIndex(index) );
     $rootScope.item = MineturItem;
     MyApp.fw7.app.popup('.popup-detalle');
   };
@@ -138,9 +135,8 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.popupDetalle = function(index){
-    IpymeItem.new( index );
+    IpymeItem.new( IpymeItems.getItemByIndex(index) );
     IpymeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
-    IpymeItem.organismo = 'DGPYME';
     $rootScope.item = IpymeItem;
     MyApp.fw7.app.popup('.popup-detalle');
     IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
