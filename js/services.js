@@ -208,8 +208,8 @@ MyApp.angular.service('MineturItem', function(MineturItems){
 });
 // =====================================================================================================================
 MyApp.angular.constant('C', {
-  YQL2: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
-  YQL:'https://query.yahooapis.com/v1/public/yql',
+  YQL: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
+  YQL2:'https://query.yahooapis.com/v1/public/yql',
   STRINGS: {
     TXT_LOADING_DETALLE:'<img src="img/3.gif"> '+'Obteniendo datos... ',
     TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>'
