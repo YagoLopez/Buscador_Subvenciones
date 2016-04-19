@@ -79,7 +79,6 @@ div.center {
     padding-bottom: 30px;
 }
 .backgrnd {
-    /*background-image: url('../img/wall/wp1.jpg');*/
     background: ghostwhite;
 }
 .iconListPicker {
@@ -144,8 +143,8 @@ div.center {
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
 
-    -webkit-animation-duration:0.1s;
-    -moz-animation-duration:0.1s;
-    animation-duration:0.1s;
+    -webkit-animation-duration:0.3s;
+    -moz-animation-duration:0.3s;
+    animation-duration:0.3s;
 }
 
