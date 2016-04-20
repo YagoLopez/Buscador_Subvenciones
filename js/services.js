@@ -212,8 +212,8 @@ MyApp.angular.constant('C', {
   YQL2:'https://query.yahooapis.com/v1/public/yql',
   STRINGS: {
     LOADING_ICON: '<img src="img/3.gif" style="vertical-align: middle"/>',
-    TXT_LOADING_DETALLE: this.LOADING_ICON +  'Obteniendo datos... ',
-    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>',
+    TXT_LOADING_DETALLE: '<img src="img/3.gif" style="vertical-align: middle"/>' + ' Obteniendo datos... ',
+    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>'
   }
 });
 // =====================================================================================================================
