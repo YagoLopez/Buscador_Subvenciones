@@ -211,8 +211,9 @@ MyApp.angular.constant('C', {
   YQL: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
   YQL2:'https://query.yahooapis.com/v1/public/yql',
   STRINGS: {
-    TXT_LOADING_DETALLE:'<img src="img/3.gif"> '+'Obteniendo datos... ',
-    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>'
+    LOADING_ICON: '<img src="img/3.gif" style="vertical-align: middle"/>',
+    TXT_LOADING_DETALLE: this.LOADING_ICON +  'Obteniendo datos... ',
+    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>',
   }
 });
 // =====================================================================================================================
@@ -322,42 +323,29 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
 MyApp.angular.service('BdnsItems', function ($http, Error) {
 
   var self = this;
-  var urlBlockspring = 'https://run.blockspring.com/api_v2/blocks/query-public-google-spreadsheet?' +
-    'api_key=br_9403_540bc3c7fbaf65825e90de7bfa42dd6b0328bf54&flatten=true&cache=true&expiry=3600';
-
-  var urlGoogleSheet = 'https://docs.google.com/spreadsheets/d/1YrT9nzrSjF9agiCXrJqFCpHtSr49A6QazgFOfKWdTQQ/edit#gid=0';
-
-  var post_data = {
-    'query': 'select *',
-    'url': urlGoogleSheet,
-    '_blockspring_spec': true,
-    '_blockspring_ui': true
-  };
+  var urlJson = 'https://script.google.com/macros/s/AKfycbyYoPu_90c2NGrSIX-cy7ttDnPh4VwtWsfddNmw_FThfdxTwZI/exec';
 
   this.items = null;
-
   this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
-
   this.getItems = function(){
     return this.items;
   };
-
   this.getItemByIndex = function(index){
     return this.getItems()[index];
   };
-
   this.getData = function () {
-    return $http.post( urlBlockspring, post_data, {cache: true} ).then(function (resp) {
-      // Invierte array para tener items recientes al principio
-      resp.data.data.reverse();
-      // Trunca array
-      resp.data.data.length = 300;
-      self.items = resp.data.data;
-      //console.log('data', resp.data.data);
-      return resp.data.data;
-    }, function (respError) {
-      Error.mostrar(respError);
-    })
+    return $http.get( urlJson, {cache:true}).then(function (resp) {
+        // Invierte array para tener items recientes al principio
+        resp.data['Hoja 1'].reverse();
+        // Trunca array. Solo interesan los 300 ultimos items
+        resp.data['Hoja 1'].length = 300;
+        self.items = resp.data['Hoja 1'];
+        //console.log('listado bdns', self.items);
+        return self.items;
+      }, function (datosError) {
+        Error.mostrar(datosError);
+      }
+    );
   };
 });
 // =====================================================================================================================
@@ -379,7 +367,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
   this.new = function (itemDeArray){
 
     // Preflight para obtener cookie de session -> Da error CORS en consola pero es igual
-    $http.get('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {
+    $http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {
       console.log('preflight response', resp);
     });
 
@@ -391,6 +379,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
     this.departamento = itemDeArray['Departamento'];
     this.fecha = itemDeArray['Fecha de registro'];
     this.organo = itemDeArray['Órgano'];
+    this.organismo = 'BDNS';
     // propiedad creada para mostrar en favoritos
     this.creator = this.departamento + '. ' + this.organo;
   };

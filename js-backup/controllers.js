@@ -169,8 +169,8 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
   };
   $scope.popupDetalle = function(index){
     BdnsItem.new( BdnsItems.getItemByIndex(index) );
-    BdnsItem.content = C.STRINGS.TXT_LOADING_DETALLE;
-    BdnsItem.organismo = 'BDNS';
+    BdnsItem.content = C.STRINGS.LOADING_ICON + ' Recopilando información. El proceso puede tardar varios segundos.' +
+      'Espere, por favor...';
     $rootScope.item = BdnsItem;
     MyApp.fw7.app.popup('.popup-detalle');
     BdnsItem.getContenidoRemoto();

@@ -211,8 +211,9 @@ MyApp.angular.constant('C', {
   YQL: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
   YQL2:'https://query.yahooapis.com/v1/public/yql',
   STRINGS: {
-    TXT_LOADING_DETALLE:'<img src="img/3.gif"> '+'Obteniendo datos... ',
-    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>'
+    LOADING_ICON: '<img src="img/3.gif/>',
+    TXT_LOADING_DETALLE: this.LOADING_ICON +  'Obteniendo datos... ',
+    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>',
   }
 });
 // =====================================================================================================================
@@ -391,6 +392,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
     this.departamento = itemDeArray['Departamento'];
     this.fecha = itemDeArray['Fecha de registro'];
     this.organo = itemDeArray['Órgano'];
+    this.organismo = 'BDNS';
     // propiedad creada para mostrar en favoritos
     this.creator = this.departamento + '. ' + this.organo;
   };
