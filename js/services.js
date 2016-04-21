@@ -351,6 +351,8 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
 
+  //todo: intentar hacer el post del idBdns a mano para evitar llamada a import.io y simplificar
+
   var self = this;
   var query = 'select * from html where url=@url and xpath="//section[1]" and compat="html5"';
 
@@ -366,15 +368,11 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
 
   this.new = function (itemDeArray){
 
-    // Preflight para obtener cookie de session -> Da error CORS en consola pero es igual
-    $http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {
-      console.log('preflight response', resp);
-    });
+    // Preflight para obtener cookie de session -> Da error CORS en consola
+    $http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {});
 
     this.titulo = itemDeArray['Título'];
     this.idConvocatoria = itemDeArray.ID;
-    //this.linkExternal_Url_or_Pdf = itemDeArray['Bases reguladoras'];
-
     this.administracion = itemDeArray['Administración'];
     this.departamento = itemDeArray['Departamento'];
     this.fecha = itemDeArray['Fecha de registro'];
@@ -387,7 +385,11 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
   this.getUrlDetalleBdns = function (urlIdDetalle) {
     return $http.get(urlIdDetalle, {cache: true}).then(function (datosDetalleBdns) {
       return datosDetalleBdns.data.results[0].titulo
-    })
+    },
+      function (datosError) {
+        Error.mostrar(datosError);
+      }
+    )
   };
 
   // Para obtener el contenido del detalle es necesario saber su id en BDNS. Para ello hay que hacer una consulta previa
