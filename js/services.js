@@ -328,7 +328,11 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
   this.items = null;
   this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
   this.getItems = function(){
-    return this.items;
+    if (this.items) {
+      return this.items;
+    } else {
+      throw 'Datos no disponibles. Posibles causas: 1) Sin conexión de datos. 2) Fallo de red';
+    }
   };
   this.getItemByIndex = function(index){
     return this.getItems()[index];
