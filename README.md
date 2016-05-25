@@ -2,50 +2,49 @@
 <br/>
 # Busca Fondos
 
-<p><strong>Buscador de fondos públicos y subvenciones para smartphone.</strong></p>
+<p><strong>Buscador de fondos pÃºblicos y subvenciones para smartphone.</strong></p>
 
-La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, 
-facilita la consulta de los mismos de una forma centralizada, rápida y eficiente. 
+La aplicaciÃ³n se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogÃ©nea. AdemÃ¡s, 
+facilita la consulta de los mismos de una forma centralizada, rÃ¡pida y eficiente. 
 
 <p>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html" target="_blank">
 VERSION ONLINE PARA WEB </a><b>&rarr;</b>
 </p>
 
-Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicación está particularizada para buscar fondos 
-en el Principado de Asturias aunque también es válida a nivel nacional.
+Los fondos pueden ser de Ã¡mbito europeo, nacional, regional o local. La aplicaciÃ³n estÃ¡ particularizada para buscar fondos 
+en el Principado de Asturias aunque tambiÃ©n es vÃ¡lida a nivel nacional.
 
-Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el futuro):
+Las fuentes de datos son las siguientes (se podrÃ­an aÃ±adir mÃ¡s fuentes en el futuro):
 
-- BOE: Boletín Oficial del Estado
-- IDEPA: Institudo para el Desarrollo Económico del Principado de Asturias
-- MINETUR: Ministerio de Industría, Energía y Turismo
-- DGPYME: Dirección General de Industria y de la Pequeña y Mediana Empresa
+- BOE: BoletÃ­n Oficial del Estado
+- IDEPA: Institudo para el Desarrollo EconÃ³mico del Principado de Asturias
+- MINETUR: Ministerio de IndustrÃ­a, EnergÃ­a y Turismo
+- DGPYME: DirecciÃ³n General de Industria y de la PequeÃ±a y Mediana Empresa
 - BDNS: Base de Datos Nacional de Subvenciones
 
-<h1>Tecnologías empleadas</h1>
+<h1>TecnologÃ­as empleadas</h1>
  
 - Framework 7 (Interfaz de usuario)
 - AngularJS (Arquitectura MVC y Two way data binding)
-- Apache Cordova/PhoneGap (Acceso a API de móvil mediante Javascript)
-- Intel Crosswalk Runtime (Compilación cruzada a Android e IOS)
+- Apache Cordova/PhoneGap (Acceso a API de mÃ³vil mediante Javascript)
+- Intel Crosswalk Runtime (CompilaciÃ³n cruzada a Android e IOS)
  
 Probado en:
  
-- Chrome (últimas versiones)
+- Chrome (Ãºltimas versiones)
 - Microsoft Edge
-- Internet Explorer (últimas versiones)
+- Internet Explorer (Ãºltimas versiones)
 - Android
 - IOS (emulador)
  
 Por hacer:
 
-- Búsqueda global (buscar en todos los organismos de una sola vez)
-- Añadir organismo: Gobierno de Asturias
+- BÃºsqueda global (buscar en todos los organismos de una sola vez)
+- AÃ±adir organismo: Gobierno de Asturias
 
----
 
-# Auditoría
+# AuditorÃ­a
 
 <h3>Red: tiempos de carga</h3>
 
