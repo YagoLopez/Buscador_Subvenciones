@@ -48,9 +48,9 @@ Por hacer:
 
 # Nota
 
-```
-La obtención de los datos usados en esta aplicación se realiza utilizando servidores de terceras partes. El autor no puede garantizar el correcto funcionamiento de dichos servidores ni, por tanto, la disponibilidad de los datos el 100% del tiempo
-```
+>
+> La obtención de los datos usados en esta aplicación se realiza utilizando servidores de terceras partes. El autor no puede garantizar el correcto funcionamiento de dichos servidores ni, por tanto, la disponibilidad de los datos el 100% del tiempo
+>
 
 
 
