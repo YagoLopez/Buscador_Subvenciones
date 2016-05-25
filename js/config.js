@@ -56,30 +56,19 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // c
   });
 });
 
-MyApp.angular.run( function($rootScope, $localStorage, Error) { // init
+MyApp.angular.run( function($rootScope, $localStorage, $http, Error) { // init
 
-  // inicializacion de favoritos en almacenamiento local
+  // Preflight para obtener cookie de session de BDNS -> Da error CORS en consola. No afecta.
+  $http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', {cache: true}).then(function (resp) {});
+
+  // Inicializacion de favoritos en almacenamiento local
   if(typeof($localStorage) == 'undefined'){
     Error.mostrar2('Almacenamiento local de favoritos no soportado');
   } else{
-    //$localStorage.$default(favoritos = []); // valor de favoritos por defecto
     if (!$localStorage.favoritos)
       $localStorage.favoritos = [];
   };
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
+
 });
-// Cordova/Phonegap init ===============================================================================================
-/*
-// Wait for device API libraries to load
-
-function onLoad() {
-  document.addEventListener("deviceready", onDeviceReady, false);
-}
-
-// device APIs are available
-//
-function onDeviceReady() {
-  // Now safe to use device APIs
-}
-*/
 

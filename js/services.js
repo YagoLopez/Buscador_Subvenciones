@@ -373,7 +373,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
   this.new = function (itemDeArray){
 
     // Preflight para obtener cookie de session -> Da error CORS en consola
-    $http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {});
+    //$http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {});
 
     this.titulo = itemDeArray['Título'];
     this.idConvocatoria = itemDeArray.ID;
@@ -397,12 +397,12 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
   };
 
   // Para obtener el contenido del detalle es necesario saber su id en BDNS. Para ello hay que hacer una consulta previa
-  // a la url que se obtiene mediante creaUrlIdDetalle(). Hay dos ids: idConvocatoria e id de BDNS, que es
+  // a la url que se obtiene mediante creaUrlIdDetalle(). Hay dos ids: id de convocatoria e id de BDNS, que es
   // el que aparece en la url de BDNS en el detalle.
   //
-  // Por lo tanto hay que hacer dos consultas http. La primera para hallar el verdadero id de la url del detalle de BDNS
+  // Por lo tanto hay que hacer dos consultas http. La primera para hallar el verdadero id del detalle de BDNS
   // (que no es idConvocatoria) y la segunda para obtener el contenido del
-  // detalle. Lo de los dobles ids es por mal diseño de BDNS.
+  // detalle. Esta complejidad añadida de ids duplicados es por mal diseño de BDNS.
 
   var reqConfig = {cache: true};
 
