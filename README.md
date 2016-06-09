@@ -8,12 +8,12 @@ La aplicación se encarga de recopilar datos de diversos organismos e institucio
 
 <p>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html" target="_blank">
-VERSION ONLINE PARA DESKTOP</a><b>→</b>
+VERSION ONLINE PARA DESKTOP</a> <b>→</b>
 </p>
 
 <p>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/index.html" target="_blank">
-VERSION ONLINE PARA MÓVIL</a><b>→</b>
+VERSION ONLINE PARA MÓVIL</a> <b>→</b>
 </p>
 
 
