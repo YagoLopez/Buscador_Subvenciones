@@ -1,3 +1,21 @@
+MyApp.angular.controller('MenuCtrl', function ($scope, $window) {
+
+  // calculate dimensions for showing submenu only on small screens
+  var dev_width, dev_height;
+  $scope.calculateDimensions = function(gesture) {
+    dev_width = $window.innerWidth;
+    dev_height = $window.innerHeight;
+    dev_width < 769 ? $scope.smallwidth = true : $scope.smallwidth = false;
+  };
+  angular.element($window).bind('resize', function(){
+    $scope.$apply(function() {
+      $scope.calculateDimensions();
+    })
+  });
+  $scope.calculateDimensions();
+
+});
+// =====================================================================================================================
 MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItems, BoeItem, C) {
 
   var searchbar = null;

@@ -6,14 +6,15 @@
             <b style="font-size:14px">Busca Fondos</b>
             <div style="font-size:12px">Buscador de Fondos P&uacute;blicos y Subvenciones</div>
         </li>
-        <li>
+
+        <li ng-if="smallwidth">
             <div class="item-content">
                 <div class="item-inner">
                     <div class="item-title">BOE</div>
                 </div>
             </div>
         </li>
-        <li style="color: darkgrey;">
+        <li ng-if="smallwidth" style="color: darkgrey;">
             <a href="#listadoBoe?tipo=subvenciones" class="item-link item-content close-panel" style="padding-left:50px;">
                 <div class="item-inner">
                     <div class="item-title">Subvenciones</div>
@@ -36,6 +37,12 @@
             </a>
         </li>
 
+        <li ng-if=" ! smallwidth ">
+            <a href="#" class="open-picker item-link item-content close-panel" data-picker=".picker-boe">
+            <div class="item-inner">
+                <div class="item-title">BOE</div>
+            </div></a>
+        </li>
         <li><a href="#listadoIdepa" class="item-link item-content close-panel">
             <div class="item-inner">
                 <div class="item-title">IDEPA</div>
@@ -63,4 +70,4 @@
 
     </ul>
 </div>
-<div><p><a href="#" class="button close-panel">Cerrar</a></p></div>
+<div ng-if="smallwidth"><p><a href="#" class="button close-panel">Cerrar</a></p></div>
