@@ -373,7 +373,7 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
   this.new = function (itemDeArray){
 
      //Preflight para obtener cookie de session -> Da error CORS en consola
-    $http.header('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {});
+    $http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', reqConfig).then(function (resp) {});
 
     this.titulo = itemDeArray['Título'];
     this.idConvocatoria = itemDeArray.ID;
