@@ -1,6 +1,8 @@
+<!--todo: minificar-->
 <!--todo: obtener detalle boe directamente del extracto xml-->
 <!--todo:  al mostrar el listado habria que comprobar si cada item esta ya en favoritos-->
 <!--todo: poner icono de ayuda en nav bar en pag principal-->
+<!--todo: unit-test: guardar favoritos-->
 
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
@@ -13,18 +15,21 @@
     <link rel="stylesheet" type="text/css" href="lib/f7/framework7.material.css"><!-- no minificar -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/my-app.css">
     <link rel="shortcut icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
 <div class="views">
-    <div class="view view-main">
+    <!-- menu lateral =============================================================================================- -->
+    <div class="panel-overlay"></div>
+    <div class="panel panel-left panel-cover ">
+        <ng-include src="'html/menu.html'"></ng-include>
+    </div>
+    <!-- fin menu lateral =========================================================================================- -->
+
+    <div class="view view-main navbar-through" data-page="index">
         <div class="pages">
-            <!-- menu lateral =====================================================================================- -->
-            <div class="panel panel-left panel-cover ">
-                <ng-include src="'html/menu.html'"></ng-include>
-            </div>
-            <div class="panel-overlay"></div>
             <!-- pagina home ======================================================================================= -->
             <div data-page="index" class="page">
                 <ng-include src="'html/home.html'"></ng-include>
@@ -84,6 +89,7 @@
             </div>
         </div>
     </div>
+
 </div>
 <!-- Popup Detalle ================================================================================================= -->
 <div class="popup popup-detalle" ng-controller="DetalleCtrl">
@@ -93,8 +99,9 @@
 <div id="popover-share" class="popover" style="width:280px">
     <ng-include src="'html/popover-share.html'"></ng-include>
 </div>
+<!-- Scripts ======================================================================================================= -->
 <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-<script type="text/javascript" src="lib/f7/framework7.min.js"></script>
+<script type="text/javascript" src="lib/f7/framework7.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>

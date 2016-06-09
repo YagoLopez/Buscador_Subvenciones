@@ -98,11 +98,6 @@ div.center {
 .verticalMid{
     vertical-align: middle;
 }
-
-.cardFooter.active-state{
-    background: lightgray;
-    /*color: orange;*/
-}
 .marg15{
     margin:2.5%;
 }
@@ -146,5 +141,12 @@ div.center {
     -webkit-animation-duration:0.3s;
     -moz-animation-duration:0.3s;
     animation-duration:0.3s;
+}
+
+.card-link.active-state {
+    background-color: lightgray;
+    display:block;
+    /*border: solid white;*/
+    /*border-bottom-width: 1px;*/
 }
 
