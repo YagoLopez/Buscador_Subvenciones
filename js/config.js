@@ -59,7 +59,7 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // c
 MyApp.angular.run( function($rootScope, $localStorage, $http, Error) { // init
 
   // Preflight para obtener cookie de session de BDNS -> Da error CORS en consola. No afecta.
-  $http.head('http://www.pap.minhap.gob.es/bdnstrans/es/index', {cache: true}).then(function (resp) {});
+  $http.get('http://www.pap.minhap.gob.es/bdnstrans/es/index', {cache: true}).then(function (resp) {});
 
   // Inicializacion de favoritos en almacenamiento local
   if(typeof($localStorage) == 'undefined'){

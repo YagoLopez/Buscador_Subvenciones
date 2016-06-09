@@ -4,16 +4,20 @@
 
 <p><strong>Buscador de fondos públicos y subvenciones para smartphone.</strong></p>
 
-La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, 
-facilita la consulta de los mismos de una forma centralizada, rápida y eficiente. 
+La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, facilita la consulta de los mismos de una forma centralizada, rápida y eficiente. 
 
 <p>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html" target="_blank">
-VERSION ONLINE PARA WEB </a><b>&rarr;</b>
+VERSION ONLINE PARA DESKTOP</a><b>→</b>
 </p>
 
-Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicación está particularizada para buscar fondos 
-en el Principado de Asturias aunque también es válida a nivel nacional.
+<p>
+<a href="http://yagolopez.github.io/Buscador_Subvenciones/index.html" target="_blank">
+VERSION ONLINE PARA MÓVIL</a><b>→</b>
+</p>
+
+
+Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicación está particularizada para buscar fondos en el Principado de Asturias aunque también es válida a nivel nacional.
 
 Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el futuro):
 
@@ -49,7 +53,7 @@ Por hacer:
 # Nota
 
 >
-> La obtención de los datos usados en esta aplicación se realiza utilizando servidores de terceras partes. El autor no puede garantizar el correcto funcionamiento de dichos servidores ni, por tanto, la disponibilidad de los datos el 100% del tiempo
+>La obtención de los datos usados en esta aplicación se realiza utilizando servidores de terceras partes. El autor no puede garantizar el correcto funcionamiento de dichos servidores ni, por tanto, la disponibilidad de los datos el 100% del tiempo
 >
 
 
