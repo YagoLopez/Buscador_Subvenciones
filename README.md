@@ -6,15 +6,16 @@
 
 La aplicación se encarga de recopilar datos de diversos organismos e instituciones y presentarlos de forma homogénea. Además, facilita la consulta de los mismos de una forma centralizada, rápida y eficiente. 
 
-<p>
+<ul>
+<li>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html" target="_blank">
 VERSION ONLINE PARA DESKTOP</a> <b>→</b>
-</p>
-
-<p>
+</li>
+<li>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/index.html" target="_blank">
 VERSION ONLINE PARA MÓVIL</a> <b>→</b>
-</p>
+</li>
+</ul>
 
 
 Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicación está particularizada para buscar fondos en el Principado de Asturias aunque también es válida a nivel nacional.
