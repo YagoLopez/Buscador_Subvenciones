@@ -69,4 +69,8 @@ Por hacer:
 
 ![Memoria](auditoria/timeline.png "")
 
-<p><a href="#">Volver al principio</a> <b>&uarr;</b></p>
+
+
+<p>Los tests unitarios se encuentran en la carpeta `/tests`</p>
+
+<p><a href="#">Volver al principio</a> <b>↑</b></p>
