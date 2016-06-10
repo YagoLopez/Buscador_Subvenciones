@@ -5,16 +5,19 @@ i.demo-icon-email {
 }
 /* ================================================================================================================== */
 .listaFavs, .list-block-search .item-inner {
-    font-size: small;}
+    font-size: small;
+}
 li.a{
-    width: 100%;}
+    width: 100%;
+}
 .pieItem {
     font-size: small;
-    color: cornflowerblue;}
+    color: cornflowerblue;
+}
 div.center {
     width: 100%;
     text-align: center;
-    }
+}
 .searchbar {
     background: deepskyblue;
     box-shadow: -1px 1px 5px #888888;
@@ -29,7 +32,7 @@ div.center {
     margin-right: 20px;
     font-size: small;
     background:palevioletred;
-    }
+}
 .item-inner.paddingLeft {
     padding-left: 8px;
 }
@@ -148,5 +151,11 @@ div.center {
     display:block;
     /*border: solid white;*/
     /*border-bottom-width: 1px;*/
+}
+
+.border-right {
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: lightgray;
 }
 
