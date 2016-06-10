@@ -149,8 +149,7 @@ div.center {
 .card-link.active-state {
     background-color: lightgray;
     display:block;
-    /*border: solid white;*/
-    /*border-bottom-width: 1px;*/
+    box-shadow: 0 2px lightgray;
 }
 
 .border-right {
