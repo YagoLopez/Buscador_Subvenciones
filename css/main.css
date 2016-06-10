@@ -152,8 +152,11 @@ div.center {
 }
 
 .border-right {
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-right-color: lightgray;
+    border-right: 1px solid lightgray;
 }
 
+.bckgrnd-nota {
+    background-color: #f5f5f5;
+    padding: 25px;
+    border-radius: 6px;
+}
