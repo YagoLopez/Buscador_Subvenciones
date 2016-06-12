@@ -148,7 +148,7 @@ div.center {
 .card-link.active-state {
     background-color: lightgray;
     display:block;
-    box-shadow: 0 4px deepskyblue;
+    box-shadow: 0 50px lightgray;
 }
 
 .border-right {
@@ -159,4 +159,11 @@ div.center {
     background-color: #f5f5f5;
     padding: 25px;
     border-radius: 6px;
+}
+
+@media (min-width: 720px) {
+    .views .card {
+        width: 80%;
+        margin: 32px auto;
+    }
 }
