@@ -148,7 +148,7 @@ div.center {
 .card-link.active-state {
     background-color: lightgray;
     display:block;
-    box-shadow: 0 2px lightgray;
+    box-shadow: 0 4px deepskyblue;
 }
 
 .border-right {
