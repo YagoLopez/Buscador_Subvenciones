@@ -342,8 +342,10 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
         // Invierte array para tener items recientes al principio
         resp.data['Hoja 1'].reverse();
         // Trunca array. Solo interesan los 300 ultimos items
+        // todo: seria mejor truncar en origen (gsheets) para descargar menos datos
         resp.data['Hoja 1'].length = 300;
         self.items = resp.data['Hoja 1'];
+        //console.log('url listado bdns');
         //console.log('listado bdns', self.items);
         return self.items;
       }, function (datosError) {
