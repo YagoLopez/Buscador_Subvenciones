@@ -1,5 +1,7 @@
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/YagoLopez/webcams_de_asturias/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-<br/>
+![Status](https://img.shields.io/badge/status-ok-green.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2016.svg?maxAge=2592000) ![License](https://img.shields.io/dub/l/vibe-d.svg?maxAge=2592000)
+
+
+
 # Busca Fondos
 
 <p><strong>Buscador de fondos públicos y subvenciones para smartphone.</strong></p>

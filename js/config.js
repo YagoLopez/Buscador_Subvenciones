@@ -40,10 +40,12 @@ MyApp.fw7.app.addView( '.view-main', {domCache: true} );
 // Angular configuration and initialization ============================================================================
 MyApp.angular = angular.module('MyApp', ['ngStorage']);
 
-MyApp.angular.config( function($provide, $compileProvider, $httpProvider) { // config
+MyApp.angular.config( function($provide, $compileProvider, $httpProvider, $logProvider) { // config
 
   $compileProvider.debugInfoEnabled(false);
   $httpProvider.useApplyAsync(true);
+  $logProvider.debugEnabled(false);
+
   //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 

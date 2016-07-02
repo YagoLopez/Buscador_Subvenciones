@@ -320,7 +320,7 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
   };
 });
 // =====================================================================================================================
-MyApp.angular.service('BdnsItems', function ($http, Error) {
+/*MyApp.angular.service('BdnsItems', function ($http, Error) {
 
   var self = this;
   var urlJson = 'https://script.google.com/macros/s/AKfycbyYoPu_90c2NGrSIX-cy7ttDnPh4VwtWsfddNmw_FThfdxTwZI/exec';
@@ -353,7 +353,7 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
       }
     );
   };
-});
+});*/
 // =====================================================================================================================
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
 
@@ -423,3 +423,67 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
 
 });
 // =====================================================================================================================
+MyApp.angular.service('BdnsItems', function ($http, Error) {
+
+  var self = this;
+  var urlJson = 'https://script.google.com/macros/s/AKfycbyYoPu_90c2NGrSIX-cy7ttDnPh4VwtWsfddNmw_FThfdxTwZI/exec';
+
+  this.items = null;
+  this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
+  this.getItems = function(){
+    if (this.items) {
+      return this.items;
+    } else {
+      throw 'Datos no disponibles. Posibles causas: 1) Sin conexión de datos. 2) Fallo de red';
+    }
+  };
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
+  };
+
+  var urlBdnsHomePage = 'http://www.pap.minhap.gob.es/bdnstrans/es/index';
+  var urlCsvData = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/exportar?tipo=CSV';
+  var urlGsProxyCsv = 'https://script.google.com/macros/s/AKfycbygnUXEVsUmfEIuwooMWqJaadVxZ7zxQqRMqHs_4N2BrotmPnc/exec?url=http://www.pap.minhap.gob.es/bdnstrans/GE/es/exportar?tipo=CSV';
+  var urlJsonData = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1465935202024&rows=200&page=1&sidx=4&sord=desc';
+
+  //Papa.parse(urlCsvData, {
+  //  download: true,
+  //});
+  //console.log('papa', Papa);
+});
+// =====================================================================================================================
+
+/*
+MyApp.angular.service('BdnsItems', function ($http, Error) {
+
+  var self = this;
+  var urlJson = 'https://script.google.com/macros/s/AKfycbyYoPu_90c2NGrSIX-cy7ttDnPh4VwtWsfddNmw_FThfdxTwZI/exec';
+
+  this.items = null;
+  this.txt = {titulo: 'BDNS', subtitulo: 'Base de Datos Nacional de Subvenciones'};
+  this.getItems = function(){
+    if (this.items) {
+      return this.items;
+    } else {
+      throw 'Datos no disponibles. Posibles causas: 1) Sin conexión de datos. 2) Fallo de red';
+    }
+  };
+  this.getItemByIndex = function(index){
+    return this.getItems()[index];
+  };
+
+  var urlBdnsHomePage = 'http://www.pap.minhap.gob.es/bdnstrans/es/index';
+  var urlCsvData = 'http://www.pap.minhap.gob.es/bdnstrans/GE/es/exportar?tipo=CSV';
+  var urlGsProxyCsv = 'https://script.google.com/macros/s/AKfycbygnUXEVsUmfEIuwooMWqJaadVxZ7zxQqRMqHs_4N2BrotmPnc/exec?url=http://www.pap.minhap.gob.es/bdnstrans/GE/es/exportar?tipo=CSV';
+  var urlJsonData = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1465935202024&rows=200&page=1&sidx=4&sord=desc';
+
+  this.getData = function () {
+    Papa.parse(urlCsvData, {
+      download: true,
+      complete: function(results) {
+        console.log(results);
+      }
+    });
+  };
+});
+*/
