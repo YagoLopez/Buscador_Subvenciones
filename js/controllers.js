@@ -37,9 +37,11 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     BoeItems.getData(url).then(function(){
       searchbar.disable();
       $scope.items = BoeItems.getItems();
-      $scope.numItems = BoeItems.getItems().length;
+      $scope.numItems = BoeItems.getItems().length; // Necesario para contador de resultados totales y filtrados.
       MyApp.fw7.app.hidePreloader();
-    });
+    }).catch(function () {
+      MyApp.fw7.app.hidePreloader();
+    })
   };
   $scope.popupDetalle = function(index){
     BoeItem.new( BoeItems.getItemByIndex(index) );
@@ -76,6 +78,8 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
       $scope.items = IdepaItems.getItems();
       $scope.numItems = IdepaItems.getItems().length;
       MyApp.fw7.app.hidePreloader();
+    }).catch(function () {
+      MyApp.fw7.app.hidePreloader();
     })
   };
   $scope.onIconBack = function() {
@@ -105,13 +109,15 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     MyApp.fw7.app.showPreloader(C.STRINGS.TXT_PRELOADER);
     $$( '#lista'+$scope.txt.titulo ).on('search', function(e){
       $scope.numItems = e.detail.foundItems.length; $scope.$apply();
-    });
+    })
   });
   $scope.getItems = function(){
     MineturItems.getData().then(function(){
       searchbar.disable();
       $scope.items = MineturItems.getItems();
-      $scope.numItems = MineturItems.getItems().length;
+      $scope.numItems = $scope.items.length; // Necesario para contador de resultados totales y filtrados.
+      MyApp.fw7.app.hidePreloader();
+    }).catch(function () {
       MyApp.fw7.app.hidePreloader();
     })
   };
@@ -120,10 +126,10 @@ MyApp.angular.controller('ListadoMineturCtrl', function ($scope, $rootScope, Min
     MyApp.fw7.app.params.swipePanel = 'left';
   };
   $scope.popupDetalle = function(index){
+    MyApp.fw7.app.popup('.popup-detalle');
     MineturItem.new( MineturItems.getItemByIndex(index) );
     $rootScope.item = MineturItem;
-    MyApp.fw7.app.popup('.popup-detalle');
-  };
+  }
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, IpymeItems, IpymeItem, C) {
@@ -144,7 +150,8 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     IpymeItems.getData().then(function(){
       searchbar.disable();
       $scope.items = IpymeItems.getItems();
-      $scope.numItems = IpymeItems.getItems().length;
+      MyApp.fw7.app.hidePreloader();
+    }).catch(function () {
       MyApp.fw7.app.hidePreloader();
     })
   };
@@ -156,11 +163,11 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     IpymeItem.new( IpymeItems.getItemByIndex(index) );
     IpymeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     $rootScope.item = IpymeItem;
-    MyApp.fw7.app.popup('.popup-detalle');
     IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
       IpymeItem.content = htmlDetalle;
     });
-  };
+    MyApp.fw7.app.popup('.popup-detalle');
+  }
 });
 // =====================================================================================================================
 MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, BdnsItems, BdnsItem, C){
@@ -182,6 +189,8 @@ MyApp.angular.controller('ListadoBdnsCtrl', function($scope, $rootScope, $http, 
       searchbar.disable();
       $scope.items = BdnsItems.getItems();
       $scope.numItems = BdnsItems.getItems().length;
+      MyApp.fw7.app.hidePreloader();
+    }).catch(function () {
       MyApp.fw7.app.hidePreloader();
     })
   };

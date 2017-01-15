@@ -1,36 +1,36 @@
+// todo: hacer servicio especializado en la comunicacion con YQL
+// todo: arreglar navegacion boton de hardware hacia atras
+
 MyApp.angular.service('BoeItems', function($http, Error, C){
 
   var self = this;
-  var query = 'select * from rss where url=@url';
+  var yqlQuery = 'select * from rss where url=@url';
   var urlSubvenciones = 'http://www.boe.es/rss/canal.php?c=ayudas';
   var urlBecas = 'http://www.boe.es/rss/canal.php?c=becas';
-  var urlPremios = 'http://www.boe.es/rss/canal.php?c=premios';
+  var urlPremios = 'http//www.boe.es/rss/canal.php?c=premios';
   var urlEmpleoPublico = 'http://www.boe.es/rss/canal_per.php?l=p&c=140';
 
   this.items = null;
 
-  this.txt = { titulo: 'BOE', subtitulo: 'Bolet\u00EDn Oficial del Estado', tipo: ''};
+  this.txt = {titulo: 'BOE', subtitulo: 'Boletín Oficial del Estado', tipo: ''}
 
   this.getItems = function(){
     return this.items;
-  };
+  }
   this.getItemByIndex = function(index){
     return this.getItems()[index];
-  };
+  }
   this.urlListado = function(url){
-    return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+query) + '&format=json';
-  };
+    return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+yqlQuery) + '&format=json';
+  }
   this.getData = function(url){
     return $http.get(url, {cache: true}).then(function(resp){
-        if(resp.data.query)
-          self.items = resp.data.query.results.item;
-        else
-          Error.mostrar2('No datos. Posibles causas: 1) Sin conexion. 2) Fallo servidor remoto');
-      },
-      function(datosError){
-        Error.mostrar(datosError);
-      });
-  };
+      if(resp.data.query.results)
+        self.items = resp.data.query.results.item;
+      else
+        throw ('No hay datos. Posibles causas: 1) Sin conexion. 2) Fallo servidor remoto');
+    })
+  }
   this.getUrlFor = function(tipoAyuda){
     if (tipoAyuda === 'subvenciones') {
       return this.urlListado(urlSubvenciones);
@@ -41,7 +41,7 @@ MyApp.angular.service('BoeItems', function($http, Error, C){
     } else if (tipoAyuda === 'empleoPublico') {
       return this.urlListado(urlEmpleoPublico);
     }
-  };
+  }
 });
 // =====================================================================================================================
 MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
@@ -78,22 +78,20 @@ MyApp.angular.service('IdepaItems', function($http, Error){
     '%3FSelectorAmbito%3D%26ayuda_max%3D1000%26ayuda_page%3D1%26EsAyuda%3Dtruee%26Activo%3Dtruee&&' +
     '_apikey=a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
 
-  this.txt = { titulo: 'IDEPA', subtitulo: 'Instituto de Desarrollo Econ\u00F3mico del Principado de Asturias'};
+  this.txt = {titulo: 'IDEPA', subtitulo: 'Instituto de Desarrollo Económico del Principado de Asturias'};
 
   this.getItems = function(){
     return this.items;
   };
   this.getItemByIndex = function(index){
-    return this.getItems()[index];
+    return this.items[index];
   };
   this.getData = function(){
     return $http.get(this.url, {cache: true}).then(function(resp){
-        //console.log(resp.data.results);
         self.items = resp.data.results;
-      },
-      function(datosError){
-        Error.mostrar(datosError);
-      });
+      }).catch(function () {
+        throw C.STRINGS.ERROR_TEXT;
+    })
   };
 });
 // =====================================================================================================================
@@ -124,19 +122,18 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C){
 });
 // =====================================================================================================================
 MyApp.angular.service('Error', function(){
+
   this.mostrar = function(resp){
-    MyApp.fw7.app.hidePreloader();
     msg = 'CODIGO: '+resp.status+'<br>'+resp.statusText;
     if(resp.status == -1)
       msg = msg + 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto<br>' +
-        '3) Configuracion de seguridad restrictiva en IExplorer<br><br>';
+        '3) Configuracion de seguridad restrictiva de navegador<br><br>';
     MyApp.fw7.app.alert(msg, 'Error');
-    console.error(resp);
+    // console.error(resp);
   };
   this.mostrar2 = function(txtExcepcion){
-    MyApp.fw7.app.hidePreloader();
     MyApp.fw7.app.alert(txtExcepcion, 'Error');
-  };
+  }
 });
 // =====================================================================================================================
 MyApp.angular.service('Utiles', function(){
@@ -173,27 +170,24 @@ MyApp.angular.service('MineturItems', function($http, C, Error){
 
   var self = this;
   var query = 'select * from rss where url=@url';
-  var urlOrigen = 'http://www.minetur.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
+  var urlOrigen = 'http://www.minetad.gob.es/PortalAyudas/_layouts/genrss.aspx?List=listaayudas&View=vistaayudas';
 
   this.items = null;
   this.txt = { titulo: 'MINETUR', subtitulo: 'Ministerio de Industria, Energ\u00EDa y Turismo'};
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;
-  };
+  }
   this.getItemByIndex = function(index){
     return this.getItems()[index];
-  };
+  }
   this.getData = function(){
     return $http.get(this.urlListado, {cache: true}).then(function(resp){
-        if (!resp.data.query.results)
-          Error.mostrar2('Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto');
-        self.items = resp.data.query.results.item;
-      },
-      function(datosError){
-        Error.mostrar(datosError);
-      });
-  };
+      self.items = resp.data.query.results.item;
+    }).catch(function (datosError) {
+      throw 'Posibles causas:<br>1) No conexion datos<br>2) Fallo servidor remoto';
+    })
+  }
 });
 // =====================================================================================================================
 MyApp.angular.service('MineturItem', function(MineturItems){
@@ -208,12 +202,13 @@ MyApp.angular.service('MineturItem', function(MineturItems){
 });
 // =====================================================================================================================
 MyApp.angular.constant('C', {
-  YQL: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
-  YQL2:'https://query.yahooapis.com/v1/public/yql',
+  YQL2: 'http://98.137.200.255/v1/public/yql', // usa ip en vez de domain name para menor latencia
+  YQL:'https://query.yahooapis.com/v1/public/yql',
   STRINGS: {
     LOADING_ICON: '<img src="img/3.gif" style="vertical-align: middle"/>',
     TXT_LOADING_DETALLE: '<img src="img/3.gif" style="vertical-align: middle"/>' + ' Obteniendo datos... ',
-    TXT_PRELOADER: '<span style="font-size:small">Cargando datos. Espere, por favor...</span>'
+    TXT_PRELOADER: '<div style="font-size:small">Cargando datos...</div><div style="font-size:small">El proceso puede tardar</div>',
+    ERROR_TEXT: 'No hay datos. Posibles causas: 1) Sin conexion. 2) Fallo servidor remoto'
   }
 });
 // =====================================================================================================================
@@ -229,33 +224,33 @@ MyApp.angular.filter('capitalize', function() {
   }
 });
 // =====================================================================================================================
-MyApp.angular.service('IpymeItems', function($http, Error){
+MyApp.angular.service('IpymeItems', function($http, Error, C){
 
   var self = this;
-  this.url = 'https://api.import.io/store/connector/3c36ac22-1193-4d86-bc49-646d3b3917b2/_query?input=webpage/url:' +
-    'http%3A%2F%2Fwww.ipyme.org%2Fes-ES%2FBBDD%2FAyudasIncentivos%2FPaginas%2FListaAyudasIncentivos.aspx%3F' +
-    'TipoConsulta%3Dultimas%26PAGE%3D1&&_apikey=' +
-    'a069ae78588c4657a607f526288701380ffd8be60c1406b008f67b34c724244b89b2ed5acf5a41ee5f54a0b9b08f62d7b6a82a9211ac0d79e12ef863de3d72c28de5494401fcef33ad8923248079daba';
+  var urlIpyme = 'http://www.ipyme.org/_layouts/15/IPYME/RSSNovedades.aspx';
+  var yqlQuery = 'select * from rss where url=@url';
 
+  this.url = C.YQL + ('?url='+encodeURIComponent(urlIpyme)) + ('&q='+yqlQuery) + '&format=json';
   this.items = null;
-  this.txt = { titulo: 'DGPYME', subtitulo: 'Direcci\u00F3n General de la Peque\u00F1a y Mediana Empresa'};
+  this.txt = { titulo: 'DGPYME', subtitulo: 'Dirección General de la Pequeña y Mediana Empresa'};
 
   this.getItems = function(){
     return this.items;
-  };
+  }
   this.getItemByIndex = function(index){
-    return this.getItems()[index];
-  };
+    return this.items[index];
+  }
   this.getData = function(){
+    console.log(this.url);
     return $http.get(this.url, {cache: true}).then(function(resp){
-        //console.log(resp);
-        self.items = resp.data.results;
-      },
-      function(datosError){
-        Error.mostrar(datosError);
-      });
-  };
-});
+      console.log(resp);
+      self.items = resp.data.query.results.item;
+    }).catch(function (datosError) {
+      throw C.STRINGS.ERROR_TEXT;
+    })
+
+  }
+})
 // =====================================================================================================================
 MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
 
@@ -264,22 +259,20 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
 
   this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
-  };
+  }
   this.new = function (itemDeArray){
-    this.titulo = itemDeArray['link/_text'];
-    this.ambito = itemDeArray.ambito;
+    this.titulo = itemDeArray['title'];
     this.link = itemDeArray.link;
-    this.plazo = itemDeArray.plazo;
+    this.plazo = itemDeArray.pubDate;
     this.organismo = 'DGPYME';
-  };
+  }
   this.getData = function(urlDetalle){
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
         return Utiles.xmlParser(resp.data);
-      },
-      function(datosError){
-        Error.mostrar(datosError);
-      });
-  };
+      }).catch(function () {
+        throw C.STRINGS.ERROR_TEXT;
+    })
+  }
 });
 // =====================================================================================================================
 MyApp.angular.service('Favoritos', function ($localStorage) {

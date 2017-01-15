@@ -10,6 +10,7 @@ li.a{
     width: 100%;
 }
 .pieItem {
+    padding-top: 5px;
     font-size: small;
     color: cornflowerblue;
 }

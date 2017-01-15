@@ -46,8 +46,12 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider, $logPr
   $httpProvider.useApplyAsync(true);
   $logProvider.debugEnabled(false);
 
-  //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
-  //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  // CORS configuration
+  // $httpProvider.defaults.useXDomain = true;
+  // $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+  // $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
+  // $httpProvider.defaults.headers.common = 'Content-Type: application/json';
+  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
   $provide.decorator('$exceptionHandler', function($log, $delegate, Error) {
     return function(exception, cause) {
@@ -55,23 +59,26 @@ MyApp.angular.config( function($provide, $compileProvider, $httpProvider, $logPr
       $log.error('exception', exception, cause);
       $delegate(exception, cause);
       Error.mostrar2('<div style="overflow:auto">'+exception+'<br><br></div>');
-    };
-  });
+    }
+  })
 });
 
 MyApp.angular.run( function($rootScope, $localStorage, $http, Error) { // init
 
   // Preflight para obtener cookie de session de BDNS -> Da error CORS en consola. No afecta.
-  //$http.get('http://www.pap.minhap.gob.es/bdnstrans/es/index', {cache: true}).then(function (resp) {});
+  // $http.get('http://www.pap.minhap.gob.es/bdnstrans/es/index', {cache: true}).then(function (resp) {});
 
   // Inicializacion de favoritos en almacenamiento local
-  if(typeof($localStorage) == 'undefined'){
+  if(typeof($localStorage) === 'undefined'){
     Error.mostrar2('Almacenamiento local de favoritos no soportado');
   } else{
     if (!$localStorage.favoritos)
       $localStorage.favoritos = [];
-  };
+  }
+  
+  $rootScope.isDefined = function (obj) {
+    return typeof obj !== 'undefined';
+  }
   $rootScope.msgShare = 'Enlace de inter\u00E9s enviado desde App "Busca Fondos":\n\n';
-
 });
 

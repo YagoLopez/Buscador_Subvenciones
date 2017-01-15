@@ -9,17 +9,18 @@
 <!DOCTYPE html>
 <html ng-app="MyApp" lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Busca Fondos</title>
-    <link rel="stylesheet" type="text/css" href="lib/f7/framework7.material.css"><!-- no minificar -->
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/split-view.css">
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Busca Fondos</title>
+<link rel="stylesheet" type="text/css" href="lib/f7/framework7.material.css"><!-- no minificar -->
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/split-view.css">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -94,21 +95,22 @@
     </div>
 
 </div>
-<!-- Popup Detalle ================================================================================================= -->
+<!-- Popup Detalle ------------------------------------------------------------------------------------------------- -->
 <div class="popup popup-detalle tablet-fullscreen" ng-controller="DetalleCtrl">
     <ng-include src="'html/detalle.html'"></ng-include>
 </div>
-<!-- Popover Share ================================================================================================= -->
+<!-- Popover Share ------------------------------------------------------------------------------------------------- -->
 <div id="popover-share" class="popover" style="width:280px">
     <ng-include src="'html/popover-share.html'"></ng-include>
 </div>
-<!-- Scripts ======================================================================================================= -->
-<script type="text/javascript" src="lib/angular/angular.min.js"></script>
-<script type="text/javascript" src="lib/f7/framework7.min.js"></script>
+<!-- Scripts ------------------------------------------------------------------------------------------------------- -->
+<!--<script async type="text/javascript" src="sw.js"></script>-->
+<script type="text/javascript" src="lib/angular/angular.js"></script>
+<script type="text/javascript" src="lib/f7/framework7.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
 <script type="text/javascript" src="lib/angular/ngstorage/ngStorage.min.js"></script>
-<script type="text/javascript" src="bower_components/papaparse/papaparse.js"></script>
+<!--<script type="text/javascript" src="bower_components/papaparse/papaparse.js"></script>-->
 </body>
 </html>

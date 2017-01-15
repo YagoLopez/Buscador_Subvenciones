@@ -10,17 +10,19 @@
     </div>
 </div>
 <!-- Barra busqueda ================================================================================================ -->
-<form id="searchbar{{ txt.titulo }}" data-search-list=".list-block-search" data-search-in=".item-inner" class="searchbar searchbar-init">
+<form id="searchbar{{ txt.titulo }}" data-search-list=".list-block-search"
+    data-search-in=".item-inner" class="searchbar searchbar-init">
     <div class="searchbar-input">
         <input type="search" placeholder="Buscar"/>
         <a href="#" class="searchbar-clear"></a>
     </div>
 </form>
 <div class="searchbar-overlay"></div>
-<!-- Fin barra busqueda ======================================================================================== -->
+<!-- Contenido pagina ============================================================================================== -->
 <div class="page-content padTop0 hide-toolbar-on-scroll">
+    <!--DEBUG: items defined = {{ isDefined(items) }}-->
     <div class="content-block searchbar-not-found">
-        <div class="content-block-inner">No se han encontrado resultados</div>
+        <div class="content-block-inner center">No hay resultados</div>
     </div>
     <div id="lista{{ txt.titulo }}" class="list-block list-block-search searchbar-found margLista">
         <ul>
@@ -38,12 +40,13 @@
                             </span>
                             <div class="pieItem">
                                 <div ng-if="txt.titulo == 'BOE'">{{ item.description }}</div>
-                                {{ ::item.ambito }}
+                                <div ng-if="item['pubDate']">{{'Fecha convocatoria: '}} {{ ::item['pubDate'] }}</div>
                                 {{ ::item.plazo }}
                                 {{ ::item.creator }}
-                                {{ ::item['Departamento'] }}<br/>
+                                {{ ::item['Departamento'] }}
                                 {{ ::item['Órgano'] }}
-                                {{ ::item['Administración']}}
+                                {{ ::item['Administración'] }}
+                                {{ ::item['ambito'] }}
                             </div>
                         </div>
                     </div>
