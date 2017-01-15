@@ -76,7 +76,7 @@ MyApp.angular.controller('ListadoIdepaCtrl', function ($scope, $rootScope, Idepa
     IdepaItems.getData().then(function(){
       searchbar.disable();
       $scope.items = IdepaItems.getItems();
-      $scope.numItems = IdepaItems.getItems().length;
+      $scope.numItems = $scope.items.length;
       MyApp.fw7.app.hidePreloader();
     }).catch(function () {
       MyApp.fw7.app.hidePreloader();
@@ -150,6 +150,7 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
     IpymeItems.getData().then(function(){
       searchbar.disable();
       $scope.items = IpymeItems.getItems();
+      $scope.numItems = $scope.items.length;
       MyApp.fw7.app.hidePreloader();
     }).catch(function () {
       MyApp.fw7.app.hidePreloader();
