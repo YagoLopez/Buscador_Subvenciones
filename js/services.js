@@ -227,10 +227,10 @@ MyApp.angular.filter('capitalize', function() {
 MyApp.angular.service('IpymeItems', function($http, Error, C){
 
   var self = this;
-  var urlIpyme = 'http://www.ipyme.org/_layouts/15/IPYME/RSSNovedades.aspx';
-  var yqlQuery = 'select * from rss where url=@url';
+  var urlIpyme = encodeURIComponent('http://www.ipyme.org/_layouts/15/IPYME/RSSNovedades.aspx');
+  var yqlQuery = encodeURIComponent('select * from rss where url=@url');
 
-  this.url = C.YQL + ('?url='+encodeURIComponent(urlIpyme)) + ('&q='+yqlQuery) + '&format=json';
+  this.url = C.YQL + ('?url='+urlIpyme) + ('&q='+yqlQuery) + '&format=json';
   this.items = null;
   this.txt = { titulo: 'DGPYME', subtitulo: 'Dirección General de la Pequeña y Mediana Empresa'};
 
@@ -240,11 +240,19 @@ MyApp.angular.service('IpymeItems', function($http, Error, C){
   this.getItemByIndex = function(index){
     return this.items[index];
   }
+  this.removeNullsFromArray = function (arr) {
+    var temp = [], i = null;
+    for (i = 0; i < arr.length; ++i) {
+      if (arr[i] != null) { temp.push(arr[i]) }
+    };
+    return temp;
+  }
   this.getData = function(){
     console.log(this.url);
     return $http.get(this.url, {cache: true}).then(function(resp){
       console.log(resp);
-      self.items = resp.data.query.results.item;
+      // sometimes the server return malformed response with nulls, this remove them
+      self.items = self.removeNullsFromArray(resp.data.query.results.item);
     }).catch(function (datosError) {
       throw C.STRINGS.ERROR_TEXT;
     })
