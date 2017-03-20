@@ -10,12 +10,12 @@ La aplicación se encarga de recopilar datos de diversos organismos e institucio
 
 <ul>
 <li>
-<a href="http://yagolopez.github.io/Buscador_Subvenciones/iframe/iframe.html" target="_blank">
-VERSION ONLINE PARA DESKTOP</a>
+<a href="http://mobiletest.me/htc_one_m7/5189093" target="_blank">
+Simulador Móvil (Demo para ver en pantalla grande) </a>
 </li>
 <li>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/index.html" target="_blank">
-VERSION ONLINE PARA MÓVIL</a>
+Pantalla completa (Demo para ver en móvil)</a>
 </li>
 </ul>
 
