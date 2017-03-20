@@ -11,11 +11,11 @@ La aplicación se encarga de recopilar datos de diversos organismos e institucio
 <ul>
 <li>
 <a href="http://mobiletest.me/htc_one_m7/5189093" target="_blank">
-Simulador Móvil (Demo para ver en pantalla grande) </a>
+Demo para ver en pantalla grande (desktop)</a>
 </li>
 <li>
 <a href="http://yagolopez.github.io/Buscador_Subvenciones/index.html" target="_blank">
-Pantalla completa (Demo para ver en móvil)</a>
+Demo para ver en pantalla completa (móvil)</a>
 </li>
 </ul>
 
@@ -28,7 +28,7 @@ Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el 
 - **IDEPA**: Institudo para el Desarrollo Económico del Principado de Asturias
 - **MINETUR**: Ministerio de Industría, Energía y Turismo
 - **DGPYME**: Dirección General de Industria y de la Pequeña y Mediana Empresa
-- **BDNS**: Base de Datos Nacional de Subvenciones
+<!-- - **BDNS**: Base de Datos Nacional de Subvenciones -->
 
 <h1>Tecnologías empleadas</h1>
 
