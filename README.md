@@ -10,7 +10,7 @@ La aplicación se encarga de recopilar datos de diversos organismos e institucio
 
 <ul>
 <li>
-<a href="http://mobiletest.me/htc_one_m7/5189093" target="_blank">
+<a href="http://mobt.me/XfEa" target="_blank">
 Demo para ver en pantalla grande (desktop)</a>
 </li>
 <li>
