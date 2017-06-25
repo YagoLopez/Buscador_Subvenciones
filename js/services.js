@@ -12,17 +12,17 @@ MyApp.angular.service('BoeItems', function($http, Error, C){
 
   this.items = null;
 
-  this.txt = {titulo: 'BOE', subtitulo: 'Boletín Oficial del Estado', tipo: ''}
+  this.txt = {titulo: 'BOE', subtitulo: 'Boletín Oficial del Estado', tipo: ''};
 
   this.getItems = function(){
     return this.items;
-  }
+  };
   this.getItemByIndex = function(index){
     return this.getItems()[index];
-  }
+  };
   this.urlListado = function(url){
     return C.YQL + ('?url='+encodeURIComponent(url)) + ('&q='+yqlQuery) + '&format=json';
-  }
+  };
   this.getData = function(url){
     return $http.get(url, {cache: true}).then(function(resp){
       if(resp.data.query.results)
@@ -30,7 +30,7 @@ MyApp.angular.service('BoeItems', function($http, Error, C){
       else
         throw ('No hay datos. Posibles causas: 1) Sin conexion. 2) Fallo servidor remoto');
     })
-  }
+  };
   this.getUrlFor = function(tipoAyuda){
     if (tipoAyuda === 'subvenciones') {
       return this.urlListado(urlSubvenciones);
@@ -46,10 +46,9 @@ MyApp.angular.service('BoeItems', function($http, Error, C){
 // =====================================================================================================================
 MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
 
-  var query = 'select * from html where url=@url and xpath="//*[@id=\'textoxslt\']//p" and compat="html5"';
-
   this.createUrl = function(urlDetalle){
-    return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
+    urlDetalle = urlDetalle.replace('txt', 'xml');
+    return C.YQL + '?q=select texto from xml where url="' + urlDetalle + '"';
   };
   this.new = function (itemDeArray){
     this.titulo = itemDeArray.title;
@@ -60,7 +59,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
   };
   this.getData = function(urlDetalle){
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
-        //console.log( resp );
+        // console.log('get detalle boe', resp);
         return Utiles.xmlParser(resp.data);
       },
       function(datosError){
@@ -68,6 +67,7 @@ MyApp.angular.service('BoeItem', function($http, Error, Utiles, C) {
       });
   };
 });
+
 // =====================================================================================================================
 MyApp.angular.service('IdepaItems', function($http, Error){
 
@@ -108,7 +108,7 @@ MyApp.angular.service('IdepaItem', function($http, Error, Utiles, C){
   };
   this.getUrl = function(){
     return C.YQL + ('?url='+ this.link) + ('q=' +query);
-  }
+  };
   this.getData = function(){
     return $http.get(this.getUrl(), {cache: true}).then(function(resp){
       htmlDetalle = Utiles.xmlParser(resp.data);
@@ -162,7 +162,7 @@ MyApp.angular.service('Utiles', function(){
     }
      else {
       Error.mostrar2('No hay datos. Error al analizar fichero XML. Posible navegador no soportado');
-    };
+    }
   };
 });
 // =====================================================================================================================
@@ -177,10 +177,10 @@ MyApp.angular.service('MineturItems', function($http, C, Error){
   this.urlListado = C.YQL + ('?url='+encodeURIComponent(urlOrigen)) + ('&q='+query) + '&format=json';
   this.getItems = function(){
     return this.items;
-  }
+  };
   this.getItemByIndex = function(index){
     return this.getItems()[index];
-  }
+  };
   this.getData = function(){
     return $http.get(this.urlListado, {cache: true}).then(function(resp){
       self.items = resp.data.query.results.item;
@@ -236,17 +236,17 @@ MyApp.angular.service('IpymeItems', function($http, Error, C){
 
   this.getItems = function(){
     return this.items;
-  }
+  };
   this.getItemByIndex = function(index){
     return this.items[index];
-  }
+  };
   this.removeNullsFromArray = function (arr) {
     var temp = [], i = null;
     for (i = 0; i < arr.length; ++i) {
       if (arr[i] != null) { temp.push(arr[i]) }
-    };
+    }
     return temp;
-  }
+  };
   this.getData = function(){
     console.log(this.url);
     return $http.get(this.url, {cache: true}).then(function(resp){
@@ -258,7 +258,7 @@ MyApp.angular.service('IpymeItems', function($http, Error, C){
     })
 
   }
-})
+});
 // =====================================================================================================================
 MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
 
@@ -267,13 +267,13 @@ MyApp.angular.service('IpymeItem', function($http, Error, Utiles, C) {
 
   this.createUrl = function(urlDetalle){
     return C.YQL + ('?url='+urlDetalle) + ('&q='+query) + '&format=xml';
-  }
+  };
   this.new = function (itemDeArray){
     this.titulo = itemDeArray['title'];
     this.link = itemDeArray.link;
     this.plazo = itemDeArray.pubDate;
     this.organismo = 'DGPYME';
-  }
+  };
   this.getData = function(urlDetalle){
     return $http.get(this.createUrl(urlDetalle), {cache: true}).then(function(resp){
         return Utiles.xmlParser(resp.data);
@@ -313,7 +313,7 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
       if ( angular.equals(favoritos[i], item) ) {
         return true;
       }
-    };
+    }
     return false;
   };
   this.getItem = function (arrIndex) {

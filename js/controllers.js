@@ -48,9 +48,14 @@ MyApp.angular.controller('ListadoBoeCtrl', function ($scope, $rootScope, BoeItem
     BoeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
     $rootScope.item = BoeItem;
     MyApp.fw7.app.popup('.popup-detalle');
-    BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
-      BoeItem.content = htmlDetalle;
-    });
+    // Wait 800 ms before launch get request to allow smooth popup detail animation
+    setTimeout(function(){
+      $scope.$apply(function(){
+        BoeItem.getData( BoeItem.link ).then(function(htmlDetalle){
+          BoeItem.content = htmlDetalle;
+        });
+      });
+    }, 800);
   };
   $scope.onIconBack = function() {
     $scope.items = null;

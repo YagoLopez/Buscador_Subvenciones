@@ -25,7 +25,7 @@ Los fondos pueden ser de ámbito europeo, nacional, regional o local. La aplicac
 Las fuentes de datos son las siguientes (se podrían añadir más fuentes en el futuro):
 
 - **BOE**: Boletín Oficial del Estado
-- **IDEPA**: Institudo para el Desarrollo Económico del Principado de Asturias
+<!-- - **IDEPA**: Institudo para el Desarrollo Económico del Principado de Asturias -->
 - **MINETUR**: Ministerio de Industría, Energía y Turismo
 - **DGPYME**: Dirección General de Industria y de la Pequeña y Mediana Empresa
 <!-- - **BDNS**: Base de Datos Nacional de Subvenciones -->

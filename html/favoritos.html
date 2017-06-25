@@ -5,7 +5,7 @@
         </div>
         <div class="center">Favoritos</div>
         <div class="right">
-            <a href="#" class="link icon-only" ng-click="deleteAll()" style="padding:5px">
+            <a ng-if="favoritos.length > 0" href="#" class="link icon-only" ng-click="deleteAll()" style="padding:8px">
                 <i class="fa fa-trash-o fa-2"></i>
             </a>
             <a href="#" class="link icon-only open-panel" data-panel="left" style="padding:8px">

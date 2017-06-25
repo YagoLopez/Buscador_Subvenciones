@@ -1,0 +1,13 @@
+{
+  "name": "BuscaFondos",
+  "version": "1.1.0",
+  "description": "Buscador de fondos publicos y subvenciones",
+  "scripts": {
+    "serve": "live-server",
+    "build": "node C:\\Users\\UsuarioAurora\\WebstormProjects\\Buscador_Subvenciones\\node_modules\\webpack\\bin\\webpack.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
