@@ -248,15 +248,13 @@ MyApp.angular.service('IpymeItems', function($http, Error, C){
     return temp;
   };
   this.getData = function(){
-    console.log(this.url);
+    // console.log(this.url);
     return $http.get(this.url, {cache: true}).then(function(resp){
-      console.log(resp);
       // sometimes the server return malformed response with nulls, this remove them
       self.items = self.removeNullsFromArray(resp.data.query.results.item);
     }).catch(function (datosError) {
       throw C.STRINGS.ERROR_TEXT;
     })
-
   }
 });
 // =====================================================================================================================
