@@ -353,7 +353,6 @@ MyApp.angular.service('Favoritos', function ($localStorage) {
   };
 });*/
 // =====================================================================================================================
-/*
 MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
 
   //todo: intentar hacer el post del idBdns a mano para evitar llamada a import.io y simplificar
@@ -419,9 +418,8 @@ MyApp.angular.service('BdnsItem', function($http, Error, Utiles, C) {
       })
     })
   };
-});*/
+});
 // =====================================================================================================================
-/*
 MyApp.angular.service('BdnsItems', function ($http, Error) {
 
   var self = this;
@@ -445,5 +443,4 @@ MyApp.angular.service('BdnsItems', function ($http, Error) {
   var urlGsProxyCsv = 'https://script.google.com/macros/s/AKfycbygnUXEVsUmfEIuwooMWqJaadVxZ7zxQqRMqHs_4N2BrotmPnc/exec?url=http://www.pap.minhap.gob.es/bdnstrans/GE/es/exportar?tipo=CSV';
   var urlJsonData = 'http://www.pap.minhap.gob.es/bdnstrans/busqueda?type=topconv&_search=false&nd=1465935202024&rows=200&page=1&sidx=4&sord=desc';
 });
-*/
 // =====================================================================================================================
