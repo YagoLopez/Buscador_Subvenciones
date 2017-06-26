@@ -167,7 +167,12 @@ MyApp.angular.controller('ListadoIpymeCtrl', function ($scope, $rootScope, Ipyme
   };
   $scope.popupDetalle = function(index){
     IpymeItem.new( IpymeItems.getItemByIndex(index) );
-    window.open( IpymeItem.link );
+    IpymeItem.content = C.STRINGS.TXT_LOADING_DETALLE;
+    $rootScope.item = IpymeItem;
+    IpymeItem.getData( IpymeItem.link ).then(function(htmlDetalle){
+      IpymeItem.content = htmlDetalle;
+    });
+    MyApp.fw7.app.popup('.popup-detalle');
   }
 });
 // =====================================================================================================================
